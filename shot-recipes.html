@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shot Recipes — LumenForge</title>
+  <meta name="description" content="Thư viện công thức chụp ảnh thực tế — Hướng dẫn chi tiết setup camera, lens, ánh sáng và cách chỉnh màu Lightroom để tạo nên những bức hình xuất sắc.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/recipes.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Tool Lab</a>
+        <a href="shot-recipes.html" class="nav-link active">Shot Recipes</a>
+        <a href="gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Recipes Hero -->
+  <section class="recipes-hero">
+    <div class="container">
+      <p class="section-label">[&thinsp;VISUAL RECIPES&thinsp;]</p>
+      <h1>Shot Recipes</h1>
+      <p class="hero-subtitle">Công thức hình ảnh thực tế. Rèn luyện setup, bắt trọn cảm xúc.</p>
+    </div>
+    <div class="recipes-hero-divider"></div>
+  </section>
+
+  <!-- Recipes Gallery -->
+  <section class="section">
+    <div class="container">
+      <div class="recipes-grid" id="recipes-grid">
+        <!-- Rendered dynamically by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Recipe Detail Modal -->
+  <div class="recipe-modal" id="recipe-modal" aria-hidden="true">
+    <div class="recipe-modal-overlay" id="modal-overlay"></div>
+    <div class="recipe-modal-container">
+      <button class="recipe-modal-close" id="modal-close" aria-label="Close details">&times;</button>
+      <div class="recipe-modal-content" id="modal-content">
+        <!-- Filled dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="light-codex.html">Light Codex</a>
+            <a href="tool-lab.html">Tool Lab</a>
+            <a href="shot-recipes.html">Shot Recipes</a>
+            <a href="gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="tools/lens-decoder.html">Lens Decoder</a>
+            <a href="tools/exposure-reactor.html">Exposure Reactor</a>
+            <a href="tools/film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/recipes.js"></script>
+</body>
+</html>

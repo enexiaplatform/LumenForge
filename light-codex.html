@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Light Codex — LumenForge</title>
+  <meta name="description" content="Thư viện kiến thức giải mã ánh sáng, quang học, lens, và màu sắc dưới lăng kính khoa học & cảm xúc nghệ thuật.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="light-codex.html" class="nav-link active">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Tool Lab</a>
+        <a href="shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Codex Hero -->
+  <section class="codex-hero">
+    <div class="container">
+      <p class="section-label">[&thinsp;THE LIGHT CODEX&thinsp;]</p>
+      <h1>The Light Codex</h1>
+      <p class="hero-subtitle">Thư viện giải mã ánh sáng, quang học ứng dụng và tâm lý học thị giác.</p>
+    </div>
+    <div class="codex-hero-divider"></div>
+  </section>
+
+  <!-- Articles & Filters -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Filters -->
+      <div class="codex-filters-wrapper">
+        <div class="codex-filters" id="codex-filters">
+          <button class="filter-btn active" data-category="all">All Note</button>
+          <button class="filter-btn" data-category="optics">Optics 101</button>
+          <button class="filter-btn" data-category="lens">Lens Personality</button>
+          <button class="filter-btn" data-category="digital-film">Digital vs Film</button>
+          <button class="filter-btn" data-category="color">Color Science</button>
+          <button class="filter-btn" data-category="psychology">Visual Psychology</button>
+        </div>
+      </div>
+
+      <!-- Article Grid -->
+      <div class="codex-grid" id="codex-grid">
+        
+        <!-- Article 1: Canon R50 vs iPhone -->
+        <article class="codex-card animate-on-scroll" data-category="digital-film">
+          <div class="codex-card-tag tag-film">Digital vs Film</div>
+          <span class="codex-card-date">05 Jun 2026</span>
+          <h3>Vì sao Canon R50 chụp khác iPhone Pro Max?</h3>
+          <p>Mổ xẻ sự khác biệt thực sự giữa cảm biến lớn của máy ảnh entry-level và thuật toán AI xử lý hình ảnh trên smartphone cao cấp.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">8 mins read</span>
+            <a href="articles/canon-r50-vs-iphone.html" class="read-more-btn">Read Entry →</a>
+          </div>
+        </article>
+
+        <!-- Article 2: Focal Length Explained -->
+        <article class="codex-card animate-on-scroll" data-category="optics">
+          <div class="codex-card-tag tag-optics">Optics 101</div>
+          <span class="codex-card-date">03 Jun 2026</span>
+          <h3>Tiêu cự là gì? Hiểu 24mm, 35mm, 50mm, 85mm trong 10 phút</h3>
+          <p>Hướng dẫn bằng hình ảnh về tiêu cự. Cách góc nhìn thay đổi cảm xúc không gian và nén phối cảnh hậu cảnh.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">10 mins read</span>
+            <a href="articles/focal-length-explained.html" class="read-more-btn">Read Entry →</a>
+          </div>
+        </article>
+
+        <!-- Article 3: Why 50mm is the People's Lens -->
+        <article class="codex-card animate-on-scroll" data-category="lens">
+          <div class="codex-card-tag tag-lens">Lens Personality</div>
+          <span class="codex-card-date">28 May 2026</span>
+          <h3>Vì sao 50mm f/1.8 được gọi là ống kính quốc dân?</h3>
+          <p>Giải mã sức hút kỳ lạ của tiêu cự 50mm. Lý do góc nhìn này mô tả thế giới một cách trung thực và chân thành nhất.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">6 mins read</span>
+            <a href="articles/why-50mm-is-the-peoples-lens.html" class="read-more-btn">Read Entry →</a>
+          </div>
+        </article>
+
+        <!-- Teaser 4: Bokeh Explanation -->
+        <article class="codex-card teaser animate-on-scroll" data-category="optics">
+          <div class="codex-card-tag tag-optics">Optics 101</div>
+          <span class="codex-card-date">Coming Soon</span>
+          <h3>Bokeh là gì? Vì sao xóa phông không đồng nghĩa với ảnh đẹp?</h3>
+          <p>Bản chất quang học của vùng ngoài khoảng nét. Cách điều khiển bokeh để tạo chiều sâu thay vì chỉ làm nhòe bối cảnh một cách vô nghĩa.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">Drafting</span>
+            <span class="teaser-label">[COMMITTED]</span>
+          </div>
+        </article>
+
+        <!-- Teaser 5: Film scans -->
+        <article class="codex-card teaser animate-on-scroll" data-category="digital-film">
+          <div class="codex-card-tag tag-film">Digital vs Film</div>
+          <span class="codex-card-date">Coming Soon</span>
+          <h3>Noritsu vs Frontier: Hai thế giới scan film đối lập</h3>
+          <p>Phân tích màu sắc, độ tương phản và hạt nhiễu (grain) giữa hai hệ máy scan film phổ biến nhất thế giới.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">Researching</span>
+            <span class="teaser-label">[COMMITTED]</span>
+          </div>
+        </article>
+
+        <!-- Teaser 6: Visual Psychology -->
+        <article class="codex-card teaser animate-on-scroll" data-category="psychology">
+          <div class="codex-card-tag tag-psychology">Visual Psychology</div>
+          <span class="codex-card-date">Coming Soon</span>
+          <h3>Vì sao ảnh hơi thiếu sáng (Low-key) lại có sức hút mãnh liệt?</h3>
+          <p>Phân tích tâm lý thị giác đằng sau bóng tối. Cách bộ não điền vào những khoảng trống thiếu thông tin để khơi gợi xúc cảm bí ẩn.</p>
+          <div class="codex-card-footer">
+            <span class="read-time">Drafting</span>
+            <span class="teaser-label">[COMMITTED]</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="light-codex.html">Light Codex</a>
+            <a href="tool-lab.html">Tool Lab</a>
+            <a href="shot-recipes.html">Shot Recipes</a>
+            <a href="gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="tools/lens-decoder.html">Lens Decoder</a>
+            <a href="tools/exposure-reactor.html">Exposure Reactor</a>
+            <a href="tools/film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script>
+    // Inline filter JS for speed & simplicity
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.codex-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const category = btn.getAttribute('data-category');
+
+          cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'all' || cardCategory === category) {
+              card.style.display = 'flex';
+              // Trigger stagger fade in
+              card.style.opacity = '0';
+              card.style.transform = 'translateY(15px)';
+              setTimeout(() => {
+                card.style.transition = 'all 0.4s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              }, 50);
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

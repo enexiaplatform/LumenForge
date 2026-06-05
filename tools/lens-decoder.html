@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lens Personality Decoder — LumenForge</title>
+  <meta name="description" content="Giải mã tính cách lens của bạn — Discover your lens personality based on camera body, focal length, shooting purpose, and visual style.">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Hero -->
+  <section class="tool-hero">
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="section-label">[TOOL 01]</p>
+    <h1>Lens Personality Decoder</h1>
+    <p class="tool-hero-desc">Mỗi ống kính có một "tính cách" riêng. Hãy tìm hiểu lens của bạn nói gì.</p>
+  </section>
+
+  <!-- Tool Panel -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-panel">
+        <div class="tool-controls">
+
+          <!-- Camera Body Select -->
+          <div class="input-group">
+            <label for="camera-select">CAMERA BODY</label>
+            <select class="tool-select" id="camera-select">
+              <option value="canon-r50">Canon EOS R50 (APS-C)</option>
+              <option value="canon-r6ii">Canon EOS R6 II (Full-frame)</option>
+              <option value="sony-a6400">Sony A6400 (APS-C)</option>
+              <option value="sony-a7iv">Sony A7 IV (Full-frame)</option>
+              <option value="fuji-xs20">Fujifilm X-S20 (APS-C)</option>
+              <option value="iphone-15pro">iPhone 15 Pro</option>
+              <option value="samsung-s24">Samsung S24 Ultra</option>
+            </select>
+          </div>
+
+          <!-- Lens Select -->
+          <div class="input-group">
+            <label for="lens-select">LENS</label>
+            <select class="tool-select" id="lens-select">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <!-- Purpose Radio Cards -->
+          <div class="input-group full-width">
+            <label>MỤC ĐÍCH CHỤP</label>
+            <div class="radio-cards" id="purpose-cards">
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="portrait">
+                <span class="radio-card-icon">👤</span>
+                <span>Chân dung</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="travel">
+                <span class="radio-card-icon">✈️</span>
+                <span>Du lịch</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="food">
+                <span class="radio-card-icon">🍜</span>
+                <span>Đồ ăn</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="product">
+                <span class="radio-card-icon">📦</span>
+                <span>Sản phẩm</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="street">
+                <span class="radio-card-icon">🏙️</span>
+                <span>Street</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="purpose" value="avatar">
+                <span class="radio-card-icon">📱</span>
+                <span>Avatar</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Style Radio Cards -->
+          <div class="input-group full-width">
+            <label>PHONG CÁCH MONG MUỐN</label>
+            <div class="radio-cards" id="style-cards">
+              <label class="radio-card">
+                <input type="radio" name="style" value="cinematic">
+                <span class="radio-card-icon">🎬</span>
+                <span>Cinematic</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="clean">
+                <span class="radio-card-icon">✨</span>
+                <span>Clean</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="film">
+                <span class="radio-card-icon">🎞️</span>
+                <span>Film</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="luxury">
+                <span class="radio-card-icon">💎</span>
+                <span>Luxury</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="vintage">
+                <span class="radio-card-icon">📷</span>
+                <span>Vintage</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="japanese">
+                <span class="radio-card-icon">🏯</span>
+                <span>Japanese</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="style" value="moody">
+                <span class="radio-card-icon">🌑</span>
+                <span>Moody</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <button class="btn-generate" id="decode-btn">Decode Lens Personality</button>
+      </div>
+
+      <!-- Output -->
+      <div class="tool-output" id="decoder-output" style="display: none;">
+        <!-- Filled by JS -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="../light-codex.html">Light Codex</a>
+            <a href="../tool-lab.html">Tool Lab</a>
+            <a href="../shot-recipes.html">Shot Recipes</a>
+            <a href="../gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="lens-decoder.html">Lens Decoder</a>
+            <a href="exposure-reactor.html">Exposure Reactor</a>
+            <a href="film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/lens-decoder.js"></script>
+</body>
+</html>

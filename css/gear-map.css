@@ -1,0 +1,241 @@
+/* ==========================================================================
+   LUMENFORGE — Gear Map Styling
+   ========================================================================== */
+
+/* === Hero === */
+.gearmap-hero {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px var(--space-lg) var(--space-2xl);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.gearmap-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(74, 158, 255, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.gearmap-hero-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+}
+
+.gearmap-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.gearmap-hero .hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* === Container === */
+.gearmap-container {
+  background: rgba(26, 26, 38, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gearmap-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(74, 158, 255, 0.2), transparent);
+}
+
+@media (max-width: 640px) {
+  .gearmap-container {
+    padding: var(--space-lg);
+  }
+}
+
+/* === Step Header === */
+.gearmap-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-mono);
+}
+
+.gearmap-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.76rem;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.gearmap-back-btn:hover {
+  color: var(--accent-amber);
+}
+
+.gearmap-step-num {
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.1em;
+}
+
+/* === Question === */
+.gearmap-question {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xl);
+}
+
+/* === Option Buttons === */
+.gearmap-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.gearmap-option-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 18px 24px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.gearmap-option-btn:hover {
+  border-color: var(--border-glow);
+  background: var(--bg-card-hover);
+  transform: translateX(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.gearmap-option-btn:active {
+  transform: translateX(0);
+}
+
+/* === Results Output === */
+.gearmap-result-header {
+  margin-bottom: var(--space-xl);
+}
+
+.gearmap-result-header h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: var(--space-xs);
+  margin-bottom: 6px;
+}
+
+.gearmap-result-subtitle {
+  font-size: 1.05rem;
+  color: var(--accent-cyan);
+  margin-bottom: var(--space-md);
+}
+
+.gearmap-price-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: rgba(0, 212, 170, 0.1);
+  border: 1px solid rgba(0, 212, 170, 0.2);
+  color: var(--accent-cyan);
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+/* Result Grid */
+.gearmap-result-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+@media (max-width: 768px) {
+  .gearmap-result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: var(--transition);
+}
+
+.result-card:hover {
+  border-color: var(--border-glow);
+}
+
+.result-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.result-card h4 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.result-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.result-recipe-link:hover {
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.gearmap-actions {
+  display: flex;
+  justify-content: center;
+}

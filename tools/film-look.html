@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Look Generator — LumenForge</title>
+  <meta name="description" content="Chọn mood bạn muốn, nhận công thức màu film hoàn chỉnh — color palette, Lightroom settings, lens recommendation, và pro tips.">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Hero -->
+  <section class="tool-hero">
+    <p class="tool-back"><a href="../tool-lab.html">← Back to Tool Lab</a></p>
+    <p class="section-label">[TOOL 05]</p>
+    <h1>Film Look Generator</h1>
+    <p class="tool-hero-desc">Chọn mood bạn muốn. Nhận công thức màu, setup, và cảm hứng film look.</p>
+  </section>
+
+  <!-- Main Tool Section -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-panel">
+
+        <div class="input-group full-width">
+          <label>CHỌN MOOD</label>
+          <div class="mood-grid" id="mood-grid">
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="japan-afternoon">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #F5DEB3, #DEB887, #8FBC8F)"></div>
+              <span class="mood-card-title">Nhật Bản buổi chiều</span>
+              <span class="mood-card-desc">Nắng nhẹ, pastel, bình yên</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="saigon-rain">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #2F4F4F, #556B2F, #8B8682)"></div>
+              <span class="mood-card-title">Sài Gòn mưa</span>
+              <span class="mood-card-desc">Ướt, phản chiếu, trầm</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="old-cafe">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #8B7355, #DAA520, #CD853F)"></div>
+              <span class="mood-card-title">Quán cà phê cũ</span>
+              <span class="mood-card-desc">Ấm, hoài niệm, gần gũi</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="girlfriend-portrait">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #FFB6C1, #DDA0DD, #F0E68C)"></div>
+              <span class="mood-card-title">Chân dung người yêu</span>
+              <span class="mood-card-desc">Dịu dàng, mềm mại, tình cảm</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="street-night">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #191970, #FF4500, #FFD700)"></div>
+              <span class="mood-card-title">Street Night</span>
+              <span class="mood-card-desc">Neon, bí ẩn, đô thị</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="luxury-studio">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #1a1a1a, #C0C0C0, #2F2F2F)"></div>
+              <span class="mood-card-title">Luxury Studio</span>
+              <span class="mood-card-desc">Sang, tối giản, quyền lực</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="kodak-memory">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #F4A460, #CD853F, #FFF8DC)"></div>
+              <span class="mood-card-title">Kodak Memory</span>
+              <span class="mood-card-desc">Ấm, vàng, ký ức tuổi thơ</span>
+            </label>
+
+            <label class="mood-card">
+              <input type="radio" name="mood" value="fuji-green">
+              <div class="mood-card-color" style="background: linear-gradient(135deg, #2E8B57, #98FB98, #F0FFF0)"></div>
+              <span class="mood-card-title">Fuji Green</span>
+              <span class="mood-card-desc">Tươi, xanh, tự nhiên</span>
+            </label>
+
+          </div>
+        </div>
+
+        <button class="btn-generate" id="generate-btn" disabled>Generate Film Look</button>
+
+      </div>
+
+      <!-- Output -->
+      <div class="tool-output" id="film-output" style="display:none;"></div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="../light-codex.html">Light Codex</a>
+            <a href="../tool-lab.html">Tool Lab</a>
+            <a href="../shot-recipes.html">Shot Recipes</a>
+            <a href="../gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="lens-decoder.html">Lens Decoder</a>
+            <a href="exposure-reactor.html">Exposure Reactor</a>
+            <a href="film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/film-look.js"></script>
+</body>
+</html>

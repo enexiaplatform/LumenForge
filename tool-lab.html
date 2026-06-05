@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Lab — LumenForge</title>
+  <meta name="description" content="Công cụ tương tác cho nhiếp ảnh gia — Interactive photography tools for understanding light, lenses, exposure, and visual identity.">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/tools.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="tool-lab-hero">
+    <p class="lab-label">[INTERACTIVE PHOTOGRAPHY TOOLS]</p>
+    <h1>Tool Lab</h1>
+    <p class="hero-subtitle">Công cụ tương tác cho nhiếp ảnh gia</p>
+  </section>
+
+  <!-- Tool Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-grid">
+
+        <!-- Tool 01: Lens Personality Decoder -->
+        <a href="tools/lens-decoder.html" class="tool-card" data-accent="amber">
+          <span class="tool-card-number">01</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="18" r="14"/>
+              <circle cx="18" cy="18" r="9"/>
+              <circle cx="18" cy="18" r="4"/>
+              <line x1="18" y1="4" x2="18" y2="9"/>
+              <line x1="18" y1="27" x2="18" y2="32"/>
+              <line x1="4" y1="18" x2="9" y2="18"/>
+              <line x1="27" y1="18" x2="32" y2="18"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">Lens Personality Decoder</h3>
+          <p class="tool-card-desc">Giải mã tính cách lens của bạn</p>
+          <span class="tool-status active">Active</span>
+        </a>
+
+        <!-- Tool 02: Field of View Simulator -->
+        <div class="tool-card coming-soon" data-accent="cyan">
+          <span class="tool-card-number">02</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="4" y="8" width="28" height="20" rx="2"/>
+              <line x1="4" y1="13" x2="32" y2="13"/>
+              <circle cx="18" cy="22" r="4"/>
+              <line x1="8" y1="28" x2="14" y2="35"/>
+              <line x1="28" y1="28" x2="22" y2="35"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">Field of View Simulator</h3>
+          <p class="tool-card-desc">Mô phỏng góc nhìn theo tiêu cự</p>
+          <span class="tool-status coming-soon">Coming Soon</span>
+        </div>
+
+        <!-- Tool 03: Depth of Field Explainer -->
+        <div class="tool-card coming-soon" data-accent="blue">
+          <span class="tool-card-number">03</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <line x1="18" y1="4" x2="18" y2="32"/>
+              <circle cx="18" cy="12" r="3" fill="currentColor" opacity="0.3"/>
+              <circle cx="18" cy="20" r="3"/>
+              <circle cx="18" cy="28" r="3" fill="currentColor" opacity="0.3"/>
+              <line x1="6" y1="8" x2="12" y2="12"/>
+              <line x1="30" y1="8" x2="24" y2="12"/>
+              <line x1="6" y1="32" x2="12" y2="28"/>
+              <line x1="30" y1="32" x2="24" y2="28"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">Depth of Field Explainer</h3>
+          <p class="tool-card-desc">Hiểu xóa phông qua hình ảnh</p>
+          <span class="tool-status coming-soon">Coming Soon</span>
+        </div>
+
+        <!-- Tool 04: The Exposure Reactor -->
+        <a href="tools/exposure-reactor.html" class="tool-card" data-accent="cyan">
+          <span class="tool-card-number">04</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <polygon points="18,4 22,14 32,14 24,21 27,32 18,25 9,32 12,21 4,14 14,14"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">The Exposure Reactor</h3>
+          <p class="tool-card-desc">Playground tương tác cho tam giác phơi sáng</p>
+          <span class="tool-status active">Active</span>
+        </a>
+
+        <!-- Tool 05: Film Look Generator -->
+        <a href="tools/film-look.html" class="tool-card" data-accent="film">
+          <span class="tool-card-number">05</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <rect x="6" y="6" width="24" height="24" rx="3"/>
+              <rect x="10" y="10" width="16" height="16" rx="1"/>
+              <line x1="6" y1="12" x2="10" y2="12"/>
+              <line x1="6" y1="18" x2="10" y2="18"/>
+              <line x1="6" y1="24" x2="10" y2="24"/>
+              <line x1="26" y1="12" x2="30" y2="12"/>
+              <line x1="26" y1="18" x2="30" y2="18"/>
+              <line x1="26" y1="24" x2="30" y2="24"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">Film Look Generator</h3>
+          <p class="tool-card-desc">Tạo công thức màu film từ mood</p>
+          <span class="tool-status active">Active</span>
+        </a>
+
+        <!-- Tool 06: Visual Identity Engine -->
+        <div class="tool-card coming-soon" data-accent="purple">
+          <span class="tool-card-number">06</span>
+          <div class="tool-card-icon">
+            <svg viewBox="0 0 36 36">
+              <circle cx="18" cy="14" r="6"/>
+              <ellipse cx="18" cy="14" rx="3" ry="6"/>
+              <path d="M8 30 C8 22, 28 22, 28 30"/>
+              <line x1="18" y1="20" x2="18" y2="24"/>
+            </svg>
+          </div>
+          <h3 class="tool-card-title">Visual Identity Engine</h3>
+          <p class="tool-card-desc">Khám phá phong cách hình ảnh cá nhân</p>
+          <span class="tool-status coming-soon">Coming Soon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="light-codex.html">Light Codex</a>
+            <a href="tool-lab.html">Tool Lab</a>
+            <a href="shot-recipes.html">Shot Recipes</a>
+            <a href="gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="tools/lens-decoder.html">Lens Decoder</a>
+            <a href="tools/exposure-reactor.html">Exposure Reactor</a>
+            <a href="tools/film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+</body>
+</html>
