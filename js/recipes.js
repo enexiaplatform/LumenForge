@@ -287,6 +287,150 @@ const shotRecipes = [
       grain: 'Thêm grain hạt lớn và thô (Amt: 30, Size: 50, Roughness: 55)'
     },
     proTip: 'Hãy thử tìm một chiếc lens xoáy MF cổ (ví dụ Helios 44-2 58mm f/2) qua ngàm chuyển để chụp. Hiệu ứng bokeh xoáy tự nhiên sẽ làm bức ảnh film trông chân thực 100%.'
+  },
+  {
+    id: 'rec-011',
+    num: 'RECIPE 011',
+    title: 'Golden Hour Flare',
+    desc: 'Bắt vệt nắng vàng xiên mềm mại chiếu qua kẽ lá, tạo hiệu ứng loe sáng (flare) ngọt ngào đầy chất thơ.',
+    colorAccent: '#F5A623', // Amber
+    camera: 'Mọi máy ảnh kỹ thuật số hỗ trợ chỉnh manual',
+    lens: 'RF 50mm f/1.8 hoặc ống kính vintage lấy nét tay (MF)',
+    light: 'Ánh sáng mặt trời chiếu chéo từ phía sau lưng chủ thể (Backlight) lúc 4h30 - 5h30 chiều, ngay sát rìa ống kính.',
+    background: 'Công viên tán lá xanh rậm rạp, bãi cỏ lau hoặc ngõ vắng ngập tràn bụi nắng.',
+    outfit: 'Váy áo linen trắng, be hoặc màu vàng nhạt nhẹ nhàng.',
+    pose: 'Mẫu đứng nghiêng người che nắng, tay giữ vành mũ hoặc quay đầu cười nhẹ nhìn vào ống kính, để nắng viền tóc (rim light) sáng rực.',
+    mood: 'Thơ mộng, Ấm áp, Tự nhiên, Mộng mơ',
+    settings: {
+      aperture: 'f/1.8 đến f/2.2 (mở lớn để vệt flare tỏa ra dịu mắt nhất)',
+      shutter: '1/320s - 1/500s (chụp ngoài trời nắng)',
+      iso: '100 (đảm bảo độ trong trẻo tối đa)',
+      wb: 'Warm: 5800K - 6200K để tăng sắc vàng mật ong'
+    },
+    editing: {
+      exposure: 'Tăng nhẹ (+0.2 EV) tạo vẻ rực rỡ',
+      contrast: 'Giảm nhẹ -8 (mềm hóa chuyển vùng)',
+      highlights: '-10, shadows: +20 (cứu chi tiết tối)',
+      dehaze: '-10 (cố ý giảm dehaze để tạo lớp sương mờ sương nắng rực rỡ)',
+      hslYellowRed: 'Tăng nhẹ saturation vàng/cam da mặt để tôn sắc nắng ấm',
+      grain: 'Thêm grain rất nhẹ (Amt: 10) để giữ chi tiết mượt'
+    },
+    proTip: 'Tháo lens hood ra! Hơi nghiêng máy ảnh một chút để luồng nắng xiên chiếu trực tiếp vào mép kính thấu kính trước, tạo ra các vòng tròn lăng kính cầu vồng rực rỡ.'
+  },
+  {
+    id: 'rec-012',
+    num: 'RECIPE 012',
+    title: 'Cyberpunk Street Rain',
+    desc: 'Chân dung đêm đô thị đậm sắc thái tương lai với màu neon gắt đối chọi rực rỡ trong đêm mưa.',
+    colorAccent: '#00D4AA', // Cyan
+    camera: 'Máy ảnh hỗ trợ chụp ISO cao ổn định',
+    lens: '35mm hoặc 50mm khẩu độ lớn f/1.4 hoặc f/1.8',
+    light: 'Đèn LED quảng cáo màu đỏ/hồng tươi tắn phía bên trái đối chọi màu xanh ngọc cực độ bên phải.',
+    background: 'Phố đêm ướt mưa phản chiếu ánh sáng chói lọi, ngõ hẻm ngập tràn dây điện và biển hiệu.',
+    outfit: 'Áo khoác da đen bóng, kính râm đen futuristic hoặc trang phục màu phản quang.',
+    pose: 'Đứng dưới mưa che ô đen, mắt nhìn thẳng vô cảm vào ống kính, góc máy hơi chếch từ dưới lên để tôn dáng kiêu kỳ.',
+    mood: 'Futuristic, Kịch tính, Công nghệ, Nổi loạn',
+    settings: {
+      aperture: 'f/1.8 để xóa mờ phông nền thành các đốm sáng bokeh neon to tròn',
+      shutter: '1/160s (tránh nhòe hình khi chụp đêm)',
+      iso: '1600 - 3200 (chấp nhận noise gai góc)',
+      wb: 'Cool: 3800K để làm tối sầm đêm lam lạnh'
+    },
+    editing: {
+      contrast: 'Tăng mạnh (+25) làm rực rỡ khối sáng tối',
+      highlights: '-20, shadows: -10',
+      saturation: '+10, vibrance: +15',
+      hslAquaCyan: 'Tăng bão hòa màu và ngả sang sắc lục ngọc huyền ảo',
+      hslMagentaPink: 'Đẩy cao rực rỡ để đối lập sắc xanh',
+      clarity: '+15 (nhấn mạnh các bề mặt da ướt và giọt nước)'
+    },
+    proTip: 'Đợi xe bus hoặc ô tô đi ngang qua, ánh đèn pha hắt ngược từ phía sau sẽ tạo nên lớp halo sáng rực quanh viền tóc chủ thể cực kỳ vi diệu.'
+  },
+  {
+    id: 'rec-013',
+    num: 'RECIPE 013',
+    title: 'Chiaroscuro Fine Art',
+    desc: 'Lấy cảm hứng từ các bức họa phục hưng, nhấn mạnh sự tương phản cực đoan sáng tối để lột tả nội tâm sâu sắc.',
+    colorAccent: '#E8725C', // Film red
+    camera: 'Bất kỳ camera bán chuyên nghiệp nào',
+    lens: 'RF 50mm f/1.8 hoặc 85mm f/1.8',
+    light: 'Một nguồn sáng đơn độc (đèn bàn hoặc đèn pin nhỏ soi qua khe hẹp) đặt chéo 90 độ một bên má. Các hướng còn lại hấp thụ sáng hoàn toàn.',
+    background: 'Phông nền tối sẫm tuyệt đối (vải nhung đen hoặc góc phòng tối mịt).',
+    outfit: 'Trang phục cổ điển tối màu, hoặc khoác vải trơn thô mộc kiểu cổ điển.',
+    pose: 'Đầu hơi cúi xuống, mắt nhắm nhẹ suy tư hoặc mắt nhìn nghiêng theo vệt sáng đơn độc đầy sâu sắc.',
+    mood: 'U sầu, Nghệ thuật, Cổ điển, Kịch tính',
+    settings: {
+      aperture: 'f/2.8 hoặc f/4.0 (giữ nét chi tiết từ khóe mắt đến cằm)',
+      shutter: '1/125s',
+      iso: '100 - 200 (giữ vùng shadow đen sạch không nhiễu)',
+      wb: 'Ấm áp hoài cổ: 5400K'
+    },
+    editing: {
+      blackAndWhite: 'Không bật đen trắng, giữ màu ngả vàng đất cổ xưa',
+      contrast: 'Tăng mạnh (+35)',
+      highlights: '+10, shadows: -25 (cố ý làm tối chìm nửa khuôn mặt)',
+      whites: '+5, blacks: -15 (nhấn sâu màu đen)',
+      clarity: '+10 (làm rõ nếp da chân thật)',
+      splitTone: 'Highlight: ám sắc vàng rơm cổ; Shadow: ám xanh đen sâu thẳm'
+    },
+    proTip: 'Sử dụng Spot Metering (đo sáng điểm), căn thước đo sáng vào đúng vệt sáng duy nhất trên mặt mẫu để toàn bộ bức hình chìm vào bóng tối Rembrandt hoàn hảo.'
+  },
+  {
+    id: 'rec-014',
+    num: 'RECIPE 014',
+    title: 'Cozy Tea Ceremony',
+    desc: 'Không gian tĩnh lặng, trong trẻo đậm chất Zen (Thiền) của trà đạo Nhật Bản ấm áp ngày mưa.',
+    colorAccent: '#8FBC8F', // Muted Green
+    camera: 'Mọi camera kỹ thuật số',
+    lens: 'RF 35mm f/1.8 Macro hoặc 50mm f/1.8',
+    light: 'Ánh sáng khuyếch tán cực dịu qua cửa giấy hoặc rèm cửa mỏng màu trắng.',
+    background: 'Chiếu tatami, khay trà gỗ, bình hoa sứ tối giản phong cách Wabi-Sabi.',
+    outfit: 'Kimono cách điệu, đồ linen mộc mạc màu nâu đất, rêu hoặc trắng kem.',
+    pose: 'Mẫu ngồi quỳ kiểu Seiza cúi đầu rót nước trà, động tác chậm rãi nhẹ nhàng, lấy góc chụp chéo từ hông ngang tầm bàn trà.',
+    mood: 'Tĩnh lặng, Trầm ấm, Bình yên, Zen',
+    settings: {
+      aperture: 'f/2.2 (xóa nhẹ hậu cảnh tạo chiều sâu)',
+      shutter: '1/100s',
+      iso: '200 - 400',
+      wb: 'Ấm nhẹ: 5300K'
+    },
+    editing: {
+      exposure: 'Hơi tối nhẹ (-0.2 EV) để giữ không khí tĩnh lặng',
+      contrast: 'Giảm -15 (màu sắc êm dịu phẳng phiu)',
+      highlights: '-15, shadows: +15',
+      saturation: '-10, vibrance: +8',
+      hslGreenYellow: 'Xanh lá cây ngả vàng úa thanh tao, giảm bão hòa rêu (-20)'
+    },
+    proTip: 'Bắt khoảnh khắc làn khói trắng bay lên từ chén trà nóng trên phông nền đen/tối phía sau để làm nổi bật nét tĩnh tâm thiền định.'
+  },
+  {
+    id: 'rec-015',
+    num: 'RECIPE 015',
+    title: 'High-Key Clean Beauty',
+    desc: 'Chân dung sáng bừng, trong trẻo tuyệt đối tôn vinh nét đẹp khỏe khoắn của làn da và mỹ phẩm sạch sẽ.',
+    colorAccent: '#FFB6C1', // Pinkish
+    camera: 'Máy ảnh có độ chi tiết cao',
+    lens: '85mm f/1.8 hoặc Sigma 56mm f/1.4',
+    light: 'Hai nguồn sáng lớn tản dịu (Softbox đôi) đặt hai bên chéo 45 độ phía trước để triệt tiêu mọi nếp nhăn và bóng đổ gắt trên khuôn mặt mẫu.',
+    background: 'Phông nền màu trắng tinh khiết hoặc màu hồng pastel cực nhẹ.',
+    outfit: 'Áo trễ vai trắng, đồ skincare tối giản, tóc buộc đuôi ngựa gọn gàng.',
+    pose: 'Mẫu cười mỉm nhẹ nhàng, hơi nghiêng cằm, tay chạm nhẹ vào bầu má hoặc khoe lọ mỹ phẩm.',
+    mood: 'Sáng sủa, Sạch sẽ, Rực rỡ, Khỏe khoắn',
+    settings: {
+      aperture: 'f/3.2 đến f/4.0 (giữ toàn khuôn mặt nét căng từ sống mũi đến lỗ tai)',
+      shutter: '1/200s',
+      iso: '100 (đạt độ trong suốt cao nhất)',
+      wb: 'Auto WB (hoặc chỉnh 5200K cân bằng)'
+    },
+    editing: {
+      exposure: 'Tăng sáng mạnh (+0.8 EV đến +1.2 EV)',
+      contrast: 'Giảm -10',
+      highlights: '-5, shadows: +20',
+      whites: '+15, blacks: +10 (triệt tiêu bóng đen tối)',
+      clarity: '-12 (mềm hóa làn da như một lớp filter phấn phủ mỏng)',
+      sharpening: 'Tăng nhẹ (+25) để giữ nét cho đôi mắt và làn môi bóng'
+    },
+    proTip: 'Đọc vị làn da: Dùng tấm phản sáng đặt ngay dưới ngực mẫu để hắt ngược ánh sáng lên cằm, làm mờ đi các nếp nhăn ở cổ và tạo đốm sáng (catchlight) tròn xoe lấp lánh trong mắt mẫu.'
   }
 ];
 

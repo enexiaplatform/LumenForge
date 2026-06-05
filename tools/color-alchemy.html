@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Alchemy Studio — LumenForge</title>
+  <meta name="description" content="Mô phỏng cân bằng trắng (White Balance) và sắc độ (Tint) quang học. Học cách điều khiển nhiệt độ màu Kelvin và cân bằng da trong nhiếp ảnh.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    /* Specific styles for Color Alchemy preview scene */
+    .color-preview-container {
+      width: 100%;
+      background: #0E0D14;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .color-viewport {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      border-radius: var(--radius-sm);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-glow);
+    }
+    
+    /* The base sunset photo represented as CSS gradients */
+    .color-base-scene {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 75% 70%, #FFF3E0 0%, #FFB74D 20%, #E64A19 50%, #263238 90%);
+      display: flex;
+      align-items: flex-end;
+    }
+    
+    /* Silhouettes in the scene */
+    .color-scene-silhouettes {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    
+    /* The color cast overlay that gets manipulated by JS */
+    .color-cast-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      mix-blend-mode: color;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease, background-color 0.15s ease;
+    }
+    
+    .color-brightness-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      opacity: 0;
+      background-color: #000;
+    }
+    
+    /* Kelvin and Tint HUD display */
+    .color-hud-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 5;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: rgba(10, 10, 15, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 6px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      pointer-events: none;
+    }
+
+    .color-hud-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    
+    .color-hud-item span:first-child {
+      color: var(--text-dim);
+    }
+    
+    .color-hud-item span:last-child {
+      color: var(--accent-amber);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Hero -->
+  <section class="tool-hero">
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="section-label">[TOOL 07]</p>
+    <h1>Color Alchemy Studio</h1>
+    <p class="tool-hero-desc">Pha chế nhiệt độ màu Kelvin và sắc độ Tint. Khám phá cách cân bằng trắng định hình cảm xúc thị giác của bức ảnh.</p>
+  </section>
+
+  <!-- Tool Panel -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-panel">
+        
+        <!-- Live Color Preview Viewport -->
+        <div class="color-preview-container">
+          <div class="color-viewport" id="color-viewport">
+            
+            <!-- Base Sunset Scene -->
+            <div class="color-base-scene"></div>
+            
+            <!-- Silhouettes SVG -->
+            <svg class="color-scene-silhouettes" viewBox="0 0 640 360" preserveAspectRatio="none">
+              <!-- Mountains in silhouette -->
+              <path d="M 0 360 L 0 280 Q 150 250 320 290 Q 480 230 640 260 L 640 360 Z" fill="#090E11"/>
+              <!-- Pine trees silhouettes -->
+              <polygon points="60,300 70,250 80,300" fill="#05080A"/>
+              <polygon points="65,280 70,230 75,280" fill="#05080A"/>
+              <polygon points="120,310 130,260 140,310" fill="#05080A"/>
+              <!-- A person sitting looking at sunset -->
+              <circle cx="480" cy="225" r="8" fill="#020305"/>
+              <path d="M472 233 C472 233, 465 265, 470 295 L490 295 C490 280, 488 245, 480 233 Z" fill="#020305"/>
+            </svg>
+            
+            <!-- Manipulated Color Overlay -->
+            <div class="color-cast-overlay" id="color-cast-overlay"></div>
+            
+            <!-- HUD -->
+            <div class="color-hud-overlay">
+              <div class="color-hud-item">
+                <span>WHITE BALANCE:</span>
+                <span id="hud-wb-type">Kelvin</span>
+              </div>
+              <div class="color-hud-item">
+                <span>TEMP (KELVIN):</span>
+                <span id="hud-temp">5500 K</span>
+              </div>
+              <div class="color-hud-item">
+                <span>TINT OFFSET:</span>
+                <span id="hud-tint">0</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Controls Sliders -->
+        <div class="tool-controls">
+          
+          <!-- Color Temp Slider -->
+          <div class="input-group">
+            <label for="temp-slider">COLOR TEMPERATURE (Nhiệt độ màu Kelvin)</label>
+            <input type="range" class="tool-slider" id="temp-slider" min="2000" max="10000" step="100" value="5500" style="background: linear-gradient(90deg, #4A9EFF 0%, #E8E4DF 50%, #F5A623 100%);">
+            <div style="display:flex; justify-content:space-between; margin-top:4px;">
+              <span class="slider-value" style="margin-top:0; color: var(--accent-amber);" id="temp-val">5500 K</span>
+              <span style="font-size:0.7rem; color:var(--text-dim);">2000K (Lạnh) - 10000K (Ấm)</span>
+            </div>
+          </div>
+
+          <!-- Color Tint Slider -->
+          <div class="input-group">
+            <label for="tint-slider">COLOR TINT (Sắc độ xanh/tím)</label>
+            <input type="range" class="tool-slider" id="tint-slider" min="-50" max="50" step="1" value="0" style="background: linear-gradient(90deg, #00D4AA 0%, var(--border) 50%, #8B5CF6 100%);">
+            <div style="display:flex; justify-content:space-between; margin-top:4px;">
+              <span class="slider-value" style="margin-top:0; color: var(--accent-cyan);" id="tint-val">0</span>
+              <span style="font-size:0.7rem; color:var(--text-dim);">Green (-50) - Magenta (+50)</span>
+            </div>
+          </div>
+
+          <!-- Preset Selection -->
+          <div class="input-group full-width">
+            <label>WHITE BALANCE PRESETS (Bộ thiết lập mẫu)</label>
+            <div class="radio-cards" id="wb-presets" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));">
+              <label class="radio-card selected">
+                <input type="radio" name="wbp" value="custom" checked>
+                <span class="radio-card-icon">🎛️</span>
+                <span>Manual (Tùy chọn)</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="wbp" value="tungsten">
+                <span class="radio-card-icon">💡</span>
+                <span>Tungsten (3200K)</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="wbp" value="daylight">
+                <span class="radio-card-icon">☀️</span>
+                <span>Daylight (5200K)</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="wbp" value="cloudy">
+                <span class="radio-card-icon">☁️</span>
+                <span>Cloudy (6000K)</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="wbp" value="shade">
+                <span class="radio-card-icon">🌳</span>
+                <span>Shade (8000K)</span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Output Explanation -->
+        <div class="tool-output" id="color-output">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="../light-codex.html">Light Codex</a>
+            <a href="../tool-lab.html">Tool Lab</a>
+            <a href="../shot-recipes.html">Shot Recipes</a>
+            <a href="../gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="lens-decoder.html">Lens Decoder</a>
+            <a href="exposure-reactor.html">Exposure Reactor</a>
+            <a href="film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/color-alchemy.js"></script>
+</body>
+</html>
