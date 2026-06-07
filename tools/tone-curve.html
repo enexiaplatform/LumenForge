@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tone Curve & Histogram Lab — LumenForge</title>
+  <meta name="description" content="Phòng thí nghiệm đường cong tông màu và biểu đồ tần suất ánh sáng. Học cách điều chỉnh Blacks, Shadows, Midtones, Highlights.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    /* ── Tone Curve Page-Specific Styles ── */
+
+    .tc-workspace {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (max-width: 900px) {
+      .tc-workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left column: Curve + Histogram stack */
+    .tc-curve-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    /* Canvas wrapper */
+    .tc-canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 1 / 1;
+      background: #0E0D14;
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .tc-canvas-wrap canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: default;
+    }
+
+    .tc-canvas-wrap canvas.grabbing {
+      cursor: grabbing;
+    }
+
+    .tc-canvas-wrap canvas.grab {
+      cursor: grab;
+    }
+
+    /* Axis labels around the canvas */
+    .tc-axis-label {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .tc-axis-label.left {
+      left: -4px;
+      top: 50%;
+      transform: rotate(-90deg) translateX(-50%);
+      transform-origin: left top;
+      white-space: nowrap;
+    }
+
+    .tc-axis-label.bottom {
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .tc-axis-label.corner-tl {
+      top: 4px;
+      left: 6px;
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .tc-axis-label.corner-br {
+      bottom: 4px;
+      right: 6px;
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* Point info tooltip */
+    .tc-point-info {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent-amber);
+      background: rgba(10, 10, 15, 0.85);
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      border-radius: 4px;
+      padding: 3px 10px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      white-space: nowrap;
+      z-index: 5;
+    }
+
+    .tc-point-info.visible {
+      opacity: 1;
+    }
+
+    /* Histogram canvas */
+    .tc-histogram-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      height: 100px;
+      background: #0E0D14;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .tc-histogram-wrap canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .tc-histogram-label {
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    /* Right column: Preview */
+    .tc-preview-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .tc-preview-viewport {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #111;
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-glow);
+    }
+
+    .tc-base-scene {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 75% 70%, #FFF3E0 0%, #FFB74D 20%, #E64A19 50%, #263238 90%);
+    }
+
+    .tc-scene-silhouettes {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .tc-filter-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* HUD on preview */
+    .tc-preview-hud {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 5;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      background: rgba(10, 10, 15, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 5px 10px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tc-hud-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .tc-hud-row span:first-child { color: var(--text-dim); }
+    .tc-hud-row span:last-child { color: var(--accent-amber); font-weight: 600; }
+
+    /* Channel selector */
+    .tc-channel-btns {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tc-channel-btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tc-channel-btn:hover {
+      border-color: var(--border-glow);
+      color: var(--text-primary);
+    }
+
+    .tc-channel-btn.active {
+      border-color: var(--accent-amber);
+      background: var(--accent-amber-dim);
+      color: var(--text-primary);
+    }
+
+    .tc-channel-btn[data-channel="red"].active {
+      border-color: #FF6B6B;
+      background: rgba(255, 107, 107, 0.1);
+    }
+    .tc-channel-btn[data-channel="green"].active {
+      border-color: #69DB7C;
+      background: rgba(105, 219, 124, 0.1);
+    }
+    .tc-channel-btn[data-channel="blue"].active {
+      border-color: #74C0FC;
+      background: rgba(116, 192, 252, 0.1);
+    }
+
+    /* Reset button */
+    .tc-reset-btn {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(232, 114, 92, 0.3);
+      background: rgba(232, 114, 92, 0.06);
+      color: #E8725C;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-left: auto;
+    }
+
+    .tc-reset-btn:hover {
+      background: rgba(232, 114, 92, 0.14);
+      border-color: #E8725C;
+    }
+
+    .tc-controls-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    /* SVG filter for preview */
+    .tc-svg-filters {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* Compact info under histogram */
+    .tc-zone-legend {
+      display: flex;
+      justify-content: space-between;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 0 2px;
+    }
+
+    .tc-zone-legend span {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
+        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Hero -->
+  <section class="tool-hero">
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="section-label">[TOOL 09]</p>
+    <h1>Tone Curve & Histogram Lab</h1>
+    <p class="tool-hero-desc">Kéo thả đường cong tông màu để hiểu cách Blacks, Shadows, Midtones, Highlights và Whites định hình bức ảnh.</p>
+  </section>
+
+  <!-- Tool Panel -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-panel">
+
+        <!-- Channel selector + Reset -->
+        <div class="tc-controls-row">
+          <div class="input-group" style="gap: var(--space-xs);">
+            <label>CHANNEL (Kênh màu)</label>
+            <div class="tc-channel-btns" id="channel-btns">
+              <button class="tc-channel-btn active" data-channel="luminance">Luminance</button>
+              <button class="tc-channel-btn" data-channel="red">Red</button>
+              <button class="tc-channel-btn" data-channel="green">Green</button>
+              <button class="tc-channel-btn" data-channel="blue">Blue</button>
+            </div>
+          </div>
+          <button class="tc-reset-btn" id="btn-reset">↻ RESET</button>
+        </div>
+
+        <!-- Two-column workspace -->
+        <div class="tc-workspace">
+
+          <!-- Left: Curve + Histogram -->
+          <div class="tc-curve-col">
+
+            <!-- Tone Curve Canvas -->
+            <div class="tc-canvas-wrap" id="tc-canvas-wrap">
+              <canvas id="tc-curve-canvas"></canvas>
+              <span class="tc-axis-label corner-tl">Shadows</span>
+              <span class="tc-axis-label corner-br">Highlights</span>
+              <div class="tc-point-info" id="tc-point-info">In: 128 → Out: 128</div>
+            </div>
+
+            <!-- Histogram -->
+            <div class="tc-histogram-wrap">
+              <canvas id="tc-histogram-canvas"></canvas>
+              <span class="tc-histogram-label">HISTOGRAM</span>
+            </div>
+            <div class="tc-zone-legend">
+              <span>Blacks</span>
+              <span>Shadows</span>
+              <span>Midtones</span>
+              <span>Highlights</span>
+              <span>Whites</span>
+            </div>
+
+          </div>
+
+          <!-- Right: Preview -->
+          <div class="tc-preview-col">
+
+            <div class="tc-preview-viewport" id="tc-preview">
+              <div class="tc-base-scene"></div>
+              <svg class="tc-scene-silhouettes" viewBox="0 0 640 360" preserveAspectRatio="none">
+                <!-- Mountains -->
+                <path d="M 0 360 L 0 280 Q 150 250 320 290 Q 480 230 640 260 L 640 360 Z" fill="#090E11"/>
+                <!-- Pine trees -->
+                <polygon points="60,300 70,250 80,300" fill="#05080A"/>
+                <polygon points="65,280 70,230 75,280" fill="#05080A"/>
+                <polygon points="120,310 130,260 140,310" fill="#05080A"/>
+                <polygon points="125,290 130,245 135,290" fill="#05080A"/>
+                <polygon points="520,305 530,258 540,305" fill="#05080A"/>
+                <polygon points="560,315 570,270 580,315" fill="#05080A"/>
+                <!-- Person sitting -->
+                <circle cx="480" cy="225" r="8" fill="#020305"/>
+                <path d="M472 233 C472 233, 465 265, 470 295 L490 295 C490 280, 488 245, 480 233 Z" fill="#020305"/>
+              </svg>
+              <div class="tc-filter-overlay" id="tc-filter-overlay"></div>
+
+              <!-- HUD -->
+              <div class="tc-preview-hud">
+                <div class="tc-hud-row">
+                  <span>CURVE:</span>
+                  <span id="hud-curve-type">Linear</span>
+                </div>
+                <div class="tc-hud-row">
+                  <span>CHANNEL:</span>
+                  <span id="hud-channel">Luminance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Presets -->
+            <div class="input-group">
+              <label>PRESETS (Đường cong mẫu)</label>
+              <div class="radio-cards" id="tc-presets" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));">
+                <label class="radio-card selected">
+                  <input type="radio" name="tc-preset" value="linear" checked>
+                  <span class="radio-card-icon">📐</span>
+                  <span>Linear (Tuyến tính)</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="matte">
+                  <span class="radio-card-icon">🎞️</span>
+                  <span>Matte Film</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="noir">
+                  <span class="radio-card-icon">🌑</span>
+                  <span>High Contrast Noir</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="highkey">
+                  <span class="radio-card-icon">☁️</span>
+                  <span>High-Key Dreamy</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="crushed">
+                  <span class="radio-card-icon">⬛</span>
+                  <span>Crushed Shadows</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="scurve">
+                  <span class="radio-card-icon">〰️</span>
+                  <span>S-Curve Punch</span>
+                </label>
+                <label class="radio-card">
+                  <input type="radio" name="tc-preset" value="vintage">
+                  <span class="radio-card-icon">📷</span>
+                  <span>Faded Vintage</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Output -->
+        <div class="tool-output" id="tc-output">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Hidden SVG filter for preview -->
+  <svg class="tc-svg-filters" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="tc-curve-filter" color-interpolation-filters="sRGB">
+        <feComponentTransfer id="tc-fe-transfer">
+          <feFuncR id="tc-func-r" type="table" tableValues="0 1"/>
+          <feFuncG id="tc-func-g" type="table" tableValues="0 1"/>
+          <feFuncB id="tc-func-b" type="table" tableValues="0 1"/>
+        </feComponentTransfer>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="../light-codex.html">Light Codex</a>
+            <a href="../tool-lab.html">Tool Lab</a>
+            <a href="../shot-recipes.html">Shot Recipes</a>
+            <a href="../gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="lens-decoder.html">Lens Decoder</a>
+            <a href="exposure-reactor.html">Exposure Reactor</a>
+            <a href="film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/tone-curve.js"></script>
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Lighting Studio — LumenForge</title>
+  <meta name="description" content="Mô phỏng setup ánh sáng 3 điểm cho chân dung. Điều chỉnh Key Light, Fill Light, Rim Light theo thời gian thực.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    /* ===== Lighting Studio Viewport ===== */
+    .lighting-preview-container {
+      width: 100%;
+      background: #0E0D14;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lighting-viewport {
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 4 / 3;
+      background: #0A090F;
+      border-radius: var(--radius-sm);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-glow);
+    }
+
+    .lighting-viewport svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ===== Light Orbit Diagram (overlay) ===== */
+    .light-orbit-overlay {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      width: 120px;
+      height: 120px;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+    .light-orbit-overlay svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ===== HUD Overlay ===== */
+    .lighting-hud {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 5;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: rgba(10, 10, 15, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      line-height: 1.4;
+    }
+
+    .hud-row .hud-label {
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hud-row .hud-value {
+      font-weight: 600;
+    }
+
+    .hud-row .hud-value.key { color: #F5A623; }
+    .hud-row .hud-value.fill { color: #00D4AA; }
+    .hud-row .hud-value.rim { color: #E879F9; }
+    .hud-row .hud-value.pattern { color: var(--accent-amber); }
+
+    .hud-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 2px 0;
+    }
+
+    /* ===== Light Group Controls ===== */
+    .light-controls-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (min-width: 768px) {
+      .light-controls-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .light-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .light-group:hover {
+      border-color: var(--border-glow);
+    }
+
+    .light-group::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0.8;
+    }
+
+    .light-group.key-group::before { background: #F5A623; }
+    .light-group.fill-group::before { background: #00D4AA; }
+    .light-group.rim-group::before { background: #E879F9; }
+
+    .light-group-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .light-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .light-dot.key { background: #F5A623; box-shadow: 0 0 8px rgba(245, 166, 35, 0.5); }
+    .light-dot.fill { background: #00D4AA; box-shadow: 0 0 8px rgba(0, 212, 170, 0.5); }
+    .light-dot.rim { background: #E879F9; box-shadow: 0 0 8px rgba(232, 121, 249, 0.5); }
+
+    .light-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .light-group.key-group .light-group-title { color: #F5A623; }
+    .light-group.fill-group .light-group-title { color: #00D4AA; }
+    .light-group.rim-group .light-group-title { color: #E879F9; }
+
+    .light-slider-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: var(--space-md);
+    }
+
+    .light-slider-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .light-slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .light-slider-label span:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .light-slider-label span:last-child {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ===== Preset Cards for lighting patterns ===== */
+    .preset-section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .preset-section > label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent-amber);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    /* ===== Ratio Display ===== */
+    .ratio-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: rgba(18, 18, 26, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: var(--space-xl);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    .ratio-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .ratio-block .ratio-label {
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .ratio-block .ratio-value {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .ratio-block .ratio-value.key-c { color: #F5A623; }
+    .ratio-block .ratio-value.fill-c { color: #00D4AA; }
+    .ratio-block .ratio-value.rim-c { color: #E879F9; }
+
+    .ratio-colon {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
+        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
+        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
+        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Hero -->
+  <section class="tool-hero">
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="section-label">[TOOL 08]</p>
+    <h1>Dynamic Lighting Studio</h1>
+    <p class="tool-hero-desc">Mô phỏng setup ánh sáng 3 điểm cho chân dung nghệ thuật. Khám phá Rembrandt, Butterfly, Split và Rim lighting.</p>
+  </section>
+
+  <!-- Tool Panel -->
+  <section class="section">
+    <div class="container">
+      <div class="tool-panel">
+
+        <!-- ===== SVG Portrait Viewport ===== -->
+        <div class="lighting-preview-container">
+          <div class="lighting-viewport" id="lighting-viewport">
+
+            <!-- Main Portrait SVG -->
+            <svg id="portrait-svg" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <!-- Key light radial gradient -->
+                <radialGradient id="key-light-grad" cx="0.3" cy="0.35" r="0.65" fx="0.3" fy="0.35">
+                  <stop offset="0%" stop-color="#F5A623" stop-opacity="0.55" id="key-grad-s0"/>
+                  <stop offset="60%" stop-color="#F5A623" stop-opacity="0.15" id="key-grad-s1"/>
+                  <stop offset="100%" stop-color="#F5A623" stop-opacity="0" id="key-grad-s2"/>
+                </radialGradient>
+
+                <!-- Fill light radial gradient -->
+                <radialGradient id="fill-light-grad" cx="0.7" cy="0.4" r="0.6" fx="0.7" fy="0.4">
+                  <stop offset="0%" stop-color="#00D4AA" stop-opacity="0.3" id="fill-grad-s0"/>
+                  <stop offset="60%" stop-color="#00D4AA" stop-opacity="0.08" id="fill-grad-s1"/>
+                  <stop offset="100%" stop-color="#00D4AA" stop-opacity="0" id="fill-grad-s2"/>
+                </radialGradient>
+
+                <!-- Rim light linear gradient -->
+                <linearGradient id="rim-light-grad" x1="1" y1="0.3" x2="0.5" y2="0.5">
+                  <stop offset="0%" stop-color="#E879F9" stop-opacity="0.6" id="rim-grad-s0"/>
+                  <stop offset="30%" stop-color="#E879F9" stop-opacity="0.15" id="rim-grad-s1"/>
+                  <stop offset="100%" stop-color="#E879F9" stop-opacity="0" id="rim-grad-s2"/>
+                </linearGradient>
+
+                <!-- Shadow mask for face -->
+                <clipPath id="face-clip">
+                  <path id="face-clip-path" d="M 280 100 C 240 100, 200 140, 195 200 C 190 250, 200 300, 230 340 C 245 360, 260 380, 280 400 L 310 420 C 330 425, 370 420, 390 400 C 420 370, 440 330, 445 280 C 450 230, 440 170, 420 140 C 400 110, 360 95, 320 95 Z"/>
+                </clipPath>
+
+                <!-- Soft shadow blur -->
+                <filter id="light-blur" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="18" id="light-blur-std"/>
+                </filter>
+
+                <filter id="rim-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="6" id="rim-glow-std"/>
+                </filter>
+
+                <filter id="ambient-blur" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="30"/>
+                </filter>
+              </defs>
+
+              <!-- Dark background -->
+              <rect width="640" height="480" fill="#0A090F"/>
+
+              <!-- Subtle ambient background glow -->
+              <circle cx="320" cy="240" r="280" fill="rgba(30,28,40,0.4)" filter="url(#ambient-blur)"/>
+
+              <!-- ===== Portrait Face Group ===== -->
+              <g id="portrait-group">
+
+                <!-- Neck & shoulders -->
+                <path d="M 290 400 C 280 410, 250 430, 220 445 C 190 458, 140 470, 100 480 L 540 480 C 500 470, 450 458, 420 445 C 390 430, 360 410, 350 400" fill="#1A1520" stroke="none"/>
+                <path d="M 290 400 L 295 425 C 300 440, 310 445, 320 445 C 330 445, 340 440, 345 425 L 350 400" fill="#1E1928" stroke="none"/>
+
+                <!-- Base skin tone (dark neutral) -->
+                <path id="face-base" d="M 280 100 C 240 100, 200 140, 195 200 C 190 250, 200 300, 230 340 C 245 360, 260 380, 280 400 L 310 420 C 330 425, 370 420, 390 400 C 420 370, 440 330, 445 280 C 450 230, 440 170, 420 140 C 400 110, 360 95, 320 95 Z" fill="#2A2235"/>
+
+                <!-- Facial features (subtle lines) -->
+                <!-- Forehead contour -->
+                <path d="M 260 145 C 280 130, 340 125, 380 140" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+                <!-- Brow ridge -->
+                <path d="M 250 185 C 265 175, 290 172, 310 176" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+                <path d="M 330 176 C 350 172, 375 175, 390 185" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+
+                <!-- Eyes -->
+                <ellipse cx="282" cy="200" rx="18" ry="8" fill="#151020" stroke="rgba(255,255,255,0.05)" stroke-width="0.8"/>
+                <ellipse cx="358" cy="200" rx="18" ry="8" fill="#151020" stroke="rgba(255,255,255,0.05)" stroke-width="0.8"/>
+                <circle cx="282" cy="200" r="4" fill="rgba(140,130,160,0.3)"/>
+                <circle cx="358" cy="200" r="4" fill="rgba(140,130,160,0.3)"/>
+
+                <!-- Nose -->
+                <path d="M 320 190 C 318 210, 315 240, 310 258 C 305 265, 300 270, 310 272 C 318 275, 322 275, 330 272 C 340 270, 335 265, 330 258 C 325 240, 322 210, 320 190" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                <!-- Nose shadow hint -->
+                <ellipse cx="320" cy="270" rx="14" ry="5" fill="rgba(0,0,0,0.15)"/>
+
+                <!-- Lips -->
+                <path d="M 295 300 C 305 293, 315 290, 320 292 C 325 290, 335 293, 345 300" fill="none" stroke="rgba(200,160,150,0.15)" stroke-width="1.2"/>
+                <path d="M 295 300 C 305 308, 320 312, 345 300" fill="rgba(160,100,90,0.1)" stroke="rgba(200,160,150,0.1)" stroke-width="0.8"/>
+
+                <!-- Jaw line -->
+                <path d="M 200 220 C 205 280, 225 340, 260 375 C 280 395, 300 410, 320 415 C 340 410, 360 395, 380 375 C 415 340, 435 280, 440 220" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+
+                <!-- Ear hints -->
+                <path d="M 195 190 C 185 195, 180 215, 185 235 C 188 245, 195 248, 198 240" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                <path d="M 445 190 C 455 195, 460 215, 455 235 C 452 245, 445 248, 442 240" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+
+                <!-- Hair outline -->
+                <path d="M 240 130 C 230 115, 240 90, 270 80 C 290 74, 320 72, 350 74 C 380 78, 410 90, 415 115 C 418 130, 420 140, 420 140" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1.5"/>
+                <!-- Hair mass -->
+                <path d="M 240 130 C 230 115, 240 90, 270 80 C 290 74, 320 72, 350 74 C 380 78, 410 90, 415 115 C 420 135, 425 145, 430 150 C 440 155, 445 170, 445 185 L 440 170 C 435 155, 425 145, 420 140 L 200 140 C 195 155, 190 170, 195 185 L 192 170 C 192 155, 200 140, 200 140 C 205 130, 220 120, 240 130 Z" fill="#18131F" stroke="none"/>
+
+              </g>
+
+              <!-- ===== Lighting Layers (clipped to face) ===== -->
+
+              <!-- Key Light Layer -->
+              <g clip-path="url(#face-clip)" id="key-light-layer">
+                <rect x="0" y="0" width="640" height="480" fill="url(#key-light-grad)" filter="url(#light-blur)" opacity="1" id="key-light-rect"/>
+              </g>
+
+              <!-- Fill Light Layer -->
+              <g clip-path="url(#face-clip)" id="fill-light-layer">
+                <rect x="0" y="0" width="640" height="480" fill="url(#fill-light-grad)" filter="url(#light-blur)" opacity="1" id="fill-light-rect"/>
+              </g>
+
+              <!-- Rim Light Layer (contour highlight) -->
+              <g id="rim-light-layer">
+                <!-- Rim highlight along face contour -->
+                <path id="rim-contour" d="M 440 150 C 450 180, 455 220, 450 270 C 445 320, 425 365, 390 400 C 375 415, 355 425, 340 430" fill="none" stroke="#E879F9" stroke-width="3" stroke-opacity="0.5" filter="url(#rim-glow)" stroke-linecap="round"/>
+                <path id="rim-contour-inner" d="M 440 150 C 450 180, 455 220, 450 270 C 445 320, 425 365, 390 400 C 375 415, 355 425, 340 430" fill="none" stroke="#E879F9" stroke-width="1.5" stroke-opacity="0.3" stroke-linecap="round"/>
+              </g>
+
+              <!-- Specular highlights on skin -->
+              <g clip-path="url(#face-clip)" id="specular-layer" opacity="0.4">
+                <circle id="spec-forehead" cx="300" cy="160" r="25" fill="rgba(255,255,255,0.08)" filter="url(#light-blur)"/>
+                <circle id="spec-cheek" cx="280" cy="240" r="20" fill="rgba(255,255,255,0.06)" filter="url(#light-blur)"/>
+                <circle id="spec-nose" cx="320" cy="250" r="10" fill="rgba(255,255,255,0.05)" filter="url(#light-blur)"/>
+              </g>
+
+              <!-- Shadow overlay (dynamic) -->
+              <g clip-path="url(#face-clip)" id="shadow-layer">
+                <rect id="shadow-rect" x="0" y="0" width="640" height="480" fill="rgba(5,3,10,0.45)" opacity="0.6">
+                </rect>
+              </g>
+
+            </svg>
+
+            <!-- HUD Overlay -->
+            <div class="lighting-hud" id="lighting-hud">
+              <div class="hud-row">
+                <span class="hud-label">PATTERN:</span>
+                <span class="hud-value pattern" id="hud-pattern">Rembrandt</span>
+              </div>
+              <div class="hud-divider"></div>
+              <div class="hud-row">
+                <span class="hud-label">KEY:</span>
+                <span class="hud-value key" id="hud-key">45° • 85% • 4500K</span>
+              </div>
+              <div class="hud-row">
+                <span class="hud-label">FILL:</span>
+                <span class="hud-value fill" id="hud-fill">315° • 30% • 5500K</span>
+              </div>
+              <div class="hud-row">
+                <span class="hud-label">RIM:</span>
+                <span class="hud-value rim" id="hud-rim">180° • 50% • 5000K</span>
+              </div>
+              <div class="hud-divider"></div>
+              <div class="hud-row">
+                <span class="hud-label">RATIO:</span>
+                <span class="hud-value pattern" id="hud-ratio">2.8 : 1</span>
+              </div>
+            </div>
+
+            <!-- Light Orbit Mini-Diagram -->
+            <div class="light-orbit-overlay" id="light-orbit">
+              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Orbit circle -->
+                <circle cx="60" cy="60" r="42" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3,3"/>
+                <!-- Face dot (center) -->
+                <circle cx="60" cy="60" r="5" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+                <!-- Direction lines -->
+                <line id="orbit-key-line" x1="60" y1="60" x2="90" y2="30" stroke="#F5A623" stroke-width="1" stroke-opacity="0.3"/>
+                <line id="orbit-fill-line" x1="60" y1="60" x2="30" y2="30" stroke="#00D4AA" stroke-width="1" stroke-opacity="0.3"/>
+                <line id="orbit-rim-line" x1="60" y1="60" x2="60" y2="102" stroke="#E879F9" stroke-width="1" stroke-opacity="0.3"/>
+                <!-- Light position dots -->
+                <circle id="orbit-key-dot" cx="90" cy="30" r="5" fill="#F5A623" opacity="0.9">
+                  <animate attributeName="opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+                </circle>
+                <circle id="orbit-fill-dot" cx="30" cy="30" r="4" fill="#00D4AA" opacity="0.8">
+                  <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2.5s" repeatCount="indefinite"/>
+                </circle>
+                <circle id="orbit-rim-dot" cx="60" cy="102" r="4.5" fill="#E879F9" opacity="0.85">
+                  <animate attributeName="opacity" values="0.85;0.45;0.85" dur="2.2s" repeatCount="indefinite"/>
+                </circle>
+                <!-- Labels -->
+                <text id="orbit-key-label" x="90" y="22" fill="#F5A623" font-size="7" font-family="monospace" text-anchor="middle" opacity="0.8">K</text>
+                <text id="orbit-fill-label" x="30" y="22" fill="#00D4AA" font-size="7" font-family="monospace" text-anchor="middle" opacity="0.8">F</text>
+                <text id="orbit-rim-label" x="60" y="116" fill="#E879F9" font-size="7" font-family="monospace" text-anchor="middle" opacity="0.8">R</text>
+              </svg>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ===== Ratio Display ===== -->
+        <div class="ratio-display" id="ratio-display">
+          <div class="ratio-block">
+            <span class="ratio-label">Key</span>
+            <span class="ratio-value key-c" id="ratio-key">2.8</span>
+          </div>
+          <span class="ratio-colon">:</span>
+          <div class="ratio-block">
+            <span class="ratio-label">Fill</span>
+            <span class="ratio-value fill-c" id="ratio-fill">1</span>
+          </div>
+          <span class="ratio-colon">:</span>
+          <div class="ratio-block">
+            <span class="ratio-label">Rim</span>
+            <span class="ratio-value rim-c" id="ratio-rim">1.7</span>
+          </div>
+        </div>
+
+        <!-- ===== Preset Selection ===== -->
+        <div class="preset-section">
+          <label>LIGHTING PRESETS (Mẫu thiết lập ánh sáng)</label>
+          <div class="radio-cards" id="lighting-presets" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));">
+            <label class="radio-card selected">
+              <input type="radio" name="lp" value="rembrandt" checked>
+              <span class="radio-card-icon">🎨</span>
+              <span>Rembrandt</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="butterfly">
+              <span class="radio-card-icon">🦋</span>
+              <span>Butterfly</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="split">
+              <span class="radio-card-icon">◑</span>
+              <span>Split</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="loop">
+              <span class="radio-card-icon">🔁</span>
+              <span>Loop</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="rim">
+              <span class="radio-card-icon">🌙</span>
+              <span>Rim / Edge</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="broad">
+              <span class="radio-card-icon">📐</span>
+              <span>Broad</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="lp" value="short">
+              <span class="radio-card-icon">📏</span>
+              <span>Short</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- ===== Light Controls (3 groups) ===== -->
+        <div class="light-controls-grid">
+
+          <!-- KEY LIGHT -->
+          <div class="light-group key-group">
+            <div class="light-group-header">
+              <span class="light-dot key"></span>
+              <span class="light-group-title">Key Light</span>
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Angle (Góc)</span>
+                <span id="key-angle-val">45°</span>
+              </div>
+              <input type="range" class="tool-slider" id="key-angle" min="0" max="360" step="1" value="45">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Intensity (Cường độ)</span>
+                <span id="key-intensity-val">85%</span>
+              </div>
+              <input type="range" class="tool-slider" id="key-intensity" min="0" max="100" step="1" value="85">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Kelvin</span>
+                <span id="key-kelvin-val">4500K</span>
+              </div>
+              <input type="range" class="tool-slider" id="key-kelvin" min="2500" max="9000" step="100" value="4500">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Softness (Độ mềm)</span>
+                <span id="key-softness-val">60</span>
+              </div>
+              <input type="range" class="tool-slider" id="key-softness" min="0" max="100" step="1" value="60">
+            </div>
+          </div>
+
+          <!-- FILL LIGHT -->
+          <div class="light-group fill-group">
+            <div class="light-group-header">
+              <span class="light-dot fill"></span>
+              <span class="light-group-title">Fill Light</span>
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Angle (Góc)</span>
+                <span id="fill-angle-val">315°</span>
+              </div>
+              <input type="range" class="tool-slider" id="fill-angle" min="0" max="360" step="1" value="315">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Intensity (Cường độ)</span>
+                <span id="fill-intensity-val">30%</span>
+              </div>
+              <input type="range" class="tool-slider" id="fill-intensity" min="0" max="100" step="1" value="30">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Kelvin</span>
+                <span id="fill-kelvin-val">5500K</span>
+              </div>
+              <input type="range" class="tool-slider" id="fill-kelvin" min="2500" max="9000" step="100" value="5500">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Softness (Độ mềm)</span>
+                <span id="fill-softness-val">80</span>
+              </div>
+              <input type="range" class="tool-slider" id="fill-softness" min="0" max="100" step="1" value="80">
+            </div>
+          </div>
+
+          <!-- RIM LIGHT -->
+          <div class="light-group rim-group">
+            <div class="light-group-header">
+              <span class="light-dot rim"></span>
+              <span class="light-group-title">Rim Light</span>
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Angle (Góc)</span>
+                <span id="rim-angle-val">180°</span>
+              </div>
+              <input type="range" class="tool-slider" id="rim-angle" min="0" max="360" step="1" value="180">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Intensity (Cường độ)</span>
+                <span id="rim-intensity-val">50%</span>
+              </div>
+              <input type="range" class="tool-slider" id="rim-intensity" min="0" max="100" step="1" value="50">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Kelvin</span>
+                <span id="rim-kelvin-val">5000K</span>
+              </div>
+              <input type="range" class="tool-slider" id="rim-kelvin" min="2500" max="9000" step="100" value="5000">
+            </div>
+            <div class="light-slider-row">
+              <div class="light-slider-label">
+                <span>Softness (Độ mềm)</span>
+                <span id="rim-softness-val">20</span>
+              </div>
+              <input type="range" class="tool-slider" id="rim-softness" min="0" max="100" step="1" value="20">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ===== Output Analysis ===== -->
+        <div class="tool-output" id="lighting-output">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="../light-codex.html">Light Codex</a>
+            <a href="../tool-lab.html">Tool Lab</a>
+            <a href="../shot-recipes.html">Shot Recipes</a>
+            <a href="../gear-map.html">Gear Map</a>
+          </div>
+          <div class="footer-col">
+            <h4>Tools</h4>
+            <a href="lens-decoder.html">Lens Decoder</a>
+            <a href="exposure-reactor.html">Exposure Reactor</a>
+            <a href="film-look.html">Film Look Generator</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/lighting-studio.js"></script>
+</body>
+</html>

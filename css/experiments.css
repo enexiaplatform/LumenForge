@@ -1,0 +1,595 @@
+/* ==========================================================================
+   LUMENFORGE — Visual Experiments Styling
+   ========================================================================== */
+
+/* === Hero === */
+.experiments-hero {
+  position: relative;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px var(--space-lg) var(--space-2xl);
+  background: var(--bg-secondary);
+  overflow: hidden;
+}
+
+.experiments-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.experiments-hero-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+}
+
+.experiments-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.experiments-hero .hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* === Tabs === */
+.experiment-tabs-wrapper {
+  overflow-x: auto;
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-xl);
+  scrollbar-width: none;
+}
+
+.experiment-tabs-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.experiment-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  justify-content: center;
+  min-width: max-content;
+  margin: 0 auto;
+}
+
+.exp-tab-btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 10px 20px;
+  background: rgba(26, 26, 38, 0.4);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.exp-tab-btn:hover {
+  border-color: var(--border-glow);
+  color: var(--text-primary);
+}
+
+.exp-tab-btn.active {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.08);
+}
+
+/* === Comparison Chamber === */
+.experiment-chamber {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.comparison-container {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  background: #08080C;
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  user-select: none;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.image-side {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.side-before {
+  z-index: 1;
+}
+
+.side-after {
+  z-index: 2;
+  /* Use clip-path with CSS Custom Property */
+  clip-path: inset(0 0 0 var(--slider-pos));
+}
+
+.experiment-view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Labels */
+.label-side {
+  position: absolute;
+  bottom: 16px;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  pointer-events: none;
+}
+
+.side-before .label-side {
+  left: 16px;
+  border-left: 2px solid var(--accent-cyan);
+}
+
+.side-after .label-side {
+  right: 16px;
+  border-right: 2px solid var(--accent-amber);
+}
+
+/* Range input overlay */
+.comparison-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: ew-resize;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sliding handle */
+.comparison-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--slider-pos);
+  width: 2px;
+  background: #FFF;
+  z-index: 15;
+  pointer-events: none;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.handle-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFF;
+  color: #0A0A0C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+  transition: transform 0.1s ease;
+}
+
+.comparison-container:active .handle-button {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+
+/* ==========================================================================
+   EXPERIMENT VISUAL SIMULATIONS (SVG/CSS Drawing)
+   ========================================================================== */
+
+/* --- EXP 001: Sensor vs AI --- */
+.sim-sky-sunset {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1A1C30 0%, #E64A19 60%, #FFB74D 100%);
+}
+
+/* Bokeh highlights on Left (Canon) - Beautiful smooth circles */
+.sim-canon-bokeh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.sim-canon-bokeh .bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 243, 224, 0.16) 0%, rgba(255, 183, 77, 0.06) 60%, transparent 100%);
+  filter: blur(2px);
+}
+.sim-canon-bokeh .bubble:nth-child(1) { top: 30%; left: 30%; width: 120px; height: 120px; }
+.sim-canon-bokeh .bubble:nth-child(2) { top: 15%; left: 60%; width: 180px; height: 180px; }
+.sim-canon-bokeh .bubble:nth-child(3) { top: 40%; left: 50%; width: 100px; height: 100px; }
+.sim-canon-bokeh .bubble:nth-child(4) { top: 20%; left: 10%; width: 150px; height: 150px; }
+
+/* Bokeh highlights on Right (Phone) - Flat gaussian blur */
+.sim-phone-blur {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #1A1C30 0%, #E64A19 60%, #FFB74D 100%);
+  filter: blur(12px); /* flat blur representing AI background blur */
+  opacity: 0.95;
+}
+
+/* Hair halo on phone side (AI cutout error) */
+.sim-phone-halo {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  height: 250px;
+  background: rgba(255, 183, 77, 0.4); /* glowing fringe representation */
+  filter: blur(6px);
+  clip-path: ellipse(80px 120px at 50% 50%);
+  z-index: 1;
+}
+
+/* Common Silhouette shape */
+.sim-person-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 240px;
+  z-index: 3;
+}
+.side-before .sim-person-silhouette {
+  /* Sharp optical edges */
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.8));
+}
+.side-after .sim-person-silhouette {
+  /* Slightly smudged edges representation */
+  filter: blur(0.6px) contrast(1.1);
+}
+
+/* --- EXP 002: Compression --- */
+.sim-bg-mountains {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+.side-before .sim-bg-mountains {
+  /* 35mm wide view - mountains are small */
+  height: 60px;
+  background: #0E0E18;
+}
+.side-after .sim-bg-mountains {
+  /* 85mm tele view - mountains are huge (compressed) */
+  height: 180px;
+  background: #0E0E18;
+}
+
+/* --- EXP 003: Aperture --- */
+/* Left side: f/1.8 - gorgeous overlapping bubbles */
+.sim-aperture-18 {
+  position: absolute;
+  inset: 0;
+  background: #06060A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bokeh-highlight-18 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(245, 166, 35, 0.12) 70%, transparent 100%);
+  border: 1px solid rgba(245, 166, 35, 0.08);
+}
+.bokeh-highlight-18:nth-child(1) { transform: translate(-80px, -40px); }
+.bokeh-highlight-18:nth-child(2) { transform: translate(60px, -60px); width: 140px; height: 140px;}
+.bokeh-highlight-18:nth-child(3) { transform: translate(10px, 50px); width: 80px; height: 80px;}
+
+/* Right side: f/5.6 - small hexagonal points */
+.sim-aperture-56 {
+  position: absolute;
+  inset: 0;
+  background: #06060A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bokeh-highlight-56 {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background: rgba(245, 166, 35, 0.25);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); /* Hexagon shape */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.bokeh-highlight-56:nth-child(1) { transform: translate(-80px, -40px); }
+.bokeh-highlight-56:nth-child(2) { transform: translate(60px, -60px); }
+.bokeh-highlight-56:nth-child(3) { transform: translate(10px, 50px); }
+
+/* --- EXP 004: Scanning --- */
+/* Grain overlays */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  mix-blend-mode: overlay;
+}
+.side-before .grain-overlay {
+  /* Noritsu - sharp grain */
+  opacity: 0.15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+.side-after .grain-overlay {
+  /* Frontier - softer grain */
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Scenic colors representing scan profiles */
+.sim-scan-noritsu {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, #FAF0D7 0%, #D4ADFC 100%); /* warm, pastel Kodak scan */
+}
+.sim-scan-frontier {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 50% 50%, #FFD6EC 0%, #008170 100%); /* cyan green, punchy contrast scan */
+}
+
+
+/* ==========================================================================
+   EXPERIMENT LOGS (Scientific Notebook Section)
+   ========================================================================== */
+.experiment-details {
+  background: #111116;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 40px;
+  position: relative;
+  line-height: 1.8;
+  color: var(--text-primary);
+}
+
+.experiment-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 64px;
+  width: 1px;
+  background: rgba(232, 114, 92, 0.15); /* red vertical line */
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .experiment-details {
+    padding: var(--space-lg);
+  }
+  .experiment-details::before {
+    left: 24px;
+  }
+}
+
+.experiment-details h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.experiment-details p {
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  color: #DDD9D4;
+}
+
+.exp-log-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .exp-log-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+.exp-log-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  transition: var(--transition);
+}
+
+.exp-log-card:hover {
+  border-color: var(--border-glow);
+}
+
+.exp-log-card h4 {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--accent-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 4px;
+}
+
+.exp-log-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exp-log-card ul li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 6px;
+}
+
+.exp-log-card ul li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   EXP 005: SOFT LIGHT vs HARD LIGHT
+   ========================================================================== */
+
+/* --- Left side: Soft Light --- */
+.sim-soft-light-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #2A2A3A 0%, #1A1A2A 60%, #0E0E18 100%);
+}
+
+.sim-soft-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 80px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,0.12) 0%, transparent 70%);
+  filter: blur(20px);
+  z-index: 1;
+}
+
+.sim-portrait-soft {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 280px;
+  z-index: 3;
+}
+
+/* Soft light source: a large diffused glow from above */
+.sim-soft-light-indicator {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 60px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,243,224,0.12) 0%, transparent 80%);
+  border-bottom: 1px solid rgba(255,243,224,0.04);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- Right side: Hard Light --- */
+.sim-hard-light-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #0A0A0C 0%, #0E0E14 40%, #0A0A0C 100%);
+}
+
+.sim-hard-shadow {
+  position: absolute;
+  bottom: 0;
+  right: 15%;
+  width: 120px;
+  height: 240px;
+  background: rgba(0,0,0,0.7);
+  clip-path: polygon(0% 0%, 100% 100%, 100% 100%, 0% 100%);
+  transform: skewX(-15deg);
+  filter: blur(1px);
+  z-index: 1;
+}
+
+.sim-portrait-hard {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 280px;
+  z-index: 3;
+}
+
+/* Hard light source: a small concentrated point from the side */
+.sim-hard-light-indicator {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FFE0C8;
+  box-shadow:
+    0 0 20px 8px rgba(255,224,200,0.3),
+    0 0 60px 20px rgba(255,183,77,0.1);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Light ray lines from hard light source */
+.sim-hard-light-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(120deg, rgba(255,224,200,0.04) 0%, transparent 60%);
+  transform-origin: left center;
+  pointer-events: none;
+}
