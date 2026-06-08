@@ -57,10 +57,71 @@
           <p>Đối với người bắt đầu cầm máy, "tiêu cự" (focal length) thường chỉ được hiểu đơn giản là: số mm càng nhỏ thì chụp càng rộng, số mm càng lớn thì zoom càng xa. Đây là định nghĩa đúng nhưng cực kỳ thiếu sót. Tiêu cự không đơn thuần là khoảng cách zoom, nó là công cụ bẻ cong phối cảnh, tạo ra cấu trúc tâm lý cho một khuôn hình và thay đổi hoàn toàn cách bộ não chúng ta tiếp nhận không gian.</p>
 
           <div class="margin-note" style="top: 310px;">[0.2]</div>
-          <h2>Bản Chất Quang Học Của Tiêu Cự</h2>
-          <p>Về mặt vật lý học quang học, tiêu cự là khoảng cách tính bằng milimet từ tâm quang học của ống kính (optical center) đến cảm biến hình ảnh (sensor) khi ống kính lấy nét ở vô cực. Khoảng cách này quyết định mức độ hội tụ của ánh sáng khi đi qua hệ thấu kính.</p>
+                  <h2>Bản Chất Quang Học & Toán Học Của Tiêu Cự</h2>
+          <p>Về mặt vật lý học quang học, tiêu cự ($f$) là khoảng cách tính bằng milimet từ tâm quang học của ống kính (optical center) đến cảm biến hình ảnh (sensor) khi ống kính lấy nét ở vô cực. Khoảng cách này quyết định mức độ hội tụ của ánh sáng khi đi qua hệ thấu kính.</p>
           
+          <p>Góc nhìn ngang (Horizontal Field of View - HFOV) của ống kính được xác định bằng công thức lượng giác sau:</p>
+          <div class="lab-note-block" style="text-align: center; border-left-color: var(--accent-cyan); padding: var(--space-md);">
+            <p style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-cyan); margin: 8px 0;">
+              &theta; = 2 &middot; arctan( w / 2f )
+            </p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0;">
+              Trong đó: <strong>&theta;</strong> là góc nhìn (radian), <strong>w</strong> là chiều rộng cảm biến (mm), và <strong>f</strong> là tiêu cự (mm).
+            </p>
+          </div>
+
           <p>Khi tiêu cự ngắn (ví dụ 16mm), tâm quang học rất gần cảm biến, ánh sáng bẻ cong ở góc rất rộng để hội tụ lại cảm biến. Kết quả ta có góc nhìn rộng (Field of View lớn). Ngược lại, khi tiêu cự dài (ví dụ 135mm), khoảng cách xa làm góc đón sáng hẹp lại, ta có góc nhìn hẹp nhưng phóng đại vật thể ở xa.</p>
+
+          <p><strong>Hệ số Crop & Tiêu cự tương đương:</strong> Do kích thước cảm biến vật lý khác nhau, cùng một ống kính tiêu cự $f$ sẽ cho góc nhìn khác nhau trên các máy ảnh khác nhau. Để dễ so sánh, chúng ta quy đổi về "tiêu cự tương đương Full-frame" bằng cách nhân tiêu cự vật lý với <em>Hệ số Crop</em> (Crop Factor = 36mm / chiều rộng cảm biến mới):</p>
+          
+          <table class="comparison-table" style="margin: var(--space-md) 0 var(--space-lg); width: 100%;">
+            <thead>
+              <tr>
+                <th>Cảm biến</th>
+                <th>Kích thước (Rộng x Cao)</th>
+                <th>Hệ số Crop</th>
+                <th>Góc nhìn của lens 35mm</th>
+                <th>Tiêu cự tương đương</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Full-Frame</strong> (Chuẩn 35mm)</td>
+                <td>36.0 x 24.0 mm</td>
+                <td>1.0x (Gốc)</td>
+                <td>~63.4°</td>
+                <td>35mm</td>
+              </tr>
+              <tr>
+                <td><strong>APS-C (Sony/Fuji/Nikon)</strong></td>
+                <td>23.6 x 15.6 mm</td>
+                <td>1.5x</td>
+                <td>~45.7°</td>
+                <td>52.5mm (Tiêu chuẩn)</td>
+              </tr>
+              <tr>
+                <td><strong>APS-C (Canon - R50)</strong></td>
+                <td>22.3 x 14.9 mm</td>
+                <td>1.6x</td>
+                <td>~43.1°</td>
+                <td>56.0mm (Chân dung nhẹ)</td>
+              </tr>
+              <tr>
+                <td><strong>Micro Four Thirds</strong></td>
+                <td>17.3 x 13.0 mm</td>
+                <td>2.0x</td>
+                <td>~34.0°</td>
+                <td>70.0mm (Tele ngắn)</td>
+              </tr>
+              <tr>
+                <td><strong>Smartphone (Cảm biến 1/1.7")</strong></td>
+                <td>7.6 x 5.7 mm</td>
+                <td>~4.7x</td>
+                <td>~12.4°</td>
+                <td>165.0mm (Tele dài)</td>
+              </tr>
+            </tbody>
+          </table>
 
           <div class="lab-note-block">
             <h5>Ghi chú phòng thí nghiệm [OPTICS-01]</h5>
@@ -78,7 +139,8 @@
           <p>Tiêu cự 35mm (góc nhìn ~63 độ) là tiêu cự vàng của nhiếp ảnh báo chí, phóng sự và đời thường. Nó đủ rộng để bạn chụp lấy cả chủ thể lẫn bối cảnh xung quanh (environmental portrait), nhưng đủ hẹp để người xem nhận biết ngay đâu là trung tâm của câu chuyện. Ảnh chụp bằng 35mm tạo cho người xem cảm giác họ đang trực tiếp đứng trong căn phòng đó cùng nhân vật.</p>
 
           <h3>3. 50mm — Sự Thật Cận Cảnh (The Classic Observer)</h3>
-          <p>Tiêu cự 50mm (~47 độ) được gọi là ống kính tiêu chuẩn vì phối cảnh của nó gần như trùng khớp hoàn hảo với trường nhìn tập trung của mắt người. Ảnh 50mm không méo, không nén giả tạo. Nó thể hiện đúng sự thật, đem lại cảm giác tự nhiên, mộc mạc và chân thành nhất.</p>
+          <p>Tiêu cự 50mm (~47 độ) được gọi là ống kính tiêu chuẩn vì phối cảnh của nó gần như trùng khớp hoàn hảo với trường nhìn tập trung của mắt người (khoảng 40° đến 50° không bao gồm tầm nhìn ngoại biên). Ảnh 50mm không méo hình, không nén giả tạo. Nó thể hiện đúng sự thật, mang lại cảm giác tự nhiên, mộc mạc và chân thành nhất.</p>
+          <p><strong>Lịch sử & Huyền thoại Henri Cartier-Bresson:</strong> Vào những năm 1930, cha đẻ của nhiếp ảnh báo chí hiện đại Henri Cartier-Bresson đã định hình phong cách cá nhân của mình gắn liền duy nhất với tiêu cự 50mm trên chiếc máy ảnh Leica rangefinder. Đối với ông, 50mm không chỉ là một thông số kỹ thuật, nó là phần mở rộng trực tiếp của con mắt người chụp. Ông từng viết rằng các tiêu cự khác quá kịch tính hoặc quá tách biệt, chỉ có 50mm mới giữ được sự tôn trọng tuyệt đối với hiện thực đời thường ("The Decisive Moment" - Khoảnh khắc quyết định).</p>
 
           <h3>4. 85mm — Bức Chân Dung Siêu Thực (The Portrait Alchemist)</h3>
           <p>Tiêu cự 85mm (~28 độ) là tiêu chuẩn vàng của chụp chân dung. Nó nén nhẹ hậu cảnh, kéo phông nền sát lại gần chủ thể hơn, đồng thời xóa mờ tịt phông nền nhờ DoF mỏng. Tỉ lệ khuôn mặt ở 85mm trông thon gọn, thanh tú và sang trọng hơn hẳn ngoài đời thực.</p>

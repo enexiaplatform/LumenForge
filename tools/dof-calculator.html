@@ -31,7 +31,7 @@
     }
     .dof-zone-sharp {
       height: 100%;
-      background: rgba(0, 212, 170, 0.15);
+      background: rgba(0, 212, 170, 0.12);
       border-left: 2px dashed var(--accent-cyan);
       border-right: 2px dashed var(--accent-cyan);
       position: absolute;
@@ -66,6 +66,23 @@
       transform: translateX(-50%);
       white-space: nowrap;
     }
+    .dof-sharp-float {
+      position: absolute;
+      top: -28px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      transform: translateX(-50%);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0, 212, 170, 0.15);
+      transition: left 0.1s ease;
+    }
     .dof-labels {
       display: flex;
       justify-content: space-between;
@@ -75,6 +92,21 @@
       color: var(--text-dim);
       margin-top: -12px;
       margin-bottom: var(--space-lg);
+    }
+    .dof-svg-container {
+      width: 100%;
+      height: 240px;
+      background: #0E0D14;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      position: relative;
+      margin-bottom: var(--space-lg);
+      overflow: hidden;
+    }
+    .dof-svg-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
   </style>
 </head>
@@ -113,21 +145,33 @@
         
         <!-- Live Depth map Visualization -->
         <h4 style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); margin-bottom: 24px; text-transform:uppercase; letter-spacing:0.08em;">
+          SƠ ĐỒ HỘI TỤ QUANG HỌC (OPTICAL RAY PATH SIMULATION)
+        </h4>
+        
+        <div class="dof-svg-container">
+          <svg id="dof-optical-svg" viewBox="0 0 800 240"></svg>
+        </div>
+
+        <h4 style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); margin-top: 32px; margin-bottom: 35px; text-transform:uppercase; letter-spacing:0.08em;">
           BẢN ĐỒ VÙNG SẮC NÉT (SHARP VS BLUR MAP)
         </h4>
-        <div style="position:relative; margin-top:20px;">
+
+        <div style="position:relative; margin-top:40px;">
+          <!-- Floating indicator for DOF -->
+          <div class="dof-sharp-float" id="dof-sharp-float" style="left: 25%;">VÙNG NÉT: CƠ BẢN</div>
+
           <div class="dof-subject-marker" id="dof-marker" style="left: 40%;">
             <div class="dof-subject-label" id="dof-label">CHỦ THỂ (1.5m)</div>
           </div>
-          <div class="dof-visualizer">
+          <div class="dof-visualizer" style="height: 36px; margin: 8px 0 var(--space-lg);">
             <div class="dof-zone-blur-front" id="dof-blur-front" style="width: 25%;"></div>
-            <div class="dof-zone-sharp" id="dof-sharp" style="left: 25%; width: 30%;">VÙNG NÉT: 15cm</div>
+            <div class="dof-zone-sharp" id="dof-sharp" style="left: 25%; width: 30%;"></div>
             <div class="dof-zone-blur-back" id="dof-blur-back" style="left: 55%; width: 45%;"></div>
           </div>
         </div>
         <div class="dof-labels">
           <span>Ống kính (0.0m)</span>
-          <span>Hậu cảnh xa (5m+)</span>
+          <span>Hậu cảnh xa (10m+)</span>
         </div>
 
         <!-- Inputs Controls -->

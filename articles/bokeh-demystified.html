@@ -60,6 +60,16 @@
           <h2>Bản Chất Vật Lý: Vòng Tròn Nhòe (Circle of Confusion)</h2>
           <p>Khi một thấu kính lấy nét vào một điểm ở khoảng cách nhất định, chỉ những điểm sáng nằm đúng trên mặt phẳng nét (focus plane) mới hội tụ thành các điểm cực nhỏ, sắc nét trên cảm biến. Những điểm sáng nằm trước hoặc sau mặt phẳng nét này sẽ không hội tụ thành điểm, mà chiếu lên cảm biến dưới dạng những hình tròn nhỏ.</p>
           
+          <p>Đường kính của vòng tròn nhòe ($c$) chiếu trên cảm biến đối với một điểm sáng nằm ở khoảng cách hậu cảnh $D_{bg}$ khi ống kính lấy nét ở khoảng cách chủ thể $s$ được tính bằng công thức quang học:</p>
+          <div class="lab-note-block" style="text-align: center; border-left-color: var(--accent-cyan); padding: var(--space-md);">
+            <p style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-cyan); margin: 8px 0;">
+              c = A &middot; \frac{f \cdot |s - D_{bg}|}{D_{bg} \cdot (s - f)}
+            </p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0;">
+              Trong đó: <strong>c</strong> là đường kính vòng tròn nhòe trên cảm biến, <strong>A</strong> là đường kính lỗ mở khẩu độ ($f/N$), <strong>f</strong> là tiêu cự và <strong>s</strong> là khoảng cách lấy nét.
+            </p>
+          </div>
+
           <p>Những hình tròn này được gọi là **Vòng tròn nhòe (Circle of Confusion)**. Khi chúng chồng chéo lên nhau hàng triệu lần ở vùng hậu cảnh ngoài khoảng nét, chúng tạo ra hiệu ứng nhòe mềm mại mà chúng ta gọi là Bokeh. Kích thước và độ mượt của vòng tròn này phụ thuộc vào khẩu độ ống kính, tiêu cự, và khoảng cách tương đối giữa máy ảnh, chủ thể và hậu cảnh.</p>
 
           <div class="lab-note-block">
@@ -74,6 +84,10 @@
           <ul>
             <li><strong>Lá khẩu thẳng vs Lá khẩu cong:</strong> Ống kính đời cũ thường dùng các lá khẩu thẳng, khi khép khẩu sẽ tạo ra các đốm bokeh hình đa giác (lục giác, bát giác). Ống kính hiện đại dùng lá khẩu cong giúp giữ lỗ khẩu tròn trịa hơn ngay cả khi khép khẩu, tạo bokeh bong bóng tròn mịn màng.</li>
             <li><strong>Số lượng lá khẩu:</strong> Ống kính có 9 lá khẩu cong sẽ cho bokeh tròn đẹp hơn nhiều so với ống kính chỉ có 7 hoặc 5 lá khẩu thẳng.</li>
+            <li><strong>Hiện tượng Quang sai cầu (Spherical Aberration):</strong> Đây là hiện tượng các tia sáng đi qua rìa thấu kính hội tụ tại một điểm khác so với các tia sáng đi qua tâm thấu kính. Điều này thay đổi phân phối ánh sáng trong vòng tròn nhòe:
+              <br>- <em>Quang sai cầu thiếu (Under-corrected):</em> Cho ra đốm bokeh có rìa mềm mịn và tâm sáng, cực kỳ êm ái (thường thấy trên lens chân dung đắt tiền).
+              <br>- <em>Quang sai cầu thừa (Over-corrected):</em> Cho ra đốm bokeh có viền sáng cứng bao quanh giống như bong bóng xà phòng (bubble bokeh) - rất độc đáo nhưng có thể gây "rối mắt" ở hậu cảnh.
+            </li>
             <li><strong>Hiệu ứng "Mắt mèo" (Cat's Eye Bokeh):</strong> Càng gần rìa ảnh, các đốm bokeh tròn có xu hướng bị nén dẹt lại giống hình mắt mèo hoặc lát chanh. Đây là hiện tượng chặn sáng cơ học (mechanical vignetting) tự nhiên của thân ống kính. Một số người coi đây là khuyết điểm, nhưng nhiều nghệ sĩ lại tận dụng nó để tạo ra hiệu ứng bokeh xoáy đầy mê hoặc (swirly bokeh) đặc trưng của các dòng lens cổ như Helios.</li>
           </ul>
 
@@ -113,6 +127,17 @@
           <p>Nhiếp ảnh gia thực thụ không chỉ xóa phông để triệt tiêu hậu cảnh, họ thiết kế hậu cảnh bằng Bokeh. Hãy chú ý đến cấu trúc màu sắc phía sau chủ thể. Đèn đường buổi tối, ánh nắng xuyên qua tán lá tạo ra những đốm sáng lung linh (bokeh highlight) bổ trợ đắc lực cho tâm trạng của khuôn hình.</p>
           
           <p>Khi chụp chân dung đời thường, hãy thử khép khẩu về f/2.8 hoặc f/4. Bạn sẽ ngạc nhiên khi thấy bức ảnh của mình có chiều sâu câu chuyện hơn hẳn, vì người xem có thể nhìn thấy lờ mờ kiến trúc cổ kính hay nét văn hóa phố phường đằng sau khuôn mặt nhân vật.</p>
+
+          <div class="lab-note-block" style="border-left-color: var(--accent-amber); background: rgba(245, 166, 35, 0.04); margin-top: var(--space-lg);">
+            <h5>🛠️ Thực hành Hậu kỳ: Giả lập Bokeh xoáy & Làm mềm phông bằng Radial Mask</h5>
+            <p>Nếu ống kính của bạn không có bokeh xoáy tự nhiên, bạn có thể tạo hiệu ứng này trong Lightroom hoặc Photoshop bằng các bước sau:</p>
+            <ol style="margin-left: 16px; margin-top: 8px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+              <li>Tạo một <strong>Radial Mask (Mặt nạ hình tròn)</strong> bao quanh chủ thể, đảo ngược vùng chọn (Invert) để mặt nạ chỉ tác động lên hậu cảnh.</li>
+              <li>Giảm thông số <strong>Texture (-15)</strong> và <strong>Clarity (-10)</strong> để làm mềm thô ráp của hậu cảnh, tạo cảm giác mờ ảo tương tự thấu kính cổ.</li>
+              <li>Tăng thông số <strong>Sharpness (+10)</strong> nhưng đặt kích thước <strong>Noise Reduction (+15)</strong> để giảm chi tiết gai nhiễu điện tử trong vùng tối.</li>
+              <li>Trong Photoshop, nhân đôi layer và sử dụng bộ lọc <strong>Filter > Blur > Radial Blur</strong> (chọn chế độ Spin, cường độ thấp 3-5) để xoay nhẹ hậu cảnh quanh tâm chủ thể, tạo hiệu ứng bokeh xoáy mắt mèo huyền thoại.</li>
+            </ol>
+          </div>
 
         </article>
 
