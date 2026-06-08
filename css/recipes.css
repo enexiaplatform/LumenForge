@@ -113,7 +113,7 @@
 }
 
 .recipe-card-desc {
-  font-size: 0.86rem;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.6;
   flex-grow: 1;
@@ -132,7 +132,7 @@
 .recipe-card-meta .meta-item {
   display: flex;
   justify-content: space-between;
-  font-size: 0.76rem;
+  font-size: var(--text-xs);
   line-height: 1.4;
 }
 
@@ -358,7 +358,7 @@
 }
 
 .recipe-spec-list li {
-  font-size: 0.88rem;
+  font-size: var(--text-base);
   color: var(--text-secondary);
   line-height: 1.6;
   position: relative;

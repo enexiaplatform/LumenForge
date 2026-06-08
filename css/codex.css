@@ -176,7 +176,7 @@
 }
 
 .codex-card p {
-  font-size: 0.88rem;
+  font-size: var(--text-sm);
   color: var(--text-secondary);
   line-height: 1.6;
   flex-grow: 1;
@@ -449,7 +449,7 @@
 }
 
 .metadata-item span {
-  font-size: 0.85rem;
+  font-size: var(--text-sm);
   color: var(--text-primary);
 }
 
@@ -460,7 +460,7 @@
 
 .codex-back-link a {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   color: var(--text-secondary);
   text-decoration: none;
   display: inline-flex;

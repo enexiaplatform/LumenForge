@@ -68,9 +68,6 @@
      2. SCROLL ANIMATIONS (IntersectionObserver)
      -------------------------------------------------------- */
   function initScrollAnimations() {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    if (!elements.length) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
@@ -81,12 +78,39 @@
         });
       },
       {
-        threshold: 0.2,
+        threshold: 0.15,
         rootMargin: '0px 0px -40px 0px'
       }
     );
 
-    elements.forEach(el => observer.observe(el));
+    // Function to observe elements under a given root
+    function observeElements(root) {
+      if (!root) return;
+      if (root.classList && root.classList.contains('animate-on-scroll')) {
+        observer.observe(root);
+      }
+      const elements = root.querySelectorAll ? root.querySelectorAll('.animate-on-scroll') : [];
+      elements.forEach(el => observer.observe(el));
+    }
+
+    // Observe initial elements
+    observeElements(document.body);
+
+    // Watch for dynamically added elements using MutationObserver
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            observeElements(node);
+          }
+        });
+      });
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
   }
 
   /* --------------------------------------------------------

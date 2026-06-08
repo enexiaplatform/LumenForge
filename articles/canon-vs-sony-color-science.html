@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khoa học Màu sắc: Canon vs Sony vs Fujifilm — LumenForge</title>
+  <meta name="description" content="Khám phá bản chất vật lý và toán học đằng sau Color Science của các hãng máy ảnh lớn. Tại sao da người trên Canon hồng hào, Sony sắc sảo và Fujifilm đầy chất thơ?">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link active">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../light-codex.html">&larr; Quay lại Quang Thư</a>
+      </div>
+      <div class="article-header-meta">
+        <span class="codex-card-tag tag-color">Khoa học Màu sắc</span>
+        <span class="read-time">9 phút đọc</span>
+      </div>
+      <h1>Canon vs Sony vs Fujifilm: Giải mã Khoa học Màu sắc</h1>
+      <p class="article-header-desc">Tại sao cùng một nguồn sáng, cùng một ống kính, ảnh chụp từ các hãng máy ảnh lại mang linh hồn màu sắc khác biệt hoàn toàn? Mổ xẻ bản chất vật lý và toán học đằng sau "Color Science".</p>
+    </div>
+  </header>
+
+  <!-- Article Body Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="article-layout">
+        
+        <!-- Main Content -->
+        <article class="article-content">
+          
+          <div class="margin-note" style="top: 80px;">[0.1]</div>
+          <p>Thuật ngữ **"Color Science" (Khoa học Màu sắc)** thường được các nhiếp ảnh gia nhắc đến như một thứ ma thuật thần bí: <i>"Canon cho da người ấm áp"</i>, <i>"Sony ảnh sắc sảo nhưng da hơi ám vàng"</i>, hay <i>"Fujifilm có màu phim thơ mộng"</i>. Nhiều người tin rằng ảnh RAW thì hãng nào cũng như nhau và chỉ cần chỉnh Lightroom là xong. Nhưng sự thật là: <strong>Color Science bắt đầu từ phần cứng vật lý của cảm biến trước khi bất kỳ phần mềm nào can thiệp</strong>. Nó là sự phối hợp phức tạp giữa kính lọc hồng ngoại (IR cut filter), ma trận lọc màu (CFA), và toán học ma trận chuyển đổi không gian màu.</p>
+
+          <div class="margin-note" style="top: 400px;">[0.2]</div>
+          <h2>1. Cốt Lõi Phần Cứng: Cảm Biến Vốn Dĩ Đều Bị Mù Màu</h2>
+          <p>Mọi cảm biến số (CMOS hay CCD) thực chất chỉ là những chiếc máy đo cường độ ánh sáng bằng silicon. Chúng không hề biết màu đỏ, xanh lá hay xanh dương là gì, chỉ biết đếm số lượng photon đập vào photodiode. Để nhận biết màu sắc, người ta phải đặt trước cảm biến một lớp kính lọc màu gọi là **Bayer Color Filter Array (CFA)**, gồm các hạt lọc màu Đỏ (Red), Xanh Lá (Green) và Xanh Dương (Blue) xếp xen kẽ (tỷ lệ 1R:2G:1B).</p>
+          
+          <p>Điều kỳ diệu nằm ở đây: **Mỗi hãng máy ảnh tự thiết kế công thức hóa học cho thuốc nhuộm (dyes) của lớp lọc màu này hoàn toàn khác nhau**:</p>
+          <ul>
+            <li>Nếu thuốc nhuộm màu xanh lá cây cho phép một chút ánh sáng đỏ đi qua (phổ phổ học trùng lặp nhiều), máy ảnh sẽ nhận diện sự chuyển tiếp màu da cực kỳ mịn màng và ấm áp, nhưng bù lại việc tách biệt giữa các màu sắc rực rỡ khác sẽ kém đi.</li>
+            <li>Nếu các bộ lọc màu được tinh lọc cực kỳ tinh khiết (phổ trùng lặp ít), máy ảnh sẽ tách biệt màu sắc vô cùng rực rỡ và chính xác về mặt kỹ thuật, nhưng màu da người dễ bị sần sùi hoặc xỉn màu.</li>
+          </ul>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [OPTICS-COLOR-01]</h5>
+            <p>"Quang phổ hấp thụ của ma trận Bayer là yếu tố phần cứng bất biến. Cho dù bạn chụp file RAW, dữ liệu quang phổ gốc đã bị lọc qua tấm ma trận này. Do đó, việc giả lập hoàn hảo màu sắc Canon trên cảm biến Sony cũ là bất khả thi về mặt vật lý nếu không có profiling 3D LUT cực kỳ phức tạp."</p>
+          </div>
+
+          <div class="margin-note" style="top: 960px;">[0.3]</div>
+          <h2>2. Canon Color Science: Triết Lý Về Sự Nịnh Mắt & Skintone Ấm Áp</h2>
+          <p>Triết lý màu sắc của Canon tập trung vào **Chủ Nghĩa Nhân Văn (Human-centric)**. Kể từ thời máy phim và những dòng DSLR huyền thoại như 5D Mark II, Canon luôn ưu tiên tái tạo da người (skintone) đẹp nhất có thể, ngay cả khi điều đó làm lệch một số màu sắc khác khỏi thực tế kỹ thuật.</p>
+          
+          <ul>
+            <li><strong>Xử lý da người:</strong> Canon thiết kế ma trận Bayer đẩy phổ màu da (vùng cam/đỏ) ngả nhẹ sang sắc hồng (magenta) thay vì ám vàng (yellow). Da người chụp bằng máy Canon trông sẽ hồng hào, khỏe mạnh, tràn đầy sức sống.</li>
+            <li><strong>Độ tương phản trung tâm:</strong> Đường cong Gamma (Gamma Curve) mặc định của Canon nâng sáng nhẹ ở vùng midtones, làm nổi bật khuôn mặt chủ thể và tạo chuyển vùng chuyển sắc từ sáng sang tối rất êm ái.</li>
+          </ul>
+
+          <div class="margin-note" style="top: 1420px;">[0.4]</div>
+          <h2>3. Sony Color Science: Triết Lý Kỹ Thuật Độ Sắc Nét & Độ Chính Xác Cao</h2>
+          <p>Trái ngược với Canon, Sony xuất phát điểm là một tập đoàn công nghệ điện tử. Triết lý màu sắc của họ ban đầu là **Sự Trung Thực Kỹ Thuật (Technical Accuracy)**:</p>
+          
+          <ul>
+            <li><strong>Tách màu tinh khiết:</strong> Bộ lọc màu trên cảm biến Sony (Exmor) được thiết kế để tách biệt dải màu cực kỳ rõ ràng, giúp Dynamic Range đạt mức tối đa và ảnh có độ sắc nét chi tiết gai góc. Tuy nhiên, điều này khiến da người dễ bị xỉn, xám hoặc ngả vàng lục dưới các nguồn sáng phức tạp.</li>
+            <li><strong>Bước tiến mới (S-Cinetone / BIONZ XR):</strong> Nhận thức được điểm yếu này, kể từ các thế hệ máy như A7 IV, A7S III, Sony đã thay đổi hoàn toàn Color Science của họ. Họ áp dụng thuật toán ma trận màu kế thừa từ dòng máy quay phim điện ảnh VENICE chuyên nghiệp, dịch chuyển tông màu ấm của da người sang sắc hồng tự nhiên hơn và dịu hóa tương phản vùng sáng (highlight roll-off).</li>
+          </ul>
+
+          <div class="margin-note" style="top: 1950px;">[0.5]</div>
+          <h2>4. Fujifilm Color Science: Di Sản Phim & Chất Thơ Nghệ Thuật</h2>
+          <p>Fujifilm là hãng duy nhất có lịch sử hơn 80 năm sản xuất phim analog (như Superia, Velvia, Astia). Họ không sử dụng ma trận Bayer thông thường mà phát triển ma trận **X-Trans** độc quyền với mô hình sắp xếp 6x6 pixel phức tạp hơn, giúp loại bỏ hiện tượng moiré mà không cần bộ lọc thông thấp (low-pass filter).</p>
+          
+          <p>Điểm đắt giá nhất của Fujifilm là hệ thống **Film Simulation (Giả lập màu phim)** được phát triển trực tiếp bởi các kỹ sư hóa học màu năm xưa:</p>
+          <ul>
+            <li><strong>Classic Chrome:</strong> Giảm độ bão hòa màu (saturation) nhưng tăng tương phản vùng tối, tạo chất màu phóng sự, tài liệu sâu lắng, trầm mặc.</li>
+            <li><strong>Astia:</strong> Dành cho chân dung với độ tương phản cực kỳ mềm mại, tôn vinh sắc da mịn màng và dịu ngọt.</li>
+            <li><strong>Velvia:</strong> Đẩy độ bão hòa màu lên cực đại, tạo những shot hình phong cảnh rực rỡ, sống động như tranh vẽ.</li>
+          </ul>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Đặc điểm</th>
+                <th>Canon</th>
+                <th>Sony (Thế hệ mới)</th>
+                <th>Fujifilm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Triết lý chủ đạo</strong></td>
+                <td>Nịnh mắt, tập trung vào con người, ấm áp.</td>
+                <td>Chi tiết sắc nét, trung thực, chuẩn điện ảnh.</td>
+                <td>Hoài niệm cổ điển, đậm chất thơ của phim ảnh.</td>
+              </tr>
+              <tr>
+                <td><strong>Tông màu da (Skintone)</strong></td>
+                <td>Hồng hào, mịn màng, che khuyết điểm da vàng.</td>
+                <td>Trung thực, trung tính, sạch sẽ.</td>
+                <td>Tự nhiên, hơi hướng nghệ thuật mềm mại.</td>
+              </tr>
+              <tr>
+                <td><strong>Màu xanh lá/Xanh dương</strong></td>
+                <td>Xanh dương đậm sâu, xanh lá thiên ấm vàng.</td>
+                <td>Xanh dương trung tính, xanh lá sắc nét rõ ràng.</td>
+                <td>Xanh lá ngả ngọc (Emerald), xanh dương cổ điển.</td>
+              </tr>
+              <tr>
+                <td><strong>Phù hợp nhất cho</strong></td>
+                <td>Chân dung, phóng sự cưới, chụp gia đình ăn liền.</td>
+                <td>Chụp thương mại, phong cảnh chi tiết cao, quay phim chuyên nghiệp.</td>
+                <td>Đời thường (Streetlife), du lịch, nghệ thuật kể chuyện.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="margin-note" style="top: 2600px;">[0.6]</div>
+          <h2>Bí Quyết Ứng Dụng Thực Tế Từ Henry</h2>
+          <p>Là một người chụp ảnh, bạn không cần phải quá trung thành tuyệt đối với màu gốc của máy ảnh. Hãy tận dụng đặc tính phần cứng của chúng:</p>
+          <ol>
+            <li><strong>Nếu bạn chụp Sony:</strong> Hãy thiết lập profile màu sáng tạo (Creative Look) là **NT (Neutral)** hoặc **PT (Portrait)** khi chụp người, hoặc sử dụng hệ màu **S-Cinetone** để da người có độ chuyển mềm mại nhất trực tiếp từ file JPEG.</li>
+            <li><strong>Nếu bạn muốn màu Canon trên máy khác:</strong> Trong phần mềm Lightroom, hãy vào mục *Camera Calibration*, tăng nhẹ thanh trượt Hue của Red Primary sang bên phải (ấm hơn) và giảm nhẹ Green Primary để bù trừ sắc hồng cho da người.</li>
+            <li><strong>Khám phá ma trận màu thực tế:</strong> Hãy tự tay xây dựng các công thức màu phim của riêng bạn dựa trên các thông số kỹ thuật tối ưu trong thư viện **Shot Recipes** của chúng tôi.</li>
+          </ol>
+
+          <p>Màu sắc là cảm xúc. Không có hãng máy ảnh nào có "màu đẹp nhất", chỉ có hãng máy ảnh hiểu được tâm lý thị giác của bạn tại khoảnh khắc bấm máy.</p>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          
+          <div class="sidebar-panel">
+            <h4>SIÊU DỮ LIỆU GHI CHÚ</h4>
+            <div class="metadata-list">
+              <div class="metadata-item">
+                <label>Mã Thí Nghiệm</label>
+                <span>EXP-COLOR-012</span>
+              </div>
+              <div class="metadata-item">
+                <label>Danh Mục</label>
+                <span>Color Science & Sensor Physics</span>
+              </div>
+              <div class="metadata-item">
+                <label>Tác Giả</label>
+                <span>Henry / LumenForge</span>
+              </div>
+              <div class="metadata-item">
+                <label>Đối Tượng Phân Tích</label>
+                <span>Bayer CFA, X-Trans, Sony Exmor, Canon Digic</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>THỬ NGHIỆM ĐỒNG HÀNH</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Khám phá cách tinh chỉnh sắc thái màu sắc bằng công cụ mô phỏng Film Look hoặc Tone Curve tại Xưởng Công cụ.</p>
+            <a href="../tools/film-look.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Vào Film Look Lab</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
+          </div>
+          <div class="footer-col">
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>
