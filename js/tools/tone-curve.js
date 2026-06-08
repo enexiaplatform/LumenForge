@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Points are stored as { input: 0-255, output: 0-255 }
   // Each channel has its own independent set of points
 
-  const POINT_NAMES = ['Blacks', 'Shadows', 'Midtones', 'Highlights', 'Whites'];
+  const POINT_NAMES = ['Vùng đen (Blacks)', 'Vùng tối (Shadows)', 'Trung tính (Midtones)', 'Vùng sáng (Highlights)', 'Vùng trắng (Whites)'];
   const DEFAULT_INPUTS = [0, 64, 128, 192, 255];
 
   function defaultPoints() {
@@ -100,13 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── Preset Definitions ───────────────────────────────────────────────
   const PRESETS = {
-    linear:  { name: 'Linear',             points: [[0,0],[64,64],[128,128],[192,192],[255,255]] },
-    matte:   { name: 'Matte Film',          points: [[0,20],[64,70],[128,130],[192,195],[255,235]] },
-    noir:    { name: 'High Contrast Noir',  points: [[0,0],[64,30],[128,128],[192,220],[255,255]] },
-    highkey: { name: 'High-Key Dreamy',     points: [[0,30],[64,90],[128,160],[192,210],[255,245]] },
-    crushed: { name: 'Crushed Shadows',     points: [[0,0],[64,10],[128,100],[192,200],[255,255]] },
-    scurve:  { name: 'S-Curve Punch',       points: [[0,0],[64,40],[128,128],[192,215],[255,255]] },
-    vintage: { name: 'Faded Vintage',       points: [[0,25],[64,55],[128,120],[192,185],[255,230]] }
+    linear:  { name: 'Tuyến tính',             points: [[0,0],[64,64],[128,128],[192,192],[255,255]] },
+    matte:   { name: 'Phim Matte',          points: [[0,20],[64,70],[128,130],[192,195],[255,235]] },
+    noir:    { name: 'Noir Tương phản cao',  points: [[0,0],[64,30],[128,128],[192,220],[255,255]] },
+    highkey: { name: 'High-Key Mơ màng',     points: [[0,30],[64,90],[128,160],[192,210],[255,245]] },
+    crushed: { name: 'Nén tối (Crushed)',     points: [[0,0],[64,10],[128,100],[192,200],[255,255]] },
+    scurve:  { name: 'Đường cong chữ S',       points: [[0,0],[64,40],[128,128],[192,215],[255,255]] },
+    vintage: { name: 'Vintage Hoài cổ',       points: [[0,25],[64,55],[128,120],[192,185],[255,230]] }
   };
 
   let currentPresetKey = 'linear';
@@ -436,7 +436,13 @@ document.addEventListener('DOMContentLoaded', () => {
     previewViewport.style.filter = 'url(#tc-curve-filter)';
 
     // Update HUD
-    hudChannel.textContent = activeChannel.charAt(0).toUpperCase() + activeChannel.slice(1);
+    const channelNames = {
+      luminance: 'Độ sáng (Luminance)',
+      red: 'Kênh Đỏ (Red)',
+      green: 'Kênh Lục (Green)',
+      blue: 'Kênh Lam (Blue)'
+    };
+    hudChannel.textContent = channelNames[activeChannel] || activeChannel;
   }
 
   // ─── Analysis Output ─────────────────────────────────────────────────
@@ -760,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function switchToCustom() {
     if (currentPresetKey === 'custom') return;
     currentPresetKey = 'custom';
-    hudCurveType.textContent = 'Custom';
+    hudCurveType.textContent = 'Tùy chỉnh';
 
     // Deselect all preset cards (none will be "custom" since there's no custom card)
     presetCards.forEach(c => {

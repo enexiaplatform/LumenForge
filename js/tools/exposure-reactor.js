@@ -24,41 +24,41 @@
 
   // Noise levels per ISO index
   const NOISE_LEVELS = [
-    { opacity: 0,    label: 'Noise: None',     cls: '' },        // ISO 100
-    { opacity: 0.04, label: 'Noise: Low',       cls: '' },        // ISO 200
-    { opacity: 0.10, label: 'Noise: Low',       cls: '' },        // ISO 400
-    { opacity: 0.18, label: 'Noise: Moderate',  cls: 'warn' },    // ISO 800
-    { opacity: 0.30, label: 'Noise: Visible',   cls: 'warn' },    // ISO 1600
-    { opacity: 0.45, label: 'Noise: High',      cls: 'danger' },  // ISO 3200
-    { opacity: 0.60, label: 'Noise: Very High', cls: 'danger' },  // ISO 6400
-    { opacity: 0.75, label: 'Noise: Extreme',   cls: 'danger' },  // ISO 12800
+    { opacity: 0,    label: 'Nhiễu: Không',     cls: '' },        // ISO 100
+    { opacity: 0.04, label: 'Nhiễu: Thấp',       cls: '' },        // ISO 200
+    { opacity: 0.10, label: 'Nhiễu: Thấp',       cls: '' },        // ISO 400
+    { opacity: 0.18, label: 'Nhiễu: Trung bình',  cls: 'warn' },    // ISO 800
+    { opacity: 0.30, label: 'Nhiễu: Rõ rệt',   cls: 'warn' },    // ISO 1600
+    { opacity: 0.45, label: 'Nhiễu: Cao',      cls: 'danger' },  // ISO 3200
+    { opacity: 0.60, label: 'Nhiễu: Rất cao', cls: 'danger' },  // ISO 6400
+    { opacity: 0.75, label: 'Nhiễu: Cực hạn',   cls: 'danger' },  // ISO 12800
   ];
 
   // Motion labels per shutter index
   const MOTION_LEVELS = [
-    { blur: true,  label: 'Motion: Heavy Blur',  motionLabel: '⚠ HEAVY MOTION BLUR', cls: 'danger' },  // 1"
-    { blur: true,  label: 'Motion: Heavy Blur',  motionLabel: '⚠ HEAVY MOTION BLUR', cls: 'danger' },  // 1/2
-    { blur: true,  label: 'Motion: Blur Risk',   motionLabel: '⚠ MOTION BLUR',       cls: 'danger' },  // 1/4
-    { blur: true,  label: 'Motion: Blur Risk',   motionLabel: '⚠ MOTION BLUR',       cls: 'warn' },    // 1/8
-    { blur: true,  label: 'Motion: Slight Blur', motionLabel: '△ SLIGHT BLUR',       cls: 'warn' },    // 1/15
-    { blur: true,  label: 'Motion: Slight Blur', motionLabel: '△ SLIGHT BLUR',       cls: 'warn' },    // 1/30
-    { blur: false, label: 'Motion: Sharp',       motionLabel: '',                     cls: '' },        // 1/60
-    { blur: false, label: 'Motion: Sharp',       motionLabel: '',                     cls: '' },        // 1/125
-    { blur: false, label: 'Motion: Frozen',      motionLabel: '',                     cls: '' },        // 1/250
-    { blur: false, label: 'Motion: Frozen',      motionLabel: '',                     cls: '' },        // 1/500
-    { blur: false, label: 'Motion: Frozen',      motionLabel: '',                     cls: '' },        // 1/1000
+    { blur: true,  label: 'Cử động: Nhòe mạnh',  motionLabel: '⚠ NHÒE CHUYỂN ĐỘNG MẠNH', cls: 'danger' },  // 1"
+    { blur: true,  label: 'Cử động: Nhòe mạnh',  motionLabel: '⚠ NHÒE CHUYỂN ĐỘNG MẠNH', cls: 'danger' },  // 1/2
+    { blur: true,  label: 'Cử động: Nguy cơ nhòe',   motionLabel: '⚠ NHÒE CHUYỂN ĐỘNG',       cls: 'danger' },  // 1/4
+    { blur: true,  label: 'Cử động: Nguy cơ nhòe',   motionLabel: '⚠ NHÒE CHUYỂN ĐỘNG',       cls: 'warn' },    // 1/8
+    { blur: true,  label: 'Cử động: Nhòe nhẹ', motionLabel: '△ NHÒE NHẸ',       cls: 'warn' },    // 1/15
+    { blur: true,  label: 'Cử động: Nhòe nhẹ', motionLabel: '△ NHÒE NHẸ',       cls: 'warn' },    // 1/30
+    { blur: false, label: 'Cử động: Sắc nét',       motionLabel: '',                     cls: '' },        // 1/60
+    { blur: false, label: 'Cử động: Sắc nét',       motionLabel: '',                     cls: '' },        // 1/125
+    { blur: false, label: 'Cử động: Đóng băng',      motionLabel: '',                     cls: '' },        // 1/250
+    { blur: false, label: 'Cử động: Đóng băng',      motionLabel: '',                     cls: '' },        // 1/500
+    { blur: false, label: 'Cử động: Đóng băng',      motionLabel: '',                     cls: '' },        // 1/1000
   ];
 
   // DOF labels per aperture index
   const DOF_LEVELS = [
-    { label: 'DOF: Very Shallow', cls: '' },      // f/1.4
-    { label: 'DOF: Shallow',      cls: '' },      // f/1.8
-    { label: 'DOF: Shallow',      cls: '' },      // f/2.8
-    { label: 'DOF: Medium',       cls: '' },      // f/4
-    { label: 'DOF: Medium-Deep',  cls: '' },      // f/5.6
-    { label: 'DOF: Deep',         cls: '' },      // f/8
-    { label: 'DOF: Very Deep',    cls: 'warn' },  // f/11
-    { label: 'DOF: Max (Diffraction)', cls: 'warn' }, // f/16
+    { label: 'DOF: Cực mỏng', cls: '' },      // f/1.4
+    { label: 'DOF: Mỏng',      cls: '' },      // f/1.8
+    { label: 'DOF: Mỏng',      cls: '' },      // f/2.8
+    { label: 'DOF: Trung bình',       cls: '' },      // f/4
+    { label: 'DOF: Trung bình - Sâu',  cls: '' },      // f/5.6
+    { label: 'DOF: Sâu',         cls: '' },      // f/8
+    { label: 'DOF: Rất sâu',    cls: 'warn' },  // f/11
+    { label: 'DOF: Cực sâu (Nhiễu xạ)', cls: 'warn' }, // f/16
   ];
 
   // === DOM Elements ===

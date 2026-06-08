@@ -45,19 +45,19 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 'xf-27-28', name: 'XF 27mm f/2.8 R WR (Pancake)' }
     ],
     'iphone-15pro': [
-      { id: 'iphone-ultra', name: 'Ultra Wide Camera (0.5x - 13mm equivalent)' },
-      { id: 'iphone-main', name: 'Main Camera (1x - 24mm equivalent)' },
-      { id: 'iphone-tele', name: 'Telephoto Camera (3x - 77mm equivalent)' }
+      { id: 'iphone-ultra', name: 'Camera Góc Siêu Rộng (0.5x - tương đương 13mm)' },
+      { id: 'iphone-main', name: 'Camera Chính (1x - tương đương 24mm)' },
+      { id: 'iphone-tele', name: 'Camera Telephoto (3x - tương đương 77mm)' }
     ],
     'samsung-s24': [
-      { id: 'samsung-ultra', name: 'Ultra Wide Camera (0.6x - 13mm equivalent)' },
-      { id: 'samsung-main', name: 'Main Camera (1x - 24mm equivalent)' },
-      { id: 'samsung-tele-3x', name: 'Telephoto Camera (3x - 67mm equivalent)' },
-      { id: 'samsung-tele-5x', name: 'Telephoto Camera (5x - 111mm equivalent)' }
+      { id: 'samsung-ultra', name: 'Camera Góc Siêu Rộng (0.6x - tương đương 13mm)' },
+      { id: 'samsung-main', name: 'Camera Chính (1x - tương đương 24mm)' },
+      { id: 'samsung-tele-3x', name: 'Camera Telephoto (3x - tương đương 67mm)' },
+      { id: 'samsung-tele-5x', name: 'Camera Telephoto (5x - tương đương 111mm)' }
     ]
   };
 
-  // === Crop Factor Database ===
+  // === Cơ sở dữ liệu Hệ số Crop ===
   const cameraSpecs = {
     'canon-r50': { name: 'Canon EOS R50', crop: 1.6, type: 'APS-C' },
     'canon-r6ii': { name: 'Canon EOS R6 II', crop: 1.0, type: 'Full-frame' },
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     // Smartphone Cameras (Universal representations)
     'iphone-main': {
-      name: 'Smartphone Main Camera (1x - 24mm equivalent)',
+      name: 'Camera Chính Smartphone (1x - tương đương 24mm)',
       focalLength: 24,
       maxAperture: 'f/1.8',
       personality: 'Người Ghi Chép Thời Đại (The Instant Chronicler)',
@@ -473,6 +473,25 @@ document.addEventListener('DOMContentLoaded', () => {
       eqFocalText = `Tương đương ~${eqFocal}mm trên cảm biến Full-frame (Hệ số nhân crop: ${cameraInfo.crop}x)`;
     }
 
+    // Purpose and style mappings
+    const purposeNames = {
+      'portrait': 'Chân dung',
+      'travel': 'Du lịch',
+      'food': 'Đồ ăn',
+      'product': 'Sản phẩm',
+      'street': 'Đường phố',
+      'avatar': 'Ảnh đại diện'
+    };
+    const styleNames = {
+      'cinematic': 'Điện ảnh',
+      'clean': 'Trong trẻo',
+      'film': 'Màu phim',
+      'luxury': 'Sang trọng',
+      'vintage': 'Cổ điển',
+      'japanese': 'Nhật Bản',
+      'moody': 'Trầm tối'
+    };
+
     // Get specific pro tip based on selected purpose
     const proTipText = lensInfo.proTips[purposeVal] || lensInfo.proTips['default'] || 'Hãy luôn làm chủ ánh sáng và di chuyển nhiều hơn để tìm góc máy lý thú.';
 
@@ -495,10 +514,10 @@ document.addEventListener('DOMContentLoaded', () => {
           </ul>
         </div>
         <div class="output-card">
-          <h4>⚙️ Setup gợi ý (${purposeVal.toUpperCase()})</h4>
+          <h4>⚙️ Setup gợi ý (${purposeNames[purposeVal] || purposeVal})</h4>
           <p><strong>Khẩu độ lý tưởng:</strong> ${lensInfo.maxAperture === 'f/1.4' || lensInfo.maxAperture === 'f/1.8' ? 'Mở lớn f/1.8 - f/2.5' : 'Mở tối đa của lens'} để xóa phông, hoặc khép f/5.6 - f/8 để nét sâu phong cảnh.</p>
           <p><strong>Khoảng cách chụp:</strong> ${purposeVal === 'portrait' || purposeVal === 'avatar' ? '1.5m - 2.5m (Đảm bảo tỷ lệ mặt cân đối)' : 'Tùy biến linh hoạt theo bối cảnh'}.</p>
-          <p><strong>Phong cách ứng dụng:</strong> Phù hợp hoàn hảo với mood màu <strong>${styleVal.toUpperCase()}</strong> nhờ kết cấu hình ảnh trong trẻo.</p>
+          <p><strong>Phong cách ứng dụng:</strong> Phù hợp hoàn hảo với mood màu <strong>${styleNames[styleVal] || styleVal}</strong> nhờ kết cấu hình ảnh trong trẻo.</p>
         </div>
         <div class="output-card">
           <h4>⚠️ Lỗi thường gặp</h4>
@@ -507,8 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
           </ul>
         </div>
         <div class="output-card">
-          <h4>🎨 Visual Personality (${styleVal.toUpperCase()})</h4>
-          <p>Sự kết hợp giữa ống kính này và style <strong>${styleVal}</strong> mang lại nét đặc trưng: ${getStyleDescription(styleVal, lensInfo.name)}</p>
+          <h4>🎨 Cá tính Thị giác (${styleNames[styleVal] || styleVal})</h4>
+          <p>Sự kết hợp giữa ống kính này và phong cách <strong>${styleNames[styleVal] || styleVal}</strong> mang lại nét đặc trưng: ${getStyleDescription(styleVal, lensInfo.name)}</p>
         </div>
         <div class="output-card pro-tip">
           <h4>💡 Pro Tip của Henry</h4>

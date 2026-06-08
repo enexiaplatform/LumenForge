@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Exposure Reactor — LumenForge</title>
+  <title>Mô phỏng Phơi sáng — LumenForge</title>
   <meta name="description" content="Interactive exposure triangle playground. Kéo thanh, xem ảnh thay đổi — học ISO, Shutter Speed, Aperture bằng trực giác.">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/tools.css">
@@ -18,21 +18,21 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
-        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
-        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
-        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
-        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
       </div>
     </div>
   </nav>
 
   <!-- Tool Hero -->
   <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">← Back to Tool Lab</a></p>
+    <p class="tool-back"><a href="../tool-lab.html">← Quay lại Xưởng Công cụ</a></p>
     <p class="section-label">[TOOL 04]</p>
-    <h1>The Exposure Reactor</h1>
+    <h1>Mô phỏng Phơi sáng</h1>
     <p class="tool-hero-desc">Kéo thanh, xem ảnh thay đổi. Học tam giác phơi sáng bằng trực giác.</p>
   </section>
 
@@ -56,7 +56,7 @@
           <div class="exposure-overlay-brightness" id="overlay-brightness"></div>
           <div class="exposure-overlay-noise" id="overlay-noise"></div>
           <div class="exposure-overlay-motion" id="overlay-motion">
-            <span class="motion-label" id="motion-label">MOTION BLUR</span>
+            <span class="motion-label" id="motion-label">NHÒE CHUYỂN ĐỘNG</span>
           </div>
           <div class="exposure-overlay-dof" id="overlay-dof"></div>
 
@@ -67,19 +67,19 @@
         <!-- 3 Sliders -->
         <div class="exposure-controls">
           <div class="exposure-slider-group">
-            <label for="iso-slider">ISO</label>
+            <label for="iso-slider">ISO (ĐỘ NHẠY SÁNG)</label>
             <input type="range" class="tool-slider" id="iso-slider" min="0" max="7" value="1" step="1">
             <span class="slider-value" id="iso-value">200</span>
             <span class="slider-effect" id="iso-effect">Noise: Low</span>
           </div>
           <div class="exposure-slider-group">
-            <label for="shutter-slider">SHUTTER SPEED</label>
+            <label for="shutter-slider">TỐC ĐỘ MÀN TRẬP (SHUTTER SPEED)</label>
             <input type="range" class="tool-slider" id="shutter-slider" min="0" max="10" value="6" step="1">
             <span class="slider-value" id="shutter-value">1/125</span>
             <span class="slider-effect" id="shutter-effect">Motion: Sharp</span>
           </div>
           <div class="exposure-slider-group">
-            <label for="aperture-slider">APERTURE</label>
+            <label for="aperture-slider">KHẨU ĐỘ (APERTURE)</label>
             <input type="range" class="tool-slider" id="aperture-slider" min="0" max="7" value="3" step="1">
             <span class="slider-value" id="aperture-value">f/4</span>
             <span class="slider-effect" id="aperture-effect">DOF: Medium</span>
@@ -92,9 +92,9 @@
             <div class="ev-meter-indicator" id="ev-indicator"></div>
           </div>
           <div class="ev-meter-labels">
-            <span>-3 Under</span>
-            <span>Correct</span>
-            <span>+3 Over</span>
+            <span>-3 Thiếu sáng</span>
+            <span>Chuẩn</span>
+            <span>+3 Quá sáng</span>
           </div>
         </div>
 
@@ -127,26 +127,26 @@
       <div class="footer-content">
         <div class="footer-brand">
           <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Explore</h4>
-            <a href="../light-codex.html">Light Codex</a>
-            <a href="../tool-lab.html">Tool Lab</a>
-            <a href="../shot-recipes.html">Shot Recipes</a>
-            <a href="../gear-map.html">Gear Map</a>
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
           </div>
           <div class="footer-col">
-            <h4>Tools</h4>
-            <a href="lens-decoder.html">Lens Decoder</a>
-            <a href="exposure-reactor.html">Exposure Reactor</a>
-            <a href="film-look.html">Film Look Generator</a>
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 LumenForge. Built by Henry.</p>
+        <p>© 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
       </div>
     </div>
   </footer>

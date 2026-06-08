@@ -124,6 +124,15 @@ button {
   --space-24: 96px;
   --space-32: 128px;
 
+  /* — Semantic Spacing — */
+  --space-xs: var(--space-2);
+  --space-sm: var(--space-3);
+  --space-md: var(--space-4);
+  --space-lg: var(--space-6);
+  --space-xl: var(--space-8);
+  --space-2xl: var(--space-12);
+  --space-3xl: var(--space-16);
+
   /* — Border Radius — */
   --radius-sm: 6px;
   --radius-md: 12px;
@@ -136,6 +145,7 @@ button {
   --transition-fast: 0.15s var(--ease-default);
   --transition-base: 0.3s var(--ease-default);
   --transition-slow: 0.6s var(--ease-default);
+  --transition: all var(--transition-base);
 
   /* — Shadows — */
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);

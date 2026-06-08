@@ -39,19 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
     valAngle.textContent = `${angleDeg}°`;
 
     // Category Label & Color Scheme
-    let category = 'Standard';
+    let category = 'Tiêu chuẩn';
     let labelColor = 'var(--accent-amber)';
     if (eqFocal < 24) {
-      category = 'Ultra-Wide';
+      category = 'Góc siêu rộng (Ultra-Wide)';
       labelColor = 'var(--accent-cyan)';
     } else if (eqFocal < 35) {
-      category = 'Wide Angle';
+      category = 'Góc rộng (Wide Angle)';
       labelColor = 'var(--accent-cyan)';
     } else if (eqFocal >= 70 && eqFocal < 135) {
-      category = 'Telephoto';
+      category = 'Viễn kính (Telephoto)';
       labelColor = 'var(--accent-film)';
     } else if (eqFocal >= 135) {
-      category = 'Super Tele';
+      category = 'Siêu Tele (Super Tele)';
       labelColor = 'var(--accent-purple)';
     }
     valCategory.textContent = category;
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
       warningText.setAttribute('font-family', 'var(--font-mono)');
       warningText.setAttribute('font-size', '14');
       warningText.setAttribute('text-anchor', 'middle');
-      warningText.textContent = '[ SUBJECT TOO CLOSE / EXTREME CROP ]';
+      warningText.textContent = '[ CHỦ THỂ QUÁ GẦN / CẬN CẢNH CỰC ĐẠI ]';
       fovSvg.appendChild(warningText);
     }
 

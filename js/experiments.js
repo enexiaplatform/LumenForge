@@ -6,8 +6,8 @@ const experimentData = {
   'exp-001': {
     title: 'EXP 001: Sensor Vật Lý vs AI Điện Toán (Canon R50 vs iPhone)',
     desc: 'Mổ xẻ ranh giới giữa chiều sâu quang học thực thụ của máy ảnh ống kính rời và mô phỏng mờ nền nhân tạo bằng phần mềm AI trên điện thoại cao cấp.',
-    beforeLabel: 'CANON R50 OPTICAL (f/1.8)',
-    afterLabel: 'IPHONE PRO MAX PORTRAIT AI',
+    beforeLabel: 'BÊN TRÁI: QUANG HỌC CANON R50 (f/1.8)',
+    afterLabel: 'BÊN PHẢI: AI CHÂN DUNG IPHONE PRO MAX',
     beforeHTML: `
       <div class="sim-sky-sunset"></div>
       <div class="sim-canon-bokeh">
@@ -41,8 +41,8 @@ const experimentData = {
   'exp-002': {
     title: 'EXP 002: Sự Nén Tiêu Cự (35mm vs 85mm)',
     desc: 'Thử nghiệm chứng minh cách tiêu cự dài ép chặt không gian hậu cảnh sát gần lại chủ thể, tạo ra độ nén điện ảnh vượt trội.',
-    beforeLabel: '35mm WIDE ANGLE VIEW',
-    afterLabel: '85mm TELEPHOTO COMPRESSION',
+    beforeLabel: 'BÊN TRÁI: TIÊU CỰ GÓC RỘNG 35mm',
+    afterLabel: 'BÊN PHẢI: PHỐI CẢNH NÉN TELE 85mm',
     beforeHTML: `
       <div class="sim-sky-sunset" style="background: linear-gradient(180deg, #101F30 0%, #3F72AF 100%);"></div>
       <!-- Far away small mountain -->
@@ -109,8 +109,8 @@ const experimentData = {
   'exp-004': {
     title: 'EXP 004: Khoa Học Quét Phim (Noritsu vs Frontier)',
     desc: 'So sánh chất màu ngả vàng ấm áp giữ chi tiết của máy scan Noritsu đối chọi với sắc xanh teal tươi mát tương phản mạnh của Fuji Frontier.',
-    beforeLabel: 'NORITSU SCAN (KODAK WARM & GRAINY)',
-    afterLabel: 'FRONTIER SCAN (FUJI TEAL & CONTRASTY)',
+    beforeLabel: 'BÊN TRÁI: SCAN NORITSU (KODAK ẤM & HẠT)',
+    afterLabel: 'BÊN PHẢI: SCAN FRONTIER (FUJI TEAL & TƯƠNG PHẢN)',
     beforeHTML: `
       <div class="sim-scan-noritsu"></div>
       <div class="grain-overlay"></div>
@@ -140,8 +140,8 @@ const experimentData = {
   'exp-005': {
     title: 'EXP 005: Ánh Sáng Mềm vs Ánh Sáng Cứng (Soft Light vs Hard Light)',
     desc: 'So sánh trực quan sự khác biệt giữa nguồn sáng tản rộng (softbox/trời mây) tạo bóng mềm chuyển tiếp êm ái, và nguồn sáng trực tiếp nhỏ (nắng gắt/đèn trần) tạo bóng đổ sắc nét kịch tính trên cùng một khuôn mặt.',
-    beforeLabel: 'SOFT LIGHT (DIFFUSED SOURCE)',
-    afterLabel: 'HARD LIGHT (DIRECT SOURCE)',
+    beforeLabel: 'BÊN TRÁI: ÁNH SÁNG MỀM (NGUỒN SÁNG TẢN)',
+    afterLabel: 'BÊN PHẢI: ÁNH SÁNG CỨNG (NGUỒN SÁNG TRỰC TIẾP)',
     beforeHTML: `
       <div class="sim-soft-light-bg"></div>
       <!-- Soft shadow: very gradual, wide penumbra -->
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Render Lab Notes
       detailsContainer.innerHTML = `
-        <span class="gearmap-step-num">[ EXPERIMENT LOG ]</span>
+        <span class="gearmap-step-num">[ NHẬT KÝ THỬ NGHIỆM ]</span>
         <h2 style="font-size: 1.5rem; color: var(--text-primary); margin-top: 8px;">${data.title}</h2>
         <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">
           ${data.desc}

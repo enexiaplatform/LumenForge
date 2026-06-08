@@ -436,6 +436,31 @@ const shotRecipes = [
 
 // === Rendering Logic ===
 document.addEventListener('DOMContentLoaded', () => {
+  const editingKeysMap = {
+    exposure: 'Phơi sáng (Exposure)',
+    contrast: 'Tương phản (Contrast)',
+    highlights: 'Cực sáng (Highlights)',
+    shadows: 'Vùng tối (Shadows)',
+    whites: 'Sắc trắng (Whites)',
+    blacks: 'Sắc đen (Blacks)',
+    texture: 'Độ chi tiết (Texture)',
+    clarity: 'Độ rõ nét (Clarity)',
+    splitTone: 'Chia tông màu (Split Tone)',
+    vibrance: 'Độ tươi màu (Vibrance)',
+    saturation: 'Độ bão hòa (Saturation)',
+    grain: 'Nhiễu hạt (Grain)',
+    hslGreen: 'Màu lục (HSL Green)',
+    sharpening: 'Độ sắc nét (Sharpening)',
+    hslYellow: 'Màu vàng (HSL Yellow)',
+    blackAndWhite: 'Trắng đen (B&W)',
+    vignetting: 'Hiệu ứng tối góc (Vignette)',
+    hslYellowRed: 'Màu vàng/đỏ (HSL Yellow/Red)',
+    hslAquaCyan: 'Màu xanh nước biển (HSL Aqua/Cyan)',
+    hslMagentaPink: 'Màu hồng cánh sen (HSL Magenta/Pink)',
+    hslGreenYellow: 'Màu lục/vàng (HSL Green/Yellow)',
+    dehaze: 'Khử sương mù (Dehaze)'
+  };
+
   const recipesGrid = document.getElementById('recipes-grid');
   const modal = document.getElementById('recipe-modal');
   const modalContent = document.getElementById('modal-content');
@@ -455,15 +480,15 @@ document.addEventListener('DOMContentLoaded', () => {
     card.innerHTML = `
       <div class="recipe-card-header">
         <span class="recipe-card-num">${recipe.num}</span>
-        <span class="recipe-card-pill" style="border-color: ${recipe.colorAccent}; color: ${recipe.colorAccent}">ACTIVE</span>
+        <span class="recipe-card-pill" style="border-color: ${recipe.colorAccent}; color: ${recipe.colorAccent}">CÔNG THỨC</span>
       </div>
       <h3 class="recipe-card-title">${recipe.title}</h3>
       <p class="recipe-card-desc">${recipe.desc}</p>
       <div class="recipe-card-meta">
-        <div class="meta-item"><span>📷 Lens</span><strong>${recipe.lens.split('hoặc')[0].trim()}</strong></div>
-        <div class="meta-item"><span>💡 Light</span><strong>${recipe.light.substring(0, 32)}...</strong></div>
+        <div class="meta-item"><span>📷 Ống kính</span><strong>${recipe.lens.split('hoặc')[0].trim()}</strong></div>
+        <div class="meta-item"><span>💡 Ánh sáng</span><strong>${recipe.light.substring(0, 32)}...</strong></div>
       </div>
-      <button class="recipe-view-btn" data-id="${recipe.id}">Open Formula →</button>
+      <button class="recipe-view-btn" data-id="${recipe.id}">Xem công thức →</button>
       <div class="recipe-card-stripe" style="background: ${recipe.colorAccent}"></div>
     `;
 
@@ -522,9 +547,10 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="recipe-section-card">
             <h4>🎨 Chỉ Hướng Chỉnh Màu (Lightroom Formula)</h4>
             <ul class="recipe-spec-list">
-              ${Object.entries(recipe.editing).map(([key, val]) => `
-                <li><span style="text-transform: capitalize; color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.72rem;">${key}:</span> ${val}</li>
-              `).join('')}
+              ${Object.entries(recipe.editing).map(([key, val]) => {
+                const displayName = editingKeysMap[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+                return `<li><span style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.72rem;">${displayName}:</span> ${val}</li>`;
+              }).join('')}
             </ul>
           </div>
 

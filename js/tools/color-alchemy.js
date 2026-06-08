@@ -18,11 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // WB Preset configurations
   const presets = {
-    'custom': { temp: null, tint: null, name: 'Custom' },
-    'tungsten': { temp: 3200, tint: -2, name: 'Tungsten Light' },
-    'daylight': { temp: 5200, tint: 4, name: 'Daylight' },
-    'cloudy': { temp: 6000, tint: 8, name: 'Cloudy Sky' },
-    'shade': { temp: 8000, tint: 14, name: 'Deep Shade' }
+    'custom': { temp: null, tint: null, name: 'Tự chỉnh' },
+    'tungsten': { temp: 3200, tint: -2, name: 'Đèn Dây tóc' },
+    'daylight': { temp: 5200, tint: 4, name: 'Ánh sáng Ban ngày' },
+    'cloudy': { temp: 6000, tint: 8, name: 'Trời nhiều mây' },
+    'shade': { temp: 8000, tint: 14, name: 'Bóng râm sâu' }
   };
 
   function updateColorStudio() {
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tintSlider.value = config.tint;
         updateColorStudio();
       } else {
-        hudWbType.textContent = 'Manual';
+        hudWbType.textContent = 'Thủ công';
       }
     });
   });
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const customCard = document.querySelector('#wb-presets .radio-card:first-child');
     customCard.classList.add('selected');
     customCard.querySelector('input').checked = true;
-    hudWbType.textContent = 'Manual';
+    hudWbType.textContent = 'Thủ công';
 
     updateColorStudio();
   }

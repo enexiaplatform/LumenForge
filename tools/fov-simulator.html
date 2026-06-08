@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Field of View Simulator — LumenForge</title>
+  <title>Giả lập Góc nhìn (FOV) — LumenForge</title>
   <meta name="description" content="Mô phỏng góc nhìn tiêu cự và nén phối cảnh quang học dựa trên cảm biến máy ảnh, tiêu cự lens và khoảng cách chụp.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
@@ -68,21 +68,21 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
-        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
-        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
-        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
-        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
       </div>
     </div>
   </nav>
 
   <!-- Tool Hero -->
   <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Quay lại Xưởng Công cụ</a></p>
     <p class="section-label">[TOOL 02]</p>
-    <h1>Field of View Simulator</h1>
+    <h1>Giả lập Góc nhìn (FOV)</h1>
     <p class="tool-hero-desc">Thay đổi cảm biến, trượt tiêu cự và khoảng cách để xem góc nhìn và hậu cảnh thay đổi theo thời gian thực.</p>
   </section>
 
@@ -100,9 +100,9 @@
             </svg>
           </div>
           <div class="fov-info-panel">
-            <span>Angle of View (H): <strong id="val-angle">47°</strong></span>
-            <span>Eq. Focal Length: <strong id="val-eq-focal">50mm</strong></span>
-            <span>Recommended Category: <strong id="val-category">Standard</strong></span>
+            <span>Góc nhìn ngang (HFOV): <strong id="val-angle">47°</strong></span>
+            <span>Tiêu cự tương đương Full-frame: <strong id="val-eq-focal">50mm</strong></span>
+            <span>Phân loại khuyên dùng: <strong id="val-category">Standard</strong></span>
           </div>
         </div>
 
@@ -111,18 +111,18 @@
           
           <!-- Sensor Size Select -->
           <div class="input-group">
-            <label for="sensor-select">SENSOR SIZE</label>
+            <label for="sensor-select">KÍCH THƯỚC CẢM BIẾN (SENSOR SIZE)</label>
             <select class="tool-select" id="sensor-select">
-              <option value="1.0">Full-Frame (35mm Format)</option>
-              <option value="1.5">APS-C (Sony/Fuji 1.5x Crop)</option>
-              <option value="1.6">APS-C (Canon 1.6x Crop)</option>
-              <option value="6.0">Smartphone (Typical 6.0x Crop)</option>
+              <option value="1.0">Full-Frame (Cảm biến 35mm)</option>
+              <option value="1.5">APS-C (Cảm biến Crop Sony/Fujifilm 1.5x)</option>
+              <option value="1.6">APS-C (Cảm biến Crop Canon 1.6x)</option>
+              <option value="6.0">Điện thoại (Cảm biến nhỏ ~6.0x Crop)</option>
             </select>
           </div>
 
           <!-- Focal Length Slider -->
           <div class="input-group">
-            <label for="focal-slider">FOCAL LENGTH</label>
+            <label for="focal-slider">TIÊU CỰ ỐNG KÍNH (FOCAL LENGTH)</label>
             <input type="range" class="tool-slider" id="focal-slider" min="16" max="200" step="1" value="50">
             <div style="display:flex; justify-content:space-between; margin-top:4px;">
               <span class="slider-value" style="margin-top:0;" id="focal-value">50mm</span>
@@ -132,7 +132,7 @@
 
           <!-- Subject Distance Slider -->
           <div class="input-group full-width">
-            <label for="distance-slider">SUBJECT DISTANCE (MÉT)</label>
+            <label for="distance-slider">KHOẢNG CÁCH CHỦ THỂ (MÉT)</label>
             <input type="range" class="tool-slider" id="distance-slider" min="1" max="15" step="0.5" value="3">
             <div style="display:flex; justify-content:space-between; margin-top:4px;">
               <span class="slider-value" style="margin-top:0;" id="distance-value">3.0m</span>
@@ -157,26 +157,26 @@
       <div class="footer-content">
         <div class="footer-brand">
           <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Explore</h4>
-            <a href="../light-codex.html">Light Codex</a>
-            <a href="../tool-lab.html">Tool Lab</a>
-            <a href="../shot-recipes.html">Shot Recipes</a>
-            <a href="../gear-map.html">Gear Map</a>
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
           </div>
           <div class="footer-col">
-            <h4>Tools</h4>
-            <a href="lens-decoder.html">Lens Decoder</a>
-            <a href="exposure-reactor.html">Exposure Reactor</a>
-            <a href="film-look.html">Film Look Generator</a>
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
       </div>
     </div>
   </footer>

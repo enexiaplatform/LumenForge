@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lens Personality Decoder — LumenForge</title>
+  <title>Tính cách Lens Decoder — LumenForge</title>
   <meta name="description" content="Giải mã tính cách lens của bạn — Discover your lens personality based on camera body, focal length, shooting purpose, and visual style.">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/tools.css">
@@ -18,21 +18,21 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
-        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
-        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
-        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
-        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
       </div>
     </div>
   </nav>
 
   <!-- Tool Hero -->
   <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Quay lại Xưởng Công cụ</a></p>
     <p class="section-label">[TOOL 01]</p>
-    <h1>Lens Personality Decoder</h1>
+    <h1>Tính cách Lens Decoder</h1>
     <p class="tool-hero-desc">Mỗi ống kính có một "tính cách" riêng. Hãy tìm hiểu lens của bạn nói gì.</p>
   </section>
 
@@ -44,7 +44,7 @@
 
           <!-- Camera Body Select -->
           <div class="input-group">
-            <label for="camera-select">CAMERA BODY</label>
+            <label for="camera-select">THÂN MÁY (CAMERA BODY)</label>
             <select class="tool-select" id="camera-select">
               <option value="canon-r50">Canon EOS R50 (APS-C)</option>
               <option value="canon-r6ii">Canon EOS R6 II (Full-frame)</option>
@@ -58,7 +58,7 @@
 
           <!-- Lens Select -->
           <div class="input-group">
-            <label for="lens-select">LENS</label>
+            <label for="lens-select">ỐNG KÍNH (LENS)</label>
             <select class="tool-select" id="lens-select">
               <!-- Populated by JS -->
             </select>
@@ -91,12 +91,12 @@
               <label class="radio-card">
                 <input type="radio" name="purpose" value="street">
                 <span class="radio-card-icon">🏙️</span>
-                <span>Street</span>
+                <span>Đường phố</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="purpose" value="avatar">
                 <span class="radio-card-icon">📱</span>
-                <span>Avatar</span>
+                <span>Ảnh đại diện</span>
               </label>
             </div>
           </div>
@@ -108,44 +108,44 @@
               <label class="radio-card">
                 <input type="radio" name="style" value="cinematic">
                 <span class="radio-card-icon">🎬</span>
-                <span>Cinematic</span>
+                <span>Điện ảnh</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="clean">
                 <span class="radio-card-icon">✨</span>
-                <span>Clean</span>
+                <span>Trong trẻo</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="film">
                 <span class="radio-card-icon">🎞️</span>
-                <span>Film</span>
+                <span>Màu phim</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="luxury">
                 <span class="radio-card-icon">💎</span>
-                <span>Luxury</span>
+                <span>Sang trọng</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="vintage">
                 <span class="radio-card-icon">📷</span>
-                <span>Vintage</span>
+                <span>Cổ điển</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="japanese">
                 <span class="radio-card-icon">🏯</span>
-                <span>Japanese</span>
+                <span>Nhật Bản</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="style" value="moody">
                 <span class="radio-card-icon">🌑</span>
-                <span>Moody</span>
+                <span>Trầm tối</span>
               </label>
             </div>
           </div>
 
         </div>
 
-        <button class="btn-generate" id="decode-btn">Decode Lens Personality</button>
+        <button class="btn-generate" id="decode-btn">Giải mã tính cách ống kính</button>
       </div>
 
       <!-- Output -->
@@ -162,26 +162,26 @@
       <div class="footer-content">
         <div class="footer-brand">
           <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Explore</h4>
-            <a href="../light-codex.html">Light Codex</a>
-            <a href="../tool-lab.html">Tool Lab</a>
-            <a href="../shot-recipes.html">Shot Recipes</a>
-            <a href="../gear-map.html">Gear Map</a>
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
           </div>
           <div class="footer-col">
-            <h4>Tools</h4>
-            <a href="lens-decoder.html">Lens Decoder</a>
-            <a href="exposure-reactor.html">Exposure Reactor</a>
-            <a href="film-look.html">Film Look Generator</a>
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
       </div>
     </div>
   </footer>

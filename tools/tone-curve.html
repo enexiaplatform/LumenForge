@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tone Curve & Histogram Lab — LumenForge</title>
+  <title>Biểu đồ & Đường cong Tông màu — LumenForge</title>
   <meta name="description" content="Phòng thí nghiệm đường cong tông màu và biểu đồ tần suất ánh sáng. Học cách điều chỉnh Blacks, Shadows, Midtones, Highlights.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
@@ -332,21 +332,21 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="../index.html" class="nav-link">Home</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
-        <a href="../tool-lab.html" class="nav-link active">Tool Lab</a>
-        <a href="../shot-recipes.html" class="nav-link">Shot Recipes</a>
-        <a href="../visual-experiments.html" class="nav-link">Experiments</a>
-        <a href="../gear-map.html" class="nav-link">Gear Map</a>
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
       </div>
     </div>
   </nav>
 
   <!-- Tool Hero -->
   <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">&larr; Back to Tool Lab</a></p>
+    <p class="tool-back"><a href="../tool-lab.html">&larr; Quay lại Xưởng Công cụ</a></p>
     <p class="section-label">[TOOL 09]</p>
-    <h1>Tone Curve & Histogram Lab</h1>
+    <h1>Biểu đồ & Đường cong Tông màu</h1>
     <p class="tool-hero-desc">Kéo thả đường cong tông màu để hiểu cách Blacks, Shadows, Midtones, Highlights và Whites định hình bức ảnh.</p>
   </section>
 
@@ -358,7 +358,7 @@
         <!-- Channel selector + Reset -->
         <div class="tc-controls-row">
           <div class="input-group" style="gap: var(--space-xs);">
-            <label>CHANNEL (Kênh màu)</label>
+            <label>KÊNH MÀU (CHANNEL)</label>
             <div class="tc-channel-btns" id="channel-btns">
               <button class="tc-channel-btn active" data-channel="luminance">Luminance</button>
               <button class="tc-channel-btn" data-channel="red">Red</button>
@@ -378,8 +378,8 @@
             <!-- Tone Curve Canvas -->
             <div class="tc-canvas-wrap" id="tc-canvas-wrap">
               <canvas id="tc-curve-canvas"></canvas>
-              <span class="tc-axis-label corner-tl">Shadows</span>
-              <span class="tc-axis-label corner-br">Highlights</span>
+              <span class="tc-axis-label corner-tl">Vùng Tối (Shadows)</span>
+              <span class="tc-axis-label corner-br">Vùng Sáng (Highlights)</span>
               <div class="tc-point-info" id="tc-point-info">In: 128 → Out: 128</div>
             </div>
 
@@ -389,11 +389,11 @@
               <span class="tc-histogram-label">HISTOGRAM</span>
             </div>
             <div class="tc-zone-legend">
-              <span>Blacks</span>
-              <span>Shadows</span>
-              <span>Midtones</span>
-              <span>Highlights</span>
-              <span>Whites</span>
+              <span>Vùng Đen (Blacks)</span>
+              <span>Vùng Tối (Shadows)</span>
+              <span>Trung tính (Midtones)</span>
+              <span>Vùng Sáng (Highlights)</span>
+              <span>Vùng Trắng (Whites)</span>
             </div>
 
           </div>
@@ -434,7 +434,7 @@
 
             <!-- Presets -->
             <div class="input-group">
-              <label>PRESETS (Đường cong mẫu)</label>
+              <label>BỘ MẪU ĐƯỜNG CONG (PRESETS)</label>
               <div class="radio-cards" id="tc-presets" style="grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));">
                 <label class="radio-card selected">
                   <input type="radio" name="tc-preset" value="linear" checked>
@@ -505,26 +505,26 @@
       <div class="footer-content">
         <div class="footer-brand">
           <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Understand light. Build your visual identity.</p>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Explore</h4>
-            <a href="../light-codex.html">Light Codex</a>
-            <a href="../tool-lab.html">Tool Lab</a>
-            <a href="../shot-recipes.html">Shot Recipes</a>
-            <a href="../gear-map.html">Gear Map</a>
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
           </div>
           <div class="footer-col">
-            <h4>Tools</h4>
-            <a href="lens-decoder.html">Lens Decoder</a>
-            <a href="exposure-reactor.html">Exposure Reactor</a>
-            <a href="film-look.html">Film Look Generator</a>
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 LumenForge. Built by Henry.</p>
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
       </div>
     </div>
   </footer>
