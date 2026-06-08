@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Không gian màu sRGB vs Adobe RGB vs DCI-P3 — LumenForge</title>
+  <meta name="description" content="Giải mã nguyên nhân ảnh bị nhạt màu khi đăng mạng xã hội. Phân biệt sRGB, Adobe RGB, Display P3 và quy trình xuất ảnh chuẩn màu từ Lightroom.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link active">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../light-codex.html">&larr; Quay lại Quang Thư</a>
+      </div>
+      <div class="article-header-meta">
+        <span class="codex-card-tag tag-color">Khoa học Màu sắc</span>
+        <span class="read-time">8 phút đọc</span>
+      </div>
+      <h1>Tại sao ảnh đăng mạng xã hội lại bị nhạt màu?</h1>
+      <p class="article-header-desc">Bí ẩn đằng sau sRGB, Adobe RGB và DCI-P3. Tại sao file ảnh rực rỡ trong Lightroom lại trở nên xỉn xám, thiếu sức sống khi tải lên Facebook hay xem trên điện thoại?</p>
+    </div>
+  </header>
+
+  <!-- Article Body Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="article-layout">
+        
+        <!-- Main Content -->
+        <article class="article-content">
+          
+          <div class="margin-note" style="top: 80px;">[0.1]</div>
+          <p>Kịch bản quen thuộc của mọi nhiếp ảnh gia kỹ thuật số: Bạn dành hàng giờ đồng hồ để căn chỉnh màu sắc hoàn hảo cho một bức ảnh trong Lightroom hoặc Photoshop. Tông màu rực rỡ, độ tương phản sâu thẳm, màu da hồng hào tuyệt mỹ. Nhưng ngay sau khi bạn xuất ảnh (export) và tải lên Facebook, Instagram hoặc gửi qua Zalo, bức ảnh trông như bị phủ một lớp sương xám: **màu sắc bị nhạt đi, xỉn xám và mất hẳn sức sống**. Thủ phạm không phải do thuật toán nén ảnh của Facebook, mà chính là sự bất đồng bộ giữa các **Không gian màu (Color Spaces)**.</p>
+
+          <div class="margin-note" style="top: 400px;">[0.2]</div>
+          <h2>1. Không Gian Màu Là Gì? Chiếc Hộp Đựng Màu Sắc</h2>
+          <p>Mắt người có thể nhìn thấy một dải màu sắc khổng lồ được định nghĩa bởi biểu đồ sắc độ chuẩn **CIE 1931**. Tuy nhiên, không có một màn hình hay máy ảnh nào trên thế giới có thể tái tạo lại được 100% dải màu mà mắt người nhìn thấy. Để quản lý khả năng hiển thị màu sắc của thiết bị, người ta tạo ra các **Không gian màu** (Color Space) — thực chất là một tập hợp giới hạn các màu sắc cụ thể mà một thiết bị có thể ghi nhận, chỉnh sửa hoặc hiển thị.</p>
+          
+          <p>Hãy tưởng tượng không gian màu giống như một chiếc hộp bút chì màu. Hộp nhỏ chứa ít màu cơ bản, hộp lớn chứa nhiều tông màu chuyển tiếp phong phú hơn. Ba chiếc hộp bút chì màu phổ biến nhất trong nhiếp ảnh số hiện nay là: **sRGB**, **Adobe RGB** và **Display P3 (DCI-P3)**.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [COLOR-SPACES]</h5>
+            <p>"Việc chọn không gian màu không làm ảnh hưởng tới độ sắc nét của ảnh, mà quyết định giới hạn độ bão hòa (saturation) tối đa của các tông màu cực đoan như đỏ tươi, xanh lục bảo hay vàng chanh."</p>
+          </div>
+
+          <div class="margin-note" style="top: 960px;">[0.3]</div>
+          <h2>2. Ba Không Gian Màu Kinh Điển</h2>
+          
+          <h3>sRGB: Chiếc hộp màu quốc dân & Phổ thông</h3>
+          <p>Được phát triển bởi Microsoft và HP vào năm 1996, **sRGB** là không gian màu mặc định cho hầu hết mọi thiết bị trên Trái Đất: từ màn hình máy tính cũ, màn hình tivi, các trình duyệt web (Chrome, Safari, Edge) cho đến các ứng dụng mạng xã hội. Đây là chiếc hộp màu nhỏ nhất, nhưng lại có tính tương thích cao nhất. Nếu bạn đăng một bức ảnh hệ màu sRGB lên mạng, bạn có thể tự tin rằng 99% người xem sẽ thấy màu sắc tương đối giống với những gì bạn thấy trên màn hình của mình.</p>
+
+          <h3>Adobe RGB: Thánh địa dành cho in ấn chuyên nghiệp</h3>
+          <p>Được phát triển bởi Adobe vào năm 1998, **Adobe RGB** có không gian màu rộng hơn sRGB khoảng 35%. Chiếc hộp màu này chứa các sắc độ xanh lá cây (green) và xanh mòng két (cyan) phong phú hơn rất nhiều để phù hợp với dải màu của các hệ máy in phun chuyên nghiệp (CMYK). Đây là không gian màu tuyệt vời nếu bạn chụp ảnh phong cảnh rừng núi, biển cả và có ý định in ấn tác phẩm ra giấy khổ lớn.</p>
+
+          <h3>DCI-P3 / Display P3: Kỷ nguyên màn hình thế hệ mới</h3>
+          <p>Là tiêu chuẩn màu sắc được phát triển cho phòng chiếu phim kỹ thuật số. Apple đã mang tiêu chuẩn này lên các thiết bị tiêu dùng (iPhone, iPad, MacBook) dưới tên gọi **Display P3**. Nó rộng tương đương Adobe RGB nhưng lệch sang vùng màu đỏ và màu vàng ấm rực rỡ hơn. Display P3 đang dần trở thành tương lai của hiển thị di động khi các màn hình OLED cao cấp đều hỗ trợ hiển thị dải màu rộng này.</p>
+
+          <div class="margin-note" style="top: 1720px;">[0.4]</div>
+          <h2>3. Tại Sao Ảnh Lại Bị Nhạt Màu Khi Đăng Lên Mạng?</h2>
+          <p>Lỗi nhạt màu xảy ra do hiện tượng **Sai lệch diễn giải hệ màu (Color Space Mismatch)**. Khi bạn chỉnh sửa ảnh trong Lightroom, phần mềm sử dụng không gian màu khổng lồ tên là **ProPhoto RGB**. Nếu khi xuất ảnh, bạn chọn hệ màu là **Adobe RGB** và tải trực tiếp lên web:</p>
+          
+          <ol>
+            <li>Trình duyệt hoặc ứng dụng mạng xã hội (vốn chỉ hiểu hệ màu sRGB) sẽ đọc dữ liệu màu Adobe RGB của bạn.</li>
+            <li>Vì Adobe RGB có tọa độ màu rộng hơn, ví dụ màu Đỏ Tươi của Adobe RGB có tọa độ là (255, 0, 0). Nhưng khi ép tọa độ này vào hệ sRGB có hộp màu nhỏ hơn, màu đỏ này bị hiểu sai và dịch chuyển sâu vào tâm (nơi chứa các màu xám/nhạt).</li>
+            <li>Kết quả: Trình duyệt hiển thị bức ảnh của bạn với màu sắc cực kỳ nhợt nhạt, thiếu tương phản và xỉn màu.</li>
+          </ol>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Không gian màu</th>
+                <th>Kích thước dải màu</th>
+                <th>Ứng dụng tốt nhất</th>
+                <th>Rủi ro hiển thị trên Web</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>sRGB</strong></td>
+                <td>Nhỏ nhất (Tiêu chuẩn)</td>
+                <td>Đăng web, mạng xã hội, gửi qua điện thoại.</td>
+                <td>An toàn tuyệt đối. Màu sắc hiển thị đồng nhất.</td>
+              </tr>
+              <tr>
+                <td><strong>Adobe RGB</strong></td>
+                <td>Lớn (+35% sRGB)</td>
+                <td>In ấn chuyên nghiệp, chụp phong cảnh thiên nhiên.</td>
+                <td>Rất cao. Dễ bị nhạt màu, xỉn xám nếu không chuyển đổi.</td>
+              </tr>
+              <tr>
+                <td><strong>Display P3</strong></td>
+                <td>Lớn (Nhiều đỏ/vàng)</td>
+                <td>Hiển thị trên thiết bị Apple, điện thoại cao cấp.</td>
+                <td>Trung bình. Đang ngày càng phổ biến và được hỗ trợ tốt hơn.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="margin-note" style="top: 2400px;">[0.5]</div>
+          <h2>4. Quy Trình Xuất Ảnh Chuẩn Màu Của Henry</h2>
+          <p>Để đảm bảo màu sắc ảnh của bạn hiển thị chính xác và rực rỡ trên mọi thiết bị di động, hãy luôn tuân thủ quy trình thiết lập sau trong Lightroom hoặc Photoshop:</p>
+          
+          <ul>
+            <li><strong>Khi Chụp:</strong> Bạn có thể đặt máy ảnh chụp RAW ở hệ màu nào cũng được (vì ảnh RAW chứa thông tin quang phổ gốc chưa bị áp không gian màu).</li>
+            <li><strong>Khi Xuất Ảnh (Lightroom):</strong> Trong bảng cài đặt Export, tìm đến mục **File Settings**:
+              <ul>
+                <li>Đặt **Color Space** là **sRGB**.</li>
+                <li>Chọn **Embed Color Profile (ICC Profile)** để dán nhãn định danh màu sắc vào file ảnh. Nhãn này sẽ báo cho các trình duyệt biết cách hiển thị màu chính xác.</li>
+              </ul>
+            </li>
+            <li><strong>Khi Làm Việc Trong Photoshop:</strong> Luôn chọn *Edit &rarr; Convert to Profile* và chọn chuyển sang không gian màu **sRGB IEC61966-2.1** trước khi lưu ảnh để đăng web.</li>
+          </ul>
+
+          <p>Màu sắc là cầu nối cảm xúc giữa nhiếp ảnh gia và người xem. Hiểu rõ về không gian màu sẽ giúp bạn bảo vệ toàn vẹn chất lượng nghệ thuật tác phẩm của mình trên môi trường kỹ thuật số rộng lớn.</p>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          
+          <div class="sidebar-panel">
+            <h4>SIÊU DỮ LIỆU GHI CHÚ</h4>
+            <div class="metadata-list">
+              <div class="metadata-item">
+                <label>Mã Thí Nghiệm</label>
+                <span>EXP-COLOR-015</span>
+              </div>
+              <div class="metadata-item">
+                <label>Danh Mục</label>
+                <span>Color Science & Digital Standards</span>
+              </div>
+              <div class="metadata-item">
+                <label>Tác Giả</label>
+                <span>Henry / LumenForge</span>
+              </div>
+              <div class="metadata-item">
+                <label>Profiles Compared</label>
+                <span>sRGB, Adobe RGB (1998), Display P3</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>THỬ NGHIỆM ĐỒNG HÀNH</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Thử phối màu và xem tác động của cân bằng trắng tại công cụ mô phỏng Color Alchemy của chúng tôi.</p>
+            <a href="color-alchemy.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Vào Color Alchemy Lab</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
+          </div>
+          <div class="footer-col">
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>
