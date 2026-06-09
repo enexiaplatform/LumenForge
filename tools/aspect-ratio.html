@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Aspect Ratio Crop — LumenForge</title>
+  <meta name="keywords" content="aspect ratio, anamorphic, crop ảnh, nhiếp ảnh, điện ảnh, lumenforge, công cụ">
+  <meta name="description" content="Công cụ giả lập crop ảnh theo các tỷ lệ khung hình chuẩn Hollywood (2.35:1, 1.85:1, IMAX).">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .aspect-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: var(--space-xl);
+      align-items: stretch;
+    }
+    
+    @media (max-width: 900px) {
+      .aspect-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left Controls */
+    .aspect-controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .aspect-controls h3 {
+      margin-bottom: var(--space-lg);
+      font-size: 1.2rem;
+      color: var(--text-primary);
+    }
+
+    .ratio-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+
+    .ratio-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ratio-btn:hover {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+    }
+
+    .ratio-btn.active {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    .ratio-name {
+      font-weight: bold;
+    }
+    .ratio-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+
+    .upload-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background: rgba(255,255,255,0.05);
+      border: 1px dashed var(--text-dim);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .upload-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--text-secondary);
+    }
+
+    /* Right Preview Area */
+    .preview-area {
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      min-height: 500px;
+    }
+
+    .canvas-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Target Image */
+    .target-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      z-index: 1;
+    }
+
+    /* Letterbox Overlays */
+    .letterbox {
+      position: absolute;
+      background: #000;
+      z-index: 10;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Top and Bottom bars for horizontal cropping */
+    .letterbox-top { top: 0; left: 0; right: 0; height: 0; }
+    .letterbox-bottom { bottom: 0; left: 0; right: 0; height: 0; }
+
+    /* Left and Right bars for vertical cropping */
+    .letterbox-left { top: 0; left: 0; bottom: 0; width: 0; }
+    .letterbox-right { top: 0; right: 0; bottom: 0; width: 0; }
+
+    .ratio-info-hud {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 15px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent-amber);
+      z-index: 20;
+      backdrop-filter: blur(5px);
+      pointer-events: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div class="tool-header">
+        <span class="tool-id">TOOL 14</span>
+        <h1>Cinematic Aspect Ratio</h1>
+        <p>Cắt (Crop) khung hình không chỉ là loại bỏ chi tiết thừa. Tỷ lệ khung hình quyết định tâm lý học của người xem đối với bức ảnh. Giả lập Letterbox phim điện ảnh.</p>
+      </div>
+
+      <div class="aspect-layout">
+        
+        <!-- Controls -->
+        <div class="aspect-controls">
+          <h3>Tỷ lệ khung hình (Aspect Ratio)</h3>
+          
+          <div class="ratio-list">
+            <button class="ratio-btn active" data-ratio="0">
+              <span class="ratio-name">Original (No Crop)</span>
+              <span class="ratio-val">Gốc</span>
+            </button>
+            <button class="ratio-btn" data-ratio="1.333">
+              <span class="ratio-name">Vintage / IMAX</span>
+              <span class="ratio-val">4:3</span>
+            </button>
+            <button class="ratio-btn" data-ratio="1.777">
+              <span class="ratio-name">Standard HD (TV)</span>
+              <span class="ratio-val">16:9</span>
+            </button>
+            <button class="ratio-btn" data-ratio="1.85">
+              <span class="ratio-name">Flat Cinema</span>
+              <span class="ratio-val">1.85:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="2.35">
+              <span class="ratio-name">Anamorphic Scope</span>
+              <span class="ratio-val">2.35:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="2.76">
+              <span class="ratio-name">Ultra Panavision</span>
+              <span class="ratio-val">2.76:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="1">
+              <span class="ratio-name">Square (Instagram)</span>
+              <span class="ratio-val">1:1</span>
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-color); padding-top: var(--space-lg); margin-top: var(--space-lg);">
+            <label class="upload-btn">
+              <input type="file" id="file-upload" accept="image/*" style="display:none;">
+              📷 Upload Ảnh Của Bạn
+            </label>
+            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center; margin-top: 10px;">(Xử lý trực tiếp trên trình duyệt, không upload lên server)</p>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-area" id="preview-area">
+          <div class="canvas-wrapper" id="canvas-wrapper">
+            <!-- Sample Image from Unsplash -->
+            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop" id="target-img" class="target-image" alt="Target Image">
+            
+            <div class="letterbox letterbox-top" id="lb-top"></div>
+            <div class="letterbox letterbox-bottom" id="lb-bottom"></div>
+            <div class="letterbox letterbox-left" id="lb-left"></div>
+            <div class="letterbox letterbox-right" id="lb-right"></div>
+          </div>
+
+          <div class="ratio-info-hud" id="hud-text">Ratio: Original</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const img = document.getElementById('target-img');
+      const ratioBtns = document.querySelectorAll('.ratio-btn');
+      const lbTop = document.getElementById('lb-top');
+      const lbBottom = document.getElementById('lb-bottom');
+      const lbLeft = document.getElementById('lb-left');
+      const lbRight = document.getElementById('lb-right');
+      const hudText = document.getElementById('hud-text');
+      const fileUpload = document.getElementById('file-upload');
+
+      let currentRatio = 0; // 0 means original
+
+      // Calculate and apply letterbox
+      function updateLetterbox() {
+        if (!img.complete) {
+          img.onload = updateLetterbox;
+          return;
+        }
+
+        // Reset all letterboxes
+        lbTop.style.height = '0';
+        lbBottom.style.height = '0';
+        lbLeft.style.width = '0';
+        lbRight.style.width = '0';
+
+        if (currentRatio === 0) return;
+
+        // Get actual rendered dimensions of the image inside the container
+        const rect = img.getBoundingClientRect();
+        const imgW = rect.width;
+        const imgH = rect.height;
+        
+        if (imgW === 0 || imgH === 0) return;
+
+        const imgRatio = imgW / imgH;
+
+        if (currentRatio > imgRatio) {
+          // Target ratio is wider than image. Crop Top/Bottom.
+          // We need a new height such that imgW / newH = currentRatio
+          // => newH = imgW / currentRatio
+          const newH = imgW / currentRatio;
+          const diff = imgH - newH;
+          const barHeight = diff / 2;
+          
+          // The letterboxes are relative to the wrapper, but the image might not fill the wrapper.
+          // Wait, the wrapper is flex center. The image is object-fit: contain.
+          // So we should make the letterboxes attach to the edges of the image.
+          // Actually, let's position the letterboxes absolutely inside the wrapper, but calculate based on image position.
+          const wrapRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
+          const imgTopOffset = rect.top - wrapRect.top;
+          const imgBottomOffset = wrapRect.bottom - rect.bottom;
+
+          lbTop.style.height = (imgTopOffset + barHeight) + 'px';
+          lbBottom.style.height = (imgBottomOffset + barHeight) + 'px';
+          
+        } else if (currentRatio < imgRatio) {
+          // Target ratio is taller/squarer than image. Crop Left/Right.
+          // We need a new width such that newW / imgH = currentRatio
+          // => newW = imgH * currentRatio
+          const newW = imgH * currentRatio;
+          const diff = imgW - newW;
+          const barWidth = diff / 2;
+
+          const wrapRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
+          const imgLeftOffset = rect.left - wrapRect.left;
+          const imgRightOffset = wrapRect.right - rect.right;
+
+          lbLeft.style.width = (imgLeftOffset + barWidth) + 'px';
+          lbRight.style.width = (imgRightOffset + barWidth) + 'px';
+        }
+      }
+
+      // Handle Buttons
+      ratioBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          ratioBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          currentRatio = parseFloat(btn.getAttribute('data-ratio'));
+          hudText.innerText = "Ratio: " + btn.querySelector('.ratio-val').innerText;
+          
+          updateLetterbox();
+        });
+      });
+
+      // Handle Resize
+      window.addEventListener('resize', () => {
+        // Debounce slightly
+        clearTimeout(window.resizeTimer);
+        window.resizeTimer = setTimeout(updateLetterbox, 100);
+      });
+
+      // Image Upload
+      fileUpload.addEventListener('change', function(e) {
+        if (e.target.files && e.target.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            img.src = e.target.result;
+            // Wait for new image to load before recalculating
+            img.onload = () => {
+              // Click the 'Original' button to reset crop
+              document.querySelector('.ratio-btn[data-ratio="0"]').click();
+            };
+          }
+          reader.readAsDataURL(e.target.files[0]);
+        }
+      });
+
+      // Init on load
+      if(img.complete) {
+        updateLetterbox();
+      }
+    });
+  </script>
+</body>
+</html>

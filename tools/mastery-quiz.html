@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumenForge Mastery Exam</title>
+  <meta name="keywords" content="quiz, trắc nghiệm, nhiếp ảnh, điện ảnh, lumenforge, công cụ">
+  <meta name="description" content="Bài thi đánh giá năng lực thị giác và kiến thức quang học. Kiểm tra xem bạn thuộc Archetype nào trong thế giới hình ảnh.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Screen Management */
+    .quiz-screen {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .quiz-screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Intro Screen */
+    .intro-screen {
+      text-align: center;
+    }
+    .intro-screen h1 {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+      color: var(--accent-amber);
+    }
+    .intro-screen p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-xl);
+    }
+
+    /* Question Screen */
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .quiz-progress-text {
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    .quiz-timer {
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      background: rgba(255,255,255,0.05);
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+
+    .question-box {
+      margin-bottom: var(--space-2xl);
+    }
+    
+    .question-text {
+      font-size: 1.3rem;
+      line-height: 1.6;
+      margin-bottom: var(--space-lg);
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .option-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 15px 20px;
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .option-btn:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--text-dim);
+    }
+
+    .option-btn.selected {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    .option-btn.correct {
+      background: rgba(46, 204, 113, 0.1);
+      border-color: #2ecc71;
+      color: #2ecc71;
+    }
+
+    .option-btn.wrong {
+      background: rgba(231, 76, 60, 0.1);
+      border-color: #e74c3c;
+      color: #e74c3c;
+    }
+
+    .feedback-box {
+      margin-top: var(--space-xl);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.05);
+      border-left: 4px solid var(--text-dim);
+      display: none;
+    }
+    
+    .feedback-box.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    /* Result Screen */
+    .result-screen {
+      text-align: center;
+    }
+
+    .archetype-badge {
+      display: inline-block;
+      padding: var(--space-lg) var(--space-2xl);
+      border: 2px solid var(--accent-amber);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-xl);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .archetype-badge::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: conic-gradient(transparent, rgba(212, 175, 55, 0.3), transparent 30%);
+      animation: rotate 4s linear infinite;
+    }
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+    .badge-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .score-display {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .archetype-title {
+      font-size: 2.5rem;
+      color: var(--accent-amber);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .result-desc {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: var(--space-2xl);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div class="quiz-container">
+        
+        <!-- Screen 1: Intro -->
+        <div class="quiz-screen active" id="screen-intro">
+          <div class="intro-screen">
+            <p style="font-family: var(--font-mono); color: var(--text-dim); letter-spacing: 2px;">THE MASTERY EXAM</p>
+            <h1>Kiểm Tra Năng Lực Thị Giác</h1>
+            <p>10 tình huống thực chiến về ánh sáng, màu sắc và quang học. Dựa trên kết quả, hệ thống LumenForge sẽ cấp chứng nhận phân loại Archetype (Nguyên mẫu) của bạn trong giới hình ảnh.</p>
+            
+            <div style="background: var(--bg-surface); padding: 20px; border-radius: 8px; text-align: left; margin: 0 auto 30px auto; max-width: 400px;">
+              <ul style="color: var(--text-secondary); padding-left: 20px; margin: 0; line-height: 1.8;">
+                <li>10 câu hỏi trắc nghiệm</li>
+                <li>Không giới hạn thời gian (Focus on thinking)</li>
+                <li>Giải thích chi tiết ngay sau mỗi câu</li>
+              </ul>
+            </div>
+
+            <button class="btn btn-primary" style="padding: 15px 40px; font-size: 1.1rem;" id="btn-start">Bắt Đầu Bài Thi</button>
+          </div>
+        </div>
+
+        <!-- Screen 2: Question -->
+        <div class="quiz-screen" id="screen-question">
+          <div class="quiz-header">
+            <div class="quiz-progress-text" id="progress-text">Câu 1/10</div>
+            <div class="quiz-timer" id="timer-display">00:00</div>
+          </div>
+          
+          <div class="question-box">
+            <h2 class="question-text" id="question-text">Loading question...</h2>
+            <div class="options-grid" id="options-grid">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="feedback-box" id="feedback-box">
+            <strong id="feedback-title" style="display: block; margin-bottom: 8px; color: #fff;">Giải thích:</strong>
+            <p id="feedback-text" style="margin: 0; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;"></p>
+          </div>
+
+          <div style="text-align: right; margin-top: 20px;">
+            <button class="btn btn-outline" id="btn-next" style="display: none;">Câu Tiếp Theo →</button>
+          </div>
+        </div>
+
+        <!-- Screen 3: Results -->
+        <div class="quiz-screen" id="screen-result">
+          <div class="result-screen">
+            <p style="font-family: var(--font-mono); color: var(--text-dim); letter-spacing: 2px;">HOÀN THÀNH BÀI THI</p>
+            
+            <div class="archetype-badge">
+              <div class="badge-content">
+                <div class="score-display" id="final-score">Score: 8/10</div>
+                <h2 class="archetype-title" id="archetype-title">THE ARCHITECT</h2>
+              </div>
+            </div>
+            
+            <p class="result-desc" id="archetype-desc">
+              Bạn hiểu rõ cách ánh sáng tương tác với vật thể. Bạn không chụp ảnh, bạn xây dựng nó bằng toán học và vật lý.
+            </p>
+
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+              <button class="btn btn-primary" onclick="location.reload()">Thi Lại</button>
+              <a href="../store.html" class="btn btn-gold">Khám Phá Ebook</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/mastery-quiz.js"></script>
+</body>
+</html>
