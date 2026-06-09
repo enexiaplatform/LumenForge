@@ -431,6 +431,88 @@ const shotRecipes = [
       sharpening: 'Tăng nhẹ (+25) để giữ nét cho đôi mắt và làn môi bóng'
     },
     proTip: 'Đọc vị làn da: Dùng tấm phản sáng đặt ngay dưới ngực mẫu để hắt ngược ánh sáng lên cằm, làm mờ đi các nếp nhăn ở cổ và tạo đốm sáng (catchlight) tròn xoe lấp lánh trong mắt mẫu.'
+  },
+  {
+    id: 'rec-016',
+    num: 'RECIPE 016',
+    title: 'Cyberpunk Neon Portrait',
+    desc: 'Chân dung đêm đô thị với tông màu xanh Cyan và hồng Magenta tương phản mạnh mẽ đặc trưng của Blade Runner.',
+    colorAccent: '#FF00FF', // Magenta
+    camera: 'Máy ảnh hỗ trợ chụp ISO cao ổn định',
+    lens: '35mm hoặc 50mm f/1.4',
+    light: 'Đánh sáng chéo (Cross-Lighting): Một đèn tuýp LED màu Cyan đặt góc 45 độ phía trước, một đèn LED màu Magenta đặt góc 135 độ phía sau làm viền.',
+    background: 'Phố đêm ướt mưa phản chiếu ánh sáng chói lọi.',
+    outfit: 'Áo khoác da đen bóng, kính râm đen futuristic.',
+    pose: 'Mắt nhìn thẳng vô cảm vào ống kính, góc máy hơi chếch từ dưới lên.',
+    mood: 'Futuristic, Kịch tính, Công nghệ, Nổi loạn',
+    settings: {
+      aperture: 'f/1.8 để xóa mờ phông nền thành bokeh neon to tròn',
+      shutter: '1/160s',
+      iso: '1600 - 3200',
+      wb: 'Cool: 3200K để làm lạnh môi trường, tôn màu Cyan'
+    },
+    editing: {
+      contrast: 'Tăng mạnh (+25) làm rực rỡ khối sáng tối',
+      highlights: '-20, shadows: -10',
+      saturation: '+10, vibrance: +15',
+      hslAquaCyan: 'Tăng bão hòa màu và ngả sang sắc lục ngọc huyền ảo',
+      clarity: '+15'
+    },
+    proTip: 'Xịt sương mù (haze) vào không khí để ánh sáng neon vệt ra thành các tia sáng (Light Beams) mờ ảo.'
+  },
+  {
+    id: 'rec-017',
+    num: 'RECIPE 017',
+    title: 'Low-Key Cinematic',
+    desc: 'Bức chân dung mang tính kịch tính với ánh sáng cứng và vùng tối sâu thẳm.',
+    colorAccent: '#111111', // Dark
+    camera: 'Bất kỳ máy ảnh kỹ thuật số nào',
+    lens: '85mm f/1.8',
+    light: 'Một đèn flash gắn Snoot/Grid đặt chếch 90 độ chiếu vào một nửa khuôn mặt (Split Lighting).',
+    background: 'Bóng tối đen tuyền (tường xám bị rớt sáng Fall-off).',
+    outfit: 'Áo màu đen/tối để hòa lẫn vào background.',
+    pose: 'Ánh mắt sắc sảo nhìn chằm chằm vào máy ảnh, đầu hơi cúi nhẹ.',
+    mood: 'Bí ẩn, Kịch tính, Nam tính, Điện ảnh',
+    settings: {
+      aperture: 'f/4 - f/8 để giữ nét sâu',
+      shutter: '1/160s',
+      iso: '100',
+      wb: 'Auto'
+    },
+    editing: {
+      contrast: 'Tăng mạnh (+45)',
+      highlights: '+20, shadows: -40',
+      whites: '+15, blacks: -20',
+      clarity: '+20'
+    },
+    proTip: 'Dùng đo sáng điểm (Spot Metering) đo thẳng vào gò má sáng nhất để đảm bảo các vùng khác đen hoàn toàn.'
+  },
+  {
+    id: 'rec-018',
+    num: 'RECIPE 018',
+    title: 'Commercial Glossy Glass',
+    desc: 'Công thức chụp sản phẩm chai lọ thủy tinh phản xạ ánh sáng cao cấp.',
+    colorAccent: '#E0E0E0', // Silver
+    camera: 'Máy ảnh có độ phân giải cao',
+    lens: '100mm Macro',
+    light: 'Không đánh sáng trực tiếp vào chai thủy tinh. Đánh đèn vào một phông nền trắng phía sau (Backlight) và đặt 2 tấm bìa trắng hai bên để tạo đường ven sáng (Edge light).',
+    background: 'Kính đen phản chiếu hoặc nền xám gradient.',
+    outfit: 'N/A',
+    pose: 'Góc chụp ngang tầm sản phẩm.',
+    mood: 'Sang trọng, Tinh khiết, Đắt tiền',
+    settings: {
+      aperture: 'f/11 - f/16',
+      shutter: '1/125s',
+      iso: '100',
+      wb: 'Cân bằng chuẩn 5500K'
+    },
+    editing: {
+      contrast: 'Tăng (+15)',
+      highlights: '+10, shadows: -15',
+      sharpening: 'Tăng mạnh (+40)',
+      clarity: '+15'
+    },
+    proTip: 'Sử dụng kỹ thuật Focus Stacking chụp 5-10 tấm để ghép lại cho rõ nét toàn bộ thân chai và nắp chai tại khẩu độ f/11.'
   }
 ];
 

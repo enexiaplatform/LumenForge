@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Grading Console — Tool Lab 18</title>
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .simulator-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: var(--space-xl);
+    }
+    
+    .viewport {
+      background: #000;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16/9;
+      max-height: 50vh;
+      box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+
+    #render-canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* CSS filters for color grading */
+      filter: saturate(1) contrast(1) brightness(1) sepia(0) hue-rotate(0deg);
+      transition: filter 0.1s;
+    }
+
+    .wheels-panel {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-xl);
+      background: var(--bg-card);
+      padding: var(--space-xl);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .wheel-container {
+      text-align: center;
+    }
+
+    .wheel-title {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+    }
+
+    /* Fake color wheel using conic-gradient */
+    .color-wheel {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto var(--space-md) auto;
+      border-radius: 50%;
+      background: conic-gradient(
+        red, yellow, lime, aqua, blue, magenta, red
+      );
+      position: relative;
+      cursor: crosshair;
+      box-shadow: 0 0 0 5px var(--bg-surface);
+    }
+    
+    .color-wheel::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #888 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .color-picker-handle {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border: 2px solid #000;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .slider-group {
+      margin-top: var(--space-lg);
+    }
+    .slider-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent-cyan);
+    }
+
+    @media (max-width: 900px) {
+      .wheels-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../tool-lab.html" class="nav-link">← Quay lại Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header" style="text-align: center; padding: 40px 20px;">
+    <h1>3-Way Color Corrector</h1>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Kéo bánh xe màu để thấy sức mạnh của Color Grading. Thử kết hợp Shadows nghiêng về Teal (xanh lơ) và Highlights nghiêng về Orange (cam) để tạo Cinematic Look.</p>
+  </header>
+
+  <div class="simulator-container">
+    <div class="viewport">
+      <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop" id="render-canvas" alt="Raw Log Image">
+    </div>
+
+    <div class="wheels-panel">
+      <!-- Shadows (Lift) -->
+      <div class="wheel-container">
+        <div class="wheel-title">LIFT (SHADOWS)</div>
+        <div class="color-wheel" id="wheel-lift">
+          <div class="color-picker-handle" id="handle-lift"></div>
+        </div>
+        <div class="slider-group">
+          <label>Exposure</label>
+          <input type="range" id="exp-lift" min="-100" max="100" value="0">
+        </div>
+      </div>
+
+      <!-- Midtones (Gamma) -->
+      <div class="wheel-container">
+        <div class="wheel-title">GAMMA (MIDTONES)</div>
+        <div class="color-wheel" id="wheel-gamma">
+          <div class="color-picker-handle" id="handle-gamma"></div>
+        </div>
+        <div class="slider-group">
+          <label>Exposure</label>
+          <input type="range" id="exp-gamma" min="-100" max="100" value="0">
+        </div>
+      </div>
+
+      <!-- Highlights (Gain) -->
+      <div class="wheel-container">
+        <div class="wheel-title">GAIN (HIGHLIGHTS)</div>
+        <div class="color-wheel" id="wheel-gain">
+          <div class="color-picker-handle" id="handle-gain"></div>
+        </div>
+        <div class="slider-group">
+          <label>Exposure</label>
+          <input type="range" id="exp-gain" min="-100" max="100" value="0">
+        </div>
+      </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button class="btn btn-primary" id="btn-teal-orange">Auto Teal & Orange</button>
+      <button class="btn btn-outline" id="btn-reset">Reset All</button>
+    </div>
+  </div>
+
+  <script src="../js/tools/color-wheels.js"></script>
+</body>
+</html>

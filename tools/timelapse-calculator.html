@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máy tính Timelapse & Giả lập Shutter Angle — LumenForge</title>
+  <meta name="description" content="Công cụ tính toán số lượng ảnh, khoảng thời gian chụp (interval) và độ dài video cho các project Timelapse/Hyperlapse chuyên nghiệp.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .simulator-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+    }
+    .control-group {
+      margin-bottom: var(--space-lg);
+    }
+    .control-group label {
+      display: block;
+      margin-bottom: var(--space-sm);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+    input[type=number], select {
+      width: 100%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+    }
+    .result-box {
+      background: rgba(0, 212, 170, 0.1);
+      border: 1px solid var(--accent-cyan);
+      padding: var(--space-lg);
+      border-radius: var(--radius-md);
+      margin-top: var(--space-xl);
+      text-align: center;
+    }
+    .result-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+    .result-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../tool-lab.html" class="nav-link">← Quay lại Lab</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="page-header" style="text-align: center; padding: 40px 20px;">
+    <h1>Timelapse Calculator</h1>
+    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Tính toán chính xác thông số Interval, Thời gian quay thực tế và Thời lượng video đầu ra cho project Timelapse.</p>
+  </header>
+
+  <div class="simulator-container">
+    <div class="grid-2">
+      <!-- Input Section -->
+      <div>
+        <h3 style="margin-bottom: 20px; color: var(--accent-amber);">Thông số Đầu vào</h3>
+        
+        <div class="control-group">
+          <label>Khoảng cách giữa các nhịp chụp (Interval - Giây)</label>
+          <input type="number" id="input-interval" value="5" min="1">
+          <small style="color: var(--text-dim); display: block; margin-top: 5px;">Mây trôi (2-5s), Hoàng hôn (5-10s), Vì sao (15-30s)</small>
+        </div>
+
+        <div class="control-group">
+          <label>Thời lượng video mong muốn (Giây)</label>
+          <input type="number" id="input-clip-length" value="10" min="1">
+        </div>
+
+        <div class="control-group">
+          <label>Tốc độ khung hình (FPS)</label>
+          <select id="input-fps">
+            <option value="24">24 fps (Cinematic)</option>
+            <option value="25">25 fps (PAL)</option>
+            <option value="30" selected>30 fps (Tiêu chuẩn/Web)</option>
+            <option value="60">60 fps (Mượt mà)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Result Section -->
+      <div>
+        <h3 style="margin-bottom: 20px; color: var(--accent-cyan);">Kết quả Tính toán</h3>
+        
+        <div class="result-box">
+          <div class="result-value" id="res-photos">300</div>
+          <div class="result-label">Số lượng ảnh cần chụp</div>
+        </div>
+
+        <div class="result-box" style="background: rgba(245, 166, 35, 0.1); border-color: var(--accent-amber);">
+          <div class="result-value" id="res-realtime" style="color: var(--accent-amber);">25 Phút</div>
+          <div class="result-label">Thời gian chờ ngoài đời thực</div>
+        </div>
+
+      </div>
+    </div>
+    
+    <div style="margin-top: 40px; padding: 20px; border-top: 1px solid var(--border-color);">
+      <h4>Quy tắc 180 độ (Shutter Angle Rule) cho Timelapse</h4>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Để video Timelapse trông mượt mà và không bị giật cục (stutter), tốc độ màn trập (Shutter Speed) nên được đặt bằng <strong>một nửa</strong> khoảng thời gian Interval (gọi là Dragging the Shutter). Ví dụ: Nếu Interval là 5 giây, Shutter Speed nên là khoảng 2.5 giây. Việc này sẽ tạo ra độ nhòe chuyển động (Motion Blur) hoàn hảo cho người đi bộ hoặc xe cộ.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const intervalInput = document.getElementById('input-interval');
+      const lengthInput = document.getElementById('input-clip-length');
+      const fpsInput = document.getElementById('input-fps');
+      
+      const resPhotos = document.getElementById('res-photos');
+      const resRealtime = document.getElementById('res-realtime');
+
+      function calculate() {
+        const interval = parseFloat(intervalInput.value) || 0;
+        const length = parseFloat(lengthInput.value) || 0;
+        const fps = parseInt(fpsInput.value) || 30;
+
+        // Total frames needed
+        const frames = length * fps;
+        
+        // Total real time in seconds
+        const realTimeSeconds = frames * interval;
+        
+        // Format time
+        let timeString = '';
+        if (realTimeSeconds < 60) {
+          timeString = `${realTimeSeconds} Giây`;
+        } else if (realTimeSeconds < 3600) {
+          const minutes = (realTimeSeconds / 60).toFixed(1);
+          timeString = `${minutes} Phút`;
+        } else {
+          const hours = (realTimeSeconds / 3600).toFixed(1);
+          timeString = `${hours} Giờ`;
+        }
+
+        resPhotos.textContent = frames;
+        resRealtime.textContent = timeString;
+      }
+
+      intervalInput.addEventListener('input', calculate);
+      lengthInput.addEventListener('input', calculate);
+      fpsInput.addEventListener('change', calculate);
+
+      calculate();
+    });
+  </script>
+</body>
+</html>

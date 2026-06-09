@@ -83,9 +83,62 @@
       fill: #d4af37;
     }
 
+    /* Testimonials Section */
+    .testimonials {
+      padding: var(--space-3xl) var(--space-md);
+      background: var(--bg-secondary);
+      text-align: center;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+      max-width: 1200px;
+      margin: var(--space-2xl) auto 0;
+    }
+    .testimonial-card {
+      background: var(--bg-card);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      text-align: left;
+    }
+    .testimonial-text {
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      line-height: 1.6;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .testimonial-role {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+    .stars {
+      color: #d4af37;
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Countdown Timer */
+    .countdown-banner {
+      background: linear-gradient(90deg, var(--accent-red), #900);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
   </style>
 </head>
 <body>
+
+  <div class="countdown-banner">
+    🔥 ƯU ĐÃI EARLY BIRD: GIẢM 40% CHO 100 SUẤT ĐẦU TIÊN (KẾT THÚC TRONG <span id="timer">48:00:00</span>) 🔥
+  </div>
 
   <nav class="nav" id="main-nav">
     <div class="nav-container">
@@ -120,7 +173,8 @@
             <li>Update miễn phí các version sau</li>
           </ul>
           
-          <button class="btn btn-outline" style="width: 100%;">Mua Ebook</button>
+          <button class="btn btn-outline" style="width: 100%; margin-bottom: 15px;">Mua Ebook</button>
+          <a href="ebook-preview.html" style="display: block; text-align: center; color: var(--accent-amber); font-size: 0.9rem; text-decoration: none;">Đọc thử Chương 1 Miễn phí →</a>
         </div>
 
         <!-- Tier 2 (Premium) -->
@@ -176,10 +230,61 @@
     </div>
   </div>
 
+  <section class="testimonials">
+    <h2>Khách hàng nói gì về LumenForge?</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Cuốn Ebook thực sự mở rộng tầm mắt. Nó không dạy tôi cách bấm máy, nó dạy tôi cách nhìn nhận vật lý ánh sáng như một nhà quay phim thực thụ. Rất đáng đồng tiền bát gạo."</p>
+        <div class="testimonial-author">Trần Hoàng Nam</div>
+        <div class="testimonial-role">Commercial Photographer</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Preset Color Alchemist quá khủng! Nó không chỉ là đắp màu lên ảnh, mà còn can thiệp sâu vào Color Matrix để cho ra cái chất Teal & Orange đúng chuẩn Hollywood."</p>
+        <div class="testimonial-author">Lê Phương Thảo</div>
+        <div class="testimonial-role">Colorist & Editor</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Chưa bao giờ thấy một khóa học nhiếp ảnh nào phân tích sâu về tâm lý thị giác và Gestalt như LumenForge. Khóa Masterclass đã thay đổi hoàn toàn tư duy set up đèn của tôi."</p>
+        <div class="testimonial-author">Nguyễn Minh Khang</div>
+        <div class="testimonial-role">Cinematographer</div>
+      </div>
+    </div>
+  </section>
+
   <footer style="text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85rem; margin-top: 40px;">
     &copy; 2026 LumenForge Academy. All rights reserved.
   </footer>
 
   <script src="js/common.js"></script>
+  <script>
+    // Fake Countdown Timer logic
+    function startTimer(duration, display) {
+      let timer = duration, hours, minutes, seconds;
+      setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          timer = duration;
+        }
+      }, 1000);
+    }
+
+    window.onload = function () {
+      let timeRemaining = 48 * 60 * 60; // 48 hours
+      let display = document.querySelector('#timer');
+      startTimer(timeRemaining, display);
+    };
+  </script>
 </body>
 </html>
