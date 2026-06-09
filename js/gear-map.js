@@ -351,14 +351,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!rec) return;
 
     stepContainer.innerHTML = `
-      <div class="gearmap-result-header animate-on-scroll">
+      <div class="gearmap-result-header gear-fade-in">
         <span class="gearmap-step-num">BẢN ĐỒ QUYẾT ĐỊNH — KẾT QUẢ GỢI Ý</span>
         <h2>${rec.title}</h2>
         <p class="gearmap-result-subtitle">${rec.subtitle}</p>
         <div class="gearmap-price-tag">Giá tham khảo: ${rec.price}</div>
       </div>
       
-      <div class="gearmap-result-grid animate-on-scroll" style="animation-delay: 0.1s;">
+      <div class="gearmap-result-grid gear-fade-in" style="animation-delay: 0.1s;">
         <div class="result-card">
           <h4>🎯 Vì sao đây là lựa chọn tối ưu cho bạn?</h4>
           <p>${rec.whyBuy}</p>
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
 
-      <div class="gearmap-actions animate-on-scroll" style="animation-delay: 0.2s;">
+      <div class="gearmap-actions gear-fade-in" style="animation-delay: 0.2s;">
         <button class="btn-generate" id="gearmap-reset" style="margin-top:0; max-width:280px;">Bắt đầu lại sơ đồ</button>
       </div>
     `;

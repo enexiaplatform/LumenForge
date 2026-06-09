@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma trận Không Gian Màu: sRGB vs AdobeRGB vs DCI-P3 & Bit Depth — LumenForge</title>
+    <meta name="description" content="Khám phá vật lý của không gian màu, gam màu kỹ thuật số và độ sâu bit. Hiểu rõ sRGB, AdobeRGB, DCI-P3 và ProPhoto RGB để tối ưu hóa quy trình quản lý màu sắc.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html" class="active">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+                <a href="../shot-recipes.html">Công thức Chụp</a>
+                <a href="../visual-experiments.html">Thử nghiệm</a>
+                <a href="../gear-map.html">Bản đồ Thiết bị</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Quay lại Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-color">Khoa học Màu sắc</span>
+                <span class="read-time">12 phút đọc</span>
+            </div>
+            <h1>Ma trận Không Gian Màu: sRGB vs AdobeRGB vs DCI-P3 & Bit Depth</h1>
+            <p class="article-header-desc">Khám phá cơ sở khoa học đằng sau cách chúng ta tái tạo màu sắc kỹ thuật số, từ biểu đồ hình móng ngựa CIE 1931 cho đến những không gian màu vượt quá khả năng hiển thị của màn hình.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] TẦM NHÌN CON NGƯỜI</div>
+                    <h2>Biểu đồ CIE 1931 & Giới hạn của Kỹ thuật số</h2>
+                    <p>Thị giác của con người là một cỗ máy ghi nhận quang phổ phức tạp và vượt trội. Năm 1931, Ủy ban Chiếu sáng Quốc tế (CIE) đã định lượng thành công giới hạn nhận thức màu sắc của mắt người thông qua <strong>biểu đồ hình móng ngựa CIE 1931</strong>. Biểu đồ này bao trọn toàn bộ các bước sóng ánh sáng khả kiến mà con người có thể nhìn thấy.</p>
+                    <p>Ngược lại, <strong>Gam màu kỹ thuật số (Digital Gamuts)</strong> chỉ là một tập hợp con nhỏ bé nằm bên trong móng ngựa CIE 1931 đó. Các thiết bị hiển thị kỹ thuật số như màn hình máy tính, điện thoại, hay máy in đều không thể tái tạo hoàn toàn mọi màu sắc mà mắt người có thể cảm nhận. Thay vào đó, chúng tạo ra một hình tam giác trên biểu đồ CIE 1931, với ba đỉnh tương ứng với ba màu cơ bản: Đỏ (Red), Lục (Green) và Lam (Blue). Khu vực nằm bên trong hình tam giác này được gọi là "Không gian màu" (Color Space).</p>
+                    
+                    <div class="margin-note">[0.2] CÁC TIÊU CHUẨN</div>
+                    <h2>sRGB vs AdobeRGB vs DCI-P3</h2>
+                    <p>Sự tồn tại của nhiều không gian màu khác nhau bắt nguồn từ sự phân mảnh của công nghệ hiển thị và mục đích sử dụng. Dưới đây là ba không gian màu phổ biến nhất mà bạn cần nắm vững:</p>
+                    
+                    <ul>
+                        <li><strong>sRGB (Tiêu chuẩn Web):</strong> Được tạo ra bởi HP và Microsoft vào năm 1996. Đây là không gian màu nhỏ nhất trong ba loại, nhưng lại là tiêu chuẩn toàn cầu cho web, điện thoại thông minh, và các màn hình tiêu dùng. Nếu bạn đăng ảnh lên mạng xã hội, sRGB là không gian màu bắt buộc để đảm bảo mọi người đều thấy màu sắc giống nhau.</li>
+                        <li><strong>AdobeRGB (Tiêu chuẩn In ấn):</strong> Được Adobe phát triển năm 1998, với mục đích bao phủ nhiều màu sắc hơn (đặc biệt là dải màu xanh lục và xanh lam - cyan) mà máy in CMYK có thể in ra nhưng sRGB không thể hiển thị. AdobeRGB lý tưởng cho các nhiếp ảnh gia thương mại và in ấn mỹ thuật.</li>
+                        <li><strong>DCI-P3 (Tiêu chuẩn Điện ảnh / Apple):</strong> Phát triển bởi nền công nghiệp điện ảnh kỹ thuật số (Digital Cinema Initiatives). Nó có dải màu rộng hơn sRGB khoảng 25%, đặc biệt vượt trội ở các gam màu đỏ và vàng. Nhờ Apple áp dụng rộng rãi trên các thiết bị iPhone, iPad, và Mac, DCI-P3 dần trở thành tiêu chuẩn mới cho tiêu thụ nội dung đa phương tiện cao cấp.</li>
+                    </ul>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Không gian màu</th>
+                                <th>Độ bao phủ CIE 1931</th>
+                                <th>Mục đích tối ưu</th>
+                                <th>Thiết bị hiển thị phổ biến</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>sRGB</td>
+                                <td>~35%</td>
+                                <td>Trình duyệt Web, Mạng xã hội</td>
+                                <td>Hầu hết mọi màn hình tiêu chuẩn</td>
+                            </tr>
+                            <tr>
+                                <td>AdobeRGB</td>
+                                <td>~50%</td>
+                                <td>In ấn nghệ thuật (Fine Art Print)</td>
+                                <td>Màn hình đồ họa chuyên dụng (EIZO, Dell UltraSharp)</td>
+                            </tr>
+                            <tr>
+                                <td>DCI-P3</td>
+                                <td>~45%</td>
+                                <td>Phim ảnh, Hiển thị cao cấp</td>
+                                <td>Thiết bị Apple, TV OLED, Màn hình Cinema</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.3] VẬT LÝ DỮ LIỆU</div>
+                    <h2>Bit Depth: Chống hiện tượng Color Banding</h2>
+                    <p>Nếu "Không gian màu" quyết định <em>loại màu sắc</em> nào có thể được hiển thị (chiều rộng của hộp màu), thì <strong>Độ sâu bit (Bit Depth)</strong> quyết định <em>số lượng sắc độ</em> tinh tế giữa các màu đó (số lượng bút chì màu trong hộp).</p>
+                    <p>Hình ảnh <strong>8-bit (như JPEG chuẩn)</strong> cung cấp 2^8 (tức là 256) sắc độ cho mỗi kênh R, G, B. Kết hợp lại, chúng ta có 256 x 256 x 256 = <strong>16.7 triệu màu</strong>. Con số này nghe có vẻ lớn, nhưng đối với các dải màu chuyển tiếp mượt mà như bầu trời xanh lúc hoàng hôn, 256 sắc độ là không đủ. Khi đó, hiện tượng gãy màu hay "color banding" sẽ xảy ra - các đường ranh giới rõ rệt giữa các sắc độ xuất hiện dưới dạng các dải màu vằn vện thay vì một dải gradient mượt mà.</p>
+                    <p>Ngược lại, tệp <strong>14-bit RAW</strong> cung cấp 2^14 (16,384) sắc độ cho mỗi kênh, mang lại tới <strong>4.3 ngàn tỷ màu</strong>. Sự gia tăng cấp số nhân này cung cấp đủ lượng dữ liệu nội suy để quá trình chuyển đổi màu sắc diễn ra mượt mà tuyệt đối, ngay cả khi bạn kéo giãn tương phản mạnh trong quá trình hậu kỳ, triệt tiêu hoàn toàn hiện tượng color banding.</p>
+                    
+                    <div class="lab-note-block">
+                        <strong>🧪 Ghi chú Phòng thí nghiệm [EXP-COL-031]: Kiểm tra Banding Bầu trời</strong><br>
+                        Nếu bạn đang chụp chân dung ngược sáng hoàng hôn, hãy thử chụp cả JPEG 8-bit và RAW 14-bit. Mở file JPEG, tăng Contrast và Vibrance thêm +50. Bầu trời sẽ bị nứt thành các vòng cung màu rời rạc (banding). Làm tương tự với file RAW 14-bit, gradient của bầu trời vẫn sẽ giữ được sự toàn vẹn. Độ sâu bit cung cấp "độ giãn nở" cho dữ liệu.
+                    </div>
+
+                    <div class="margin-note">[0.4] THỰC TIỄN</div>
+                    <h2>Quy trình: Chụp AdobeRGB - Xuất sRGB</h2>
+                    <p>Trong máy ảnh, bạn thường thấy tùy chọn cài đặt không gian màu. <strong>Tại sao lại luôn nên chụp ở AdobeRGB nhưng cuối cùng lại xuất ra sRGB?</strong></p>
+                    <p>Khi bạn thiết lập máy ảnh ở AdobeRGB, tệp ảnh lưu giữ lại được lượng thông tin màu sắc phong phú nhất có thể từ cảm biến (nếu bạn chụp RAW, cài đặt này thực chất chỉ ảnh hưởng đến file preview và histogram, vì RAW ghi lại toàn bộ dữ liệu cảm biến). Khi chỉnh sửa trong Lightroom hoặc Photoshop, một không gian làm việc rộng giúp màu sắc không bị "cắt xén" (clipping).</p>
+                    <p>Tuy nhiên, <strong>khi bạn chuẩn bị tải bức ảnh đó lên web hoặc gửi cho khách hàng xem trên điện thoại, bạn BẮT BUỘC phải chuyển đổi (convert) nó sang sRGB.</strong> Các trình duyệt web và hệ điều hành không được lập trình để hiểu hồ sơ AdobeRGB. Nếu bạn đăng ảnh AdobeRGB lên web, trình duyệt sẽ hiểu sai dữ liệu màu, hiển thị màu xanh và đỏ một cách tái nhợt, thiếu sức sống và bị "washed-out".</p>
+
+                    <div class="margin-note">[0.5] KHÔNG GIAN VÔ CỰC</div>
+                    <h2>ProPhoto RGB: Chứa đựng những màu sắc vô hình</h2>
+                    <p>Trong nhiếp ảnh hiện đại, Lightroom sử dụng một không gian làm việc mặc định thậm chí còn vĩ đại hơn AdobeRGB. Đó là <strong>ProPhoto RGB</strong> do Kodak phát triển.</p>
+                    <p>ProPhoto RGB lớn đến mức nó bao phủ 90% toàn bộ không gian màu mà mắt người có thể nhìn thấy (CIE 1931). Thậm chí, một số đỉnh của tam giác ProPhoto RGB còn nằm <em>bên ngoài</em> giới hạn thị giác của con người — nghĩa là nó đang định nghĩa các giá trị toán học của những màu sắc mà con người hoàn toàn không thể thấy được!</p>
+                    <p><strong>Tại sao chúng ta lại cần một không gian màu mà cả những màn hình đắt tiền nhất cũng không thể hiển thị?</strong> Câu trả lời nằm ở "không gian toán học để hậu kỳ". Khi bạn thực hiện các phép tính phức tạp như giảm Highlight cực hạn hoặc khôi phục Shadow, một không gian cực rộng như ProPhoto RGB đảm bảo rằng các điểm dữ liệu không bị đẩy lùi vào bức tường của không gian màu và bị mất đi (color clipping). Nó là không gian để "chỉnh sửa", không phải để "hiển thị".</p>
+                    
+                    <p>Việc hiểu rõ về Không gian màu và Độ sâu Bit chính là chiếc chìa khóa định hình toàn bộ khả năng phân giải màu sắc của quy trình nhiếp ảnh số. Hãy làm chủ ma trận toán học này để màu sắc trong tâm trí bạn có thể truyền tải trọn vẹn đến ánh mắt của người xem.</p>
+
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item">
+                                <span class="meta-label">ID Ghi chú</span>
+                                <span class="meta-value">COL-031</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Mức độ lý thuyết</span>
+                                <span class="meta-value">Chuyên sâu / Toán học</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Ứng dụng</span>
+                                <span class="meta-value">Quản lý Màu sắc, In ấn</span>
+                            </li>
+                        </ul>
+                        
+                        <h3>Công cụ liên quan</h3>
+                        <div class="tool-card-mini">
+                            <a href="../tools/color-alchemy.html" style="text-decoration: none; color: inherit;">
+                                <h4>Color Alchemy</h4>
+                                <p>Công cụ trực quan hóa thuật toán pha trộn không gian màu và kiểm tra cảnh báo Clipping RGB.</p>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">LUMENFORGE</div>
+            <div class="footer-links">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge - Light Intelligence Lab. Viết bằng ngôn ngữ của Ánh sáng.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

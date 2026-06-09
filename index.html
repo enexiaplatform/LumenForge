@@ -3,8 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LumenForge — A Light Intelligence Lab</title>
-  <meta name="description" content="A personal lab for optics, photography, camera tools & visual intelligence. Hiểu ánh sáng. Rèn phong cách hình ảnh.">
+  <title>LumenForge — Kiến trúc sư Hình ảnh & Ánh sáng</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="LumenForge — Kiến trúc sư Hình ảnh & Ánh sáng">
+  <meta name="description" content="Nền tảng học thuật nhiếp ảnh và điện ảnh cao cấp nhất. Cung cấp kiến thức sâu sắc về vật lý ánh sáng, khoa học màu sắc, tâm lý thị giác và công cụ giả lập.">
+  <meta name="keywords" content="LumenForge, nhiếp ảnh, điện ảnh, ánh sáng, màu sắc, histogram, máy ảnh, preset màu, LUTs, khóa học nhiếp ảnh, cinematography">
+  <meta name="author" content="LumenForge">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lumenforge.com/">
+  <meta property="og:title" content="LumenForge — Kiến trúc sư Hình ảnh & Ánh sáng">
+  <meta property="og:description" content="Nền tảng học thuật nhiếp ảnh và điện ảnh cao cấp nhất. Trang bị ngay tư duy nhiếp ảnh gia và nhà làm phim.">
+  <meta property="og:image" content="https://lumenforge.com/assets/og-image.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://lumenforge.com/">
+  <meta property="twitter:title" content="LumenForge — Kiến trúc sư Hình ảnh & Ánh sáng">
+  <meta property="twitter:description" content="Nền tảng học thuật nhiếp ảnh và điện ảnh cao cấp nhất.">
+  <meta property="twitter:image" content="https://lumenforge.com/assets/og-image.jpg">
+
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="css/design-system.css">
@@ -21,10 +41,13 @@
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-menu" id="nav-menu">
+      <div class="nav-menu">
         <a href="index.html" class="nav-link active">Trang chủ</a>
         <a href="light-codex.html" class="nav-link">Quang Thư</a>
         <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="gear-vault.html" class="nav-link">Kho Thiết Bị</a>
+        <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+        <a href="studio-planner.html" class="nav-link" style="color: var(--accent-amber); font-weight: 500;">Studio Planner</a>
         <a href="shot-recipes.html" class="nav-link">Công thức Chụp</a>
         <a href="visual-experiments.html" class="nav-link">Thử nghiệm</a>
         <a href="gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
@@ -43,14 +66,14 @@
 
       <h1 class="hero-title">LUMEN<span class="text-gradient">FORGE</span></h1>
 
-      <p class="hero-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+      <p class="hero-tagline">Hệ sinh thái Nhiếp ảnh & Ánh sáng toàn diện.</p>
 
-      <p class="hero-subtitle">Nơi ánh sáng được mổ xẻ, rèn luyện và biến thành ảnh.</p>
+      <p class="hero-subtitle">Giải pháp End-to-End: Từ lý thuyết quang học, sơ đồ ánh sáng, đến bản thiết kế thực thi.</p>
 
       <div class="hero-ctas">
-        <a href="light-codex.html" class="btn-primary">Khám phá Quang Thư</a>
-        <a href="tool-lab.html" class="btn-secondary">Thử nghiệm Công cụ</a>
-        <a href="tools/visual-identity.html" class="btn-secondary">Tìm phong cách cá nhân</a>
+        <a href="studio-planner.html" class="btn-primary" style="background: linear-gradient(135deg, var(--accent-amber), var(--accent-red)); box-shadow: 0 4px 15px rgba(245, 166, 35, 0.4); border: none;">Khởi tạo Dự án Chụp</a>
+        <a href="light-codex.html" class="btn-secondary">Khám phá Quang Thư</a>
+        <a href="tool-lab.html" class="btn-secondary">Vào Xưởng Công cụ</a>
       </div>
     </div>
 
@@ -62,14 +85,29 @@
   </section>
 
   <!-- ============================================================
-       LAB OVERVIEW — Năm Căn phòng Ánh sáng
+       LAB OVERVIEW — Hệ Sinh Thái Ánh Sáng
        ============================================================ -->
   <section class="section lab-overview" id="lab-overview">
     <div class="container">
-      <p class="section-label">KHÁM PHÁ PHÒNG LAB</p>
-      <h2 class="section-title">Năm Căn phòng Ánh sáng</h2>
+      <p class="section-label">KHÁM PHÁ HỆ SINH THÁI</p>
+      <h2 class="section-title">Sáu Phân Khu Tác Nghiệp</h2>
 
       <div class="lab-grid">
+
+        <!-- Card 0: Studio Planner -->
+        <div class="lab-card animate-on-scroll" style="grid-column: 1 / -1; border-color: rgba(245, 166, 35, 0.3); background: linear-gradient(180deg, rgba(20, 20, 28, 0.9) 0%, rgba(245, 166, 35, 0.05) 100%);">
+          <div class="lab-card-icon" style="color: var(--accent-amber);">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="4" width="24" height="24" rx="2" />
+              <path d="M4 12h24 M12 4v24" />
+              <circle cx="20" cy="20" r="4" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="lab-card-number">★</div>
+          <h3 style="color: var(--accent-amber);">Studio Planner (End-to-End Hub)</h3>
+          <p>Bảng điều hành dự án toàn diện. Xây dựng kế hoạch chụp ảnh từ A-Z: thiết lập Concept, chọn Thiết bị, vẽ Sơ đồ Ánh sáng 2D và xuất Shot Sheet hoàn chỉnh để mang ra set chụp.</p>
+          <a href="studio-planner.html" class="lab-card-link" style="color: var(--accent-amber);">Khởi tạo dự án ngay →</a>
+        </div>
 
         <!-- Card 1: Light Codex -->
         <div class="lab-card animate-on-scroll">

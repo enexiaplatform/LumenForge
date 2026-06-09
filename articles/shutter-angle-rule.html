@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy tắc Góc Màn Trập (180-Degree Rule): Bí quyết của Motion Blur điện ảnh — LumenForge</title>
+    <meta name="description" content="Khám phá Quy tắc Góc Màn Trập 180 độ trong điện ảnh, nguồn gốc cơ học và cách áp dụng motion blur để tạo nên chất lượng điện ảnh đích thực.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../light-codex.html" class="active">Quang Thư</a></li>
+                <li><a href="../tool-lab.html">Xưởng Công cụ</a></li>
+                <li><a href="../shot-recipes.html">Công thức Chụp</a></li>
+                <li><a href="../visual-experiments.html">Thử nghiệm</a></li>
+                <li><a href="../gear-map.html">Bản đồ Thiết bị</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Quay lại Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-cinema">Điện ảnh 101</span>
+                <span class="read-time">10 phút đọc</span>
+            </div>
+            <h1>Quy tắc Góc Màn Trập (180-Degree Rule): Bí quyết của Motion Blur điện ảnh</h1>
+            <p class="article-header-desc">Học cách làm chủ motion blur và hiểu lý do vì sao thay đổi tốc độ màn trập để chỉnh sáng lại là một "đại tội" trong quay phim.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] TỐC ĐỘ VÀ GÓC ĐỘ</div>
+                    <h2>Tốc độ màn trập (Photography) vs. Góc màn trập (Cinema)</h2>
+                    <p>Trong nhiếp ảnh, chúng ta quen thuộc với khái niệm <strong>Tốc độ Màn trập (Shutter Speed)</strong>, được tính bằng phân số của một giây (ví dụ: 1/50s, 1/1000s). Đây là một biến số linh hoạt để bạn đóng băng chuyển động (freeze motion) hoặc tạo ra các vệt mờ (motion blur) tùy ý. Hơn thế nữa, nó còn đóng vai trò quan trọng trong việc điều chỉnh mức độ phơi sáng của bức ảnh.</p>
+                    <p>Ngược lại, trong điện ảnh và quay phim chuyên nghiệp, ngôn ngữ chuẩn mực là <strong>Góc Màn trập (Shutter Angle)</strong>. Góc màn trập không trực tiếp đo bằng thời gian mà được biểu diễn bằng độ (ví dụ: 180°, 90°, 45°). Sự khác biệt này không chỉ ở đơn vị đo, mà còn ở cách hệ thống máy ảnh cơ học lịch sử vận hành, quy định cách khung hình (frame) được ghi lại liên tục.</p>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Khía cạnh</th>
+                                <th>Tốc độ màn trập (Nhiếp ảnh)</th>
+                                <th>Góc màn trập (Điện ảnh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Đơn vị</strong></td>
+                                <td>Thời gian (giây, vd: 1/100s)</td>
+                                <td>Độ (góc, vd: 180°)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chức năng chính</strong></td>
+                                <td>Đóng băng chuyển động, chỉnh sáng</td>
+                                <td>Kiểm soát motion blur nhất quán</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tính độc lập</strong></td>
+                                <td>Hoạt động độc lập với frame rate</td>
+                                <td>Liên kết chặt chẽ với frame rate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.2] NGUỒN GỐC CƠ HỌC</div>
+                    <h2>Rotary Shutter: Chiếc đĩa quay làm nên lịch sử</h2>
+                    <p>Để hiểu vì sao người ta lại dùng "góc" để tính thời gian phơi sáng, chúng ta cần nhìn vào cấu trúc của các máy quay phim nhựa truyền thống. Thay vì màn trập rèm trượt lên xuống như máy ảnh DSLR, máy quay điện ảnh sử dụng một màn trập xoay (Rotary Shutter).</p>
+                    <p>Hãy tưởng tượng một chiếc đĩa tròn xoay liên tục trước cảm biến (hoặc tấm phim). Chiếc đĩa này bị khoét đi một nửa — tức là một góc <strong>180 độ</strong>. Khi máy quay ghi hình ở tốc độ 24 khung hình/giây (fps):</p>
+                    <ul>
+                        <li>Khi phần đĩa bị khoét (phần mở) đi ngang qua, ánh sáng lọt vào và phơi sáng bề mặt phim.</li>
+                        <li>Khi phần đĩa kín (phần đóng) đi ngang qua, ánh sáng bị chặn lại. Trong tích tắc bóng tối đó, cơ chế móc kéo sẽ kéo cuộn phim xuống một khung hình mới chuẩn bị cho lần phơi sáng tiếp theo.</li>
+                    </ul>
+                    <p>Như vậy, góc màn trập chính là kích thước vật lý của phần khe hở trên chiếc đĩa quay này.</p>
+
+                    <div class="margin-note">[0.3] CÔNG THỨC TOÁN HỌC</div>
+                    <h2>Toán học của Quy tắc 180 độ</h2>
+                    <p>Tại sao 180 độ lại là con số "vàng"? Khi chiếc đĩa mở một góc 180 độ (một nửa vòng tròn), thời gian tấm phim được phơi sáng sẽ bằng chính xác một nửa khoảng thời gian cần thiết để chụp một khung hình.</p>
+                    <div class="lab-note-block">
+                        <strong>Công thức quy đổi Góc màn trập sang Tốc độ màn trập:</strong><br>
+                        <code>Shutter Speed = 1 / (Frame Rate × (360 / Shutter Angle))</code>
+                        <br><br>
+                        <em>Ví dụ với chuẩn điện ảnh:</em><br>
+                        Frame Rate = 24 fps<br>
+                        Shutter Angle = 180°<br>
+                        Shutter Speed = 1 / (24 × (360 / 180)) = 1 / (24 × 2) = <strong>1/48 giây</strong>
+                    </div>
+                    <p>Với tỷ lệ này, mức độ nhòe chuyển động (motion blur) tạo ra trên mỗi khung hình khi chiếu liên tục sẽ mô phỏng hoàn hảo cách mà mắt người và não bộ cảm nhận chuyển động thực tế. Nó mượt mà, không bị giật cục (choppy) cũng không quá nhòe nhoẹt (smeared). Đây chính là "Cinematic Look" kinh điển.</p>
+
+                    <div class="margin-note">[0.4] PHÁ VỠ QUY TẮC</div>
+                    <h2>Phá vỡ quy tắc: 90 độ vs. 360 độ</h2>
+                    <p>Trong nghệ thuật, một khi đã nắm vững quy tắc, bạn có quyền phá vỡ nó để phục vụ mục đích kể chuyện.</p>
+                    <h3>Góc hẹp (45° - 90°): Hiệu ứng Staccato</h3>
+                    <p>Bằng cách thu hẹp góc màn trập, thời gian phơi sáng trên mỗi frame sẽ ngắn lại (ví dụ 90° ở 24fps tương đương 1/96s). Motion blur gần như biến mất, các chuyển động trở nên sắc nét, cứng cáp và có phần giật cục. Kỹ thuật này nổi tiếng nhất qua đoạn đổ bộ bãi biển Omaha trong <em>Saving Private Ryan</em> của Steven Spielberg, tạo ra cảm giác hỗn loạn, chân thực và khốc liệt tột độ của chiến trường.</p>
+                    <h3>Góc rộng (270° - 360°): Hiệu ứng Dreamy</h3>
+                    <p>Khi mở rộng góc màn trập ra mức tối đa (ví dụ 360° tương đương 1/24s ở 24fps, nghĩa là không hề có lúc nào phim bị che sáng), ánh sáng sẽ tràn vào liên tục. Chuyển động trở nên mờ ảo, kéo vệt và đầy chất thơ. Phim <em>Chungking Express</em> (Trùng Khánh Sâm Lâm) của Vương Gia Vệ đã ứng dụng triệt để kỹ thuật này (kết hợp với step-printing) để lột tả cảm giác trôi dạt, mộng mị và lạc lõng của nhân vật giữa phố thị Hong Kong.</p>
+
+                    <div class="margin-note">[0.5] "ĐẠI TỘI" CHỈNH SÁNG</div>
+                    <h2>Vì sao thay đổi màn trập để chỉnh sáng là một "đại tội"?</h2>
+                    <p>Các nhiếp ảnh gia chuyển sang quay phim thường mang theo một thói quen nguy hiểm: Khi cảnh quá sáng, họ tăng tốc độ màn trập (ví dụ từ 1/50s lên 1/500s) thay vì khép khẩu (Aperture) hay giảm ISO.</p>
+                    <p>Trong điện ảnh, việc này phá vỡ hoàn toàn quy tắc 180 độ. Khi bạn tự ý tăng tốc độ màn trập chỉ để bù trừ độ sáng, bạn đang thu hẹp góc màn trập một cách vô ý thức. Hậu quả là những chuyển động trong khung hình tự nhiên trở nên gai góc, giật cục và mất đi sự mềm mại tự nhiên của thước phim điện ảnh.</p>
+                    <p>Để kiểm soát phơi sáng mà vẫn duy trì góc 180 độ, các nhà làm phim chuyên nghiệp sử dụng <strong>ND Filter (Kính lọc giảm sáng)</strong>. ND Filter hoạt động như "kính râm" cho ống kính, giúp giảm lượng ánh sáng đi vào cảm biến mà không hề thay đổi độ sâu trường ảnh hay tính chất chuyển động của khung hình.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item">
+                                <span class="meta-label">Mã thử nghiệm</span>
+                                <span class="meta-value">EXP-CINE-039</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Cấp độ</span>
+                                <span class="meta-value">Trung cấp</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Chuyên mục</span>
+                                <span class="meta-value">Điện ảnh 101</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-panel">
+                        <h3>CÔNG CỤ LIÊN QUAN</h3>
+                        <p>Kiểm soát độ phơi sáng mà không phá vỡ quy tắc góc màn trập với công cụ giả lập Exposure Reactor.</p>
+                        <a href="../tool-lab.html#exposure-reactor" class="sidebar-link-btn">Mở Exposure Reactor →</a>
+                    </div>
+                    
+                    <div class="sidebar-panel">
+                        <h3>BÀI VIẾT LIÊN QUAN</h3>
+                        <ul class="related-links">
+                            <li><a href="#">Khoa học sau kính lọc ND: Bậc thầy kiểm soát sáng</a></li>
+                            <li><a href="#">Tâm lý học của Frame Rate trong kể chuyện</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">LumenForge — Light Intelligence Lab</div>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">About</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

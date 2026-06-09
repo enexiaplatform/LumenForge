@@ -239,3 +239,14 @@
   display: flex;
   justify-content: center;
 }
+
+/* Result Animation Fix */
+.gear-fade-in {
+  opacity: 0;
+  animation: gearFadeIn 0.5s ease forwards;
+}
+@keyframes gearFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

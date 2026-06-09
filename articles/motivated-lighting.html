@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ánh sáng Có Nguồn Gốc (Motivated Lighting): Đánh sáng Bối cảnh thay vì Chủ thể — LumenForge</title>
+    <meta name="description" content="Khám phá nghệ thuật Ánh sáng Có Nguồn Gốc (Motivated Lighting) trong điện ảnh: Bí quyết đánh sáng bối cảnh để tạo ra sự chân thực, thay vì chỉ tập trung vào vẻ đẹp của chủ thể như nhiếp ảnh.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../light-codex.html" class="active">Quang Thư</a></li>
+                <li><a href="../tool-lab.html">Xưởng Công cụ</a></li>
+                <li><a href="../shot-recipes.html">Công thức Chụp</a></li>
+                <li><a href="../visual-experiments.html">Thử nghiệm</a></li>
+                <li><a href="../gear-map.html">Bản đồ Thiết bị</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Quay lại Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-cinema">Điện ảnh 101</span>
+                <span class="read-time">12 phút đọc</span>
+            </div>
+            <h1>Ánh sáng Có Nguồn Gốc (Motivated Lighting): Đánh sáng Bối cảnh thay vì Chủ thể</h1>
+            <p class="article-header-desc">Khám phá nghệ thuật tạo ra ảo giác về ánh sáng tự nhiên trong khung hình, biến những thiết bị chiếu sáng cồng kềnh thành ánh trăng, ngọn đèn bàn hay tia nắng xuyên qua khe cửa.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1]</div>
+                    <h2>Nhiếp ảnh vs. Điện ảnh: Hai Triết lý Đánh sáng</h2>
+                    <p>Trong nhiếp ảnh chân dung hay thời trang, mục tiêu tối thượng thường là làm cho chủ thể trông hoàn hảo nhất có thể. Ánh sáng được thiết kế để tôn lên đường nét khuôn mặt, che đi khuyết điểm và tạo ra một hình ảnh bắt mắt, độc lập với không gian xung quanh. Nhiếp ảnh gia có thể đặt đèn flash ở bất kỳ đâu miễn là tạo ra hiệu ứng mong muốn, bất chấp việc nguồn sáng đó có hợp lý trong bối cảnh thực tế hay không.</p>
+                    <p>Ngược lại, điện ảnh đòi hỏi một triết lý hoàn toàn khác. Khán giả điện ảnh đang theo dõi một câu chuyện diễn ra trong một thế giới (thường là) chân thực. Nếu ánh sáng trông có vẻ giả tạo hoặc xuất phát từ hư không, thế giới đó sẽ sụp đổ. Nhiệm vụ của Giám đốc Hình ảnh (Cinematographer) không chỉ là làm cho diễn viên đẹp, mà là <strong>làm cho bối cảnh trở nên đáng tin cậy (believable)</strong>.</p>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí</th>
+                                <th>Ánh sáng Nhiếp ảnh</th>
+                                <th>Ánh sáng Điện ảnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mục tiêu chính</td>
+                                <td>Tôn vinh vẻ đẹp của chủ thể</td>
+                                <td>Tạo ra sự chân thực cho bối cảnh</td>
+                            </tr>
+                            <tr>
+                                <td>Nguồn sáng</td>
+                                <td>Tự do, không cần hợp lý với bối cảnh</td>
+                                <td>Phải có nguồn gốc rõ ràng (Motivated)</td>
+                            </tr>
+                            <tr>
+                                <td>Tính liên tục</td>
+                                <td>Chỉ quan trọng trong một khung hình tĩnh</td>
+                                <td>Yêu cầu khắt khe qua nhiều góc máy (Wide, Close-up)</td>
+                            </tr>
+                            <tr>
+                                <td>Bóng tối (Shadow)</td>
+                                <td>Thường được lấp đầy (Fill) hoặc kiểm soát gắt gao</td>
+                                <td>Được trân trọng, tạo chiều sâu và cảm xúc</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.2]</div>
+                    <h2>Motivated Lighting: Ảo giác về Nguồn sáng Tự nhiên</h2>
+                    <p><strong>Motivated Lighting (Ánh sáng có nguồn gốc)</strong> là kỹ thuật chiếu sáng trong điện ảnh nơi mọi nguồn sáng nhân tạo đều được thiết kế để bắt chước một nguồn sáng thực tế trong bối cảnh của câu chuyện (diegetic light). Đó có thể là ánh nắng mặt trời xuyên qua cửa sổ, ánh trăng mờ ảo, ngọn lửa từ lò sưởi, hay ánh đèn đường hắt vào phòng.</p>
+                    <p>Trên thực tế, ánh sáng từ một cây nến hay một chiếc đèn bàn nhỏ hiếm khi đủ cường độ để phơi sáng chuẩn cho máy quay điện ảnh, đặc biệt là khi sử dụng phim nhựa ISO thấp hoặc muốn đạt độ sâu trường ảnh sâu. Do đó, các nhà quay phim sử dụng những đèn điện ảnh công suất lớn đặt ngoài khung hình để giả lập và khuếch đại những nguồn sáng tự nhiên này. Miễn là hướng sáng, nhiệt độ màu và chất lượng ánh sáng (cứng hay mềm) khớp với "nguồn sáng gốc" trong tâm trí khán giả, ảo giác sẽ được duy trì.</p>
+
+                    <div class="lab-note-block">
+                        <strong>MÃ THỬ NGHIỆM: EXP-CINE-042</strong>
+                        <p><strong>Giả lập Ánh Trăng (Moonlight)</strong><br>
+                        Ánh trăng trong điện ảnh hiếm khi là màu xanh lam rực rỡ như thực tế vật lý (ánh trăng thực chất là ánh sáng mặt trời phản xạ, có nhiệt độ màu ban ngày ~4000K-5000K, tuy nhiên hiệu ứng Purkinje khiến mắt người cảm nhận ban đêm có sắc xanh).<br>
+                        <em>Công thức:</em> Sử dụng đèn HMI (5600K) gắn Gel CTB (Color Temperature Blue) ½ hoặc ¼, kết hợp với Minus Green để tạo ra sắc xanh lơ điện ảnh. Đặt đèn chiếu từ trên cao xuống qua những cành cây (gobo) để tạo bóng đổ hoa văn, "motivate" ánh trăng xuyên qua cửa sổ.</p>
+                    </div>
+
+                    <div class="margin-note">[0.3]</div>
+                    <h2>Practical Lights: Chìa khóa của Sự Chân thực</h2>
+                    <p><strong>Practical Lights (Đèn thực cảnh)</strong> là bất kỳ nguồn sáng nào hiển thị trực tiếp bên trong khung hình. Ví dụ: một chiếc đèn bàn, đèn chùm, bảng hiệu neon, hay thậm chí là màn hình điện thoại di động của nhân vật.</p>
+                    <p>Trong kỷ nguyên máy quay kỹ thuật số có dải nhạy sáng (Dynamic Range) cao và ISO native lớn, các Practical Lights đôi khi đóng vai trò là nguồn sáng chính. Tuy nhiên, thông thường chúng phục vụ hai mục đích quan trọng hơn:</p>
+                    <ol>
+                        <li><strong>Cung cấp "Động cơ" (Motivation):</strong> Chúng biện minh cho sự xuất hiện của những nguồn sáng công suất lớn đặt ngoài khung hình. Khán giả nhìn thấy ngọn đèn bàn, nên họ chấp nhận vùng sáng ấm áp lan tỏa trên khuôn mặt nhân vật, dù thực chất vùng sáng đó đến từ một đèn chiếu điện ảnh tản sáng mềm (softbox) đặt ngay sát rìa khung hình.</li>
+                        <li><strong>Tạo chiều sâu không gian:</strong> Những đốm sáng nhỏ (bokeh) từ đèn thực cảnh ở hậu cảnh giúp tách biệt chủ thể khỏi phông nền và cung cấp manh mối thị giác về độ lớn của căn phòng.</li>
+                    </ol>
+
+                    <div class="margin-note">[0.4]</div>
+                    <h2>Upstaging the Light: Nguyên tắc Vàng của Điện ảnh</h2>
+                    <p>Một trong những khác biệt lớn nhất giúp một khung hình trông có vẻ "điện ảnh" (cinematic) thay vì giống phim truyền hình hay video tin tức là kỹ thuật đánh sáng vào phía bóng râm của khuôn mặt (shooting into the shadow side), hay còn gọi là <strong>Short Lighting</strong> hoặc <strong>Upstage Lighting</strong>.</p>
+                    <p>Thay vì đặt đèn chiếu trực diện từ phía máy quay (Flat lighting), nhà quay phim sẽ đặt Key Light ở phía sau (upstage) hoặc bên hông nhân vật, hướng về phía máy quay. Kết quả là nửa khuôn mặt gần máy quay nhất chìm trong bóng tối, tạo ra khối 3D mạnh mẽ, chiều sâu không gian, và bầu không khí kịch tính.</p>
+                    <p>Để Motivated Lighting hoạt động với nguyên tắc này, đạo diễn và D.P (Director of Photography) phải khéo léo bố trí bối cảnh (Blocking). Nhân vật cần được hướng đứng gần cửa sổ hoặc quay lưng/nghiêng người về phía các nguồn sáng thực cảnh (Practicals) để những nguồn sáng đó tự nhiên trở thành Upstage Key Light.</p>
+
+                    <div class="margin-note">[0.5]</div>
+                    <h2>Tính Liên tục của Ánh sáng (Lighting Continuity)</h2>
+                    <p>Điện ảnh là nghệ thuật của việc lắp ghép không gian và thời gian. Một cảnh hội thoại có thể bao gồm Master Shot (góc rộng), Over-the-shoulder (qua vai) và Close-up (cận cảnh) được quay vào những thời điểm khác nhau, thậm chí những ngày khác nhau.</p>
+                    <p>Việc duy trì tính liên tục của ánh sáng (Lighting Continuity) là thử thách tối thượng. Nếu cửa sổ nằm ở bên trái khung hình trong góc rộng, thì khi cắt sang góc cận cảnh, ánh sáng trên khuôn mặt diễn viên bắt buộc phải đổ từ trái sang phải, với cùng một tỷ lệ tương phản (contrast ratio) và nhiệt độ màu. Đôi khi, nhà quay phim phải di chuyển, "ăn gian" vị trí đèn một chút trong góc cận để khuôn mặt đẹp hơn, nhưng "hướng gốc" (Motivation direction) không bao giờ được phép vi phạm.</p>
+                    <p>Một sai lầm phổ biến của người mới bắt đầu là "reset" toàn bộ set đèn cho mỗi góc máy để chủ thể trông đẹp nhất, vô tình phá vỡ hoàn toàn ảo giác về không gian vật lý của bối cảnh khi các shot được dựng lại với nhau.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item"><strong>Cấp độ:</strong> Trung cấp</li>
+                            <li class="metadata-item"><strong>Danh mục:</strong> Nghệ thuật Điện ảnh</li>
+                            <li class="metadata-item"><strong>Từ khóa:</strong> Motivated Lighting, Practical Lights, Upstage Light, Continuity</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-panel">
+                        <h3>XƯỞNG CÔNG CỤ</h3>
+                        <p>Thử nghiệm hướng sáng và tỷ lệ tương phản trực tiếp trên trình giả lập của chúng tôi.</p>
+                        <a href="../tools/3-point-lighting-simulator.html" class="sidebar-link">Khởi chạy Trình giả lập 3-Point Lighting →</a>
+                    </div>
+                    
+                    <div class="sidebar-panel">
+                        <h3>BÀI VIẾT LIÊN QUAN</h3>
+                        <a href="inverse-square-law.html" class="sidebar-link">Định luật Nghịch đảo Bình phương trong Không gian →</a>
+                        <a href="color-psychology-cinema.html" class="sidebar-link">Tâm lý học Màu sắc trong Khung hình →</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">LumenForge</div>
+                <div class="footer-links">
+                    <a href="../index.html">Trang chủ</a>
+                    <a href="../light-codex.html">Quang Thư</a>
+                    <a href="../tool-lab.html">Xưởng Công cụ</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge — Light Intelligence Lab. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

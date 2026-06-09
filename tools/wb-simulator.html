@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mô phỏng Cân bằng Trắng — LumenForge</title>
+  <meta name="description" content="Công cụ tương tác mô phỏng nhiệt độ màu và cân bằng trắng. Trải nghiệm trực quan cách Kelvin thay đổi tông màu của ánh sáng.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    /* === Tool 10: WB Simulator Specific Styles === */
+    .wb-workspace {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+
+    @media (max-width: 900px) {
+      .wb-workspace { grid-template-columns: 1fr; }
+    }
+
+    /* Scene Preview */
+    .wb-scene-container {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      aspect-ratio: 16/10;
+      min-height: 380px;
+    }
+
+    .wb-scene {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.5s ease;
+    }
+
+    .wb-scene-overlay {
+      position: absolute;
+      inset: 0;
+      mix-blend-mode: multiply;
+      transition: background-color 0.4s ease;
+      pointer-events: none;
+    }
+
+    .wb-scene-tint-overlay {
+      position: absolute;
+      inset: 0;
+      mix-blend-mode: screen;
+      transition: background-color 0.4s ease;
+      pointer-events: none;
+      opacity: 0.15;
+    }
+
+    /* SVG Scene Elements */
+    .wb-scene svg {
+      width: 90%;
+      height: 90%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Kelvin Badge */
+    .wb-kelvin-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border-glow);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .wb-kelvin-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transition: background-color 0.4s ease;
+    }
+
+    /* Scene Label */
+    .wb-scene-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      z-index: 10;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Controls Panel */
+    .wb-controls {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .wb-control-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: var(--space-lg);
+    }
+
+    .wb-control-group h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Kelvin Slider */
+    .wb-kelvin-slider-container {
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .wb-kelvin-gradient {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, 
+        #ff8a21 0%,
+        #ffaa44 15%, 
+        #ffc87c 25%, 
+        #ffe4c4 35%, 
+        #fff5e6 45%, 
+        #ffffff 50%, 
+        #e8ecff 55%,
+        #cdd8ff 65%, 
+        #b3c4ff 75%, 
+        #99b0ff 85%, 
+        #809dff 100%
+      );
+      margin-bottom: 8px;
+    }
+
+    .wb-kelvin-input {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 24px;
+      background: transparent;
+      cursor: pointer;
+      margin-top: -20px;
+      position: relative;
+    }
+
+    .wb-kelvin-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      border: 3px solid var(--bg-primary);
+      box-shadow: 0 0 10px rgba(245,166,35,0.3), 0 2px 8px rgba(0,0,0,0.4);
+      cursor: grab;
+      transition: box-shadow 0.2s ease;
+    }
+
+    .wb-kelvin-input::-webkit-slider-thumb:active { cursor: grabbing; }
+
+    .wb-kelvin-input::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      border: 3px solid var(--bg-primary);
+      box-shadow: 0 0 10px rgba(245,166,35,0.3), 0 2px 8px rgba(0,0,0,0.4);
+      cursor: grab;
+    }
+
+    .wb-kelvin-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 4px;
+    }
+
+    /* Tint Slider */
+    .wb-tint-gradient {
+      height: 8px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #44cc66 0%, #aaaaaa 50%, #cc44aa 100%);
+      margin-bottom: 8px;
+    }
+
+    .wb-tint-input {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 24px;
+      background: transparent;
+      cursor: pointer;
+      margin-top: -20px;
+    }
+
+    .wb-tint-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      cursor: grab;
+    }
+
+    .wb-tint-input::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--text-primary);
+      border: 2px solid var(--bg-primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      cursor: grab;
+    }
+
+    .wb-tint-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 4px;
+    }
+
+    .wb-value-display {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      margin-top: var(--space-sm);
+    }
+
+    .wb-value-item {
+      text-align: center;
+    }
+
+    .wb-value-item .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .wb-value-item .label {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Preset Buttons */
+    .wb-presets-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .wb-preset-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+    }
+
+    .wb-preset-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-1px);
+    }
+
+    .wb-preset-btn.active {
+      border-color: var(--accent-amber);
+      background: rgba(245,166,35,0.08);
+    }
+
+    .wb-preset-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.1);
+    }
+
+    .wb-preset-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wb-preset-name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .wb-preset-kelvin {
+      font-size: 0.62rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Info Panel */
+    .wb-info-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: var(--space-lg);
+    }
+
+    .wb-info-panel h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: var(--space-md);
+    }
+
+    .wb-info-content {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .wb-info-content strong {
+      color: var(--accent-amber);
+    }
+
+    /* Spectrum Bar */
+    .wb-spectrum {
+      margin-top: var(--space-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: var(--space-lg);
+    }
+
+    .wb-spectrum h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: var(--space-md);
+    }
+
+    .wb-spectrum-bar {
+      position: relative;
+      height: 40px;
+      border-radius: 6px;
+      background: linear-gradient(to right, 
+        #ff6a00 0%, #ff8a21 8%, #ffaa44 16%, #ffc87c 24%,
+        #ffe4c4 32%, #fff5e6 40%, #ffffff 50%, 
+        #e8ecff 58%, #cdd8ff 66%, #b3c4ff 74%, 
+        #99b0ff 82%, #809dff 90%, #6688ff 100%
+      );
+      margin-bottom: 8px;
+    }
+
+    .wb-spectrum-marker {
+      position: absolute;
+      top: -6px;
+      width: 3px;
+      height: 52px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: left 0.3s ease;
+      box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    }
+
+    .wb-spectrum-marker::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: -4px;
+      width: 11px;
+      height: 11px;
+      background: var(--text-primary);
+      border-radius: 50%;
+      border: 2px solid var(--accent-amber);
+    }
+
+    .wb-spectrum-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .wb-spectrum-labels span {
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* Scene Switcher */
+    .wb-scene-switcher {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .wb-scene-btn {
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .wb-scene-btn:hover {
+      border-color: var(--border-glow);
+      color: var(--text-primary);
+    }
+
+    .wb-scene-btn.active {
+      background: rgba(245,166,35,0.1);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Tool Header -->
+  <section class="tool-hero">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../tool-lab.html">&larr; Quay lại Xưởng Công cụ</a>
+      </div>
+      <p class="section-label">[&thinsp;CÔNG CỤ 10&thinsp;]</p>
+      <h1>Mô phỏng Cân bằng Trắng</h1>
+      <p class="hero-subtitle">Trải nghiệm trực quan cách nhiệt độ màu Kelvin và Tint ảnh hưởng đến tông màu của cảnh chụp.</p>
+    </div>
+  </section>
+
+  <!-- Tool Body -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <!-- Scene Type Selector -->
+      <div class="wb-control-group" style="margin-bottom: var(--space-lg);">
+        <h4>Chọn cảnh mô phỏng</h4>
+        <div class="wb-scene-switcher" id="scene-switcher">
+          <button class="wb-scene-btn active" data-scene="portrait">Chân dung</button>
+          <button class="wb-scene-btn" data-scene="landscape">Phong cảnh</button>
+          <button class="wb-scene-btn" data-scene="street">Đường phố</button>
+          <button class="wb-scene-btn" data-scene="food">Ẩm thực</button>
+        </div>
+      </div>
+
+      <div class="wb-workspace">
+        <!-- Preview Area -->
+        <div class="wb-scene-container">
+          <div class="wb-scene" id="wb-scene">
+            <div class="wb-scene-overlay" id="wb-overlay"></div>
+            <div class="wb-scene-tint-overlay" id="wb-tint-overlay"></div>
+            
+            <!-- Portrait Scene SVG -->
+            <svg id="scene-portrait" viewBox="0 0 600 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Background gradient -->
+              <defs>
+                <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="380">
+                  <stop offset="0%" stop-color="#2a2a3a"/>
+                  <stop offset="100%" stop-color="#1a1a26"/>
+                </linearGradient>
+                <radialGradient id="spotGrad" cx="50%" cy="30%" r="60%">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.08)"/>
+                  <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                </radialGradient>
+              </defs>
+              <rect width="600" height="380" fill="url(#bgGrad)"/>
+              <rect width="600" height="380" fill="url(#spotGrad)"/>
+              
+              <!-- Floor line -->
+              <line x1="0" y1="320" x2="600" y2="320" stroke="#3a3a5a" stroke-width="1"/>
+              
+              <!-- Studio backdrop -->
+              <path d="M120 60 L120 320 Q120 330 130 330 L470 330 Q480 330 480 320 L480 60" 
+                    fill="#222233" stroke="#3a3a5a" stroke-width="1"/>
+              
+              <!-- Person silhouette (shoulders & head) -->
+              <ellipse cx="300" cy="260" rx="70" ry="30" fill="#333348"/>
+              <path d="M250 260 Q250 180 300 160 Q350 180 350 260" fill="#333348"/>
+              <circle cx="300" cy="140" r="40" fill="#444460"/>
+              
+              <!-- Face details hint -->
+              <ellipse cx="286" cy="135" rx="4" ry="3" fill="#555575"/>
+              <ellipse cx="314" cy="135" rx="4" ry="3" fill="#555575"/>
+              <path d="M290 150 Q300 158 310 150" stroke="#555575" stroke-width="1.5" fill="none"/>
+              
+              <!-- Hair -->
+              <path d="M262 130 Q260 100 280 95 Q300 90 320 95 Q340 100 338 130" 
+                    fill="#2a2a3a" stroke="none"/>
+              
+              <!-- Key light indicator -->
+              <g opacity="0.5">
+                <line x1="100" y1="80" x2="200" y2="140" stroke="#F5A623" stroke-width="1" stroke-dasharray="4 4"/>
+                <circle cx="95" cy="75" r="12" fill="none" stroke="#F5A623" stroke-width="1"/>
+                <text x="95" y="79" text-anchor="middle" fill="#F5A623" font-size="10" font-family="JetBrains Mono">K</text>
+              </g>
+              
+              <!-- Fill light indicator -->
+              <g opacity="0.4">
+                <line x1="500" y1="100" x2="400" y2="150" stroke="#67E8F9" stroke-width="1" stroke-dasharray="4 4"/>
+                <circle cx="505" cy="95" r="12" fill="none" stroke="#67E8F9" stroke-width="1"/>
+                <text x="505" y="99" text-anchor="middle" fill="#67E8F9" font-size="10" font-family="JetBrains Mono">F</text>
+              </g>
+              
+              <!-- Color reference patches -->
+              <g transform="translate(140, 340)">
+                <rect x="0" y="0" width="18" height="12" rx="2" fill="#cc4444"/>
+                <rect x="24" y="0" width="18" height="12" rx="2" fill="#44aa44"/>
+                <rect x="48" y="0" width="18" height="12" rx="2" fill="#4466cc"/>
+                <rect x="72" y="0" width="18" height="12" rx="2" fill="#cccc44"/>
+                <rect x="96" y="0" width="18" height="12" rx="2" fill="#dddddd"/>
+                <rect x="120" y="0" width="18" height="12" rx="2" fill="#888888"/>
+                <rect x="144" y="0" width="18" height="12" rx="2" fill="#333333"/>
+              </g>
+            </svg>
+
+            <!-- Landscape Scene SVG -->
+            <svg id="scene-landscape" viewBox="0 0 600 380" fill="none" style="display:none;">
+              <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="200">
+                  <stop offset="0%" stop-color="#1a2a4a"/>
+                  <stop offset="100%" stop-color="#3a4a6a"/>
+                </linearGradient>
+              </defs>
+              <rect width="600" height="380" fill="url(#skyGrad)"/>
+              <!-- Mountains -->
+              <polygon points="0,250 100,140 200,200 300,100 400,170 500,120 600,180 600,380 0,380" fill="#1a1a2a"/>
+              <polygon points="0,280 80,200 180,240 280,160 380,220 480,180 600,230 600,380 0,380" fill="#222236"/>
+              <polygon points="0,320 120,260 250,290 380,240 500,280 600,260 600,380 0,380" fill="#2a2a42"/>
+              <!-- Ground -->
+              <rect x="0" y="320" width="600" height="60" fill="#1e2a1e"/>
+              <!-- Sun/Moon -->
+              <circle cx="450" cy="100" r="30" fill="#FFE4C4" opacity="0.8"/>
+              <!-- Trees -->
+              <g fill="#1a3a1a">
+                <polygon points="80,280 90,230 100,280"/>
+                <polygon points="520,290 530,240 540,290"/>
+                <polygon points="550,300 558,260 566,300"/>
+              </g>
+              <!-- Water reflection -->
+              <rect x="100" y="330" width="400" height="40" rx="4" fill="#1a2a4a" opacity="0.3"/>
+              <line x1="150" y1="345" x2="200" y2="345" stroke="#3a5a8a" stroke-width="1" opacity="0.5"/>
+              <line x1="300" y1="350" x2="380" y2="350" stroke="#3a5a8a" stroke-width="1" opacity="0.4"/>
+              <line x1="250" y1="360" x2="350" y2="360" stroke="#3a5a8a" stroke-width="1" opacity="0.3"/>
+            </svg>
+
+            <!-- Street Scene SVG -->
+            <svg id="scene-street" viewBox="0 0 600 380" fill="none" style="display:none;">
+              <rect width="600" height="380" fill="#1a1a26"/>
+              <!-- Buildings -->
+              <rect x="0" y="80" width="120" height="300" fill="#222236"/>
+              <rect x="130" y="120" width="100" height="260" fill="#1e1e32"/>
+              <rect x="400" y="60" width="100" height="320" fill="#222236"/>
+              <rect x="510" y="100" width="90" height="280" fill="#1e1e32"/>
+              <!-- Windows -->
+              <g fill="#3a3a5a">
+                <rect x="15" y="100" width="20" height="25" rx="2"/>
+                <rect x="50" y="100" width="20" height="25" rx="2"/>
+                <rect x="85" y="100" width="20" height="25" rx="2"/>
+                <rect x="15" y="140" width="20" height="25" rx="2"/>
+                <rect x="50" y="140" width="20" height="25" rx="2"/>
+                <rect x="85" y="140" width="20" height="25" rx="2"/>
+                <rect x="415" y="80" width="20" height="25" rx="2"/>
+                <rect x="450" y="80" width="20" height="25" rx="2"/>
+                <rect x="415" y="120" width="20" height="25" rx="2"/>
+                <rect x="450" y="120" width="20" height="25" rx="2"/>
+              </g>
+              <!-- Lit windows (warm) -->
+              <g fill="#FFD700" opacity="0.4">
+                <rect x="50" y="180" width="20" height="25" rx="2"/>
+                <rect x="415" y="160" width="20" height="25" rx="2"/>
+                <rect x="530" y="140" width="18" height="22" rx="2"/>
+              </g>
+              <!-- Street -->
+              <rect x="0" y="310" width="600" height="70" fill="#181828"/>
+              <line x1="0" y1="345" x2="600" y2="345" stroke="#2a2a3a" stroke-width="2" stroke-dasharray="20 15"/>
+              <!-- Street lamp -->
+              <line x1="300" y1="160" x2="300" y2="310" stroke="#4a4a5a" stroke-width="3"/>
+              <circle cx="300" cy="155" r="12" fill="#FFE4C4" opacity="0.3"/>
+              <ellipse cx="300" cy="310" rx="50" ry="10" fill="#FFE4C4" opacity="0.06"/>
+              <!-- Neon sign -->
+              <rect x="145" y="230" width="70" height="20" rx="4" fill="none" stroke="#FF6B9D" stroke-width="1.5" opacity="0.6"/>
+              <text x="180" y="244" text-anchor="middle" fill="#FF6B9D" font-size="10" opacity="0.7">PHỞ</text>
+            </svg>
+
+            <!-- Food Scene SVG -->
+            <svg id="scene-food" viewBox="0 0 600 380" fill="none" style="display:none;">
+              <rect width="600" height="380" fill="#2a2018"/>
+              <!-- Table surface -->
+              <rect x="0" y="180" width="600" height="200" fill="#3a2a1a" rx="0"/>
+              <line x1="0" y1="180" x2="600" y2="180" stroke="#4a3a2a" stroke-width="2"/>
+              <!-- Plate -->
+              <ellipse cx="300" cy="270" rx="120" ry="50" fill="#444" stroke="#555" stroke-width="1.5"/>
+              <ellipse cx="300" cy="268" rx="100" ry="40" fill="#3a3a3a"/>
+              <!-- Food items on plate -->
+              <ellipse cx="280" cy="260" rx="30" ry="15" fill="#8B4513"/>
+              <ellipse cx="320" cy="255" rx="25" ry="18" fill="#228B22" opacity="0.7"/>
+              <circle cx="310" cy="275" r="12" fill="#CC4444"/>
+              <ellipse cx="270" cy="275" rx="15" ry="8" fill="#DAA520"/>
+              <!-- Cup -->
+              <ellipse cx="460" cy="250" rx="30" ry="12" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
+              <rect x="432" y="250" width="56" height="40" rx="4" fill="#3a3a3a" stroke="#555" stroke-width="1"/>
+              <ellipse cx="460" cy="290" rx="28" ry="8" fill="#333" stroke="#555" stroke-width="1"/>
+              <!-- Steam -->
+              <path d="M450 240 Q445 225 455 215" stroke="#aaa" stroke-width="1" fill="none" opacity="0.3"/>
+              <path d="M460 238 Q462 220 458 210" stroke="#aaa" stroke-width="1" fill="none" opacity="0.25"/>
+              <path d="M470 240 Q475 228 468 218" stroke="#aaa" stroke-width="1" fill="none" opacity="0.2"/>
+              <!-- Fork -->
+              <line x1="160" y1="230" x2="220" y2="310" stroke="#888" stroke-width="2"/>
+              <line x1="158" y1="228" x2="155" y2="218" stroke="#888" stroke-width="1.5"/>
+              <line x1="161" y1="228" x2="160" y2="216" stroke="#888" stroke-width="1.5"/>
+              <line x1="164" y1="229" x2="165" y2="218" stroke="#888" stroke-width="1.5"/>
+              <!-- Candle -->
+              <rect x="520" y="200" width="16" height="40" rx="3" fill="#F5E6D3"/>
+              <ellipse cx="528" cy="198" rx="5" ry="8" fill="#FFA500" opacity="0.7"/>
+              <circle cx="528" cy="195" r="3" fill="#FFD700" opacity="0.5"/>
+            </svg>
+          </div>
+
+          <div class="wb-kelvin-badge" id="kelvin-badge">
+            <span class="wb-kelvin-dot" id="kelvin-dot"></span>
+            <span id="kelvin-display">5500K</span>
+          </div>
+          <div class="wb-scene-label" id="scene-label">Chân dung Studio</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="wb-controls">
+          
+          <!-- Kelvin & Tint -->
+          <div class="wb-control-group">
+            <h4>Nhiệt độ màu (Kelvin)</h4>
+            <div class="wb-kelvin-slider-container">
+              <div class="wb-kelvin-gradient"></div>
+              <input type="range" class="wb-kelvin-input" id="kelvin-slider" min="1800" max="12000" value="5500" step="100">
+              <div class="wb-kelvin-labels">
+                <span>1800K</span>
+                <span>5500K</span>
+                <span>12000K</span>
+              </div>
+            </div>
+
+            <h4 style="margin-top: var(--space-lg);">Sắc thái (Tint)</h4>
+            <div class="wb-kelvin-slider-container">
+              <div class="wb-tint-gradient"></div>
+              <input type="range" class="wb-tint-input" id="tint-slider" min="-100" max="100" value="0" step="1">
+              <div class="wb-tint-labels">
+                <span>Xanh lá -100</span>
+                <span>0</span>
+                <span>Hồng +100</span>
+              </div>
+            </div>
+
+            <div class="wb-value-display">
+              <div class="wb-value-item">
+                <div class="value" id="val-kelvin">5500</div>
+                <div class="label">Kelvin</div>
+              </div>
+              <div class="wb-value-item">
+                <div class="value" id="val-tint">0</div>
+                <div class="label">Tint</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Presets -->
+          <div class="wb-control-group">
+            <h4>Cài đặt sẵn</h4>
+            <div class="wb-presets-grid" id="presets-grid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Spectrum Reference -->
+      <div class="wb-spectrum">
+        <h4>Phổ nhiệt độ màu — Thang Kelvin tham chiếu</h4>
+        <div class="wb-spectrum-bar">
+          <div class="wb-spectrum-marker" id="spectrum-marker"></div>
+        </div>
+        <div class="wb-spectrum-labels">
+          <span>1800K<br>Nến</span>
+          <span>2700K<br>Đèn sợi đốt</span>
+          <span>3500K<br>Huỳnh quang</span>
+          <span>5000K<br>Trưa nắng</span>
+          <span>6500K<br>Mây phủ</span>
+          <span>8000K<br>Bóng râm</span>
+          <span>12000K<br>Trời xanh</span>
+        </div>
+      </div>
+
+      <!-- Info Panel -->
+      <div class="wb-info-panel" style="margin-top: var(--space-lg);">
+        <h4>Ghi chú khoa học</h4>
+        <div class="wb-info-content" id="wb-info">
+          <p>Kéo thanh trượt <strong>Kelvin</strong> để thay đổi nhiệt độ màu của cảnh. Giá trị thấp (dưới 4000K) tạo tông ấm cam vàng, giá trị cao (trên 7000K) tạo tông lạnh xanh dương.</p>
+          <p style="margin-top: 10px;">Nhiệt độ màu dựa trên nguyên lý bức xạ <strong>vật đen (Black Body Radiation)</strong>: khi một vật thể lý tưởng được nung nóng, nó phát ra ánh sáng có phổ thay đổi từ đỏ → cam → trắng → xanh tùy theo nhiệt độ tuyệt đối (đơn vị Kelvin).</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
+          </div>
+          <div class="footer-col">
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script>
+    /* ============================================================
+       Tool 10: White Balance & Color Temperature Simulator
+       LumenForge — Light Intelligence Lab
+       ============================================================ */
+    (function() {
+      'use strict';
+
+      // === Presets Database ===
+      const PRESETS = [
+        { name: 'Nến / Lửa',        kelvin: 1800, tint: 0,   icon: '#ff6a00', desc: 'Ánh sáng nến truyền thống (1800-2000K). Tạo cảm giác ấm cúng, lãng mạn, thân mật.' },
+        { name: 'Đèn sợi đốt',      kelvin: 2700, tint: 0,   icon: '#ffaa44', desc: 'Bóng đèn Tungsten truyền thống (2700K). Ánh sáng ấm vàng đặc trưng của không gian nội thất cổ điển.' },
+        { name: 'Bình minh / Hoàng hôn', kelvin: 3200, tint: 5,  icon: '#ffc87c', desc: 'Golden Hour (3000-3500K). Thời điểm vàng của nhiếp ảnh chân dung và phong cảnh.' },
+        { name: 'Đèn huỳnh quang',   kelvin: 4000, tint: 30,  icon: '#e8e4c4', desc: 'Đèn huỳnh quang thường có phổ phát xạ không liên tục, tạo sắc xanh lá. Cần bù Tint về phía hồng (+20 đến +40).' },
+        { name: 'Flash / Strobe',    kelvin: 5500, tint: 0,   icon: '#ffffff', desc: 'Đèn Flash studio tiêu chuẩn (5500K). Gần trùng với ánh sáng ban ngày, là điểm tham chiếu trung tính.' },
+        { name: 'Trưa nắng gắt',    kelvin: 5600, tint: -5,  icon: '#fff5e6', desc: 'Ánh sáng mặt trời trực tiếp lúc giữa trưa (5500-6000K). Sắc nét, tương phản cao, bóng đổ ngắn.' },
+        { name: 'Trời mây phủ',     kelvin: 6500, tint: 5,   icon: '#cdd8ff', desc: 'Ánh sáng khuếch tán qua mây (6000-7000K). Mềm mại, đồng đều, hơi lạnh — lý tưởng cho chân dung ngoài trời.' },
+        { name: 'Bóng râm',         kelvin: 8000, tint: 10,  icon: '#99b0ff', desc: 'Vùng bóng râm ban ngày (7500-9000K). Ánh sáng chỉ từ bầu trời xanh phản chiếu, tạo tông rất lạnh thiên xanh.' },
+      ];
+
+      // === Scene Info ===
+      const SCENES = {
+        portrait: { label: 'Chân dung Studio', svgId: 'scene-portrait' },
+        landscape: { label: 'Phong cảnh Núi rừng', svgId: 'scene-landscape' },
+        street: { label: 'Đường phố Đêm', svgId: 'scene-street' },
+        food: { label: 'Ẩm thực & Nến', svgId: 'scene-food' },
+      };
+
+      // === Elements ===
+      const kelvinSlider = document.getElementById('kelvin-slider');
+      const tintSlider = document.getElementById('tint-slider');
+      const kelvinDisplay = document.getElementById('kelvin-display');
+      const kelvinDot = document.getElementById('kelvin-dot');
+      const valKelvin = document.getElementById('val-kelvin');
+      const valTint = document.getElementById('val-tint');
+      const overlay = document.getElementById('wb-overlay');
+      const tintOverlay = document.getElementById('wb-tint-overlay');
+      const presetsGrid = document.getElementById('presets-grid');
+      const spectrumMarker = document.getElementById('spectrum-marker');
+      const sceneLabel = document.getElementById('scene-label');
+      const sceneSwitcher = document.getElementById('scene-switcher');
+      const infoContent = document.getElementById('wb-info');
+
+      let currentScene = 'portrait';
+
+      // === Kelvin to RGB Approximation ===
+      function kelvinToRGB(kelvin) {
+        const temp = kelvin / 100;
+        let r, g, b;
+
+        // Red
+        if (temp <= 66) {
+          r = 255;
+        } else {
+          r = temp - 60;
+          r = 329.698727446 * Math.pow(r, -0.1332047592);
+          r = Math.max(0, Math.min(255, r));
+        }
+
+        // Green
+        if (temp <= 66) {
+          g = 99.4708025861 * Math.log(temp) - 161.1195681661;
+        } else {
+          g = temp - 60;
+          g = 288.1221695283 * Math.pow(g, -0.0755148492);
+        }
+        g = Math.max(0, Math.min(255, g));
+
+        // Blue
+        if (temp >= 66) {
+          b = 255;
+        } else if (temp <= 19) {
+          b = 0;
+        } else {
+          b = temp - 10;
+          b = 138.5177312231 * Math.log(b) - 305.0447927307;
+          b = Math.max(0, Math.min(255, b));
+        }
+
+        return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
+      }
+
+      // === Update Display ===
+      function updateWB() {
+        const kelvin = parseInt(kelvinSlider.value);
+        const tint = parseInt(tintSlider.value);
+        const rgb = kelvinToRGB(kelvin);
+
+        // Update displays
+        kelvinDisplay.textContent = kelvin + 'K';
+        valKelvin.textContent = kelvin;
+        valTint.textContent = (tint > 0 ? '+' : '') + tint;
+
+        // Kelvin dot color
+        kelvinDot.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+
+        // Overlay color (inverse: warm kelvin = cool overlay to simulate WB correction)
+        // When you set camera WB to a higher kelvin, the camera warms the image
+        // We simulate the camera's interpretation: WB setting tells camera "the light is this warm"
+        // So higher WB = warmer rendering
+        const overlayAlpha = 0.25;
+        overlay.style.backgroundColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${overlayAlpha})`;
+
+        // Tint overlay
+        if (tint > 0) {
+          // Magenta/Pink
+          tintOverlay.style.backgroundColor = `rgba(200, 50, 150, ${Math.abs(tint) / 200})`;
+        } else if (tint < 0) {
+          // Green
+          tintOverlay.style.backgroundColor = `rgba(50, 200, 100, ${Math.abs(tint) / 200})`;
+        } else {
+          tintOverlay.style.backgroundColor = 'transparent';
+        }
+
+        // Spectrum marker position
+        const minK = 1800, maxK = 12000;
+        const pct = ((kelvin - minK) / (maxK - minK)) * 100;
+        spectrumMarker.style.left = `calc(${pct}% - 1.5px)`;
+
+        // Update active preset
+        document.querySelectorAll('.wb-preset-btn').forEach(btn => {
+          const presetK = parseInt(btn.dataset.kelvin);
+          const presetT = parseInt(btn.dataset.tint);
+          btn.classList.toggle('active', presetK === kelvin && presetT === tint);
+        });
+
+        // Update info text based on Kelvin range
+        updateInfo(kelvin, tint);
+      }
+
+      function updateInfo(kelvin, tint) {
+        let info = '';
+        if (kelvin < 2500) {
+          info = `<p><strong>${kelvin}K — Vùng cực ấm:</strong> Đây là vùng nhiệt độ của nến, lửa trại và đèn natri cao áp. Bức xạ vật đen ở nhiệt độ này tập trung phần lớn năng lượng trong phổ hồng ngoại, chỉ một phần nhỏ rơi vào vùng khả kiến với ưu thế bước sóng đỏ-cam dài (620-700nm).</p>
+          <p style="margin-top:10px;">Trong nhiếp ảnh chân dung, việc đặt WB ở mức thấp như vậy tạo hiệu ứng hoài cổ mạnh mẽ, nhưng sẽ làm mất hoàn toàn thông tin ở kênh xanh dương.</p>`;
+        } else if (kelvin < 4000) {
+          info = `<p><strong>${kelvin}K — Vùng ấm (Tungsten đến Golden Hour):</strong> Phổ bức xạ bắt đầu mở rộng sang vùng vàng-cam (580-620nm). Đây là vùng nhiệt độ của đèn sợi đốt truyền thống và ánh sáng hoàng hôn.</p>
+          <p style="margin-top:10px;">Hầu hết các preset <strong>"Warm"</strong> của Lightroom/Camera Raw rơi vào khoảng 3000-3500K. Đây cũng là vùng mà mắt người cảm thấy thoải mái nhất do quá trình tiến hóa hàng triệu năm bên ánh lửa.</p>`;
+        } else if (kelvin < 5500) {
+          info = `<p><strong>${kelvin}K — Vùng trung tính ấm:</strong> Phổ phát xạ cân bằng dần giữa các bước sóng. Đèn huỳnh quang và đèn LED chất lượng cao thường nhắm mục tiêu vùng 4000-5000K.</p>
+          <p style="margin-top:10px;">⚠️ Đèn huỳnh quang có <strong>phổ phát xạ không liên tục</strong> (line spectrum) do cơ chế kích thích hơi thủy ngân, khác biệt hoàn toàn với phổ liên tục của vật đen. Vì vậy CRI (Chỉ số hoàn màu) của đèn huỳnh quang thường thấp hơn.</p>`;
+        } else if (kelvin < 7000) {
+          info = `<p><strong>${kelvin}K — Vùng ánh sáng ban ngày:</strong> Điểm chuẩn D55 (5500K) và D65 (6500K) là hai tiêu chuẩn quốc tế CIE cho ánh sáng ban ngày. Flash studio thiết kế để phát ra ánh sáng ở 5500K ± 200K.</p>
+          <p style="margin-top:10px;">Ở <strong>6500K</strong>, phổ ánh sáng gần tương đương với bức xạ mặt trời qua lớp khí quyển ở góc thiên đỉnh — đây là lý do D65 được chọn làm illuminant tiêu chuẩn cho hầu hết các hệ thống quản lý màu (sRGB, Adobe RGB).</p>`;
+        } else {
+          info = `<p><strong>${kelvin}K — Vùng lạnh (Bóng râm đến Trời xanh):</strong> Khi nguồn sáng duy nhất là ánh sáng khuếch tán từ bầu trời xanh (tán xạ Rayleigh ưu tiên bước sóng ngắn 400-500nm), nhiệt độ màu có thể lên tới 10000-12000K.</p>
+          <p style="margin-top:10px;">Đặt WB ở vùng này khi chụp dưới ánh sáng ban ngày sẽ tạo hiệu ứng <strong>tông xanh điện ảnh lạnh</strong>, thường thấy trong các bộ phim thriller và khoa học viễn tưởng. Ngược lại, đặt WB thấp (3200K) khi chụp trong bóng râm sẽ nhấn mạnh sắc xanh tự nhiên.</p>`;
+        }
+
+        if (Math.abs(tint) > 20) {
+          info += `<p style="margin-top:10px;"><strong>Tint ${tint > 0 ? '+' + tint : tint}:</strong> ${tint > 0 ? 'Bù hồng (Magenta) — Thường dùng để triệt tiêu ánh xanh lá từ đèn huỳnh quang hoặc tạo tông da ấm hồng cho chân dung.' : 'Bù xanh lá (Green) — Ít khi dùng trong thực tế trừ khi muốn tạo hiệu ứng đặc biệt hoặc bù cho ánh sáng LED chất lượng thấp thiếu phổ xanh lá.'}</p>`;
+        }
+
+        infoContent.innerHTML = info;
+      }
+
+      // === Render Presets ===
+      function renderPresets() {
+        presetsGrid.innerHTML = PRESETS.map(p => `
+          <button class="wb-preset-btn" data-kelvin="${p.kelvin}" data-tint="${p.tint}" title="${p.desc}">
+            <div class="wb-preset-icon" style="background: ${p.icon};"></div>
+            <div class="wb-preset-info">
+              <div class="wb-preset-name">${p.name}</div>
+              <div class="wb-preset-kelvin">${p.kelvin}K</div>
+            </div>
+          </button>
+        `).join('');
+
+        presetsGrid.addEventListener('click', (e) => {
+          const btn = e.target.closest('.wb-preset-btn');
+          if (!btn) return;
+          kelvinSlider.value = btn.dataset.kelvin;
+          tintSlider.value = btn.dataset.tint;
+          updateWB();
+        });
+      }
+
+      // === Scene Switcher ===
+      function switchScene(sceneKey) {
+        currentScene = sceneKey;
+        // Hide all SVG scenes
+        Object.values(SCENES).forEach(s => {
+          const el = document.getElementById(s.svgId);
+          if (el) el.style.display = 'none';
+        });
+        // Show selected
+        const selected = SCENES[sceneKey];
+        const el = document.getElementById(selected.svgId);
+        if (el) el.style.display = 'block';
+        sceneLabel.textContent = selected.label;
+
+        // Update active button
+        sceneSwitcher.querySelectorAll('.wb-scene-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.scene === sceneKey);
+        });
+      }
+
+      sceneSwitcher.addEventListener('click', (e) => {
+        const btn = e.target.closest('.wb-scene-btn');
+        if (!btn) return;
+        switchScene(btn.dataset.scene);
+      });
+
+      // === Event Listeners ===
+      kelvinSlider.addEventListener('input', updateWB);
+      tintSlider.addEventListener('input', updateWB);
+
+      // Double-click to reset
+      kelvinSlider.addEventListener('dblclick', () => { kelvinSlider.value = 5500; updateWB(); });
+      tintSlider.addEventListener('dblclick', () => { tintSlider.value = 0; updateWB(); });
+
+      // === Init ===
+      renderPresets();
+      updateWB();
+
+    })();
+  </script>
+</body>
+</html>

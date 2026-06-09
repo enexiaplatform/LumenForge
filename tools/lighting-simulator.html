@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Point Lighting Simulator — LumenForge</title>
+  <meta name="description" content="Sa bàn mô phỏng ánh sáng 3 điểm (3-Point Lighting) giúp bạn rèn luyện kỹ năng đặt đèn Studio chuyên nghiệp.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .lightsim-layout {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: var(--space-xl);
+      align-items: stretch;
+    }
+    
+    @media (max-width: 900px) {
+      .lightsim-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left: Top-Down Studio View */
+    .studio-board {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .studio-grid {
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 500px;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border: 1px dashed var(--border-glow);
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    /* Subject in the center */
+    .studio-subject {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: #444;
+      border: 2px solid #666;
+      border-radius: 50%;
+      z-index: 10;
+    }
+    /* Nose to indicate direction */
+    .studio-subject::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 12px;
+      background: #666;
+      border-radius: 5px 5px 0 0;
+    }
+
+    /* Draggable Lights */
+    .light-node {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #222;
+      border: 2px solid;
+      border-radius: 50%;
+      cursor: grab;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: bold;
+      color: #fff;
+      transition: box-shadow 0.2s;
+    }
+    .light-node:active {
+      cursor: grabbing;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    }
+    
+    #light-key { border-color: var(--accent-amber); }
+    #light-fill { border-color: var(--accent-cyan); }
+    #light-rim { border-color: var(--accent-purple); }
+
+    /* The Beam lines (visual only) */
+    .light-beam {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 2px;
+      transform-origin: 0 50%;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    #beam-key { background: linear-gradient(90deg, var(--accent-amber), transparent); }
+    #beam-fill { background: linear-gradient(90deg, var(--accent-cyan), transparent); }
+    #beam-rim { background: linear-gradient(90deg, var(--accent-purple), transparent); }
+
+    /* Right: Control Panel & 3D Preview */
+    .light-controls {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    /* 3D Sphere Preview */
+    .preview-box {
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 250px;
+      position: relative;
+    }
+
+    .preview-sphere {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #333; /* Base color */
+      /* Gradients will be dynamically applied here */
+      position: relative;
+      box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5);
+    }
+
+    .preview-label {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    /* Sliders */
+    .control-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .light-slider-group {
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-md);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .light-slider-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .slider-header h4 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .toggle-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+    }
+    .toggle-btn.on {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border-color: #555;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .slider-row input[type=range] {
+      flex: 1;
+    }
+    .slider-val {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      width: 40px;
+      text-align: right;
+    }
+
+    /* Layout presets */
+    .presets-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: var(--space-md);
+    }
+    .preset-btn {
+      flex: 1;
+      padding: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .preset-btn:hover {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div class="tool-header">
+        <span class="tool-id">TOOL 13</span>
+        <h1>3-Point Lighting Simulator</h1>
+        <p>Sa bàn mô phỏng hướng sáng và tỷ lệ tương phản. Học cách điêu khắc hình khối 3D thông qua 3 ngọn đèn kinh điển.</p>
+      </div>
+
+      <div class="lightsim-layout">
+        
+        <!-- Top Down Studio Grid -->
+        <div class="studio-board" id="studio-board">
+          <div class="presets-row">
+            <button class="preset-btn" data-preset="rembrandt">Rembrandt</button>
+            <button class="preset-btn" data-preset="split">Split</button>
+            <button class="preset-btn" data-preset="butterfly">Butterfly</button>
+          </div>
+          
+          <div class="studio-grid" id="studio-grid">
+            <div class="studio-subject"></div>
+            
+            <!-- Beams -->
+            <div class="light-beam" id="beam-key"></div>
+            <div class="light-beam" id="beam-fill"></div>
+            <div class="light-beam" id="beam-rim"></div>
+
+            <!-- Lights -->
+            <div class="light-node" id="light-key" title="Key Light (Drag me)" style="left: 80%; top: 20%;">K</div>
+            <div class="light-node" id="light-fill" title="Fill Light (Drag me)" style="left: 20%; top: 30%;">F</div>
+            <div class="light-node" id="light-rim" title="Rim Light (Drag me)" style="left: 10%; top: 80%;">R</div>
+          </div>
+
+          <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-dim); text-align: center;">
+            Kéo thả các biểu tượng K, F, R trong vòng tròn để thay đổi hướng sáng.
+          </p>
+        </div>
+
+        <!-- Controls & Preview -->
+        <div class="light-controls">
+          
+          <!-- Sphere Preview -->
+          <div class="preview-box">
+            <div class="preview-sphere" id="preview-sphere"></div>
+            <div class="preview-label">Camera View (Mặt trước)</div>
+          </div>
+
+          <!-- Control Panel -->
+          <div class="control-panel">
+            
+            <!-- Key Light -->
+            <div class="light-slider-group">
+              <div class="slider-header">
+                <h4 style="color: var(--accent-amber);"><div class="status-dot" style="background: var(--accent-amber);"></div> Key Light</h4>
+                <button class="toggle-btn on" id="toggle-key">BẬT</button>
+              </div>
+              <div class="slider-row">
+                <input type="range" id="int-key" min="0" max="100" value="100">
+                <span class="slider-val" id="val-key">100%</span>
+              </div>
+            </div>
+
+            <!-- Fill Light -->
+            <div class="light-slider-group">
+              <div class="slider-header">
+                <h4 style="color: var(--accent-cyan);"><div class="status-dot" style="background: var(--accent-cyan);"></div> Fill Light</h4>
+                <button class="toggle-btn on" id="toggle-fill">BẬT</button>
+              </div>
+              <div class="slider-row">
+                <input type="range" id="int-fill" min="0" max="100" value="30">
+                <span class="slider-val" id="val-fill">30%</span>
+              </div>
+            </div>
+
+            <!-- Rim Light -->
+            <div class="light-slider-group">
+              <div class="slider-header">
+                <h4 style="color: var(--accent-purple);"><div class="status-dot" style="background: var(--accent-purple);"></div> Rim Light</h4>
+                <button class="toggle-btn on" id="toggle-rim">BẬT</button>
+              </div>
+              <div class="slider-row">
+                <input type="range" id="int-rim" min="0" max="100" value="80">
+                <span class="slider-val" id="val-rim">80%</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/lighting-simulator.js"></script>
+</body>
+</html>

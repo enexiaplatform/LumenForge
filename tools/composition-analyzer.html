@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composition & Grid Analyzer — LumenForge</title>
+  <meta name="description" content="Phòng Lab Bố cục Không gian. Áp dụng Tỷ lệ vàng, Xoắn ốc Fibonacci và Đối xứng động lên khung hình.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .compo-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    
+    @media (max-width: 900px) {
+      .compo-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left: Canvas Area */
+    .canvas-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 2; /* Standard 35mm format */
+      background: #111;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .source-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s;
+    }
+
+    /* SVG Overlay */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      pointer-events: none;
+      /* Grid color will be set via JS */
+      stroke: rgba(255, 255, 255, 0.8);
+      stroke-width: 2;
+      fill: none;
+      transition: all 0.3s;
+    }
+
+    /* Golden Spiral Flip Classes */
+    .flip-tr { transform: scaleX(-1); }
+    .flip-bl { transform: scaleY(-1); }
+    .flip-br { transform: scale(-1, -1); }
+
+    /* Image Selector */
+    .img-selector {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 5px;
+    }
+    .img-thumb {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .img-thumb.active {
+      border-color: var(--accent-cyan);
+    }
+
+    /* Right: Control Panel */
+    .compo-controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .control-header {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 8px;
+    }
+
+    /* Grid Buttons */
+    .grid-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .grid-btn:hover {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+    }
+    .grid-btn.active {
+      background: rgba(45, 212, 191, 0.1);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Sub controls for spiral */
+    .spiral-controls {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 5px;
+    }
+    .spiral-controls.active {
+      display: grid;
+    }
+    .flip-btn {
+      padding: 6px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-dim);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+    }
+    .flip-btn.active {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    /* Sliders */
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .slider-row input[type=range] {
+      flex: 1;
+    }
+    .slider-val {
+      width: 40px;
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Color toggles */
+    .color-toggles {
+      display: flex;
+      gap: 10px;
+    }
+    .color-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .color-dot.active {
+      border-color: #fff;
+    }
+
+    .link-box {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: rgba(245, 166, 35, 0.05);
+      border-left: 2px solid var(--accent-amber);
+      font-size: 0.85rem;
+    }
+    .link-box a {
+      color: var(--accent-amber);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .link-box a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div class="tool-header">
+        <span class="tool-id">TOOL 15</span>
+        <h1>Composition Analyzer</h1>
+        <p>Sa bàn phân tích hình học tâm lý. Tách lớp và quan sát cách Tỷ lệ vàng, Xoắn ốc Fibonacci định hình cái nhìn nghệ thuật.</p>
+      </div>
+
+      <div class="compo-layout">
+        
+        <!-- Left: Canvas -->
+        <div class="canvas-container">
+          <div class="image-wrapper" id="canvas-wrap">
+            <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=1200&auto=format&fit=crop" class="source-img" id="main-img" alt="Sample Photography">
+            
+            <!-- SVG Grid Container -->
+            <svg class="grid-overlay" id="grid-svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+              <!-- Grid elements injected via JS -->
+            </svg>
+          </div>
+
+          <div class="img-selector" id="img-selector">
+            <!-- Thumbs generated by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="compo-controls">
+          
+          <div class="control-group">
+            <h4 class="control-header">LỚP PHỦ HÌNH HỌC (GRID)</h4>
+            
+            <button class="grid-btn active" data-grid="thirds">
+              Rule of Thirds <span>(1/3)</span>
+            </button>
+            <button class="grid-btn" data-grid="phi">
+              Phi Grid <span>(1.618)</span>
+            </button>
+            
+            <button class="grid-btn" data-grid="spiral">
+              Golden Spiral <span>(Fibonacci)</span>
+            </button>
+            <!-- Spiral Flip Controls -->
+            <div class="spiral-controls" id="spiral-controls">
+              <button class="flip-btn active" data-flip="tl">Top-Left</button>
+              <button class="flip-btn" data-flip="tr">Top-Right</button>
+              <button class="flip-btn" data-flip="bl">Bot-Left</button>
+              <button class="flip-btn" data-flip="br">Bot-Right</button>
+            </div>
+
+            <button class="grid-btn" data-grid="dynamic">
+              Dynamic Symmetry <span>(Đường chéo)</span>
+            </button>
+            <button class="grid-btn" data-grid="none">
+              Tắt (None) <span>(Off)</span>
+            </button>
+          </div>
+
+          <div class="control-group" style="margin-top: 10px;">
+            <h4 class="control-header">TÙY CHỈNH LƯỚI</h4>
+            
+            <label style="font-size: 0.8rem; color: var(--text-dim);">Độ đậm nhạt (Opacity)</label>
+            <div class="slider-row">
+              <input type="range" id="inp-opacity" min="10" max="100" value="80">
+              <span class="slider-val" id="val-opacity">80%</span>
+            </div>
+
+            <label style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">Màu sắc (Color)</label>
+            <div class="color-toggles">
+              <div class="color-dot active" data-color="rgba(255,255,255,1)" style="background: #fff;"></div>
+              <div class="color-dot" data-color="rgba(0,0,0,1)" style="background: #000;"></div>
+              <div class="color-dot" data-color="rgba(239,68,68,1)" style="background: #ef4444;"></div>
+              <div class="color-dot" data-color="rgba(45,212,191,1)" style="background: #2dd4bf;"></div>
+            </div>
+          </div>
+
+          <div class="link-box">
+            Đọc bài viết lý thuyết để hiểu rõ hơn về toán học trong nhiếp ảnh:<br>
+            <a href="../articles/golden-ratio-composition.html">Vượt qua Quy tắc Một phần Ba →</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/composition-analyzer.js"></script>
+</body>
+</html>

@@ -80,33 +80,35 @@ button {
   --text-accent: #F5A623;
 
   /* — Accents — */
-  --accent-amber: #F5A623;
+  --accent-amber: #F59E0B;
   --accent-amber-dim: rgba(245, 166, 35, 0.15);
-  --accent-cyan: #00D4AA;
+  --accent-cyan: #06B6D4;
   --accent-cyan-dim: rgba(0, 212, 170, 0.15);
   --accent-film: #E8725C;
   --accent-blue: #4A9EFF;
   --accent-purple: #8B5CF6;
+  --accent-green: #10B981;
+  --accent-red: #EF4444;
+  --accent-cinema: #EAB308;
 
   /* — Gradients — */
   --gradient-amber: linear-gradient(135deg, #F5A623, #E8725C);
   --gradient-cyan: linear-gradient(135deg, #00D4AA, #4A9EFF);
   --gradient-purple: linear-gradient(135deg, #8B5CF6, #E8725C);
 
-  /* — Typography — */
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Typography */
+  --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-
-  /* — Font Sizes — */
+  
   --text-xs: 0.85rem;
   --text-sm: 0.95rem;
-  --text-base: 1.05rem;
-  --text-lg: 1.18rem;
-  --text-xl: 1.35rem;
-  --text-2xl: 1.65rem;
-  --text-3xl: 2.2rem;
-  --text-4xl: 2.8rem;
+  --text-base: 1.05rem;     /* Increased from 1rem */
+  --text-lg: 1.15rem;      /* Increased from 1.125rem */
+  --text-xl: 1.35rem;      /* Increased from 1.25rem */
+  --text-2xl: 1.6rem;      /* Increased from 1.5rem */
+  --text-3xl: 2.2rem;      /* Increased from 2rem */
+  --text-4xl: 3.2rem;      /* Increased from 3rem */
   --text-5xl: 3.8rem;
   --text-6xl: 4.8rem;
 
@@ -671,6 +673,147 @@ body {
   transform: translateY(0);
 }
 
+/* Interactive Elements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg-main);
+}
+.btn-primary:hover {
+  background: #ccc;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+.btn-outline:hover {
+  border-color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* eCommerce & Affiliate UI */
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  border: 1px solid #ffd700;
+}
+.btn-gold:hover {
+  background: linear-gradient(135deg, #f3d566 0%, #c99a22 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.btn-affiliate {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-affiliate:hover {
+  border-color: var(--accent-amber);
+  color: var(--accent-amber);
+}
+.btn-affiliate svg {
+  width: 18px; height: 18px; fill: currentColor;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.pricing-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.pricing-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.pricing-card.premium {
+  border-color: #d4af37;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, var(--bg-card) 100%);
+}
+
+.pricing-card.premium::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 0.05em;
+}
+
+.price-tag {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: var(--space-md) 0;
+}
+.price-tag span {
+  font-size: 1rem;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-xl) 0;
+  flex-grow: 1;
+}
+.pricing-features li {
+  padding: 8px 0;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+/* Animations */
+
 .btn-icon {
   display: inline-flex;
   align-items: center;
@@ -754,17 +897,10 @@ body {
   border-color: rgba(232, 114, 92, 0.2);
 }
 
-.tag-color {
-  color: var(--accent-purple);
-  background: rgba(139, 92, 246, 0.15);
-  border-color: rgba(139, 92, 246, 0.2);
-}
-
-.tag-psychology {
-  color: #E8725C;
-  background: rgba(232, 114, 92, 0.1);
-  border-color: rgba(232, 114, 92, 0.2);
-}
+.tag-color { background: rgba(139, 92, 246, 0.1); color: var(--accent-purple); border-color: rgba(139, 92, 246, 0.3); }
+.tag-light { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3); }
+.tag-psychology { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); border-color: rgba(239, 68, 68, 0.3); }
+.tag-cinema { background: rgba(234, 179, 8, 0.1); color: var(--accent-cinema); border-color: rgba(234, 179, 8, 0.3); }
 
 /* ============================================================
    10. SECTION DIVIDER

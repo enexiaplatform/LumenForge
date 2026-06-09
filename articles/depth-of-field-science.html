@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quang học Không gian: Hyperfocal Distance & Bí ẩn Độ Sâu Trường Ảnh — LumenForge</title>
+    <meta name="description" content="Khám phá vật lý đằng sau độ sâu trường ảnh (DoF), vòng tròn mờ (CoC), khoảng cách lấy nét tối ưu (Hyperfocal) và hiện tượng nhiễu xạ quang học.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LUMENFORGE</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html" class="active">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+                <a href="../shot-recipes.html">Công thức Chụp</a>
+                <a href="../visual-experiments.html">Thử nghiệm</a>
+                <a href="../gear-map.html">Bản đồ Thiết bị</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Trở về Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-optics">Quang học 101</span>
+                <span class="read-time">11 phút đọc</span>
+            </div>
+            <h1>Quang học Không gian: Hyperfocal Distance & Bí ẩn Độ Sâu Trường Ảnh</h1>
+            <p class="article-header-desc">Hành trình khám phá vật lý đằng sau giới hạn thị giác của con người, vòng tròn mờ (CoC), và các định luật quang học chi phối độ nét của một bức ảnh.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1]</div>
+                    <h2>Circle of Confusion (CoC): Giới Hạn Sinh Học & Vật Lý Của Sự "Sắc Nét"</h2>
+                    <p>Trong vật lý quang học, không tồn tại khái niệm "nét sâu". Một ống kính chỉ có thể hội tụ ánh sáng hoàn hảo tại một và chỉ một mặt phẳng duy nhất (tiêu diện). Bất kỳ vật thể nào nằm trước hoặc sau mặt phẳng này đều bắt đầu mờ đi. Tuy nhiên, mắt người và cảm biến máy ảnh có những giới hạn về khả năng phân giải. Khi một điểm sáng hội tụ thành một vòng tròn rất nhỏ mà mắt người không thể phân biệt được với một điểm, ta gọi đó là <strong>Circle of Confusion (CoC - Vòng tròn mờ)</strong>.</p>
+                    <p>Sự sắc nét mà chúng ta cảm nhận được thực chất là một ảo giác thị giác, được định nghĩa khi kích thước của vòng tròn mờ nhỏ hơn giới hạn phân giải của hệ thống quan sát. Kích thước tiêu chuẩn của CoC trên cảm biến Full-Frame thường được tính bằng đường chéo cảm biến chia cho 1500 (khoảng 0.029mm đến 0.030mm). Nếu điểm mờ lớn hơn giới hạn này, vùng đó sẽ được não bộ ghi nhận là "out of focus" (nằm ngoài vùng nét).</p>
+
+                    <div class="margin-note">[0.2]</div>
+                    <h2>3 Trụ Cột Của Độ Sâu Trường Ảnh (DoF)</h2>
+                    <p>Độ sâu trường ảnh (Depth of Field - DoF) không phải là một hằng số, mà là một vùng không gian biến thiên được điều khiển bởi ba yếu tố cốt lõi trong quang học nhiếp ảnh:</p>
+                    <ul>
+                        <li><strong>Khẩu độ (Aperture - f-stop):</strong> Khẩu độ càng nhỏ (số f lớn, VD: f/16), góc tới của chùm tia sáng càng hẹp, dẫn đến việc các vòng tròn mờ (CoC) mở rộng rất chậm trước và sau tiêu diện. Do đó, DoF trở nên dày hơn.</li>
+                        <li><strong>Tiêu cự (Focal Length - mm):</strong> Ở cùng một khẩu độ và khoảng cách, ống kính góc nhìn hẹp (telephoto) phóng đại hậu cảnh mạnh hơn ống kính góc rộng, làm cho các vòng tròn mờ bị phóng to đáng kể trên cảm biến, tạo cảm giác DoF mỏng hơn.</li>
+                        <li><strong>Khoảng cách đến chủ thể (Subject Distance):</strong> Khi bạn lấy nét càng gần, ánh sáng từ chủ thể đi vào ống kính với góc phân kỳ càng lớn. Điều này khiến cho các điểm nằm ngoài tiêu diện mờ đi cực kỳ nhanh chóng.</li>
+                    </ul>
+
+                    <div class="margin-note">[0.3]</div>
+                    <h2>Định Luật Bình Phương Nghịch Đảo & Nhiếp Ảnh Macro</h2>
+                    <p>Tại sao khi chụp macro, độ sâu trường ảnh lại mỏng như một tờ giấy, ngay cả khi bạn khép khẩu đến f/11 hoặc f/16? Bí mật nằm ở mối quan hệ phi tuyến tính dựa trên Định luật Bình phương Nghịch đảo.</p>
+                    <p>DoF tỷ lệ thuận với bình phương khoảng cách lấy nét. Khi bạn giảm khoảng cách lấy nét đi một nửa, độ sâu trường ảnh không giảm một nửa mà giảm đi tới bốn lần. Trong nhiếp ảnh macro, khi khoảng cách lấy nét được tính bằng centimet, DoF có thể chỉ còn vài milimet. Đó là lý do tại sao kỹ thuật Focus Stacking (chụp chồng nét) trở nên bắt buộc đối với các nhà nhiếp ảnh vĩ mô để có một chủ thể sắc nét toàn diện.</p>
+
+                    <div class="margin-note">[0.4]</div>
+                    <h2>Hyperfocal Distance: Công Thức Toán Học Cho Phong Cảnh</h2>
+                    <p>Đối với nhiếp ảnh phong cảnh, mục tiêu thường là làm cho mọi thứ từ tiền cảnh cho đến đường chân trời đều sắc nét. Công cụ tối thượng để đạt được điều này chính là <strong>Khoảng cách Siêu tiêu (Hyperfocal Distance)</strong>.</p>
+                    <p>Được định nghĩa là khoảng cách lấy nét gần nhất sao cho độ sâu trường ảnh mở rộng đến tận vô cực. Khi bạn lấy nét tại điểm Hyperfocal Distance, mọi vật thể từ một nửa khoảng cách đó cho đến vô cực sẽ nằm trong vùng "chấp nhận được" (nhỏ hơn CoC).</p>
+                    
+                    <div class="lab-note-block">
+                        <h3>MÃ THỰC NGHIỆM: EXP-OPTIC-026 (Công thức Hyperfocal)</h3>
+                        <p>Toán học đằng sau khoảng cách siêu tiêu:</p>
+                        <p><strong>H = (f²) / (N × c) + f</strong></p>
+                        <p>Trong đó: <em>H</em> là Hyperfocal Distance, <em>f</em> là tiêu cự ống kính, <em>N</em> là giá trị khẩu độ (f-stop), và <em>c</em> là giới hạn Circle of Confusion.</p>
+                        <p>Ví dụ: Ống kính 24mm tại f/8 trên cảm biến Full-Frame (c = 0.03mm).<br>
+                        H ≈ (24²) / (8 × 0.03) = 2400mm (2.4 mét).<br>
+                        Nếu bạn lấy nét ở 2.4m, mọi thứ từ 1.2m đến vô cực sẽ nét.</p>
+                    </div>
+
+                    <div class="margin-note">[0.5]</div>
+                    <h2>Giới Hạn Nhiễu Xạ (Diffraction Limit) & Hiện Tượng Airy Disk</h2>
+                    <p>Một sai lầm phổ biến là khép khẩu càng nhỏ (f/22 hoặc f/32) thì ảnh sẽ càng nét sâu và rõ. Tuy nhiên, quang học lượng tử cho chúng ta biết về sự giao thoa ánh sáng hay còn gọi là <strong>Nhiễu xạ (Diffraction)</strong>.</p>
+                    <p>Khi ánh sáng đi qua một lỗ mở quá hẹp, các sóng ánh sáng bắt đầu bẻ cong ở rìa của lá khẩu và giao thoa với nhau. Điều này tạo ra một mô hình các vòng tròn đồng tâm gọi là <strong>Airy disk</strong> thay vì một điểm sáng đơn lẻ trên cảm biến. Khi kích thước của Airy disk lớn hơn kích thước của một pixel trên cảm biến máy ảnh, độ phân giải tổng thể của bức ảnh sẽ bị suy giảm thảm hại, hình ảnh trở nên "mềm" (soft) và mất đi độ tương phản vi mô (micro-contrast).</p>
+                    <p>Sự cân bằng hoàn hảo (Sweet spot) của hầu hết các ống kính thường nằm ở f/5.6 hoặc f/8, nơi quang sai (aberrations) đã được triệt tiêu đáng kể nhờ khép khẩu, nhưng hiện tượng nhiễu xạ vẫn chưa đủ lớn để làm hỏng hình ảnh.</p>
+
+                    <div class="margin-note">[0.6]</div>
+                    <h2>Kích Thước Cảm Biến: Tương Đương Full-Frame vs Crop vs M43</h2>
+                    <p>Kích thước cảm biến không trực tiếp thay đổi tính chất vật lý của ống kính, nhưng nó thay đổi trường nhìn (Field of View) và hệ số CoC, dẫn đến một định lý về <strong>sự tương đương (Equivalence)</strong> trong DoF.</p>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Kích thước cảm biến</th>
+                                <th>Hệ số Crop</th>
+                                <th>Tiêu cự tương đương</th>
+                                <th>Khẩu độ DoF tương đương</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Full-Frame (35mm)</td>
+                                <td>1.0x</td>
+                                <td>50mm</td>
+                                <td>f/2.8</td>
+                            </tr>
+                            <tr>
+                                <td>APS-C (Crop)</td>
+                                <td>1.5x</td>
+                                <td>33mm</td>
+                                <td>f/1.8 (để có DoF giống f/2.8 FF)</td>
+                            </tr>
+                            <tr>
+                                <td>Micro Four Thirds (M43)</td>
+                                <td>2.0x</td>
+                                <td>25mm</td>
+                                <td>f/1.4 (để có DoF giống f/2.8 FF)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Để duy trì cùng một khung hình và khoảng cách lấy nét trên một cảm biến nhỏ hơn, bạn phải dùng ống kính có tiêu cự ngắn hơn, điều này đương nhiên làm cho DoF dày hơn. Để có một bức ảnh có độ xoá phông (bokeh) tương đương với Full-Frame ở 50mm f/2.8, trên M43 bạn cần chụp bằng ống kính 25mm và mở khẩu tới f/1.4.</p>
+
+                    <div class="margin-note">[0.7]</div>
+                    <h2>Focus Breathing: Ống Kính Biến Đổi Tiêu Cự</h2>
+                    <p>Một hiện tượng vật lý thú vị khác khi thao tác với hệ thống lấy nét gần là <strong>Focus Breathing (Thở Nét)</strong>. Hầu hết các ống kính nhiếp ảnh hiện đại đều sử dụng cơ chế lấy nét trong (Internal Focusing - IF), di chuyển các thấu kính ở giữa hoặc phía sau để thay đổi điểm hội tụ thay vì di chuyển toàn bộ cụm thấu kính ra xa cảm biến.</p>
+                    <p>Thiết kế quang học này khiến cho tiêu cự thực tế của ống kính bị rút ngắn lại khi bạn lấy nét vào các vật thể ở gần. Một ống kính 70-200mm ở 200mm khi lấy nét ở khoảng cách tối thiểu (Minimum Focus Distance) có thể thực chất chỉ mang góc nhìn tương đương với một ống kính 135mm. Điều này ảnh hưởng trực tiếp đến bố cục (đặc biệt trong quay phim) và sự tính toán DoF trong cận cảnh.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <div class="metadata-list">
+                            <div class="metadata-item">
+                                <span class="meta-label">Thử nghiệm:</span>
+                                <span class="meta-value">EXP-OPTIC-026</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="meta-label">Độ phức tạp:</span>
+                                <span class="meta-value">Nâng cao</span>
+                            </div>
+                            <div class="metadata-item">
+                                <span class="meta-label">Hệ thống đo lường:</span>
+                                <span class="meta-value">Metric (mm/m)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-panel">
+                        <h3>Công Cụ Liên Quan</h3>
+                        <ul class="related-links">
+                            <li><a href="../tools/dof-calculator.html">Máy tính Độ Sâu Trường Ảnh (DoF) & Hyperfocal</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-panel">
+                        <h3>Tài Liệu Đề Xuất</h3>
+                        <ul class="related-links">
+                            <li><a href="focal-length-compression.html">Hiệu ứng Nén Không gian và Tiêu cự</a></li>
+                            <li><a href="lens-character-imperfections.html">Tính cách Lens: Nét đẹp của Sự không hoàn hảo</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge — Light Intelligence Lab.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

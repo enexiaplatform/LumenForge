@@ -3,111 +3,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Depth of Field & Bokeh Explainer — LumenForge</title>
-  <meta name="description" content="Tính toán độ dày khoảng nét (Depth of Field) và phân tích chất lượng xóa phông hậu cảnh dựa trên các thông số khẩu độ, tiêu cự và khoảng cách quang học.">
+  <title>Depth of Field (DoF) Calculator — LumenForge</title>
+  <meta name="description" content="Công cụ tính toán Khoảng ảnh rõ (Depth of Field), Hyperfocal Distance và điểm lấy nét tối ưu dựa trên vật lý quang học.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/tools.css">
   <style>
-    /* Specific styling for DoF visualizer map */
-    .dof-visualizer {
+    .dof-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    
+    @media (max-width: 900px) {
+      .dof-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Controls Panel */
+    .dof-controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .dof-group {
+      margin-bottom: var(--space-lg);
+    }
+
+    .dof-group label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .dof-select, .dof-input {
       width: 100%;
-      height: 70px;
-      background: #0E0D14;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      position: relative;
-      margin: var(--space-md) 0 var(--space-lg);
-      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .dof-select:focus, .dof-input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+
+    .slider-row {
       display: flex;
       align-items: center;
+      gap: 15px;
     }
-    .dof-zone-blur-front {
-      height: 100%;
-      background: linear-gradient(90deg, rgba(232, 114, 92, 0.2) 0%, rgba(232, 114, 92, 0) 100%);
+    .slider-row input[type=range] {
+      flex: 1;
+    }
+    .slider-value {
+      width: 60px;
+      text-align: right;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    /* Visualization Area */
+    .dof-visualizer {
+      background: #000;
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      position: relative;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* SVG Diagram */
+    .dof-diagram {
+      width: 100%;
+      height: 200px;
+      margin-bottom: var(--space-xl);
+      position: relative;
+    }
+    
+    .diagram-camera {
       position: absolute;
       left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 30px;
+      background: #333;
+      border-radius: 4px;
+      border: 2px solid #555;
     }
-    .dof-zone-sharp {
-      height: 100%;
-      background: rgba(0, 212, 170, 0.12);
+    .diagram-camera::after {
+      content: '';
+      position: absolute;
+      right: -15px;
+      top: 5px;
+      width: 15px;
+      height: 16px;
+      background: #444;
+      border-radius: 2px;
+    }
+
+    .diagram-subject {
+      position: absolute;
+      left: 50%; /* dynamic */
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 40px;
+      background: #fff;
+      border-radius: 10px;
+      z-index: 10;
+    }
+
+    .diagram-dof-zone {
+      position: absolute;
+      left: 30%; /* dynamic */
+      width: 40%; /* dynamic */
+      top: 20%;
+      height: 60%;
+      background: rgba(0, 212, 170, 0.2);
       border-left: 2px dashed var(--accent-cyan);
       border-right: 2px dashed var(--accent-cyan);
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent-cyan);
-      font-weight: 500;
+      transition: all 0.3s ease;
     }
-    .dof-zone-blur-back {
-      height: 100%;
-      background: linear-gradient(90deg, rgba(232, 114, 92, 0) 0%, rgba(232, 114, 92, 0.2) 100%);
+
+    .diagram-ruler {
       position: absolute;
-      right: 0;
-    }
-    .dof-subject-marker {
-      width: 2px;
-      height: 120%;
-      background: var(--accent-amber);
-      position: absolute;
-      top: -10%;
-      z-index: 5;
-    }
-    .dof-subject-label {
-      position: absolute;
-      top: -20px;
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--accent-amber);
-      transform: translateX(-50%);
-      white-space: nowrap;
-    }
-    .dof-sharp-float {
-      position: absolute;
-      top: -28px;
-      background: var(--bg-card);
-      border: 1px solid var(--accent-cyan);
-      border-radius: 4px;
-      padding: 3px 10px;
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent-cyan);
-      transform: translateX(-50%);
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 10;
-      box-shadow: 0 4px 12px rgba(0, 212, 170, 0.15);
-      transition: left 0.1s ease;
-    }
-    .dof-labels {
-      display: flex;
-      justify-content: space-between;
+      bottom: 0;
+      left: 0;
       width: 100%;
+      height: 2px;
+      background: #333;
+    }
+
+    /* Result Stats Grid */
+    .dof-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: var(--space-lg);
+      border-radius: 8px;
+      border-left: 4px solid var(--border-color);
+    }
+    
+    .stat-card.highlight {
+      border-left-color: var(--accent-cyan);
+      background: rgba(0, 212, 170, 0.05);
+    }
+
+    .stat-card.hyperfocal {
+      border-left-color: var(--accent-amber);
+      background: rgba(245, 166, 35, 0.05);
+    }
+
+    .stat-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      color: var(--text-primary);
+    }
+    
+    .stat-unit {
+      font-size: 1rem;
       color: var(--text-dim);
-      margin-top: -12px;
-      margin-bottom: var(--space-lg);
+      font-weight: 400;
     }
-    .dof-svg-container {
-      width: 100%;
-      height: 240px;
-      background: #0E0D14;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      position: relative;
-      margin-bottom: var(--space-lg);
-      overflow: hidden;
-    }
-    .dof-svg-container svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
+
   </style>
 </head>
 <body>
@@ -130,146 +220,99 @@
     </div>
   </nav>
 
-  <!-- Tool Hero -->
-  <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">&larr; Quay lại Xưởng Công cụ</a></p>
-    <p class="section-label">[TOOL 03]</p>
-    <h1>Depth of Field & Bokeh Explainer</h1>
-    <p class="tool-hero-desc">Đo độ dày vùng sắc nét quang học và phân tích chất lượng xóa phông hậu cảnh dựa trên vật lý quang cụ.</p>
-  </section>
-
-  <!-- Tool Panel -->
-  <section class="section">
+  <section class="section" style="padding-top: 100px;">
     <div class="container">
-      <div class="tool-panel">
+      
+      <div class="tool-header">
+        <span class="tool-id">TOOL 12</span>
+        <h1>Máy tính Khoảng Ảnh Rõ (DoF Calculator)</h1>
+        <p>Mô phỏng toán học định luật Circle of Confusion (CoC) để tính toán chính xác Độ Sâu Trường Ảnh và Hyperfocal Distance cho mọi thể loại máy ảnh.</p>
+      </div>
+
+      <div class="dof-layout">
         
-        <!-- Live Depth map Visualization -->
-        <h4 style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); margin-bottom: 24px; text-transform:uppercase; letter-spacing:0.08em;">
-          SƠ ĐỒ HỘI TỤ QUANG HỌC (OPTICAL RAY PATH SIMULATION)
-        </h4>
-        
-        <div class="dof-svg-container">
-          <svg id="dof-optical-svg" viewBox="0 0 800 240"></svg>
-        </div>
-
-        <h4 style="font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-amber); margin-top: 32px; margin-bottom: 35px; text-transform:uppercase; letter-spacing:0.08em;">
-          BẢN ĐỒ VÙNG SẮC NÉT (SHARP VS BLUR MAP)
-        </h4>
-
-        <div style="position:relative; margin-top:40px;">
-          <!-- Floating indicator for DOF -->
-          <div class="dof-sharp-float" id="dof-sharp-float" style="left: 25%;">VÙNG NÉT: CƠ BẢN</div>
-
-          <div class="dof-subject-marker" id="dof-marker" style="left: 40%;">
-            <div class="dof-subject-label" id="dof-label">CHỦ THỂ (1.5m)</div>
+        <!-- Left: Input Controls -->
+        <div class="dof-controls">
+          <div class="dof-group">
+            <label for="inp-sensor">Kích thước Sensor</label>
+            <select id="inp-sensor" class="dof-select">
+              <option value="0.030">Full Frame 35mm (CoC: 0.030mm)</option>
+              <option value="0.020">APS-C / Crop 1.5x (CoC: 0.020mm)</option>
+              <option value="0.019">Canon APS-C 1.6x (CoC: 0.019mm)</option>
+              <option value="0.015">Micro Four Thirds 2.0x (CoC: 0.015mm)</option>
+              <option value="0.005">Smartphone 1-inch (CoC: ~0.005mm)</option>
+            </select>
           </div>
-          <div class="dof-visualizer" style="height: 36px; margin: 8px 0 var(--space-lg);">
-            <div class="dof-zone-blur-front" id="dof-blur-front" style="width: 25%;"></div>
-            <div class="dof-zone-sharp" id="dof-sharp" style="left: 25%; width: 30%;"></div>
-            <div class="dof-zone-blur-back" id="dof-blur-back" style="left: 55%; width: 45%;"></div>
+
+          <div class="dof-group">
+            <label for="inp-focal">Tiêu cự Ống kính (Focal Length)</label>
+            <div class="slider-row">
+              <input type="range" id="inp-focal" min="12" max="200" step="1" value="50">
+              <span class="slider-value" id="val-focal">50mm</span>
+            </div>
+          </div>
+
+          <div class="dof-group">
+            <label for="inp-aperture">Khẩu độ (Aperture / f-stop)</label>
+            <div class="slider-row">
+              <input type="range" id="inp-aperture" min="1.0" max="22" step="0.2" value="2.8">
+              <span class="slider-value" id="val-aperture">f/2.8</span>
+            </div>
+          </div>
+
+          <div class="dof-group">
+            <label for="inp-distance">Khoảng cách tới Chủ thể (Focus Distance)</label>
+            <div class="slider-row">
+              <input type="range" id="inp-distance" min="0.5" max="50" step="0.5" value="3.0">
+              <span class="slider-value" id="val-distance">3.0m</span>
+            </div>
           </div>
         </div>
-        <div class="dof-labels">
-          <span>Ống kính (0.0m)</span>
-          <span>Hậu cảnh xa (10m+)</span>
-        </div>
 
-        <!-- Inputs Controls -->
-        <div class="tool-controls">
+        <!-- Right: Visualizer & Stats -->
+        <div class="dof-visualizer">
           
-          <!-- Sensor Size Select -->
-          <div class="input-group">
-            <label for="dof-sensor">LOẠI CẢM BIẾN (SENSOR TYPE)</label>
-            <select class="tool-select" id="dof-sensor">
-              <option value="fullframe">Full-Frame (Cảm biến 35mm)</option>
-              <option value="apsc" selected>APS-C (Cảm biến Crop Canon/Sony/Fujifilm)</option>
-              <option value="smartphone">Điện thoại (Cảm biến nhỏ)</option>
-            </select>
+          <div class="dof-diagram">
+            <div class="diagram-camera"></div>
+            <div class="diagram-dof-zone" id="vis-zone"></div>
+            <div class="diagram-subject" id="vis-subject"></div>
+            <div class="diagram-ruler"></div>
+            <!-- Labels for diagram -->
+            <div style="position: absolute; left: 0; bottom: -25px; font-family: var(--font-mono); font-size: 10px; color: #666;">Camera (0m)</div>
+            <div style="position: absolute; right: 0; bottom: -25px; font-family: var(--font-mono); font-size: 10px; color: #666;">Vô cực (∞)</div>
           </div>
 
-          <!-- Focal Length Selector -->
-          <div class="input-group">
-            <label for="dof-focal">TIÊU CỰ ỐNG KÍNH (FOCAL LENGTH MM)</label>
-            <select class="tool-select" id="dof-focal">
-              <option value="16">16mm (Góc siêu rộng)</option>
-              <option value="24">24mm (Góc rộng)</option>
-              <option value="35">35mm (Góc rộng tiêu chuẩn)</option>
-              <option value="50" selected>50mm (Tiêu cự chuẩn)</option>
-              <option value="85">85mm (Tiêu cự chân dung)</option>
-              <option value="135">135mm (Ống tele chuyên nghiệp)</option>
-            </select>
-          </div>
+          <div class="dof-stats">
+            <div class="stat-card">
+              <div class="stat-title">Điểm Nét Gần Nhất (Near Limit)</div>
+              <div class="stat-value" id="out-near">2.75 <span class="stat-unit">m</span></div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-title">Điểm Nét Xa Nhất (Far Limit)</div>
+              <div class="stat-value" id="out-far">3.30 <span class="stat-unit">m</span></div>
+            </div>
 
-          <!-- Aperture Slider -->
-          <div class="input-group">
-            <label for="dof-aperture">APERTURE (KHẨU ĐỘ)</label>
-            <input type="range" class="tool-slider" id="dof-aperture" min="0" max="7" value="1">
-            <div style="display:flex; justify-content:space-between; margin-top:4px;">
-              <span class="slider-value" style="margin-top:0;" id="aperture-val">f/1.8</span>
-              <span style="font-size:0.7rem; color:var(--text-dim);">f/1.4 - f/16</span>
+            <div class="stat-card highlight">
+              <div class="stat-title">Tổng Vùng Nét (Total DoF)</div>
+              <div class="stat-value" id="out-total">0.55 <span class="stat-unit">m</span></div>
+            </div>
+
+            <div class="stat-card hyperfocal">
+              <div class="stat-title">Hyperfocal Distance</div>
+              <div class="stat-value" id="out-hyper">29.8 <span class="stat-unit">m</span></div>
             </div>
           </div>
-
-          <!-- Subject Distance Slider -->
-          <div class="input-group">
-            <label for="dof-distance">KHOẢNG CÁCH ĐẾN CHỦ THỂ</label>
-            <input type="range" class="tool-slider" id="dof-distance" min="0.5" max="10" step="0.1" value="1.5">
-            <div style="display:flex; justify-content:space-between; margin-top:4px;">
-              <span class="slider-value" style="margin-top:0;" id="distance-val">1.5m</span>
-              <span style="font-size:0.7rem; color:var(--text-dim);">0.5m - 10m</span>
-            </div>
-          </div>
-
-          <!-- Background Distance Slider -->
-          <div class="input-group full-width">
-            <label for="dof-bg-distance">KHOẢNG CÁCH TỪ CHỦ THỂ ĐẾN HẬU CẢNH</label>
-            <input type="range" class="tool-slider" id="dof-bg-distance" min="0.5" max="15" step="0.5" value="4.0">
-            <div style="display:flex; justify-content:space-between; margin-top:4px;">
-              <span class="slider-value" style="margin-top:0;" id="bg-distance-val">4.0m</span>
-              <span style="font-size:0.7rem; color:var(--text-dim);">0.5m - 15m</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Output Explanation -->
-        <div class="tool-output" id="dof-output">
-          <!-- Populated by JS -->
+          
+          <p style="margin-top: 20px; font-family: var(--font-body); font-size: 0.9rem; color: var(--text-secondary); text-align: center;">
+            <strong style="color: var(--accent-amber);">💡 Hyperfocal Tip:</strong> Lấy nét tại khoảng cách Hyperfocal, mọi thứ từ một nửa Hyperfocal đến Vô cực (∞) sẽ nằm trong vùng nét chấp nhận được. Tuyệt vời cho nhiếp ảnh phong cảnh.
+          </p>
         </div>
 
       </div>
+
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4>Khám phá</h4>
-            <a href="../light-codex.html">Quang Thư</a>
-            <a href="../tool-lab.html">Xưởng Công cụ</a>
-            <a href="../shot-recipes.html">Công thức Chụp</a>
-            <a href="../gear-map.html">Bản đồ Thiết bị</a>
-          </div>
-          <div class="footer-col">
-            <h4>Công cụ</h4>
-            <a href="lens-decoder.html">Giải mã Ống kính</a>
-            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
-            <a href="film-look.html">Giả lập Màu phim</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
-      </div>
-    </div>
-  </footer>
 
   <script src="../js/common.js"></script>
   <script src="../js/tools/dof-calculator.js"></script>

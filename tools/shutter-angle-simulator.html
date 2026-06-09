@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shutter Angle Simulator — LumenForge</title>
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <style>
+    .lab-container {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: var(--space-xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-xl);
+      height: calc(100vh - 70px);
+    }
+    .stage-area {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-xl);
+      gap: var(--space-lg);
+    }
+    
+    /* Rotary Shutter Visual */
+    .shutter-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .rotary-disc {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: conic-gradient(transparent var(--angle), #222 var(--angle), #222 360deg);
+      border: 2px solid var(--border-color);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      position: relative;
+      animation: spin var(--speed) linear infinite;
+    }
+    .rotary-disc::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px; height: 20px;
+      background: var(--border-glow);
+      border-radius: 50%;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Motion Blur Visual */
+    .motion-visual {
+      flex: 1;
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .moving-object {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--accent-cinema);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: moveX 2s linear infinite;
+      filter: blur(var(--blur-amount));
+    }
+    @keyframes moveX {
+      from { left: -50px; }
+      to { left: calc(100% + 50px); }
+    }
+
+    /* Controls */
+    .controls-area {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      overflow-y: auto;
+    }
+    .control-group {
+      margin-bottom: var(--space-lg);
+    }
+    .control-group label {
+      display: block;
+      margin-bottom: var(--space-xs);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+    .value-display {
+      font-size: 1.5rem;
+      font-family: var(--font-mono);
+      color: var(--accent-cinema);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Slider */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: var(--accent-cinema);
+      margin-top: -6px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .lab-container {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="../tool-lab.html" class="nav-logo">← XƯỞNG CÔNG CỤ</a>
+      <div class="nav-menu">
+        <a href="../articles/shutter-angle-rule.html" class="nav-link" target="_blank" style="color: var(--accent-cinema);">Đọc lý thuyết Shutter Angle</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="lab-container">
+    
+    <div class="stage-area" id="stage">
+      <div class="shutter-visual">
+        <!-- CSS variables will drive the animation via JS -->
+        <div class="rotary-disc" id="disc" style="--angle: 180deg; --speed: 0.0416s;"></div>
+      </div>
+      <div class="motion-visual">
+        <div class="moving-object" id="object" style="--blur-amount: 4px;"></div>
+      </div>
+    </div>
+
+    <div class="controls-area">
+      <h2 style="font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 20px; color: var(--text-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Bảng điều khiển (Control Desk)</h2>
+
+      <div class="control-group">
+        <label>Góc Màn Trập (Shutter Angle)</label>
+        <div class="value-display" id="angle-val">180°</div>
+        <input type="range" id="angle-slider" min="11" max="360" value="180">
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">Góc mở của đĩa quay vật lý. 180° là tiêu chuẩn điện ảnh (tương đương 1/48s ở 24fps).</p>
+      </div>
+
+      <div class="control-group" style="margin-top: 30px;">
+        <label>Tốc độ Khung hình (Frame Rate)</label>
+        <div class="value-display" id="fps-val">24 fps</div>
+        <input type="range" id="fps-slider" min="24" max="120" step="24" value="24">
+        <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px;">Tốc độ khung hình quyết định tốc độ quay của đĩa. Ở 24fps, đĩa quay 24 vòng 1 giây.</p>
+      </div>
+
+      <div class="control-group" style="margin-top: 30px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+        <label>Tốc độ Màn trập Tương đương (Shutter Speed)</label>
+        <div class="value-display" id="speed-val" style="color: #fff; font-size: 1.2rem;">1/48s</div>
+        <p style="font-size: 0.8rem; color: var(--text-dim);">Công thức: Shutter Speed = 1 / (FPS * (360 / Angle))</p>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <h4 style="font-size: 0.9rem; color: var(--text-primary); margin-bottom: 10px;">Preset Kinh điển</h4>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px; border-color: var(--accent-cinema); color: var(--accent-cinema);" onclick="setPreset(45)">45° (Hành động gắt/Gladiator)</button>
+          <button class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px;" onclick="setPreset(180)">180° (Tiêu chuẩn/Điện ảnh)</button>
+          <button class="btn btn-outline" style="font-size: 0.8rem; padding: 6px 12px;" onclick="setPreset(360)">360° (Mơ màng/Chungking Express)</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="../js/tools/shutter-angle-simulator.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Sync & Ambient Simulator — LumenForge</title>
+  <meta name="description" content="Phòng Lab mô phỏng sự tương tác giữa Màn trập và Đèn chớp. Trực quan hóa X-Sync và High-Speed Sync (HSS).">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .flash-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    
+    @media (max-width: 900px) {
+      .flash-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Visualizer Area */
+    .flash-visualizer {
+      background: #000;
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Split View Container */
+    .split-view {
+      position: relative;
+      height: 400px;
+      width: 100%;
+      background-image: url('https://images.unsplash.com/photo-1470071650669-5415267243c3?q=80&w=1600&auto=format&fit=crop'); /* Sunny Background */
+      background-size: cover;
+      background-position: center;
+      transition: filter 0.2s;
+    }
+
+    /* Ambient Overlay (Dims the background) */
+    .ambient-overlay {
+      position: absolute;
+      inset: 0;
+      background: #000;
+      opacity: 0; /* Changed dynamically via JS based on shutter/aperture */
+      transition: opacity 0.2s;
+    }
+
+    /* Subject Container */
+    .subject-layer {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 350px;
+      /* Using a placeholder SVG or image with transparency for the subject */
+      background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg"><path d="M50 300 C50 200 70 150 100 150 C130 150 150 200 150 300 Z" fill="%23ffffff"/><circle cx="100" cy="100" r="40" fill="%23ffffff"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: bottom center;
+      /* Filter controls the subject exposure (Ambient + Flash) */
+      transition: filter 0.2s;
+    }
+
+    /* Black Band (X-Sync Exceeded) */
+    .shutter-band {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0; /* Dynamic height based on shutter speed > 1/250 */
+      background: #000;
+      z-index: 10;
+      transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .shutter-band span {
+      color: var(--accent-red);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin-top: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Exposure Meters */
+    .meter-bar {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-card);
+      border-top: 1px solid var(--border-color);
+    }
+    .meter-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 45%;
+    }
+    .meter-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+    .meter-value {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .meter-ev-bar {
+      width: 100%;
+      height: 4px;
+      background: #333;
+      margin-top: 5px;
+      border-radius: 2px;
+      position: relative;
+    }
+    .meter-ev-fill {
+      position: absolute;
+      top: 0; left: 50%; height: 100%;
+      background: #fff;
+      transform-origin: left center;
+      transition: all 0.2s;
+    }
+    .meter-ev-fill.under { background: var(--accent-cyan); transform-origin: right center; left: auto; right: 50%; }
+    .meter-ev-fill.over { background: var(--accent-amber); left: 50%; }
+    .meter-ev-fill.perfect { background: var(--accent-green); left: 50%; transform: translateX(-50%); width: 10px !important; }
+
+    /* Control Panel */
+    .flash-controls {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .control-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-header label {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .slider-row input[type=range] {
+      flex: 1;
+    }
+    .slider-val {
+      width: 70px;
+      text-align: right;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      font-size: 0.9rem;
+    }
+
+    /* HSS Toggle */
+    .hss-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .hss-toggle:hover {
+      border-color: var(--accent-purple);
+    }
+    .hss-toggle.active {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: var(--accent-purple);
+    }
+    .hss-label {
+      display: flex;
+      flex-direction: column;
+    }
+    .hss-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .hss-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+    .hss-switch {
+      width: 40px;
+      height: 20px;
+      background: #444;
+      border-radius: 10px;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .hss-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .hss-toggle.active .hss-switch {
+      background: var(--accent-purple);
+    }
+    .hss-toggle.active .hss-switch::after {
+      transform: translateX(20px);
+    }
+
+    /* Educational Box */
+    .edu-box {
+      background: rgba(245, 166, 35, 0.05);
+      border-left: 3px solid var(--accent-amber);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div class="tool-header">
+        <span class="tool-id">TOOL 14</span>
+        <h1>Flash Sync & Ambient Simulator</h1>
+        <p>Mô phỏng nguyên lý tách biệt phơi sáng (Ambient vs Flash) và giới hạn tốc độ ăn đèn X-Sync của màn trập cơ học.</p>
+      </div>
+
+      <div class="flash-layout">
+        
+        <!-- Left: Visualizer -->
+        <div class="flash-visualizer">
+          <div class="split-view" id="sim-bg">
+            <div class="ambient-overlay" id="sim-ambient"></div>
+            <!-- Subject SVG -->
+            <div class="subject-layer" id="sim-subject"></div>
+            <!-- Black Band -->
+            <div class="shutter-band" id="sim-band">
+              <span>X-SYNC EXCEEDED (RÈM TRẬP CHE KHUẤT)</span>
+            </div>
+          </div>
+          
+          <div class="meter-bar">
+            <div class="meter-col">
+              <span class="meter-title">PHÔNG NỀN (AMBIENT)</span>
+              <span class="meter-value" id="val-ambient-ev">0 EV</span>
+              <div class="meter-ev-bar">
+                <div class="meter-ev-fill" id="bar-ambient-ev"></div>
+              </div>
+            </div>
+            <div class="meter-col">
+              <span class="meter-title">CHỦ THỂ (FLASH + AMB)</span>
+              <span class="meter-value" id="val-subject-ev">0 EV</span>
+              <div class="meter-ev-bar">
+                <div class="meter-ev-fill" id="bar-subject-ev"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Controls -->
+        <div class="flash-controls">
+          
+          <div class="edu-box" id="edu-msg">
+            Hãy tăng Tốc độ màn trập (Shutter Speed) lên để làm tối bầu trời phông nền.
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="inp-shutter">Tốc độ Màn trập (Shutter)</label>
+            </div>
+            <div class="slider-row">
+              <input type="range" id="inp-shutter" min="0" max="15" value="6"> <!-- Map to stops -->
+              <span class="slider-val" id="val-shutter">1/60s</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="inp-aperture">Khẩu độ (Aperture)</label>
+            </div>
+            <div class="slider-row">
+              <input type="range" id="inp-aperture" min="0" max="8" value="3">
+              <span class="slider-val" id="val-aperture">f/2.8</span>
+            </div>
+          </div>
+
+          <hr style="border-color: var(--border-color); margin: 10px 0;">
+
+          <div class="control-group">
+            <div class="control-header">
+              <label for="inp-flash" style="color: var(--accent-cyan);">Công suất Flash</label>
+            </div>
+            <div class="slider-row">
+              <input type="range" id="inp-flash" min="0" max="100" value="0">
+              <span class="slider-val" id="val-flash">Tắt</span>
+            </div>
+          </div>
+
+          <div class="hss-toggle" id="btn-hss">
+            <div class="hss-label">
+              <span class="hss-title" style="color: var(--accent-purple);">High-Speed Sync (HSS)</span>
+              <span class="hss-desc">Bơm liên tục xung chớp qua rèm</span>
+            </div>
+            <div class="hss-switch"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/flash-simulator.js"></script>
+</body>
+</html>

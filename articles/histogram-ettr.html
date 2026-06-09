@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự thật về Histogram & Kỹ thuật Phơi sáng Lệch Phải (ETTR) — LumenForge</title>
+    <meta name="description" content="Khám phá bản chất thực sự của Histogram, lời nói dối của màn hình LCD và cách tối ưu hóa dữ liệu RAW bằng kỹ thuật Expose To The Right (ETTR).">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="nav-toggle-icon"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Trang chủ</a></li>
+                <li><a href="../light-codex.html" class="active">Quang Thư</a></li>
+                <li><a href="../tool-lab.html">Xưởng Công cụ</a></li>
+                <li><a href="../shot-recipes.html">Công thức Chụp</a></li>
+                <li><a href="../visual-experiments.html">Thử nghiệm</a></li>
+                <li><a href="../gear-map.html">Bản đồ Thiết bị</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Trở về Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-sensor">Khoa học Cảm biến</span>
+                <span class="read-time">11 phút đọc</span>
+            </div>
+            <h1>Sự thật về Histogram & Kỹ thuật Phơi sáng Lệch Phải (ETTR)</h1>
+            <p class="article-header-desc">
+                Hiểu rõ biểu đồ Histogram, vượt qua giới hạn hiển thị của máy ảnh và tối ưu hóa tối đa tỷ lệ Tín hiệu/Nhiễu (SNR) của dữ liệu RAW.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] GIẢI PHẪU BIỂU ĐỒ</div>
+                    <h2>1. Giải phẫu của một Histogram</h2>
+                    <p>Histogram (biểu đồ tần suất) là công cụ toán học trực quan nhất giúp nhiếp ảnh gia đánh giá độ phơi sáng của một bức ảnh. Nó là một đồ thị hai trục: trục hoành (X) biểu diễn các giá trị độ sáng từ tối nhất ở bên trái đến sáng nhất ở bên phải, và trục tung (Y) biểu thị số lượng điểm ảnh (pixel) sở hữu giá trị độ sáng đó.</p>
+                    <p>Trong hệ thống dữ liệu 8-bit tiêu chuẩn, biểu đồ này được chia thành 256 mức độ sáng (từ 0 đến 255):</p>
+                    <ul>
+                        <li><strong>Blacks (Điểm đen - 0):</strong> Vùng tối hoàn toàn, không có chi tiết (clipping shadow).</li>
+                        <li><strong>Shadows (Vùng tối - 1 đến 63):</strong> Các chi tiết nằm trong bóng râm, cần cẩn thận để tránh nhiễu hạt (noise).</li>
+                        <li><strong>Midtones (Vùng trung tính - 64 đến 191):</strong> Vùng ánh sáng trung bình, nơi chứa hầu hết các chi tiết quan trọng như da người (skin tones).</li>
+                        <li><strong>Highlights (Vùng sáng - 192 đến 254):</strong> Các chi tiết sáng như bầu trời, mây, nhưng vẫn giữ được thông tin.</li>
+                        <li><strong>Whites (Điểm trắng - 255):</strong> Vùng sáng hoàn toàn, cháy sáng (clipping highlight), dữ liệu tại đây bị mất trắng.</li>
+                    </ul>
+
+                    <div class="margin-note">[0.2] CÚ LỪA LCD</div>
+                    <h2>2. Lời nói dối của màn hình LCD</h2>
+                    <p>Có một sự thật ít người biết: <strong>Histogram mà bạn nhìn thấy trên màn hình máy ảnh không phải là của file RAW</strong>. Dù bạn cài đặt máy ảnh chỉ chụp RAW, bộ vi xử lý vẫn lấy dữ liệu gốc, áp dụng Picture Profile (Standard, Vivid, Neutral...), nén thành một file JPEG 8-bit và dùng file JPEG thu nhỏ đó để hiển thị trên màn hình LCD, đồng thời tính toán ra Histogram.</p>
+                    <div class="lab-note-block">
+                        <strong>Mã thử nghiệm: EXP-SENS-033</strong>
+                        <p>File RAW thường sở hữu dải nhạy sáng từ 12-14 bit (ghi nhận hàng ngàn đến chục ngàn mức độ sáng). Khi bị nén xuống 8-bit JPEG (chỉ 256 mức), một lượng lớn thông tin bị cắt gọt. Điều này dẫn đến hiện tượng Histogram trên máy báo "cháy sáng" (clipping) ở vùng Highlight, nhưng thực tế khi mở file RAW trên máy tính, bạn hoàn toàn có thể cứu lại được các chi tiết đó. Bạn luôn có nhiều dung sai vùng sáng hơn những gì máy ảnh cho bạn thấy.</p>
+                    </div>
+
+                    <div class="margin-note">[0.3] BẢN CHẤT TUYẾN TÍNH</div>
+                    <h2>3. Bản chất tuyến tính của cảm biến hình ảnh</h2>
+                    <p>Tại sao chúng ta lại muốn đẩy biểu đồ về bên phải? Điều này bắt nguồn từ vật lý lượng tử của cảm biến. Mắt người có đặc tính cảm nhận ánh sáng theo thang logarit, nhưng cảm biến kỹ thuật số ghi nhận photon theo cơ chế <strong>tuyến tính (linear)</strong>.</p>
+                    <p>Nghĩa là nếu cảm biến của bạn ghi nhận được 6 stop dải nhạy sáng với file RAW 12-bit (chứa 4096 mức dữ liệu):</p>
+                    <ul>
+                        <li><strong>Stop sáng nhất (Highlight):</strong> Chứa một nửa tổng dữ liệu, tức là 2048 mức độ.</li>
+                        <li><strong>Stop thứ hai:</strong> Chứa một nửa phần còn lại, 1024 mức độ.</li>
+                        <li><strong>Stop thứ ba:</strong> Chứa 512 mức độ.</li>
+                        <li>...</li>
+                        <li><strong>Stop tối nhất (Shadow):</strong> Chỉ chứa vỏn vẹn 64 mức độ.</li>
+                    </ul>
+                    <p>Nếu bạn phơi sáng thiếu (underexpose), bạn đang lãng phí hàng nghìn mức dữ liệu ở vùng sáng và ép các chi tiết vào khu vực có rất ít dữ liệu ghi nhận, nơi mà Tín hiệu (Signal) bị áp đảo bởi Nhiễu điện từ nền (Noise) của cảm biến.</p>
+
+                    <div class="margin-note">[0.4] KỸ THUẬT ETTR</div>
+                    <h2>4. Kỹ thuật Phơi sáng Lệch Phải (ETTR)</h2>
+                    <p>Expose To The Right (ETTR) là kỹ thuật tối ưu hóa dữ liệu RAW bằng cách cố tình phơi sáng lố (overexpose) sao cho toàn bộ Histogram dịch chuyển sang bên phải nhiều nhất có thể, nhưng <strong>tuyệt đối không để chạm vạch phải (clipping)</strong>.</p>
+                    <p>Sau đó, trong khâu hậu kỳ (Lightroom, Capture One), bạn sẽ giảm độ sáng (Exposure) về mức bình thường. Quá trình này đem lại lợi ích to lớn: Tỷ lệ Tín hiệu trên Nhiễu (Signal-to-Noise Ratio - SNR) được tối đa hóa. Vùng tối (Shadow) khi bị kéo tối xuống sẽ đồng thời "chôn giấu" đi phần nhiễu hạt, mang lại một file RAW cực kỳ sạch sẽ, giàu màu sắc và chuyển mượt mà (smooth tonal transitions).</p>
+
+                    <div class="margin-note">[0.5] ETTR VS ETTL</div>
+                    <h2>5. ETTR so với ETTL: Khi nào cần Phơi sáng Lệch Trái?</h2>
+                    <p>ETTR là công cụ tuyệt vời, nhưng không phải là phương pháp chụp vạn năng. Trong nhiều tình huống, Expose To The Left (ETTL) — phơi sáng thiếu chủ động — lại là lựa chọn bắt buộc để bảo vệ dữ liệu màu sắc cốt lõi.</p>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí</th>
+                                <th>ETTR (Lệch Phải)</th>
+                                <th>ETTL (Lệch Trái)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mục đích chính</strong></td>
+                                <td>Tối đa hóa SNR, giảm nhiễu vùng tối.</td>
+                                <td>Bảo vệ chi tiết và màu sắc vùng sáng gắt.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Môi trường tối ưu</strong></td>
+                                <td>Phong cảnh, studio, ánh sáng tản đều, dải nhạy sáng hẹp.</td>
+                                <td>Hoàng hôn, ánh sáng neon, sân khấu, độ tương phản cực cao.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rủi ro</strong></td>
+                                <td>Có thể cháy sáng không cứu được nếu quá tay.</td>
+                                <td>Vùng tối bị noise nặng khi cố kéo sáng trong hậu kỳ.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tính chất ánh sáng</strong></td>
+                                <td>Midtones/Shadows chiếm ưu thế.</td>
+                                <td>Highlights chứa dữ liệu mang tính sống còn.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Trong chụp hoàng hôn hay bảng hiệu neon, vùng sáng rực rỡ thường là một màu đơn sắc (đỏ, cam, hoặc xanh). Nếu phơi sáng lệch phải, một trong ba kênh màu RGB có thể bị quá tải (clipping) trước tiên, làm mất đi sự rực rỡ và chuyển màu của hoàng hôn (hiện tượng đổi màu sang trắng/vàng ố). Trong trường hợp này, ETTL đảm bảo các kênh màu không bị bão hòa, giữ được sắc độ nguyên bản dù bạn phải chấp nhận một ít nhiễu ở vùng tối.</p>
+
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item">
+                                <span class="meta-label">Mã thử nghiệm</span>
+                                <span class="meta-value">EXP-SENS-033</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Chuyên mục</span>
+                                <span class="meta-value">Khoa học Cảm biến</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Mức độ</span>
+                                <span class="meta-value">Nâng cao</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-panel">
+                        <h3>CÔNG CỤ LIÊN QUAN</h3>
+                        <ul class="sidebar-links">
+                            <li><a href="../tool-lab.html">Tone Curve Simulator</a></li>
+                            <li><a href="../tool-lab.html">Exposure Reactor</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge — Light Intelligence Lab.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nghệ thuật Đo sáng: Vì sao máy ảnh luôn bị lừa? — LumenForge</title>
+  <meta name="description" content="Khám phá khoa học đằng sau hệ thống đo sáng trong máy ảnh — từ photodiode silicon đến Zone System của Ansel Adams, và vì sao máy ảnh luôn muốn biến mọi thứ thành xám 18%.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link active">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../light-codex.html">&larr; Quay lại Quang Thư</a>
+      </div>
+      <div class="article-header-meta">
+        <span class="codex-card-tag tag-optics">Quang học 101</span>
+        <span class="read-time">10 phút đọc</span>
+      </div>
+      <h1>Nghệ thuật Đo sáng: Vì sao máy ảnh luôn bị lừa?</h1>
+      <p class="article-header-desc">Đi sâu vào vật lý của photodiode silicon, lịch sử xám 18% từ Zone System của Ansel Adams, và cách thuần hóa ba chế độ đo sáng để không bao giờ bị phơi sáng sai trong những tình huống khó nhằn nhất.</p>
+    </div>
+  </header>
+
+  <!-- Article Body Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="article-layout">
+        
+        <!-- Main Content -->
+        <article class="article-content">
+          
+          <div class="margin-note" style="top: 80px;">[0.1]</div>
+          <p>Hãy thử một thí nghiệm tư duy: Bạn chĩa máy ảnh ra một bãi tuyết trắng tinh khôi dưới ánh nắng rực rỡ, nhấn chụp ở chế độ tự động. Kết quả? Bức ảnh ra... xám xịt. Giờ bạn chụp một con mèo đen trên nền than đá. Kết quả? Con mèo đen trở nên... xám nhờ nhờ. Cả hai lần, máy ảnh đều "sai" — nhưng đó không phải lỗi. Đó là bản chất thiết kế. Mọi máy ảnh trên thế giới đều được lập trình để quy mọi cảnh chụp về một mức sáng trung bình duy nhất: **xám 18%**. Hiểu được nguyên lý này chính là bước nhảy vọt lớn nhất trên hành trình kiểm soát ánh sáng trong nhiếp ảnh.</p>
+
+          <div class="margin-note" style="top: 380px;">[0.2]</div>
+          <h2>Phản xạ vs Chiếu tới: Hai Triết lý Đo Sáng</h2>
+          <p>Trước khi đi vào các chế độ đo sáng cụ thể trong máy ảnh, cần phân biệt hai phương pháp cơ bản mà vật lý cho phép chúng ta đo lường ánh sáng:</p>
+
+          <p><strong>Đo sáng phản xạ (Reflected Light Metering)</strong> — đây là phương pháp mà mọi máy ảnh sử dụng. Cảm biến đo sáng đặt bên trong thân máy tiếp nhận ánh sáng <em>phản xạ từ chủ thể</em> đi ngược lại qua ống kính (TTL — Through The Lens). Nó đo <strong>độ chói (luminance)</strong> của bề mặt vật thể, tính bằng đơn vị cd/m² (candela trên mét vuông). Vấn đề nằm ở chỗ: lượng ánh sáng phản xạ phụ thuộc vào <em>hệ số phản xạ (reflectance)</em> của bề mặt chủ thể. Tuyết trắng phản xạ ~90% ánh sáng chiếu vào, trong khi nhung đen chỉ phản xạ ~3%. Máy ảnh không thể phân biệt được liệu nó đang nhìn một vật sáng trong điều kiện ánh sáng yếu, hay một vật tối trong điều kiện ánh sáng mạnh — hai kịch bản này có thể cho ra cùng một mức luminance!</p>
+
+          <p><strong>Đo sáng chiếu tới (Incident Light Metering)</strong> — phương pháp dùng máy đo sáng cầm tay (handheld meter) với bầu khuếch tán (dome diffuser) đặt tại vị trí chủ thể, hướng về phía máy ảnh. Nó đo <strong>cường độ chiếu sáng (illuminance)</strong>, tức lượng ánh sáng <em>thực sự chiếu đến</em> chủ thể, tính bằng lux (lm/m²). Phương pháp này hoàn toàn bỏ qua hệ số phản xạ của chủ thể, nên không bị "lừa" bởi bề mặt trắng hay đen. Đây là lý do vì sao nhiếp ảnh gia chuyên nghiệp, đặc biệt trong studio và quay phim, luôn ưu tiên incident meter.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [EXP-LIGHT-021 / PHOTODIODE]</h5>
+            <p>Cảm biến đo sáng trong máy ảnh hiện đại sử dụng <strong>photodiode silicon (Si)</strong> hoạt động ở chế độ quang dẫn (photoconductive mode). Khi photon có năng lượng lớn hơn band gap của silicon (~1.12 eV, tương đương bước sóng λ ≈ 1100 nm) va chạm vào vùng nghèo (depletion region) của mối nối p-n, nó sinh ra một cặp electron-lỗ trống. Dòng quang điện (photocurrent) sinh ra tỷ lệ thuận với thông lượng photon:</p>
+            <p style="font-family: var(--font-mono); font-size: 1rem; color: var(--accent-cyan); margin: 12px 0; text-align: center;">I_photo = η · q · Φ</p>
+            <p style="font-size: 0.82rem; color: var(--text-secondary);">Trong đó: <strong>η</strong> (eta) là hiệu suất lượng tử (quantum efficiency, ~0.7–0.9 cho Si ở vùng khả kiến), <strong>q</strong> là điện tích electron (1.602 × 10⁻¹⁹ C), và <strong>Φ</strong> là thông lượng photon (photon/s). Dòng điện cực nhỏ này (cỡ nanoampere đến microampere) được khuếch đại qua mạch transimpedance amplifier (TIA), chuyển đổi thành điện áp tỷ lệ, rồi ADC mã hóa thành giá trị EV (Exposure Value) mà vi xử lý dùng để tính toán bộ ba phơi sáng.</p>
+          </div>
+
+          <div class="margin-note" style="top: 1050px;">[0.3]</div>
+          <h2>Xám 18%: Gốc Rễ Lịch Sử từ Zone System</h2>
+          <p>Con số 18% không rơi từ trên trời xuống. Nó bắt nguồn từ <strong>Zone System</strong> — hệ thống kiểm soát phơi sáng và rửa phim do <strong>Ansel Adams</strong> và <strong>Fred Archer</strong> phát triển vào khoảng năm 1939-1940 tại trường Art Center School ở Los Angeles. Zone System chia toàn bộ dải tông sáng mà phim có thể ghi nhận thành 11 vùng (Zone 0 đến Zone X), trong đó:</p>
+
+          <ul>
+            <li><strong>Zone 0:</strong> Đen tuyệt đối — không có bất kỳ chi tiết nào.</li>
+            <li><strong>Zone V (5):</strong> Xám trung tính — chính là mức sáng trung bình mà máy đo sáng được hiệu chuẩn để đạt tới. Đây là "điểm neo" (anchor point) của toàn bộ hệ thống.</li>
+            <li><strong>Zone X:</strong> Trắng tinh khiết — không có chi tiết, phơi sáng cực đại.</li>
+          </ul>
+
+          <p>Tại sao lại là 18% chứ không phải 50%? Câu trả lời nằm ở cách mắt người cảm nhận ánh sáng: thị giác con người phản ứng theo thang <strong>logarithmic</strong> (Stevens' Power Law), không phải tuyến tính. Một bề mặt phản xạ 18% năng lượng ánh sáng được mắt người cảm nhận như "nửa sáng" — trung điểm cảm quan giữa đen và trắng. Về mặt toán học, 18% xấp xỉ giá trị trung bình hình học (geometric mean) giữa hệ số phản xạ tối thiểu (~3%) và tối đa (~90%) của các vật thể tự nhiên phổ biến:</p>
+
+          <div class="lab-note-block" style="text-align: center; border-left-color: var(--accent-cyan); padding: var(--space-md);">
+            <p style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-cyan); margin: 8px 0;">
+              √(0.03 × 0.90) ≈ 0.164 ≈ 18%
+            </p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0;">
+              Trung bình hình học giữa hệ số phản xạ tối thiểu (3%) và tối đa (90%) của các bề mặt tự nhiên.
+            </p>
+          </div>
+
+          <p>Thẻ xám 18% (Kodak Grey Card) trở thành công cụ tiêu chuẩn: đặt thẻ trước chủ thể, đo sáng reflected vào thẻ, và bạn sẽ có phơi sáng chính xác bất kể chủ thể sáng hay tối. Vấn đề là trong thực tế chụp nhanh, bạn không thể lúc nào cũng rút thẻ xám ra. Đây là lúc các chế độ đo sáng tích hợp trong máy ảnh ra đời.</p>
+
+          <div class="margin-note" style="top: 1750px;">[0.4]</div>
+          <h2>Ma Trận / Đánh Giá (Matrix / Evaluative Metering)</h2>
+          <p>Đây là chế độ đo sáng mặc định và thông minh nhất trên các máy ảnh hiện đại. Nguyên lý hoạt động phức tạp hơn nhiều so với việc chỉ "đo trung bình":</p>
+
+          <ol>
+            <li><strong>Phân vùng khung hình:</strong> Cảm biến đo sáng (thường là cảm biến RGB riêng biệt với 180.000 đến 360.000 pixel trên các thân máy cao cấp) chia khung hình thành nhiều vùng — từ 63 vùng (Nikon cũ) đến hơn 1.200 vùng trên các hệ thống hiện đại. Mỗi vùng được đo luminance độc lập.</li>
+            <li><strong>Nhận diện cảnh (Scene Recognition):</strong> Bộ vi xử lý so sánh "bản đồ luminance" vừa đo được với một cơ sở dữ liệu gồm hàng chục ngàn mẫu cảnh đã được pre-calibrated (ví dụ: Nikon 3D Color Matrix Metering III dùng database >300.000 cảnh). Thuật toán AI/machine learning đối chiếu pattern hiện tại với các kịch bản đã biết: "ngược sáng với khuôn mặt ở trung tâm", "phong cảnh có bầu trời sáng phía trên", "chủ thể tối trên nền sáng"...</li>
+            <li><strong>Tích hợp dữ liệu AF:</strong> Điểm lấy nét đang kích hoạt cung cấp thông tin về vị trí chủ thể. Hệ thống ưu tiên phơi sáng chính xác cho vùng xung quanh điểm AF — đặc biệt khi nhận diện khuôn mặt hoặc mắt người (Eye-AF).</li>
+            <li><strong>Bù trừ thông minh:</strong> Dựa trên kết quả đối chiếu, hệ thống tự động bù trừ để tránh rơi vào bẫy "quy tất cả về xám 18%". Ví dụ: khi nhận diện cảnh tuyết, nó biết phải tăng phơi sáng so với giá trị trung bình.</li>
+          </ol>
+
+          <p>Matrix metering hoạt động xuất sắc trong ~85% tình huống chụp thông thường. Nhưng chính sự "thông minh" này lại là điểm yếu: bạn không biết chính xác thuật toán đang nghĩ gì, và khi nó đoán sai, rất khó dự đoán nó sai theo hướng nào.</p>
+
+          <div class="margin-note" style="top: 2550px;">[0.5]</div>
+          <h2>Trung Tâm Trọng Số (Center-Weighted Average Metering)</h2>
+          <p>Đây là chế độ đo sáng lâu đời nhất trong các thân máy SLR, ra đời từ thập niên 1960 và vẫn cực kỳ hữu dụng nhờ tính dự đoán được (predictability). Nguyên lý:</p>
+
+          <p>Toàn bộ khung hình được đo sáng, nhưng mức ảnh hưởng (weight) của mỗi vùng giảm dần từ tâm ra rìa theo <strong>phân phối Gaussian</strong>. Trọng số tập trung chủ yếu vào một vùng tròn đường kính ~12mm ở trung tâm viewfinder (một số máy cho phép chỉnh từ 8mm đến 20mm). Cụ thể:</p>
+
+          <div class="lab-note-block" style="text-align: center; border-left-color: var(--accent-amber); padding: var(--space-md);">
+            <p style="font-family: var(--font-mono); font-size: 1rem; color: var(--accent-amber); margin: 8px 0;">
+              w(r) = exp(−r² / 2σ²)
+            </p>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 0;">
+              Hàm trọng số Gaussian: <strong>r</strong> là khoảng cách từ tâm khung hình, <strong>σ</strong> xác định bán kính ảnh hưởng. Thường ~60-75% trọng số tập trung vào 25% diện tích trung tâm.
+            </p>
+          </div>
+
+          <p>Ưu điểm lớn nhất: hành vi nhất quán và có thể dự đoán. Máy không cố "đoán" cảnh — nó chỉ đo, và bạn biết chính xác nó đo ở đâu. Đây là lý do nhiều nhiếp ảnh gia kỳ cựu vẫn trung thành với center-weighted: họ muốn kiểm soát hoàn toàn thay vì phó mặc cho AI.</p>
+
+          <div class="margin-note" style="top: 3150px;">[0.6]</div>
+          <h2>Đo Sáng Điểm (Spot Metering): Con Dao Mổ của Ánh Sáng</h2>
+          <p>Nếu Matrix metering là cây búa tạ và Center-weighted là cây búa thợ mộc, thì Spot metering chính là con dao mổ phẫu thuật. Chế độ này chỉ đo luminance trong một vùng cực nhỏ — thường chiếm <strong>1-5% diện tích khung hình</strong> (tương đương vòng tròn ~3.5mm trên viewfinder), thường gắn với điểm AF đang kích hoạt.</p>
+
+          <p>Spot metering cho phép bạn đo chính xác luminance của bất kỳ bề mặt nào trong cảnh, biến bạn thành "Ansel Adams kỹ thuật số" — bạn có thể áp dụng Zone System trực tiếp trên máy ảnh hiện đại:</p>
+
+          <ol>
+            <li>Spot-meter vào vùng da mặt chủ thể → đó là Zone V (xám 18%, vì da người có hệ số phản xạ ~18-36% tùy sắc tộc).</li>
+            <li>Spot-meter vào vùng highlight sáng nhất mà bạn muốn giữ chi tiết → nếu nó đọc +2.5 EV so với Zone V, đó là Zone VII.5 — gần ngưỡng mất chi tiết highlight.</li>
+            <li>Spot-meter vào vùng tối nhất mà bạn muốn giữ chi tiết → nếu nó đọc -3 EV so với Zone V, đó là Zone II — bóng tối có chút chi tiết.</li>
+          </ol>
+
+          <p>Bằng cách đo nhiều điểm, bạn "vẽ" được bản đồ dải tương phản (dynamic range map) của cảnh. Nếu khoảng cách giữa highlight sáng nhất và shadow tối nhất vượt quá dải tương phản của cảm biến (~12-15 stop ở ISO gốc), bạn biết phải hy sinh đầu nào, hoặc dùng kỹ thuật HDR/bù sáng vùng.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [EXP-LIGHT-021 / SILICON-RESPONSE]</h5>
+            <p>Đáp ứng phổ (spectral responsivity) của photodiode silicon trong cảm biến đo sáng không phẳng — nó đạt đỉnh ở vùng cận hồng ngoại (~900 nm) và giảm dần về phía tím (~400 nm). Để mô phỏng đáp ứng thị giác con người (photopic response, đỉnh ở 555 nm theo đường cong CIE V(λ)), nhà sản xuất phải đặt <strong>bộ lọc hiệu chỉnh quang phổ (photopic correction filter)</strong> trước photodiode. Chất lượng của bộ lọc này ảnh hưởng trực tiếp đến độ chính xác đo sáng dưới các nguồn sáng khác nhau — đèn LED, đèn tungsten, ánh sáng tự nhiên đều có phân bố quang phổ (SPD) rất khác nhau.</p>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 8px;">Photodiode silicon cũng có <strong>dòng tối (dark current)</strong> — dòng điện sinh ra ngay cả khi không có photon, do kích thích nhiệt tại mối nối p-n. Dark current tăng gấp đôi mỗi khi nhiệt độ tăng ~6-8°C, là nguyên nhân gây sai số đo sáng ở môi trường nóng (>40°C). Các hệ thống cao cấp dùng mạch bù nhiệt (thermal compensation) để triệt tiêu hiệu ứng này.</p>
+          </div>
+
+          <div class="margin-note" style="top: 4100px;">[0.7]</div>
+          <h2>Khi Máy Đo Sáng Bị Lừa: Ba Kịch Bản Kinh Điển</h2>
+          <p>Hiểu được nguyên lý "quy về 18% xám" giúp bạn dự đoán chính xác khi nào máy ảnh sẽ sai — và sai theo hướng nào:</p>
+
+          <p><strong>Kịch bản 1: Cảnh tuyết / bãi biển trắng (Overexposure → thành xám)</strong></p>
+          <p>Cảnh chủ yếu là bề mặt sáng (reflectance ~85-95%). Máy đo sáng "thấy" rất nhiều ánh sáng phản xạ, nghĩ rằng cảnh quá sáng, và tự động giảm phơi sáng. Kết quả: tuyết trắng biến thành xám bẩn. <strong>Giải pháp:</strong> Bù phơi sáng +1.0 đến +2.0 EV để "ép" máy giữ tuyết trắng đúng như mắt thấy.</p>
+
+          <p><strong>Kịch bản 2: Mèo đen trên nền tối (Underexposure → thành xám)</strong></p>
+          <p>Cảnh chủ yếu là bề mặt tối (reflectance ~3-8%). Máy "thấy" rất ít ánh sáng phản xạ, nghĩ rằng cảnh thiếu sáng, và tự động tăng phơi sáng. Kết quả: con mèo đen nhung mịn trở thành xám nhờ nhờ, mất hết chất liệu lông. <strong>Giải pháp:</strong> Bù phơi sáng -1.0 đến -2.0 EV để giữ tông tối đúng bản chất.</p>
+
+          <p><strong>Kịch bản 3: Ngược sáng (Backlighting)</strong></p>
+          <p>Nguồn sáng mạnh (mặt trời, đèn sân khấu) nằm phía sau chủ thể. Ánh sáng chói lòa tràn vào cảm biến đo sáng, đẩy giá trị luminance trung bình lên rất cao. Máy giảm phơi sáng mạnh, khiến chủ thể ở tiền cảnh biến thành silhouette đen hoàn toàn. <strong>Giải pháp:</strong> Dùng Spot metering đo vào da mặt chủ thể, hoặc bù +1.5 đến +2.5 EV khi dùng Matrix metering. Hoặc tốt hơn: dùng đèn flash fill-in để cân bằng.</p>
+
+          <div class="margin-note" style="top: 5000px;">[0.8]</div>
+          <h2>ETTR: Expose To The Right — Tối Ưu Dải Động cho RAW</h2>
+          <p>Kỹ thuật ETTR (Expose To The Right — Phơi sáng về bên phải) là chiến lược phơi sáng chuyên dành cho workflow xử lý file RAW, được đề xuất lần đầu bởi nhiếp ảnh gia phong cảnh <strong>Michael Reichmann</strong> năm 2003. Nguyên lý dựa trên một sự thật vật lý quan trọng:</p>
+
+          <p>Cảm biến ảnh kỹ thuật số ghi nhận ánh sáng theo thang <strong>tuyến tính</strong>. Trong một file RAW 14-bit (16.384 mức giá trị), dữ liệu phân bố không đều qua các stop phơi sáng:</p>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Stop (từ điểm cắt highlight)</th>
+                <th>Số mức giá trị ADC</th>
+                <th>% Tổng dữ liệu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Stop sáng nhất (1st stop)</td>
+                <td>8.192</td>
+                <td>50%</td>
+              </tr>
+              <tr>
+                <td>Stop thứ 2</td>
+                <td>4.096</td>
+                <td>25%</td>
+              </tr>
+              <tr>
+                <td>Stop thứ 3</td>
+                <td>2.048</td>
+                <td>12.5%</td>
+              </tr>
+              <tr>
+                <td>Stop thứ 4</td>
+                <td>1.024</td>
+                <td>6.25%</td>
+              </tr>
+              <tr>
+                <td>Stop thứ 5</td>
+                <td>512</td>
+                <td>3.125%</td>
+              </tr>
+              <tr>
+                <td>Stop tối nhất (6th stop)</td>
+                <td>256</td>
+                <td>1.5625%</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>Một nửa tổng dữ liệu nằm ở stop sáng nhất! Vùng shadow (các stop tối) chỉ có rất ít mức giá trị để biểu diễn, nên khi bạn kéo sáng vùng tối trong hậu kỳ, bạn đang "kéo giãn" một lượng dữ liệu nghèo nàn → xuất hiện banding, noise, posterization.</p>
+
+          <p><strong>Chiến lược ETTR:</strong> Phơi sáng "thừa" vừa đủ để đẩy histogram sang phải — sát mép highlight nhưng không bị cháy (clipping). Khi xử lý RAW, bạn kéo exposure xuống lại về mức mong muốn. Lúc này vùng shadow được ghi nhận với nhiều dữ liệu hơn, cho ảnh sạch noise hơn và dải tương phản mượt mà hơn.</p>
+
+          <div class="lab-note-block" style="border-left-color: var(--accent-amber); background: rgba(245, 166, 35, 0.04);">
+            <h5>⚠️ Cảnh báo ETTR</h5>
+            <p>ETTR chỉ có ý nghĩa khi chụp RAW. File JPEG đã được xử lý gamma curve và nén 8-bit — việc phơi sáng thừa sẽ mất highlight vĩnh viễn không khôi phục được. Ngoài ra, ETTR không phù hợp cho chụp nhanh (street, event) vì bạn cần thời gian kiểm tra histogram sau mỗi shot. Đây là kỹ thuật dành cho landscape, still life, và các tình huống chụp có kiểm soát.</p>
+          </div>
+
+          <div class="margin-note" style="top: 6100px;">[0.9]</div>
+          <h2>Bảng So Sánh Tổng Hợp: Ba Chế Độ Đo Sáng</h2>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Tiêu chí</th>
+                <th>Matrix / Evaluative</th>
+                <th>Center-Weighted</th>
+                <th>Spot</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Vùng đo</td>
+                <td>Toàn khung hình, chia 63–1.200+ vùng</td>
+                <td>Toàn khung hình, trọng số Gaussian 60-75% ở tâm</td>
+                <td>1–5% diện tích khung hình</td>
+              </tr>
+              <tr>
+                <td>Thuật toán</td>
+                <td>AI pattern matching + scene database</td>
+                <td>Trung bình có trọng số (weighted average)</td>
+                <td>Đo trực tiếp luminance điểm</td>
+              </tr>
+              <tr>
+                <td>Tính dự đoán được</td>
+                <td>Thấp — phụ thuộc database & AI</td>
+                <td>Cao — hành vi nhất quán</td>
+                <td>Rất cao — bạn kiểm soát hoàn toàn</td>
+              </tr>
+              <tr>
+                <td>Đường cong học tập</td>
+                <td>Dễ dùng, phù hợp người mới</td>
+                <td>Trung bình, cần hiểu vùng trọng số</td>
+                <td>Khó, cần hiểu Zone System & exposure theory</td>
+              </tr>
+              <tr>
+                <td>Tình huống lý tưởng</td>
+                <td>Chụp nhanh, đời thường, điều kiện ánh sáng đều</td>
+                <td>Chân dung, chụp sân khấu, hậu cảnh phức tạp</td>
+                <td>Ngược sáng, tương phản cực đoan, landscape</td>
+              </tr>
+              <tr>
+                <td>Điểm yếu</td>
+                <td>Bị lừa bởi cảnh bất thường, không đoán trước được lỗi</td>
+                <td>Bỏ qua chi tiết rìa khung hình, cần recompose</td>
+                <td>Dễ sai nếu đo nhầm vùng, cần kinh nghiệm</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="margin-note" style="top: 7000px;">[1.0]</div>
+          <h2>Thực Hành: Chọn Chế Độ Đo Sáng Theo Thể Loại</h2>
+          
+          <p><strong>📷 Nhiếp ảnh Phong cảnh (Landscape)</strong></p>
+          <p>Phong cảnh đòi hỏi kiểm soát chính xác highlight (bầu trời) và shadow (tiền cảnh). Sử dụng <strong>Spot metering</strong> đo vào vùng sáng nhất của bầu trời mà bạn muốn giữ chi tiết, rồi khóa phơi sáng (AE-Lock). Kiểm tra histogram — nếu shadow bị cắt, cân nhắc graduated ND filter hoặc exposure bracketing cho HDR. Kết hợp kỹ thuật ETTR khi chụp RAW để tối đa hóa dữ liệu vùng tiền cảnh tối.</p>
+
+          <p><strong>👤 Nhiếp ảnh Chân dung (Portrait)</strong></p>
+          <p><strong>Center-weighted metering</strong> là lựa chọn tối ưu nhất cho chân dung: trọng số tập trung vào khuôn mặt ở trung tâm, ít bị ảnh hưởng bởi hậu cảnh sáng hoặc tối. Trong studio, kết hợp với máy đo sáng chiếu tới (incident meter) để đo chính xác tỷ lệ ánh sáng (lighting ratio) giữa main light và fill light. Với chân dung ngoại cảnh ngược sáng, chuyển sang Spot metering đo vào má chủ thể rồi bù +0.5 EV (vì da sáng hơn xám 18% khoảng nửa stop).</p>
+
+          <p><strong>🎤 Nhiếp ảnh Sân khấu / Concert</strong></p>
+          <p>Đây là tình huống thử thách nhất: nghệ sĩ trên sân khấu được chiếu bởi đèn spot cực sáng, trong khi khán phòng xung quanh tối đen. Matrix metering sẽ hoảng loạn vì tương phản cực đoan. <strong>Spot metering</strong> gắn với điểm AF trên khuôn mặt nghệ sĩ là chiến lược duy nhất đáng tin cậy. Đo vào da mặt hoặc trang phục sáng, khóa phơi sáng, và chụp. Nếu dùng center-weighted, vùng tối bao quanh sẽ kéo phơi sáng lên, khiến nghệ sĩ bị cháy sáng.</p>
+
+          <p><strong>🌆 Nhiếp ảnh Đường phố (Street Photography)</strong></p>
+          <p><strong>Matrix metering</strong> là lựa chọn thực tế nhất cho chụp đường phố: tốc độ phản hồi nhanh, hoạt động tốt trong đa số điều kiện ánh sáng thay đổi liên tục. Kết hợp với chế độ Auto ISO và bù phơi sáng cố định -0.3 đến -0.7 EV (exposure compensation bias) để bảo vệ highlight — bạn luôn có thể kéo sáng shadow trong hậu kỳ, nhưng không thể khôi phục highlight bị cháy.</p>
+
+          <div class="lab-note-block" style="border-left-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.04); margin-top: var(--space-lg);">
+            <h5>🔬 Thí nghiệm tại nhà [EXP-LIGHT-021 / FIELD-TEST]</h5>
+            <p>Hãy thử bài tập sau để "cảm" được sự khác biệt giữa ba chế độ đo sáng:</p>
+            <ol style="margin-left: 16px; margin-top: 8px; font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+              <li>Đặt một tờ giấy trắng A4 trên bàn cạnh một quyển sách bìa đen, dưới cùng một nguồn sáng cố định.</li>
+              <li>Chụp 3 bức ở chế độ A (Aperture Priority), cùng khẩu độ f/5.6, lần lượt dùng Matrix → Center-Weighted → Spot (đo vào giấy trắng).</li>
+              <li>Chụp 3 bức tương tự nhưng Spot metering đo vào bìa sách đen.</li>
+              <li>So sánh 6 bức ảnh: bạn sẽ thấy Spot metering thay đổi phơi sáng cực đoan tùy vào bề mặt đo, trong khi Matrix cố gắng "dung hòa", và Center-weighted nằm ở giữa.</li>
+              <li>Kiểm tra histogram của từng bức — đây là cách tốt nhất để hiểu tại sao phơi sáng khác nhau dù cùng một cảnh vật.</li>
+            </ol>
+          </div>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          
+          <div class="sidebar-panel">
+            <h4>SIÊU DỮ LIỆU GHI CHÚ</h4>
+            <div class="metadata-list">
+              <div class="metadata-item">
+                <label>Mã Thí Nghiệm</label>
+                <span>EXP-LIGHT-021</span>
+              </div>
+              <div class="metadata-item">
+                <label>Danh Mục</label>
+                <span>Metering & Exposure Control</span>
+              </div>
+              <div class="metadata-item">
+                <label>Tác Giả</label>
+                <span>Henry / LumenForge</span>
+              </div>
+              <div class="metadata-item">
+                <label>Thuật Ngữ</label>
+                <span>Reflected Metering, Incident Metering, Zone System, ETTR, Photodiode</span>
+              </div>
+              <div class="metadata-item">
+                <label>Tham Khảo</label>
+                <span>Ansel Adams — "The Negative" (1981), Michael Reichmann — ETTR (2003)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>CÔNG CỤ LIÊN QUAN</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Mô phỏng trực tiếp bộ ba phơi sáng (ISO, tốc độ, khẩu độ) và xem hiệu ứng histogram realtime với Exposure Reactor.</p>
+            <a href="../tools/exposure-reactor.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Mở Exposure Reactor →</a>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>BÀI VIẾT LIÊN QUAN</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;">Tìm hiểu sâu hơn về dải tương phản (dynamic range) của cảm biến và cách nó ảnh hưởng đến quyết định phơi sáng.</p>
+            <a href="ccd-vs-cmos.html" style="font-size: 0.82rem; color: var(--accent-cyan); text-decoration: none;">CCD vs CMOS — Cuộc chiến cảm biến →</a>
+            <br>
+            <a href="human-eye-vs-sensor.html" style="font-size: 0.82rem; color: var(--accent-cyan); text-decoration: none; display: inline-block; margin-top: 8px;">Mắt người vs Cảm biến — Dải tương phản →</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
+          </div>
+          <div class="footer-col">
+            <h4>Công cụ</h4>
+            <a href="lens-decoder.html">Giải mã Ống kính</a>
+            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="film-look.html">Giả lập Màu phim</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế &amp; Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>

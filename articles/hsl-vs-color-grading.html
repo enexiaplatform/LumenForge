@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSL & Color Grading: Biên giới giữa "Hiệu chỉnh" và "Kiến tạo" — LumenForge</title>
+    <meta name="description" content="Khám phá sự khác biệt cốt lõi giữa hai công cụ mạnh nhất trong quản lý màu sắc: HSL và Color Grading, cùng quy trình kết hợp chúng để tạo ra những không gian thị giác đậm chất điện ảnh.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle Navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html" class="active">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+                <a href="../shot-recipes.html">Công thức Chụp</a>
+                <a href="../visual-experiments.html">Thử nghiệm</a>
+                <a href="../gear-map.html">Bản đồ Thiết bị</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Quay lại Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-color">Khoa học Màu sắc</span>
+                <span class="read-time">11 phút đọc</span>
+            </div>
+            <h1>HSL & Color Grading: Biên giới giữa "Hiệu chỉnh" và "Kiến tạo"</h1>
+            <p class="article-header-desc">Khám phá sự khác biệt cốt lõi giữa hai công cụ mạnh nhất của phần mềm hậu kỳ và cách kết hợp chúng để kiến tạo không gian thị giác điện ảnh.</p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] CON DAO MỔ CỦA MÀU SẮC</div>
+                    <h2>HSL: Bản chất của sự Cô lập và Hiệu chỉnh</h2>
+                    <p>Nếu quá trình chỉnh sửa màu sắc là một cuộc phẫu thuật, thì <strong>HSL (Hue, Saturation, Luminance)</strong> chính là con dao mổ tinh chuẩn nhất của bạn. HSL không nhìn bức ảnh như một tổng thể ánh sáng, mà phân tách nó thành 8 kênh màu độc lập (Đỏ, Cam, Vàng, Lục, Lam, Chàm, Tím và Hồng). Khả năng tuyệt vời nhất của HSL nằm ở tính <em>cô lập (isolation)</em>.</p>
+                    <p>Mỗi kênh trong HSL cho phép bạn can thiệp vào ba thuộc tính vật lý của một màu cụ thể mà không làm ảnh hưởng đến phần còn lại của bức ảnh:</p>
+                    <ul>
+                        <li><strong>Hue (Sắc độ):</strong> Dịch chuyển tần số bước sóng của màu sắc. Ví dụ: biến màu xanh lá cây của cỏ (Green) ngả sang vàng úa (Yellow) hoặc xanh lục bảo (Aqua).</li>
+                        <li><strong>Saturation (Độ bão hòa):</strong> Kiểm soát cường độ hoặc "lượng" hạt màu. Đẩy lên để màu rực rỡ hơn, hoặc kéo xuống để hút cạn màu sắc trở thành xám.</li>
+                        <li><strong>Luminance (Độ chói):</strong> Quyết định lượng ánh sáng phản xạ từ màu sắc đó. Một màu đỏ có thể trở thành đỏ sậm (giảm Luminance) hoặc đỏ chói sáng (tăng Luminance).</li>
+                    </ul>
+                    <p>HSL sinh ra để làm công tác <strong>Hiệu chỉnh (Correction)</strong>. Nó giải quyết các vấn đề cục bộ như: "Bầu trời này quá nhạt, hãy làm nó xanh thẫm lại" hoặc "Chiếc áo màu vàng này đang tranh giành sự chú ý, hãy dìm nó xuống".</p>
+
+                    <div class="margin-note">[0.2] CẠM BẪY SKIN TONE</div>
+                    <h2>Cạm bẫy khi xử lý Skin Tone bằng HSL</h2>
+                    <p>Làn da người (Skin tone) trong không gian màu kỹ thuật số hầu như luôn nằm trên kênh Cam (Orange), với một chút pha trộn từ kênh Đỏ (Red) và Vàng (Yellow). Một trong những sai lầm phổ biến nhất của người mới học hậu kỳ là cố gắng làm cho làn da nhợt nhạt trở nên hồng hào bằng cách tăng Saturation của kênh Cam.</p>
+                    <p>Việc ép Saturation trên skin tone thường dẫn đến kết quả là làn da trông như bị bỏng hoặc ám sắc vàng cam giả tạo. Khoa học màu sắc chỉ ra rằng, làn da người khỏe mạnh không nằm ở độ rực rỡ của màu, mà nằm ở sự phản chiếu ánh sáng tự nhiên. Thay vì tăng Saturation, <strong>hãy thử tăng nhẹ Luminance (Độ chói) của kênh Cam và Đỏ</strong>. Việc này làm cho làn da trở nên sáng hơn, trong trẻo hơn, và phản chiếu ánh sáng giống như thực tế vật lý ngoài đời thực, trong khi vẫn giữ nguyên bản chất tự nhiên của sắc tố da.</p>
+
+                    <div class="lab-note-block">
+                        <strong>🧪 Ghi chú Phòng thí nghiệm [EXP-COL-035]: Cứu rỗi Skin Tone</strong><br>
+                        Mở một bức ảnh chân dung bị thiếu sáng nhẹ. Vào bảng HSL, thử kéo Saturation kênh Cam lên +30, bạn sẽ thấy da trở nên rực và ám màu cà rốt. Trả Saturation về 0, chuyển sang bảng Luminance và đẩy kênh Cam lên +15 đến +20. Làn da sẽ ngay lập tức bắt sáng, nổi bật lên khỏi nền (pop-out) mà không hề thay đổi cấu trúc sắc tố.
+                    </div>
+
+                    <div class="margin-note">[0.3] CHIẾC CỌ QUÉT MÀU</div>
+                    <h2>Color Grading: Quyền năng của sự "Kiến tạo"</h2>
+                    <p>Nếu HSL là dao mổ phân tách từng dải bước sóng, thì <strong>Color Grading (với các Color Wheels - Bảng màu hình tròn)</strong> là chiếc cọ quét lớn nhúng vào thùng sơn để phủ lên toàn bộ bức ảnh. Color Grading không quan tâm đến bức ảnh có màu gì, nó phân chia bức ảnh dựa trên <em>giá trị phơi sáng (Tonal range)</em>: Shadows (Vùng tối), Midtones (Vùng trung tính), và Highlights (Vùng sáng).</p>
+                    <p>Mục đích của Color Grading là <strong>nhuộm màu (color tinting)</strong>. Nó ép một sắc độ màu (Hue) nhất định vào các vùng sáng tối cụ thể để tạo ra một bầu không khí, một cảm xúc, hay một "Look" tổng thể. Đây chính là bước chuyển giao từ "hiệu chỉnh sự thật" sang "kiến tạo nghệ thuật". Việc bơm màu xanh lam vào Shadows không chỉ làm những vùng tối trở nên lạnh lẽo, mà nó còn phủ một lớp màng tâm lý lên toàn bộ khung hình.</p>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí</th>
+                                <th>HSL (Hiệu chỉnh)</th>
+                                <th>Color Grading (Kiến tạo)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mục tiêu tác động</strong></td>
+                                <td>Các tần số màu sắc cụ thể (Red, Blue, Green...)</td>
+                                <td>Các vùng sắc độ sáng tối (Shadows, Midtones, Highlights)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bản chất công việc</strong></td>
+                                <td>Giải phẫu cục bộ, sửa lỗi, dọn dẹp thị giác</td>
+                                <td>Bao phủ toàn cục, định hình phong cách, tạo Mood</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tâm lý thị giác</strong></td>
+                                <td>Cân bằng hiện thực vật lý</td>
+                                <td>Định hướng cảm xúc người xem</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.4] TEAL & ORANGE</div>
+                    <h2>Tâm lý học phía sau Teal & Orange</h2>
+                    <p>Không thể nói về Color Grading mà không nhắc đến kỹ thuật kinh điển nhất của điện ảnh Hollywood: <strong>Teal & Orange (Lục lam & Cam)</strong>. Công thức phổ biến nhất là đẩy vùng Shadows ngả sang Teal (xanh lục lam) và Highlights/Midtones ngả sang Orange (cam ấm).</p>
+                    <p>Tại sao bộ đôi này lại ám ảnh thị giác nhân loại đến vậy? Câu trả lời nằm ở vòng tròn màu sắc (Color Wheel) và lý thuyết tương phản màu sắc bổ túc (Complementary Colors). Teal và Orange nằm ở vị trí đối lập nhau 180 độ trên vòng tròn màu. Sự đối lập tuyệt đối này tạo ra mức độ tương phản cao nhất về mặt năng lượng thị giác.</p>
+                    <p>Quan trọng hơn, làn da của con người bất kể chủng tộc nào cũng luôn nằm trong dải màu cam ấm (Orange). Khi bạn nhuộm vùng tối (môi trường xung quanh, bóng râm) bằng màu Teal, bạn tạo ra một lực đẩy thị giác mạnh mẽ, tôn vinh và bóc tách chủ thể (có skin tone màu cam) ra khỏi không gian nền. Khán giả không chỉ thấy một bức ảnh có độ sâu (3D pop), mà còn vô thức cảm nhận được sự kết hợp giữa sự sống ấm áp (Orange) và môi trường lạnh lẽo, bao la (Teal).</p>
+
+                    <div class="margin-note">[0.5] QUY TRÌNH TỐI ƯU</div>
+                    <h2>Workflow: Trật tự của Ánh sáng</h2>
+                    <p>Lý thuyết màu sắc chỉ phát huy sức mạnh khi bạn đặt nó vào một quy trình làm việc (workflow) có tính kỷ luật cao. Sự khác biệt giữa một Colorist chuyên nghiệp và một người nghiệp dư nằm ở trật tự thao tác.</p>
+                    <p><strong>Bước 1: HSL phải luôn đi TRƯỚC (Correction)</strong><br>
+                    Bạn cần làm sạch không gian nền trước khi bắt đầu sơn. Sử dụng HSL để cân bằng mọi thứ về trạng thái trung lập: gọt bớt sự rực rỡ của thảm cỏ xanh, cứu độ chói của làn da, hoặc thay đổi màu của chiếc áo bị lạc quẻ. Đây là bước bạn dọn dẹp các yếu tố gây xao nhãng thị giác (visual distractions).</p>
+                    <p><strong>Bước 2: Color Grading luôn là bước CUỐI CÙNG (Creative Styling)</strong><br>
+                    Sau khi bức ảnh đã có cấu trúc tương phản tốt và màu sắc vật lý chuẩn xác, bạn mới sử dụng Color Wheels để bơm linh hồn vào tác phẩm. Việc đẩy màu vào Shadows hay Highlights ở bước này sẽ tạo ra một lớp keo dính kết mọi thứ lại với nhau, mang lại tính đồng nhất (consistency) cho toàn bộ bức ảnh hay cảnh phim.</p>
+                    <p>Nếu bạn làm ngược lại—nhuộm màu Grading trước rồi mới dùng HSL để sửa—bạn đang cố gắng phẫu thuật một bệnh nhân đã bị phủ kín bởi một lớp chăn dày. Các giá trị HSL sẽ hoạt động sai lệch vì chúng bị nhiễu bởi lớp màu tint từ Color Grading.</p>
+                    
+                    <p>Tóm lại, hãy dùng HSL bằng tư duy của một nhà khoa học khắt khe, và dùng Color Grading bằng tâm hồn của một người nghệ sĩ kiến tạo.</p>
+
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item">
+                                <span class="meta-label">Mã Thử nghiệm</span>
+                                <span class="meta-value">EXP-COL-035</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Mức độ lý thuyết</span>
+                                <span class="meta-value">Trung bình / Thực chiến</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="meta-label">Ứng dụng</span>
+                                <span class="meta-value">Hậu kỳ, Lightroom, Resolve</span>
+                            </li>
+                        </ul>
+                        
+                        <h3>Công cụ liên quan</h3>
+                        <div class="tool-card-mini">
+                            <a href="../tools/color-alchemy.html" style="text-decoration: none; color: inherit;">
+                                <h4>Color Alchemy</h4>
+                                <p>Công cụ trực quan hóa thuật toán pha trộn không gian màu và vòng lặp bổ túc Color Grading.</p>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">LUMENFORGE</div>
+            <div class="footer-links">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge - Light Intelligence Lab. Viết bằng ngôn ngữ của Ánh sáng.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

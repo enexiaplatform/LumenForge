@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tâm lý học Tiêu Cự: Từ 14mm Bóp méo không gian đến 200mm Xóa nhòa khoảng cách — LumenForge</title>
+    <meta name="description" content="Khám phá bản chất vật lý và tâm lý của tiêu cự ống kính. Hiểu về trường nhìn, hiệu ứng bóp méo phối cảnh và hiệu ứng nén phông nền trong nhiếp ảnh.">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html" class="active">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+                <a href="../shot-recipes.html">Công thức Chụp</a>
+                <a href="../visual-experiments.html">Thử nghiệm</a>
+                <a href="../gear-map.html">Bản đồ Thiết bị</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Trở về Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-optics">Quang học 101</span>
+                <span class="read-time">10 phút đọc</span>
+            </div>
+            <h1>Tâm lý học Tiêu Cự: Từ 14mm Bóp méo không gian đến 200mm Xóa nhòa khoảng cách</h1>
+            <p class="article-header-desc">
+                Khám phá ranh giới giữa vật lý quang học và tâm lý thị giác thông qua lăng kính của tiêu cự ống kính. Từ công thức toán học của trường nhìn đến nghệ thuật thao túng không gian trong nhiếp ảnh.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] Bản Chất Của Tiêu Cự</div>
+                    <h2>1. Tiêu Cự (Focal Length) Thực Sự Là Gì?</h2>
+                    <p>Trong vật lý quang học, tiêu cự không phải là chiều dài vật lý của ống kính. Đó là khoảng cách được đo bằng milimet (mm) từ <strong>tâm quang học</strong> (optical center) của ống kính đến <strong>mặt phẳng tiêu cự</strong> (focal plane - chính là bề mặt cảm biến số hoặc tấm phim) khi ống kính được lấy nét ở vô cực.</p>
+                    <p>Chỉ số milimet này quyết định độ phóng đại của hình ảnh và góc nhìn mà ống kính có thể thu nhận được. Tiêu cự càng ngắn, góc nhìn càng rộng. Tiêu cự càng dài, góc nhìn càng hẹp và vật thể càng được phóng to.</p>
+
+                    <div class="margin-note">[0.2] Toán Học Góc Nhìn</div>
+                    <h2>2. Toán học của Trường Nhìn (Field of View - FoV)</h2>
+                    <p>Trường nhìn (FoV) mô tả phạm vi không gian mà ống kính có thể "nhìn thấy" và ghi lại trên cảm biến. Góc nhìn này phụ thuộc trực tiếp vào tiêu cự và kích thước cảm biến.</p>
+                    
+                    <div class="lab-note-block">
+                        <strong>Công thức tính góc nhìn chéo (Diagonal FoV)</strong><br>
+                        α = 2 × arctan(d / (2 × f))<br><br>
+                        <em>Trong đó:</em><br>
+                        - α: Góc nhìn chéo (tính bằng độ)<br>
+                        - d: Độ dài đường chéo của cảm biến (ví dụ: 43.27mm với cảm biến Full Frame 36x24mm)<br>
+                        - f: Tiêu cự của ống kính (mm)
+                    </div>
+                    <p>Sự kết hợp giữa tiêu cự và kích thước cảm biến sinh ra khái niệm <em>Hệ số nhân tiêu cự (Crop Factor)</em>. Một ống kính 50mm trên cảm biến APS-C (Crop 1.5x) sẽ cho ra trường nhìn tương đương ống kính 75mm trên cảm biến Full Frame.</p>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu cự (Full Frame)</th>
+                                <th>Góc nhìn chéo</th>
+                                <th>Phân loại</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>14mm</td>
+                                <td>114°</td>
+                                <td>Góc siêu rộng (Ultra-Wide)</td>
+                            </tr>
+                            <tr>
+                                <td>35mm</td>
+                                <td>63°</td>
+                                <td>Góc rộng (Wide)</td>
+                            </tr>
+                            <tr>
+                                <td>50mm</td>
+                                <td>47°</td>
+                                <td>Tiêu chuẩn (Standard)</td>
+                            </tr>
+                            <tr>
+                                <td>85mm</td>
+                                <td>28°</td>
+                                <td>Tele tầm trung (Short Telephoto)</td>
+                            </tr>
+                            <tr>
+                                <td>200mm</td>
+                                <td>12°</td>
+                                <td>Tele (Telephoto)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.3] Hiện Tượng Méo Phối Cảnh</div>
+                    <h2>3. Sự Bóp Méo Phối Cảnh: Lỗi Tại Ống Kính Hay Khoảng Cách?</h2>
+                    <p>Một quan niệm sai lầm phổ biến là ống kính góc rộng bóp méo khuôn mặt, còn ống kính tele làm dẹt mọi thứ. Sự thật vật lý là: <strong>Chỉ có khoảng cách từ máy ảnh đến chủ thể mới làm thay đổi phối cảnh.</strong></p>
+                    <p>Ống kính không bóp méo phối cảnh, nhưng nó <em>buộc</em> bạn phải thay đổi khoảng cách vật lý để giữ cho chủ thể có cùng một kích thước trong khung hình.</p>
+                    <ul>
+                        <li><strong>Biến dạng kéo giãn (Extension Distortion):</strong> Xảy ra khi dùng ống kính góc rộng (ví dụ 14mm-24mm). Vì góc quá rộng, bạn phải tiến lại <em>rất gần</em> chủ thể để chụp chân dung. Việc tiến sát làm khoảng cách tương đối giữa mũi (gần máy ảnh hơn) và tai (xa hơn) trở nên rất lớn. Kết quả là mũi phình to, khuôn mặt bị kéo giãn ra sau.</li>
+                        <li><strong>Biến dạng nén (Compression Distortion):</strong> Xảy ra khi dùng ống kính tele (ví dụ 200mm). Bạn phải lùi ra <em>rất xa</em> chủ thể. Ở khoảng cách vài chục mét, khoảng cách chênh lệch giữa mũi và tai trở nên không đáng kể so với khoảng cách tổng thể đến máy ảnh. Mọi thứ dường như bị ép phẳng lại trên cùng một mặt phẳng.</li>
+                    </ul>
+
+                    <div class="margin-note">[0.4] Tâm Lý Tiêu Cự</div>
+                    <h2>4. Tâm Lý Học Phía Sau Từng Tiêu Cự</h2>
+                    <p>Lựa chọn tiêu cự không chỉ là quyết định vật lý, mà là quyết định về mặt cảm xúc và cách kể chuyện.</p>
+                    
+                    <h3>35mm - Người Quan Sát Khách Quan (Environmental Storytelling)</h3>
+                    <p>Tiêu cự 35mm mang lại một không gian đủ rộng để đưa bối cảnh vào khung hình mà không làm biến dạng tỷ lệ quá mức. Nó kể câu chuyện về chủ thể <em>trong mối quan hệ</em> với môi trường xung quanh. Đây là tiêu cự kinh điển của ảnh báo chí, tư liệu và đường phố.</p>
+
+                    <h3>50mm - Con Mắt Chân Thực (Human Eye Equivalent)</h3>
+                    <p>Tiêu cự 50mm trên cảm biến Full Frame tạo ra trường nhìn và tỷ lệ phối cảnh gần giống với thị giác trung tâm của mắt người nhất. Hình ảnh mang lại cảm giác chân thực, trung lập và thân thuộc, không thêm bớt sự kịch tính bằng các hiệu ứng bóp méo không gian.</p>
+
+                    <h3>85mm - Sự Tôn Vinh Tuyệt Đối (Flattering Portraits)</h3>
+                    <p>Được mệnh danh là "tiêu cự chân dung", 85mm buộc nhiếp ảnh gia phải lùi lại khoảng 2-3 mét. Khoảng cách này triệt tiêu hoàn toàn sự biến dạng kéo giãn của góc rộng, làm cho các đường nét trên khuôn mặt trở nên hài hòa, cân đối và nịnh mắt nhất. Đồng thời, độ dài tiêu cự giúp tách biệt chủ thể khỏi nền nhà hậu cảnh một cách êm ái.</p>
+
+                    <div class="margin-note">[0.5] Nén Phông Nền</div>
+                    <h2>5. Nén Phông Nền: Tại Sao Những Ngọn Núi Trở Nên Khổng Lồ?</h2>
+                    <p>Khi bạn sử dụng một ống kính siêu tele (ví dụ 200mm đến 400mm) để chụp một người đứng trước một ngọn núi xa xăm, ngọn núi đột nhiên trông như đang đe dọa nuốt chửng chủ thể. Hiện tượng này được gọi là <strong>Background Compression</strong> (Nén hậu cảnh).</p>
+                    
+                    <p>Lý thuyết đằng sau điều này vẫn tuân theo định luật về khoảng cách. Khi bạn lùi rất xa chủ thể (ví dụ 50 mét) và sử dụng tiêu cự 200mm để "kéo" họ lại gần, tỷ lệ khoảng cách giữa [Máy ảnh -> Chủ thể] và [Máy ảnh -> Ngọn núi] thay đổi. Nếu ngọn núi cách đó 1km, việc bạn đứng ở vạch 5 mét hay 50 mét so với chủ thể gần như không làm thay đổi kích thước ngọn núi trong khung hình, nhưng nó lại thay đổi hoàn toàn kích thước của người được chụp.</p>
+                    
+                    <p>Khi bạn lùi lại, người nhỏ đi nhanh hơn so với ngọn núi. Sau đó, ống kính tele phóng to toàn bộ khung cảnh lên. Kết quả? Chủ thể trở lại kích thước bình thường, nhưng ngọn núi phía sau được phóng to theo, tạo ra một tỷ lệ phi thực tế và mang tính điện ảnh cao.</p>
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item">
+                                <span class="metadata-label">Mã Thử Nghiệm:</span>
+                                <span class="metadata-value">EXP-OPT-030</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="metadata-label">Mức Độ:</span>
+                                <span class="metadata-value">Nâng Cao</span>
+                            </li>
+                            <li class="metadata-item">
+                                <span class="metadata-label">Công Cụ Đề Xuất:</span>
+                                <span class="metadata-value"><a href="../tool-lab.html">Lens Decoder</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>LumenForge</h3>
+                    <p>Xưởng nghiên cứu ánh sáng và nghệ thuật thị giác, kết nối nhiếp ảnh thực nghiệm với khoa học quang học.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Khám Phá</h4>
+                    <ul>
+                        <li><a href="../light-codex.html">Quang Thư (Codex)</a></li>
+                        <li><a href="../shot-recipes.html">Công thức Chụp</a></li>
+                        <li><a href="../tool-lab.html">Xưởng Công cụ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LumenForge — Light Intelligence Lab. Mọi quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

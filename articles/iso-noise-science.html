@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO Không Phải Là Độ Nhạy Sáng: Sự thật về Dual Gain & Nhiễu hạt — LumenForge</title>
+    <meta name="description" content="Khám phá bản chất vật lý của ISO, sự khác biệt giữa khuếch đại tín hiệu và độ nhạy sáng, kiến trúc Dual Gain và cách tối ưu hóa Signal-to-Noise Ratio (SNR).">
+    <meta name="theme-color" content="#0A0A0C">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">LumenForge</a>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="../index.html">Trang chủ</a>
+                <a href="../light-codex.html" class="active">Quang Thư</a>
+                <a href="../tool-lab.html">Xưởng Công cụ</a>
+                <a href="../shot-recipes.html">Công thức Chụp</a>
+                <a href="../visual-experiments.html">Thử nghiệm</a>
+                <a href="../gear-map.html">Bản đồ Thiết bị</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="container">
+            <a href="../light-codex.html" class="codex-back-link">← Trở về Quang Thư</a>
+            <div class="article-header-meta">
+                <span class="codex-card-tag tag-sensor">Khoa học Cảm biến</span>
+                <span class="read-time">11 phút đọc</span>
+            </div>
+            <h1>ISO Không Phải Là Độ Nhạy Sáng: Sự thật về Dual Gain & Nhiễu hạt</h1>
+            <p class="article-header-desc">
+                Phá bỏ lầm tưởng lớn nhất trong nhiếp ảnh kỹ thuật số: Bản chất vật lý của ISO, sự khác biệt giữa tín hiệu và nhiễu (SNR), kiến trúc cảm biến Dual Gain và lý thuyết ETTR trong thực chiến.
+            </p>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <div class="article-layout">
+                <article class="article-content">
+                    <div class="margin-note">[0.1] Bản chất của ISO</div>
+                    <h2>1. Lầm tưởng thế kỷ: "ISO là độ nhạy sáng"</h2>
+                    <p>Trong thời đại của phim nhựa, ISO (hoặc ASA) đại diện cho độ nhạy hóa học của nhũ tương. Một cuộn phim ISO 400 thực sự "nhạy" với ánh sáng hơn phim ISO 100 nhờ các tinh thể bạc halogen lớn hơn. Tuy nhiên, khi chuyển sang kỷ nguyên số, thuật ngữ "ISO" được giữ lại nhưng bản chất vật lý đã hoàn toàn thay đổi. <strong>Cảm biến kỹ thuật số chỉ có một độ nhạy sáng duy nhất.</strong></p>
+                    <p>Khi bạn tăng ISO trên máy ảnh kỹ thuật số, bạn không hề làm cho cảm biến thu được nhiều hạt photon (hạt ánh sáng) hơn. Thay vào đó, bạn đang áp dụng một quá trình <strong>khuếch đại tín hiệu</strong> (Signal Amplification) sau khi photon đã đập vào cảm biến và chuyển đổi thành dòng điện (electron).</p>
+                    <p>Hãy tưởng tượng cảm biến của bạn như một chiếc xô hứng nước mưa (photon). Việc tăng ISO giống như việc bạn lấy lượng nước thu được và nói rằng "mỗi giọt nước này sẽ được tính là 4 giọt" (ISO 400 so với ISO 100 base). Bạn không làm mưa rơi nhiều hơn, bạn chỉ đang nhân lên con số cuối cùng — và khi nhân tín hiệu, bạn cũng vô tình nhân luôn cả những "tạp chất" lẫn trong nước, đó chính là Nhiễu (Noise).</p>
+                    
+                    <div class="margin-note">[0.2] Vật lý của Noise</div>
+                    <h2>2. Phẫu thuật Nhiễu hạt: Shot Noise vs Read Noise</h2>
+                    <p>Nhiễu (Noise) trong nhiếp ảnh số không phải là một lỗi của máy ảnh, mà là một thuộc tính vật lý của lượng tử ánh sáng và điện tử học. Có hai loại nhiễu chính quyết định chất lượng hình ảnh:</p>
+                    <ul>
+                        <li><strong>Shot Noise (Nhiễu do hạt lượng tử):</strong> Đây là nhiễu tự nhiên sinh ra từ sự dao động ngẫu nhiên của các hạt photon ánh sáng. Nó tuân theo phân phối Poisson. Ở những vùng tối, lượng photon thu được ít, sự biến thiên thống kê này trở nên rõ rệt so với tổng lượng photon (Signal), làm giảm tỷ lệ Signal-to-Noise Ratio (SNR). <em>Shot Noise là nguồn nhiễu chủ đạo trong nhiếp ảnh.</em></li>
+                        <li><strong>Read Noise (Nhiễu đọc tín hiệu):</strong> Là "tạp âm" sinh ra bởi chính hệ thống mạch điện và bộ chuyển đổi Analog-to-Digital (ADC) của máy ảnh khi đọc dữ liệu từ các pixel. Read noise không phụ thuộc vào ánh sáng mà là một hằng số (hoặc gần như vậy) đối với mỗi thiết lập ISO.</li>
+                    </ul>
+                    
+                    <div class="lab-note-block">
+                        <strong>Lưu ý Kỹ thuật [EXP-SENS-029]</strong>
+                        <p>Công thức cơ bản của Tỷ lệ Tín hiệu/Nhiễu (SNR) là: <code>SNR = Signal / √(Signal + ReadNoise^2)</code></p>
+                        <p>Khi <code>Signal</code> đủ lớn (vùng sáng), <code>√(Signal)</code> áp đảo <code>ReadNoise</code>, và SNR cao (ảnh sạch). Khi <code>Signal</code> nhỏ (vùng tối), <code>ReadNoise</code> bắt đầu chiếm ưu thế, dẫn đến SNR thấp (ảnh nhiễu).</p>
+                    </div>
+
+                    <div class="margin-note">[0.3] Bất biến ISO</div>
+                    <h2>3. ISO Invariance (Sự bất biến ISO): Nâng sáng trên máy vs Hậu kỳ</h2>
+                    <p>Một câu hỏi kinh điển: Tại sao không chụp ISO 100 thiếu sáng 3 stops, rồi kéo sáng trong Lightroom? Liệu nó có khác biệt với việc chụp đúng sáng ở ISO 800 ngay trên máy?</p>
+                    <p>Khái niệm <strong>ISO Invariance</strong> (Sự bất biến ISO) ra đời từ đây. Ở các cảm biến có tính ISO Invariant cao, việc khuếch đại tín hiệu analog trên máy ảnh (tăng ISO) sinh ra rất ít hoặc không sinh ra khác biệt về độ nhiễu so với việc khuếch đại tín hiệu digital trong phần mềm hậu kỳ.</p>
+                    <p>Lý do? Nếu Read Noise của cảm biến rất thấp (cảm biến hiện đại), việc bạn kéo sáng ở Lightroom (nhân giá trị digital) sẽ cho ra kết quả tương đương việc mạch ADC nhân tín hiệu analog ở trong máy. Tuy nhiên, việc chụp ISO thấp giữ lại toàn bộ dải nhạy sáng (Dynamic Range) ở vùng highlight, giúp bạn cứu được những vùng sáng bị cháy một cách ngoạn mục.</p>
+
+                    <div class="margin-note">[0.4] Kiến trúc Dual Gain</div>
+                    <h2>4. Dual Gain ISO: Cú lừa vật lý ngọt ngào</h2>
+                    <p>Đúng lúc bạn nghĩ mọi cảm biến đều tuân theo đường thẳng tuyến tính, thì kiến trúc <strong>Dual Conversion Gain (Dual Gain ISO)</strong> xuất hiện và phá vỡ quy luật. Đây là lý do tại sao ở một số máy ảnh, ISO 3200 lại có thể "sạch" hơn ISO 1600.</p>
+                    <p>Các cảm biến trang bị Dual Gain sở hữu <em>hai mạch đọc tín hiệu (readout circuits)</em> khác nhau cho mỗi pixel, được kích hoạt ở các mức ISO nhất định (Base ISO):</p>
+                    <ul>
+                        <li><strong>Mạch Low Gain (ISO Cơ sở thấp, ví dụ ISO 100):</strong> Được thiết kế để tối đa hóa sức chứa điện tích của pixel (Full Well Capacity). Tối ưu cho dải nhạy sáng (Dynamic Range) lớn nhất, nhưng lại có Read Noise cao hơn một chút.</li>
+                        <li><strong>Mạch High Gain (ISO Cơ sở cao, ví dụ ISO 640 hoặc 800):</strong> Khi chuyển sang mức ISO này, máy ảnh chuyển sang một mạch khuếch đại thứ hai. Mạch này giảm sức chứa điện tích (giảm highlight headroom) nhưng lại làm giảm đột ngột mức Read Noise.</li>
+                    </ul>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Tính năng</th>
+                                <th>Low Conversion Gain (VD: ISO 100)</th>
+                                <th>High Conversion Gain (VD: ISO 800)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mục đích chính</strong></td>
+                                <td>Tối đa hóa Dynamic Range (bảo vệ highlight)</td>
+                                <td>Tối thiểu hóa Read Noise (cứu vùng shadow)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Full Well Capacity</strong></td>
+                                <td>Cao (Chứa được nhiều photon trước khi cháy)</td>
+                                <td>Thấp (Dễ bị clip highlight hơn)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Read Noise</strong></td>
+                                <td>Trung bình</td>
+                                <td>Rất thấp</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Môi trường lý tưởng</strong></td>
+                                <td>Chụp ban ngày, phong cảnh tĩnh, Studio</td>
+                                <td>Chụp thiếu sáng, Astrophotography, sự kiện</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="margin-note">[0.5] Ứng dụng thực chiến</div>
+                    <h2>5. ETTR và Bí quyết tối ưu hóa SNR</h2>
+                    <p>Từ những hiểu biết về Shot Noise, Read Noise và Dual Gain, chúng trên rút ra một phương pháp tiếp cận ánh sáng hoàn toàn khoa học: <strong>ETTR (Expose To The Right)</strong>.</p>
+                    <p>Biểu đồ Histogram hiển thị tín hiệu ánh sáng. Càng về bên phải (vùng sáng), lượng photon thu được càng nhiều. Vì Shot Noise luôn hiện hữu, cách duy nhất để có một bức ảnh "sạch" (SNR cao) là <em>thu thập càng nhiều photon càng tốt mà không làm cháy (clip) các vùng highlight quan trọng.</em></p>
+                    <p>Khi chụp trong điều kiện thiếu sáng:</p>
+                    <ol>
+                        <li>Mở khẩu lớn nhất có thể và giảm tốc độ màn trập đến mức an toàn tối đa để thu nhiều photon thật sự (Signal).</li>
+                        <li>Nếu ảnh vẫn tối, hãy xem xét điểm kích hoạt Dual Gain của máy ảnh bạn (Ví dụ: ISO 640 trên máy Sony). Việc đẩy ISO từ 400 lên 640 sẽ kích hoạt mạch High Gain, giúp ảnh không những sáng hơn mà phần shadow còn ít nhiễu (Read Noise) hơn so với việc chụp ở ISO 400 và kéo sáng 2/3 stop ở hậu kỳ.</li>
+                        <li>Không bao giờ sợ tăng ISO nếu điều đó giúp bạn đẩy biểu đồ Histogram về bên phải (trừ trường hợp làm cháy các chi tiết bạn muốn giữ). Tín hiệu đầy đủ luôn đánh bại nhiễu.</li>
+                    </ol>
+
+                    <div class="lab-note-block">
+                        <strong>Tóm tắt Triết lý</strong>
+                        <p>ISO không thay đổi lượng ánh sáng bạn thu được. Khẩu độ, Tốc độ màn trập, và Ánh sáng môi trường là 3 yếu tố duy nhất quyết định tín hiệu thực sự (Signal). ISO chỉ là một "bộ âm ly" (amplifier). Hãy ưu tiên tối đa hóa Tín hiệu trước khi nghĩ đến việc vặn núm Âm ly.</p>
+                    </div>
+
+                </article>
+
+                <aside class="article-sidebar">
+                    <div class="sidebar-panel">
+                        <h3>SIÊU DỮ LIỆU GHI CHÚ</h3>
+                        <ul class="metadata-list">
+                            <li class="metadata-item"><strong>Khóa thí nghiệm:</strong> EXP-SENS-029</li>
+                            <li class="metadata-item"><strong>Mô hình:</strong> Tín hiệu & Nhiễu Hạt</li>
+                            <li class="metadata-item"><strong>Phân loại:</strong> Vật lý Cảm biến</li>
+                            <li class="metadata-item"><strong>Độ khó:</strong> Nâng cao</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-panel">
+                        <h3>CÔNG CỤ TƯƠNG QUAN</h3>
+                        <ul class="metadata-list">
+                            <li><a href="../tool-lab.html#exposure-reactor">Exposure Reactor Tool</a></li>
+                            <li><a href="../visual-experiments.html">Thư viện Mẫu Nhiễu</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-panel">
+                        <h3>BÀI VIẾT LIÊN QUAN</h3>
+                        <ul class="metadata-list">
+                            <li><a href="color-science-bayer.html">Toán học của màng lọc Bayer</a></li>
+                            <li><a href="dynamic-range-truth.html">Sự thật về Dynamic Range</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="footer-brand">LumenForge — Light Intelligence Lab</div>
+                <div class="footer-links">
+                    <a href="#">Về dự án</a>
+                    <a href="#">Phương pháp luận</a>
+                    <a href="#">Liên hệ</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

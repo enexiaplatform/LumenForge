@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Planner — LumenForge End-to-End</title>
+  <meta name="description" content="Hệ thống lên kế hoạch nhiếp ảnh toàn diện. Thiết lập Mood, Gear, Sơ đồ Ánh sáng và xuất Shot Sheet chuyên nghiệp.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/studio-planner.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="studio-planner.html" class="nav-link active" style="color: var(--accent-amber); font-weight: 500;">Studio Planner</a>
+        <a href="light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Planner Layout -->
+  <div class="planner-wrapper">
+    
+    <!-- Sidebar: Steps -->
+    <aside class="planner-sidebar">
+      <h3 style="margin-bottom: var(--space-xl); color: var(--accent-amber);">DỰ ÁN CHỤP</h3>
+      <ul class="step-indicator" id="step-indicator">
+        <li class="step-item active" data-step="1">
+          <div class="step-num">1</div>
+          <div class="step-label">Concept & Mood</div>
+        </li>
+        <li class="step-item" data-step="2">
+          <div class="step-num">2</div>
+          <div class="step-label">Gear Selection</div>
+        </li>
+        <li class="step-item" data-step="3">
+          <div class="step-num">3</div>
+          <div class="step-label">Lighting Blueprint</div>
+        </li>
+        <li class="step-item" data-step="4">
+          <div class="step-num">4</div>
+          <div class="step-label">Shot Sheet (Export)</div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="planner-main">
+      
+      <!-- STEP 1: CONCEPT -->
+      <div class="step-panel active" id="panel-1">
+        <div class="step-header">
+          <h2>1. Định hình Concept</h2>
+          <p>Bắt đầu bằng việc xác định tên dự án và cảm xúc (mood) tổng thể bạn muốn truyền tải.</p>
+        </div>
+        
+        <div class="planner-form-group">
+          <label for="inp-project-name">Tên Dự Án (Project Name)</label>
+          <input type="text" id="inp-project-name" class="planner-input" placeholder="VD: The Midnight Portrait" value="LumenForge Session 01">
+        </div>
+
+        <div class="planner-form-group">
+          <label for="inp-mood">Phong cách Thẩm mỹ (Visual Style)</label>
+          <select id="inp-mood" class="planner-select">
+            <option value="cinematic">Cinematic (Tương phản cao, Ám màu Teal & Orange)</option>
+            <option value="moody">Moody & Low-key (Tối tăm, Bí ẩn, Bóng đổ sắc nét)</option>
+            <option value="highkey">High-Key Beauty (Sáng sủa, Da mềm mịn, Lãng mạn)</option>
+            <option value="film">Vintage Film (Hoài cổ, Hạt grain, Contrast thấp)</option>
+          </select>
+        </div>
+
+        <div class="planner-form-group">
+          <label for="inp-location">Địa điểm (Location)</label>
+          <input type="text" id="inp-location" class="planner-input" placeholder="VD: Studio A, hoặc Đường Nguyễn Huệ">
+        </div>
+
+        <div class="planner-nav">
+          <div></div>
+          <button class="btn-planner-next" onclick="goToStep(2)">Tiếp Tục →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: GEAR -->
+      <div class="step-panel" id="panel-2">
+        <div class="step-header">
+          <h2>2. Thiết lập Thiết bị</h2>
+          <p>Lựa chọn thân máy và ống kính. Quyết định này ảnh hưởng trực tiếp tới hệ số Crop và hiệu ứng nén phối cảnh.</p>
+        </div>
+        
+        <div class="planner-form-group">
+          <label for="inp-camera">Hệ Sensor Máy Ảnh</label>
+          <select id="inp-camera" class="planner-select">
+            <option value="fullframe">Full-Frame 35mm (Sony A7, Canon R6...)</option>
+            <option value="apsc">APS-C Crop 1.5x/1.6x (Fuji XT, Sony a6000...)</option>
+            <option value="m43">Micro Four Thirds Crop 2x (Lumix, Olympus...)</option>
+            <option value="medium">Medium Format (Fuji GFX, Hasselblad...)</option>
+          </select>
+        </div>
+
+        <div class="planner-form-group">
+          <label for="inp-lens">Tiêu cự Ống Kính (Focal Length)</label>
+          <select id="inp-lens" class="planner-select">
+            <option value="24">24mm (Góc rộng - Phóng đại cảnh, Méo viền)</option>
+            <option value="35">35mm (Đời thường - Góc nhìn tự nhiên, Phóng khoáng)</option>
+            <option value="50" selected>50mm (Tiêu chuẩn - Chân dung nửa người)</option>
+            <option value="85">85mm (Tele ngắn - Nén không gian, Chân dung cận)</option>
+            <option value="135">135mm (Tele - Xóa phông mù mịt, Cô lập chủ thể)</option>
+          </select>
+        </div>
+
+        <div class="planner-nav">
+          <button class="btn-planner-back" onclick="goToStep(1)">← Quay Lại</button>
+          <button class="btn-planner-next" onclick="goToStep(3)">Tiếp Tục →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: LIGHTING BLUEPRINT -->
+      <div class="step-panel" id="panel-3">
+        <div class="step-header">
+          <h2>3. Sơ đồ Ánh sáng (Lighting Blueprint)</h2>
+          <p>Bật/tắt các nguồn sáng để xây dựng sơ đồ ánh sáng 2D nhìn từ trên xuống.</p>
+        </div>
+
+        <div class="light-toggles">
+          <button class="toggle-btn" data-light="key" id="btn-toggle-key" onclick="toggleLight('key')">Key Light (Nguồn chính)</button>
+          <button class="toggle-btn" data-light="fill" id="btn-toggle-fill" onclick="toggleLight('fill')">Fill Light (Bù tối)</button>
+          <button class="toggle-btn" data-light="rim" id="btn-toggle-rim" onclick="toggleLight('rim')">Rim Light (Đánh ven tóc)</button>
+        </div>
+
+        <div class="blueprint-canvas-container">
+          <div class="blueprint-camera"></div>
+          <div class="blueprint-subject"></div>
+          
+          <div class="light-entity" id="light-key">KEY</div>
+          <div class="light-entity" id="light-fill">FILL</div>
+          <div class="light-entity" id="light-rim">RIM</div>
+        </div>
+
+        <div class="planner-nav">
+          <button class="btn-planner-back" onclick="goToStep(2)">← Quay Lại</button>
+          <button class="btn-planner-next" onclick="generateShotSheet()">Hoàn Tất & Tạo Shot Sheet →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: EXPORT -->
+      <div class="step-panel" id="panel-4">
+        <div class="step-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h2>4. Shot Sheet Hoàn Chỉnh</h2>
+            <p>Bản thiết kế cuối cùng đã sẵn sàng. Bạn có thể in hoặc xuất ra PDF để mang theo buổi chụp.</p>
+          </div>
+          <button class="btn-planner-next" onclick="window.print()" style="background: var(--text-primary); color: var(--bg-body);">🖨 In / Xuất PDF</button>
+        </div>
+
+        <div class="shot-sheet" id="shot-sheet-render">
+          <!-- Rendered by JS -->
+        </div>
+
+        <div class="planner-nav print-hide">
+          <button class="btn-planner-back" onclick="goToStep(3)">← Sửa lại Sơ đồ</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/studio-planner.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhiệt độ Màu & Cân bằng Trắng: Khoa học đằng sau sắc ấm lạnh — LumenForge</title>
+  <meta name="description" content="Giải mã khoa học vật lý đằng sau nhiệt độ màu Kelvin, bức xạ vật đen Planck, và cách máy ảnh kỹ thuật số tính toán cân bằng trắng. Từ lý thuyết quang phổ phát xạ đến ứng dụng sáng tạo với gel CTO/CTB trong nhiếp ảnh và điện ảnh.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link active">Quang Thư</a>
+        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../light-codex.html">&larr; Quay lại Quang Thư</a>
+      </div>
+      <div class="article-header-meta">
+        <span class="codex-card-tag tag-color">Khoa học Màu sắc</span>
+        <span class="read-time">9 phút đọc</span>
+      </div>
+      <h1>Nhiệt độ Màu & Cân bằng Trắng: Khoa học đằng sau sắc ấm lạnh</h1>
+      <p class="article-header-desc">Từ bức xạ vật đen Planck đến thuật toán AWB trong máy ảnh số — tại sao ánh nến vàng ấm ở 1800K còn bóng râm lại xanh lạnh ở 7500K? Và làm thế nào để biến "sai" thành "đẹp" khi cố tình đặt sai cân bằng trắng?</p>
+    </div>
+  </header>
+
+  <!-- Article Body Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="article-layout">
+        
+        <!-- Main Content -->
+        <article class="article-content">
+          
+          <div class="margin-note" style="top: 80px;">[0.1]</div>
+          <p>Bạn đã bao giờ chụp một bức ảnh trong nhà dưới ánh đèn sợi đốt và thấy toàn bộ bức ảnh phủ một lớp vàng cam nồng đượm? Hay bước ra ngoài trời vào ngày nhiều mây và nhận ra bức ảnh trông xanh xám, lạnh lẽo một cách kỳ lạ? Hiện tượng này không phải lỗi của máy ảnh — nó là biểu hiện trực quan của một nguyên lý vật lý căn bản: <strong>Nhiệt độ Màu (Color Temperature)</strong>. Mỗi nguồn sáng trên thế giới này đều mang một "tông màu" riêng biệt, được đo bằng đơn vị Kelvin (K), và chính sự khác biệt này buộc chúng ta phải hiểu rõ khái niệm <strong>Cân bằng Trắng (White Balance)</strong> — cánh cổng kết nối giữa vật lý quang học và nghệ thuật nhiếp ảnh.</p>
+
+          <div class="margin-note" style="top: 480px;">[0.2]</div>
+          <h2>1. Bức Xạ Vật Đen & Quỹ Tích Planck: Nền Tảng Vật Lý</h2>
+          <p>Câu chuyện bắt đầu từ một thí nghiệm tưởng tượng kinh điển trong vật lý: <strong>Vật đen lý tưởng (Ideal Black Body)</strong>. Đây là một vật thể giả định hấp thụ hoàn toàn mọi bức xạ điện từ chiếu vào nó, không phản xạ hay truyền qua bất kỳ ánh sáng nào. Khi được nung nóng, vật đen này bắt đầu phát ra ánh sáng — và màu sắc của ánh sáng phát ra phụ thuộc hoàn toàn vào <strong>nhiệt độ tuyệt đối</strong> của nó, được đo bằng đơn vị Kelvin (K).</p>
+
+          <p>Nhà vật lý Max Planck đã mô tả chính xác phổ bức xạ này bằng <strong>Định luật Bức xạ Planck</strong> vào năm 1900, đặt nền móng cho cơ học lượng tử. Công thức mô tả mật độ phổ năng lượng của bức xạ vật đen là:</p>
+
+          <p><strong>B(λ, T) = (2hc² / λ⁵) × 1 / (e^(hc/λkT) − 1)</strong></p>
+
+          <p>Trong đó: <strong>h</strong> là hằng số Planck, <strong>c</strong> là vận tốc ánh sáng, <strong>λ</strong> là bước sóng, <strong>k</strong> là hằng số Boltzmann, và <strong>T</strong> là nhiệt độ tuyệt đối. Ý nghĩa cốt lõi là: khi nhiệt độ thay đổi, <strong>đỉnh phổ bức xạ dịch chuyển</strong> theo Định luật Wien — nhiệt độ tăng thì đỉnh phổ dịch về phía bước sóng ngắn hơn (xanh hơn).</p>
+
+          <ul>
+            <li><strong>~1800K:</strong> Vật đen phát ra ánh sáng đỏ cam sẫm — gần giống ngọn nến lung linh hay ánh lửa trại.</li>
+            <li><strong>~2700K:</strong> Ánh sáng vàng ấm đặc trưng — tương đương bóng đèn sợi đốt tungsten truyền thống.</li>
+            <li><strong>~4000K:</strong> Ánh sáng trung tính ấm — đèn huỳnh quang "warm white" trong văn phòng.</li>
+            <li><strong>~5500K:</strong> Ánh sáng trắng trung tính — gần với ánh nắng mặt trời buổi trưa trong điều kiện quang đãng.</li>
+            <li><strong>~6500K:</strong> Ánh sáng trắng hơi xanh — bầu trời nhiều mây, tiêu chuẩn D65 của ngành hiển thị.</li>
+            <li><strong>~7500K–8000K:</strong> Ánh sáng xanh lạnh rõ rệt — bóng râm dưới bầu trời xanh trong.</li>
+            <li><strong>~10000K trở lên:</strong> Ánh sáng xanh đậm — bầu trời xanh thẳm ở độ cao lớn hoặc vùng cực.</li>
+          </ul>
+
+          <p>Khi chúng ta vẽ tọa độ màu của bức xạ vật đen ở mọi nhiệt độ lên <strong>biểu đồ sắc độ CIE 1931</strong>, chúng ta thu được một đường cong mượt mà gọi là <strong>Quỹ tích Planck (Planckian Locus)</strong>. Đường cong này là xương sống cho toàn bộ hệ thống nhiệt độ màu trong nhiếp ảnh và điện ảnh: mọi nguồn sáng "tự nhiên" đều nằm trên hoặc rất gần đường cong này.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [CIE-1931-CHROMATICITY]</h5>
+            <p>Biểu đồ sắc độ CIE 1931 là bản đồ nền tảng của khoa học màu sắc. Trục x biểu diễn tọa độ sắc x (chromaticity), trục y biểu diễn tọa độ sắc y. Toàn bộ dải màu mà mắt người nhìn thấy được nằm bên trong đường biên hình móng ngựa. Quỹ tích Planck chạy từ góc đỏ (nhiệt độ thấp) xuyên qua vùng trắng trung tâm đến vùng xanh (nhiệt độ cao). Các nguồn sáng lệch khỏi Quỹ tích Planck theo hướng vuông góc sẽ mang sắc xanh lá hoặc tím hồng — đây chính là trục Tint mà chúng ta sẽ phân tích ở mục 4. Mã thí nghiệm: <strong>EXP-COLOR-022</strong>.</p>
+          </div>
+
+          <div class="margin-note" style="top: 1650px;">[0.3]</div>
+          <h2>2. Tại Sao Đèn Tungsten Ấm Còn Bóng Râm Lại Lạnh?</h2>
+          <p>Đây là một nghịch lý trực giác thú vị: chúng ta gọi ánh nến là "ấm" và bóng râm là "lạnh", nhưng xét theo vật lý, <strong>nhiệt độ Kelvin của ánh sáng "lạnh" lại cao hơn ánh sáng "ấm"</strong>. Lý do nằm ở phổ phát xạ:</p>
+
+          <h3>Đèn sợi đốt tungsten (~2700K)</h3>
+          <p>Sợi tungsten được nung nóng đến khoảng 2700–3000K. Ở nhiệt độ này, phổ phát xạ của nó tập trung chủ yếu ở vùng hồng ngoại và bước sóng dài trong vùng ánh sáng khả kiến (đỏ, cam, vàng). Lượng photon xanh phát ra rất ít. Kết quả: ánh sáng mang tông vàng cam ấm áp đặc trưng. Đây là lý do bóng đèn sợi đốt luôn tạo ra cảm giác thân mật, ấm cúng — phổ phát xạ của nó gần như là một "phiên bản cắt ngắn" của đường cong Planck, thiên về đầu đỏ.</p>
+
+          <h3>Bóng râm dưới bầu trời xanh (~7500K)</h3>
+          <p>Trong bóng râm, vật thể không nhận được ánh nắng mặt trời trực tiếp. Nguồn sáng chính chiếu rọi vào vùng bóng râm chính là <strong>ánh sáng tán xạ từ bầu trời</strong>. Theo hiện tượng <strong>tán xạ Rayleigh</strong>, các phân tử khí quyển tán xạ bước sóng ngắn (xanh, tím) mạnh hơn rất nhiều so với bước sóng dài (đỏ, cam) — cường độ tán xạ tỉ lệ nghịch với lũy thừa bậc 4 của bước sóng (I ∝ 1/λ⁴). Vì vậy, ánh sáng bầu trời — và đặc biệt là ánh sáng trong bóng râm — cực kỳ giàu thành phần xanh dương, tạo ra "nhiệt độ màu tương quan" (Correlated Color Temperature – CCT) rất cao: 7000–8000K.</p>
+
+          <p>Điều kỳ diệu là mắt người hầu như không nhận ra sự chênh lệch này trong cuộc sống thường nhật nhờ cơ chế <strong>thích ứng sắc (Chromatic Adaptation)</strong> — não bộ tự động điều chỉnh nhận thức để duy trì sắc trắng ổn định. Nhưng cảm biến máy ảnh không có "bộ não" — nó ghi lại chính xác những gì nó thấy, và đó là lúc Cân bằng Trắng trở nên cần thiết.</p>
+
+          <div class="margin-note" style="top: 2600px;">[0.4]</div>
+          <h2>3. Cách Máy Ảnh Kỹ Thuật Số Tính Toán Cân Bằng Trắng</h2>
+          <p>Hệ thống <strong>Cân bằng Trắng Tự động (Auto White Balance – AWB)</strong> trong máy ảnh kỹ thuật số là một bài toán phức tạp mà các kỹ sư firmware phải giải quyết bằng sự kết hợp giữa thuật toán thống kê và mô hình vật lý. Dưới đây là hai giả thuyết nền tảng mà hầu hết mọi thuật toán AWB đều dựa vào:</p>
+
+          <h3>Giả thuyết Thế giới Xám (Grey-World Assumption)</h3>
+          <p>Giả thuyết này cho rằng nếu lấy trung bình toàn bộ các giá trị màu sắc trong một bức ảnh (trung bình cộng kênh R, G, B), kết quả sẽ hội tụ về một sắc xám trung tính — tức là <strong>R_avg ≈ G_avg ≈ B_avg</strong>. Nếu trung bình kênh R cao hơn đáng kể, thuật toán kết luận rằng nguồn sáng đang thiên ấm và sẽ giảm hệ số khuếch đại (gain) kênh R xuống, đồng thời tăng kênh B lên để bù trừ.</p>
+
+          <p>Hạn chế rõ ràng: giả thuyết này sụp đổ khi chủ thể bức ảnh có màu sắc trội rõ rệt — ví dụ chụp cận cảnh một bông hoa hồng đỏ rực hoặc bầu trời xanh thẳm sẽ đánh lừa thuật toán nghĩ rằng ánh sáng đang thiên đỏ hoặc thiên xanh.</p>
+
+          <h3>Phát hiện Điểm Trắng (White-Point Detection)</h3>
+          <p>Phương pháp tinh vi hơn là tìm kiếm trong bức ảnh các điểm ảnh (pixel) có <strong>độ sáng cao và độ bão hòa thấp</strong> — những điểm có khả năng là bề mặt trắng hoặc xám phản chiếu ánh sáng. Thuật toán phân tích tọa độ màu của các điểm này để ước lượng nhiệt độ màu của nguồn sáng. Các máy ảnh cao cấp (Canon, Sony, Nikon thế hệ mới) còn kết hợp <strong>cảm biến đo sáng RGB riêng biệt</strong> với cơ sở dữ liệu hàng nghìn cảnh chụp mẫu để cải thiện độ chính xác AWB bằng machine learning.</p>
+
+          <p>Tuy nhiên, ngay cả hệ thống AWB tiên tiến nhất cũng có thể sai lầm trong các tình huống ánh sáng hỗn hợp (mixed lighting), khiến nhiều nhiếp ảnh gia chuyên nghiệp luôn chọn đặt White Balance thủ công hoặc chụp RAW để hiệu chỉnh trong hậu kỳ.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [AWB-ALGORITHM]</h5>
+            <p>Thuật toán AWB nâng cao sử dụng phương pháp "Illuminant Estimation" dựa trên biểu đồ sắc độ CIE 1931. Máy ảnh chiếu tọa độ màu trung bình của khung hình lên biểu đồ, sau đó tìm điểm trên Quỹ tích Planck gần nhất để xác định CCT. Khoảng cách vuông góc từ điểm đo đến Quỹ tích Planck chính là giá trị Tint (lệch xanh lá hoặc tím hồng). Mã thí nghiệm: <strong>EXP-COLOR-022</strong>.</p>
+          </div>
+
+          <div class="margin-note" style="top: 3700px;">[0.5]</div>
+          <h2>4. Trục Tint: Hiệu Chỉnh Xanh Lá – Tím Hồng</h2>
+          <p>Nếu thanh trượt Kelvin (Temperature) trong Lightroom/Camera Raw điều chỉnh theo phương <strong>dọc theo</strong> Quỹ tích Planck (từ ấm đến lạnh), thì thanh trượt <strong>Tint</strong> điều chỉnh theo phương <strong>vuông góc</strong> với Quỹ tích Planck — tức là trục Xanh lá (Green) ↔ Tím hồng (Magenta).</p>
+
+          <p>Tại sao cần trục thứ hai này? Vì không phải mọi nguồn sáng đều là "vật đen". Hai thủ phạm chính tạo ra sắc lệch Tint:</p>
+
+          <ul>
+            <li><strong>Đèn huỳnh quang (Fluorescent):</strong> Khác với bóng đèn sợi đốt phát ra phổ liên tục, đèn huỳnh quang phát ra phổ vạch rời rạc do các nguyên tố đất hiếm trong lớp phủ phosphor. Phổ vạch này thường có đỉnh rất mạnh ở vùng xanh lá (bước sóng ~530-560nm), khiến ánh sáng mang sắc xanh rêu khó chịu. Hiệu chỉnh: đẩy Tint về phía Magenta (+10 đến +30).</li>
+            <li><strong>Đèn LED giá rẻ:</strong> Nhiều đèn LED sử dụng chip xanh dương phủ phosphor vàng, tạo ra "khoảng trống" trong phổ ở vùng xanh mòng két (cyan gap). Tùy chất lượng phosphor, đèn có thể lệch xanh lá hoặc tím hồng. Chỉ số CRI (Color Rendering Index) phản ánh mức độ hoàn chỉnh của phổ — CRI trên 95 cho kết quả xuất sắc.</li>
+            <li><strong>Ánh sáng hỗn hợp tự nhiên:</strong> Hoàng hôn với bầu trời tím hồng, ánh nắng xuyên qua tán lá xanh, hay phản xạ từ bức tường màu — tất cả đều có thể tạo ra sắc lệch Tint phức tạp mà chỉ riêng thanh trượt Temperature không thể xử lý.</li>
+          </ul>
+
+          <div class="margin-note" style="top: 4600px;">[0.6]</div>
+          <h2>5. Cân Bằng Trắng Sáng Tạo: Khi "Sai" Trở Thành "Đẹp"</h2>
+          <p>Sau khi hiểu rõ nguyên lý vật lý, chúng ta đến với phần phá vỡ quy tắc — và đây mới chính là nơi nghệ thuật bắt đầu. Nhiếp ảnh gia và nhà quay phim chuyên nghiệp thường <strong>cố tình đặt sai cân bằng trắng</strong> để tạo ra tông màu mang tính cảm xúc mạnh mẽ:</p>
+
+          <h3>Tông ấm hoàng hôn (WB đặt ở 7000–7500K)</h3>
+          <p>Khi bạn đặt máy ảnh ở 7500K (nói với máy rằng "ánh sáng hiện tại là ánh sáng bóng râm xanh lạnh"), máy sẽ bù trừ bằng cách thêm rất nhiều sắc cam vàng ấm. Nếu bạn chụp lúc hoàng hôn (ánh sáng thực tế khoảng 3500–4500K), kết quả là bức ảnh ngập trong sắc vàng vàng rực rỡ phi thực — tạo ra hiệu ứng "golden hour on steroids" mà nhiều nhiếp ảnh gia phong cảnh và chân dung yêu thích.</p>
+
+          <h3>Tông lạnh điện ảnh (WB đặt ở 3200–3500K)</h3>
+          <p>Ngược lại, đặt máy ảnh ở 3200K (nói với máy rằng "ánh sáng hiện tại là đèn tungsten vàng ấm") khi chụp ngoài trời ban ngày (5500K). Máy sẽ bù trừ bằng cách giảm cam và thêm xanh dương — tạo ra tông lạnh xanh thép, u ám, mang đậm cảm giác điện ảnh (cinematic teal). Kỹ thuật này được sử dụng rộng rãi trong phim hành động, kinh dị và sci-fi.</p>
+
+          <h3>Tông hồng pastel (WB + Tint shift)</h3>
+          <p>Kết hợp nhiệt độ màu hơi ấm (khoảng 6000–6500K) với Tint lệch về Magenta (+15 đến +25) tạo ra tông hồng tím pastel đang rất thịnh hành trong nhiếp ảnh chân dung phong cách Hàn Quốc và Nhật Bản. Tông màu này tạo cảm giác mộng mơ, hoài niệm và nữ tính.</p>
+
+          <div class="margin-note" style="top: 5600px;">[0.7]</div>
+          <h2>6. Ánh Sáng Hỗn Hợp & Triết Lý Gel CTO/CTB Từ Điện Ảnh</h2>
+          <p>Một trong những thách thức lớn nhất trong nhiếp ảnh thực tế là <strong>ánh sáng hỗn hợp (Mixed Lighting)</strong> — khi nhiều nguồn sáng có nhiệt độ màu khác nhau cùng chiếu vào cảnh. Ví dụ kinh điển: quán cà phê có đèn tungsten 2700K bên trong, ánh nắng chiều 5000K tràn qua cửa kính, và đèn LED 4000K chiếu lên bàn. Dù bạn đặt WB ở bất kỳ giá trị nào, sẽ luôn có một phần bức ảnh bị lệch màu.</p>
+
+          <p>Ngành điện ảnh đã giải quyết vấn đề này từ thập niên 1950 bằng hệ thống <strong>gel lọc màu</strong>:</p>
+
+          <ul>
+            <li><strong>CTO (Color Temperature Orange):</strong> Gel màu cam, dán lên nguồn sáng có nhiệt độ màu cao (như đèn LED daylight 5600K) để "hạ" nhiệt độ màu xuống, biến nó thành sắc ấm tương đương tungsten (~3200K). Full CTO hạ khoảng 2400K, 1/2 CTO hạ khoảng 1200K, 1/4 CTO hạ khoảng 600K.</li>
+            <li><strong>CTB (Color Temperature Blue):</strong> Gel màu xanh dương, dán lên nguồn sáng có nhiệt độ màu thấp (như đèn tungsten 3200K) để "nâng" nhiệt độ màu lên, biến nó thành sắc lạnh tương đương ánh sáng ban ngày (~5600K).</li>
+            <li><strong>Plus Green / Minus Green:</strong> Gel bổ sung/loại bỏ sắc xanh lá để đồng bộ với đèn huỳnh quang — chính là thao tác trên trục Tint mà chúng ta đã thảo luận.</li>
+          </ul>
+
+          <p>Triết lý cốt lõi rất đơn giản: <strong>thay vì cố gắng sửa ánh sáng hỗn hợp trong hậu kỳ, hãy đồng bộ hóa tất cả nguồn sáng về cùng một nhiệt độ màu ngay từ trên phim trường</strong>. Trong nhiếp ảnh, nguyên tắc tương tự được áp dụng khi sử dụng đèn flash với gel CTO để hòa hợp với ánh sáng tungsten trong nhà, hoặc gel CTB để hòa hợp với ánh nắng tự nhiên.</p>
+
+          <div class="margin-note" style="top: 6600px;">[0.8]</div>
+          <h2>7. Bảng Tra Cứu Nhiệt Độ Màu Kelvin Theo Nguồn Sáng</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Nhiệt Độ (Kelvin)</th>
+                <th>Nguồn Sáng</th>
+                <th>Đặc Tính Quang Phổ</th>
+                <th>Ứng Dụng Nhiếp Ảnh</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1800K</strong></td>
+                <td>Ngọn nến, ánh lửa trại</td>
+                <td>Phổ liên tục, cực mạnh ở vùng đỏ-cam, rất ít xanh</td>
+                <td>Chụp chân dung atmosphere, flat lay ấm cúng</td>
+              </tr>
+              <tr>
+                <td><strong>2400K</strong></td>
+                <td>Đèn sợi đốt công suất thấp, đèn sodium áp suất cao</td>
+                <td>Phổ liên tục thiên cam, CRI trung bình</td>
+                <td>Chụp đường phố đêm, quán bar, không gian retro</td>
+              </tr>
+              <tr>
+                <td><strong>2700K</strong></td>
+                <td>Bóng đèn sợi đốt tungsten 60W–100W</td>
+                <td>Phổ liên tục ấm, CRI ~100 (tham chiếu)</td>
+                <td>Chụp trong nhà truyền thống, chân dung da ấm</td>
+              </tr>
+              <tr>
+                <td><strong>3200K</strong></td>
+                <td>Đèn halogen, đèn quay phim tungsten chuyên dụng</td>
+                <td>Phổ liên tục, chuẩn "Tungsten" trong điện ảnh</td>
+                <td>Chuẩn cân bằng trắng Tungsten trong máy ảnh</td>
+              </tr>
+              <tr>
+                <td><strong>4000K</strong></td>
+                <td>Đèn huỳnh quang cool white, đèn LED trung tính</td>
+                <td>Phổ vạch (huỳnh quang) hoặc phổ LED + phosphor</td>
+                <td>Chụp văn phòng, thương mại sản phẩm</td>
+              </tr>
+              <tr>
+                <td><strong>5000K</strong></td>
+                <td>Ánh nắng sáng sớm/chiều muộn, đèn flash studio</td>
+                <td>Phổ gần liên tục, cân bằng tốt giữa ấm-lạnh</td>
+                <td>Chuẩn D50 cho ngành in ấn, proofing màu</td>
+              </tr>
+              <tr>
+                <td><strong>5500–5600K</strong></td>
+                <td>Ánh nắng mặt trời buổi trưa, đèn flash speedlite</td>
+                <td>Phổ liên tục cân bằng, chuẩn "Daylight"</td>
+                <td>Chuẩn cân bằng trắng Daylight, chụp ngoại cảnh</td>
+              </tr>
+              <tr>
+                <td><strong>6500K</strong></td>
+                <td>Trời nhiều mây, ánh sáng bắc bán cầu ban ngày</td>
+                <td>Phổ thiên xanh nhẹ, chuẩn D65 hiển thị</td>
+                <td>Chuẩn hiệu chỉnh màn hình, ảnh trời mây</td>
+              </tr>
+              <tr>
+                <td><strong>7500K</strong></td>
+                <td>Bóng râm dưới bầu trời xanh trong</td>
+                <td>Phổ giàu xanh dương do tán xạ Rayleigh</td>
+                <td>Tông lạnh tự nhiên, ảnh phong cảnh vùng núi</td>
+              </tr>
+              <tr>
+                <td><strong>10000K+</strong></td>
+                <td>Bầu trời xanh thẳm, vùng cực, độ cao lớn</td>
+                <td>Phổ rất mạnh ở vùng xanh-tím, ít đỏ</td>
+                <td>Hiếm dùng trực tiếp, thường cần bù WB mạnh</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="margin-note" style="top: 7800px;">[0.9]</div>
+          <h2>8. Quy Trình Thực Hành: Grey Card, ColorChecker & RAW</h2>
+          <p>Trong thực tế sản xuất chuyên nghiệp, có hai trường phái tiếp cận cân bằng trắng, mỗi trường phái có ưu nhược điểm riêng:</p>
+
+          <h3>Trường phái 1: Đặt Custom WB tại hiện trường với Grey Card</h3>
+          <p>Sử dụng một tấm thẻ xám 18% (như X-Rite ColorChecker Passport hoặc một tấm grey card đơn giản) để thiết lập cân bằng trắng chính xác ngay tại thời điểm chụp:</p>
+          <ol>
+            <li>Đặt tấm thẻ xám tại vị trí chủ thể, hướng về phía camera, đảm bảo nó nhận được ánh sáng giống hệt chủ thể.</li>
+            <li>Chụp một khung hình tham chiếu với tấm thẻ xám lấp đầy phần lớn khung hình.</li>
+            <li>Vào menu máy ảnh, chọn <strong>Custom White Balance</strong>, trỏ đến bức ảnh vừa chụp. Máy ảnh sẽ phân tích tấm thẻ xám và thiết lập giá trị WB chính xác cho nguồn sáng hiện tại.</li>
+            <li>Mọi bức ảnh sau đó sẽ có cân bằng trắng nhất quán cho đến khi điều kiện ánh sáng thay đổi.</li>
+          </ol>
+
+          <p><strong>Ưu điểm:</strong> Kết quả chính xác ngay từ file JPEG gốc, tiết kiệm thời gian hậu kỳ. Đặc biệt quan trọng cho nhiếp ảnh sản phẩm thương mại, thời trang, và bất kỳ dự án nào yêu cầu màu sắc tuyệt đối chính xác.</p>
+
+          <h3>Trường phái 2: Chụp RAW và hiệu chỉnh WB trong hậu kỳ</h3>
+          <p>Chụp ở định dạng RAW nghĩa là cảm biến ghi lại dữ liệu thô chưa qua xử lý — giá trị WB lúc chụp chỉ được ghi như một thẻ metadata (tag) và <strong>không ảnh hưởng đến dữ liệu pixel thực tế</strong>. Trong phần mềm hậu kỳ (Lightroom, Capture One, DxO PhotoLab), bạn có thể kéo thanh trượt Temperature và Tint thoải mái mà không hề mất chất lượng ảnh — vì bạn đang thao tác trên dữ liệu gốc, chưa bị "nướng" (bake) cố định.</p>
+
+          <p><strong>Ưu điểm:</strong> Linh hoạt tối đa, cho phép thử nghiệm nhiều phương án sáng tạo. Đặc biệt hữu ích khi điều kiện ánh sáng thay đổi liên tục hoặc khi chụp sự kiện với nhiều vùng ánh sáng khác nhau.</p>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [GREY-CARD-PHYSICS]</h5>
+            <p>Tại sao lại là 18% phản xạ chứ không phải 50%? Vì thang sáng tối trong nhiếp ảnh tuân theo đường cong logarithmic/power-law gần giống nhận thức của mắt người. Giá trị 18% phản xạ nằm ở chính giữa thang phơi sáng logarithmic (middle grey) — điểm tham chiếu mà mọi hệ thống đo sáng đều hướng đến. X-Rite ColorChecker còn bao gồm 24 ô màu chuẩn bao phủ dải màu rộng, cho phép tạo camera profile chính xác theo từng điều kiện ánh sáng cụ thể. Mã thí nghiệm: <strong>EXP-COLOR-022</strong>.</p>
+          </div>
+
+          <h3>Phương pháp kết hợp tối ưu</h3>
+          <p>Trong thực tế, nhiều nhiếp ảnh gia chuyên nghiệp sử dụng phương pháp kết hợp: <strong>chụp RAW + chụp một khung hình tham chiếu với ColorChecker ở đầu mỗi set-up ánh sáng</strong>. Khi hậu kỳ, sử dụng khung hình tham chiếu để tạo profile màu chuẩn, sau đó áp dụng đồng bộ (sync) cho toàn bộ ảnh trong cùng set-up. Đây là quy trình chuẩn công nghiệp trong nhiếp ảnh thời trang, quảng cáo và tái tạo tác phẩm nghệ thuật.</p>
+
+          <div class="margin-note" style="top: 9200px;">[1.0]</div>
+          <h2>Lời Kết: Nhiệt Độ Màu Là Ngôn Ngữ Cảm Xúc</h2>
+          <p>Nhiệt độ màu không chỉ là một thông số kỹ thuật cần điều chỉnh cho "đúng" — nó là một <strong>ngôn ngữ thị giác</strong> mà nhiếp ảnh gia sử dụng để kể chuyện. Sắc vàng ấm 2700K gợi lên sự thân mật, hoài niệm và an toàn — đó là lý do các nhà hàng sang trọng luôn dùng đèn ấm. Sắc xanh lạnh 8000K tạo cảm giác cô đơn, xa xôi và bí ẩn — đó là lý do phim kinh dị luôn đẫm tông xanh thép.</p>
+
+          <p>Hiểu rõ vật lý đằng sau — từ bức xạ Planck đến tán xạ Rayleigh, từ Quỹ tích Planck đến biểu đồ CIE 1931 — không phải để biến bạn thành nhà khoa học, mà để trao cho bạn khả năng <strong>kiểm soát có ý thức</strong> thay vì để máy ảnh quyết định thay bạn. Khi bạn hiểu tại sao ánh nến mang sắc cam và bóng râm mang sắc xanh, bạn sẽ không còn "sửa" cân bằng trắng — bạn sẽ <strong>sáng tác</strong> với nó.</p>
+
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          
+          <div class="sidebar-panel">
+            <h4>SIÊU DỮ LIỆU GHI CHÚ</h4>
+            <div class="metadata-list">
+              <div class="metadata-item">
+                <label>Mã Thí Nghiệm</label>
+                <span>EXP-COLOR-022</span>
+              </div>
+              <div class="metadata-item">
+                <label>Danh Mục</label>
+                <span>Color Temperature & White Balance Physics</span>
+              </div>
+              <div class="metadata-item">
+                <label>Tác Giả</label>
+                <span>Henry / LumenForge</span>
+              </div>
+              <div class="metadata-item">
+                <label>Phạm Vi Kelvin</label>
+                <span>1800K – 10000K+</span>
+              </div>
+              <div class="metadata-item">
+                <label>Cơ Sở Vật Lý</label>
+                <span>Planck Radiation, Rayleigh Scattering, Wien's Law</span>
+              </div>
+              <div class="metadata-item">
+                <label>Công Cụ Tham Chiếu</label>
+                <span>CIE 1931 Chromaticity, X-Rite ColorChecker</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>THỬ NGHIỆM ĐỒNG HÀNH</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Thử điều chỉnh nhiệt độ màu và tint trực tiếp trên hình ảnh mẫu tại công cụ Color Alchemy — mô phỏng trực quan hiệu ứng cân bằng trắng theo Kelvin.</p>
+            <a href="../tools/color-alchemy.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Vào Color Alchemy Lab</a>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>BÀI VIẾT LIÊN QUAN</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Tìm hiểu thêm về không gian màu sRGB, Adobe RGB và Display P3 — nền tảng để hiểu cách máy ảnh và màn hình diễn giải tọa độ màu từ nhiệt độ Kelvin.</p>
+            <a href="color-spaces.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Đọc: Không gian màu sRGB vs Adobe RGB</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Quang Thư</a>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-map.html">Bản đồ Thiết bị</a>
+          </div>
+          <div class="footer-col">
+            <h4>Công cụ</h4>
+            <a href="../tools/lens-decoder.html">Giải mã Ống kính</a>
+            <a href="../tools/exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="../tools/film-look.html">Giả lập Màu phim</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế &amp; Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>

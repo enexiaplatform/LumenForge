@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kho Thiết Bị (Gear Vault) — LumenForge</title>
+  <meta name="description" content="Khám phá kho vũ khí nhiếp ảnh được LumenForge kiểm chứng. Đánh giá thiết bị và link mua hàng chính hãng.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    .vault-hero {
+      text-align: center;
+      padding: var(--space-2xl) 0;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: var(--space-2xl);
+    }
+    .vault-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-md);
+      background: linear-gradient(90deg, #fff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .vault-hero p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    /* Filters */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 8px 20px;
+      border-radius: 30px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--text-primary);
+      color: var(--bg-main);
+    }
+
+    /* Gear Grid */
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .gear-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+    }
+    .gear-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-glow);
+    }
+
+    .gear-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .gear-content {
+      padding: var(--space-lg);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gear-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 8px;
+    }
+
+    .gear-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .gear-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .gear-specs {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .gear-specs li {
+      margin-bottom: 4px;
+    }
+    .gear-specs li strong {
+      color: var(--text-primary);
+    }
+
+    .gear-footer {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .price-check {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    
+    .btn-affiliate {
+      flex: 1;
+      justify-content: center;
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Quang Thư</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="gear-vault.html" class="nav-link active">Kho Thiết Bị</a>
+        <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="vault-hero">
+    <div class="container">
+      <h1>Kho Thiết Bị (Gear Vault)</h1>
+      <p>Không có "máy ảnh tốt nhất", chỉ có thiết bị phù hợp nhất với triết lý ánh sáng của bạn. Dưới đây là những vũ khí được LumenForge kiểm chứng và khuyên dùng.</p>
+    </div>
+  </header>
+
+  <main class="section" style="padding-top: 0;">
+    <div class="container">
+      
+      <div class="filter-bar">
+        <button class="filter-btn active">Tất cả</button>
+        <button class="filter-btn">Máy ảnh (Body)</button>
+        <button class="filter-btn">Ống kính (Lens)</button>
+        <button class="filter-btn">Ánh sáng (Lighting)</button>
+      </div>
+
+      <div class="gear-grid">
+        
+        <!-- Gear 1 -->
+        <article class="gear-card">
+          <img src="https://images.unsplash.com/photo-1516961642265-531546e84af2?q=80&w=600&auto=format&fit=crop" alt="Sony A7 IV" class="gear-img">
+          <div class="gear-content">
+            <span class="gear-tag">HYBRID BODY</span>
+            <h3 class="gear-title">Sony A7 IV</h3>
+            <p class="gear-desc">Con quái vật Hybrid hoàn hảo. Dải nhạy sáng 15 stops tuyệt vời để bạn thỏa sức kéo shadow trong lý thuyết Color Matrix của chúng ta.</p>
+            <ul class="gear-specs">
+              <li><strong>Cảm biến:</strong> 33MP Full-Frame Exmor R</li>
+              <li><strong>Dynamic Range:</strong> 15 Stops</li>
+              <li><strong>Ngàm:</strong> Sony E-Mount</li>
+            </ul>
+            <div class="gear-footer">
+              <div class="price-check">
+                <a href="#" class="btn btn-affiliate">
+                  <svg viewBox="0 0 24 24"><path d="M22,12L12,2L2,12H5V20H19V12H22M12,18A3,3 0 0,1 9,15A3,3 0 0,1 12,12A3,3 0 0,1 15,15A3,3 0 0,1 12,18Z"/></svg>
+                  Amazon
+                </a>
+                <a href="#" class="btn btn-affiliate">B&H Photo</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gear 2 -->
+        <article class="gear-card">
+          <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=600&auto=format&fit=crop" alt="Sigma 35mm f/1.4 Art" class="gear-img">
+          <div class="gear-content">
+            <span class="gear-tag">PRIME LENS</span>
+            <h3 class="gear-title">Sigma 35mm f/1.4 DG DN Art</h3>
+            <p class="gear-desc">Góc nhìn điện ảnh kinh điển. Độ sâu trường ảnh (DoF) cực mỏng tại f/1.4 giúp bạn tách lớp chủ thể mượt mà như dao cạo.</p>
+            <ul class="gear-specs">
+              <li><strong>Tiêu cự:</strong> 35mm (Rộng vừa phải)</li>
+              <li><strong>Khẩu độ lớn nhất:</strong> f/1.4</li>
+              <li><strong>Số lá khẩu:</strong> 11 (Bokeh tròn xoe)</li>
+            </ul>
+            <div class="gear-footer">
+              <a href="articles/depth-of-field-science.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Đọc bài viết về DoF & Khẩu độ →</a>
+              <div class="price-check">
+                <a href="#" class="btn btn-affiliate">Amazon</a>
+                <a href="#" class="btn btn-affiliate">B&H Photo</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gear 3 -->
+        <article class="gear-card">
+          <img src="https://images.unsplash.com/photo-1596205835688-6677918a09bc?q=80&w=600&auto=format&fit=crop" alt="Godox AD200 Pro" class="gear-img">
+          <div class="gear-content">
+            <span class="gear-tag">STROBE LIGHTING</span>
+            <h3 class="gear-title">Godox AD200 Pro</h3>
+            <p class="gear-desc">Chiếc đèn ma thuật bỏ túi. Hỗ trợ HSS (High-Speed Sync) giúp bạn dễ dàng "áp đảo mặt trời" ở tốc độ 1/4000s như chúng ta đã học.</p>
+            <ul class="gear-specs">
+              <li><strong>Công suất:</strong> 200Ws</li>
+              <li><strong>Tính năng:</strong> TTL, HSS 1/8000s</li>
+              <li><strong>Nhiệt độ màu:</strong> 5600K ±200K</li>
+            </ul>
+            <div class="gear-footer">
+              <a href="articles/flash-physics-hss.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Đọc bài viết về Flash & HSS →</a>
+              <div class="price-check">
+                <a href="#" class="btn btn-affiliate">Amazon</a>
+                <a href="#" class="btn btn-affiliate">B&H Photo</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85rem;">
+    *Lưu ý: Các liên kết mua hàng ở trên là link Affiliate. Khi bạn mua qua link này, LumenForge sẽ nhận được một khoản hoa hồng nhỏ để duy trì server và phát triển công cụ miễn phí, trong khi giá sản phẩm bạn mua không hề thay đổi. Cảm ơn sự ủng hộ của bạn!
+  </footer>
+
+  <script src="js/common.js"></script>
+</body>
+</html>
