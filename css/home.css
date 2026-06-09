@@ -171,17 +171,8 @@
 
 .lab-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-6);
-}
-
-/* Make cards 4 & 5 centered on their own row */
-.lab-grid .lab-card:nth-child(4) {
-  grid-column: 1 / 2;
-}
-
-.lab-grid .lab-card:nth-child(5) {
-  grid-column: 3 / 4;
 }
 
 /* Stagger animations for lab cards */
@@ -380,22 +371,6 @@
 
 /* Tablet */
 @media (max-width: 1024px) {
-  .lab-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .lab-grid .lab-card:nth-child(4),
-  .lab-grid .lab-card:nth-child(5) {
-    grid-column: auto;
-  }
-
-  /* Last card centered if odd */
-  .lab-grid .lab-card:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    max-width: 480px;
-    justify-self: center;
-  }
-
   .featured-grid {
     grid-template-columns: repeat(2, 1fr);
   }
