@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumen Glossary — Từ điển Nhiếp ảnh & Điện ảnh</title>
+  <meta name="keywords" content="từ điển nhiếp ảnh, thuật ngữ máy ảnh, glossary, lumenforge">
+  <meta name="description" content="Bách khoa toàn thư giải nghĩa các thuật ngữ quang học, nhiếp ảnh và điện ảnh chuyên sâu (A-Z).">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    .glossary-header {
+      background: var(--bg-surface);
+      padding: var(--space-3xl) 0 var(--space-xl) 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .glossary-header h1 {
+      font-size: 2.5rem;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+    
+    .search-container {
+      max-width: 600px;
+      margin: var(--space-xl) auto 0;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      font-size: 1.1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+    }
+
+    /* Alphabet Index */
+    .alphabet-index {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: var(--space-xl) 0;
+    }
+    
+    .alpha-btn {
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .alpha-btn:hover {
+      background: var(--accent-amber);
+      color: #000;
+      border-color: var(--accent-amber);
+    }
+
+    /* Terms List */
+    .glossary-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-xl) 0;
+    }
+
+    .term-group {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .term-letter {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      color: var(--accent-amber);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: var(--space-xl);
+    }
+
+    .term-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      transition: transform 0.2s;
+    }
+
+    .term-card:hover {
+      transform: translateX(5px);
+      border-left: 3px solid var(--accent-amber);
+    }
+
+    .term-name {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .term-cat {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-dim);
+    }
+
+    .term-desc {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+    
+    .no-results {
+      text-align: center;
+      color: var(--text-dim);
+      padding: var(--space-2xl);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="glossary-header">
+    <div class="container">
+      <p style="font-family: var(--font-mono); color: var(--accent-cyan); letter-spacing: 2px;">ENCYCLOPEDIA</p>
+      <h1>Lumen Glossary</h1>
+      <p style="color: var(--text-secondary);">Từ điển A-Z các thuật ngữ cốt lõi trong Nhiếp ảnh, Quang học và Điện ảnh.</p>
+      
+      <div class="search-container">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="glossary-search" class="search-input" placeholder="Tìm kiếm thuật ngữ (VD: Bokeh, ISO, ETTR)...">
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      
+      <!-- Alphabet Index -->
+      <div class="alphabet-index">
+        <a href="#A" class="alpha-btn">A</a>
+        <a href="#B" class="alpha-btn">B</a>
+        <a href="#C" class="alpha-btn">C</a>
+        <a href="#D" class="alpha-btn">D</a>
+        <a href="#E" class="alpha-btn">E</a>
+        <a href="#F" class="alpha-btn">F</a>
+        <a href="#H" class="alpha-btn">H</a>
+        <a href="#I" class="alpha-btn">I</a>
+        <a href="#K" class="alpha-btn">K</a>
+        <a href="#L" class="alpha-btn">L</a>
+        <a href="#M" class="alpha-btn">M</a>
+        <a href="#R" class="alpha-btn">R</a>
+        <a href="#S" class="alpha-btn">S</a>
+        <a href="#W" class="alpha-btn">W</a>
+      </div>
+
+      <!-- Content -->
+      <div class="glossary-container" id="glossary-list">
+        
+        <!-- A -->
+        <div class="term-group" id="A">
+          <div class="term-letter">A</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Aperture (Khẩu độ) <span class="term-cat">Quang học</span></h3>
+            <p class="term-desc">Độ mở của lá khẩu bên trong ống kính, điều tiết lượng ánh sáng đi qua. Được ký hiệu bằng f-stop (vd: f/1.8, f/8). Số f càng nhỏ, lỗ khẩu càng lớn, tạo ra hiệu ứng xóa phông (Depth of Field mỏng).</p>
+          </div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Anamorphic Lens <span class="term-cat">Điện ảnh</span></h3>
+            <p class="term-desc">Ống kính đặc biệt giúp nén (squeeze) hình ảnh theo chiều ngang để ghi được khung hình siêu rộng (2.35:1) lên cảm biến tiêu chuẩn. Đặc trưng: Flare xé ngang màu xanh (Blue streak) và Bokeh hình bầu dục (Oval bokeh).</p>
+          </div>
+        </div>
+
+        <!-- B -->
+        <div class="term-group" id="B">
+          <div class="term-letter">B</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Bokeh <span class="term-cat">Quang học</span></h3>
+            <p class="term-desc">Chất lượng thẩm mỹ của những vùng nằm ngoài khoảng lấy nét (Out-of-focus areas). Phụ thuộc mạnh vào cấu tạo lá khẩu của ống kính. Bokeh đẹp thường mềm mại, không có viền cứng.</p>
+          </div>
+        </div>
+
+        <!-- C -->
+        <div class="term-group" id="C">
+          <div class="term-letter">C</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Circle of Confusion (CoC) <span class="term-cat">Quang học</span></h3>
+            <p class="term-desc">Vòng nhòe (hay vòng lú lẫn). Kích thước tối đa của một điểm sáng bị nhòe trên cảm biến mà mắt người vẫn cảm nhận là sắc nét. Đây là nền tảng để tính toán Depth of Field (DoF).</p>
+          </div>
+          <div class="term-card">
+            <h3 class="term-name">Color Grading <span class="term-cat">Hậu kỳ</span></h3>
+            <p class="term-desc">Quá trình "nhuộm màu" hình ảnh có chủ đích nghệ thuật (thường làm trong DaVinci Resolve hoặc Lightroom) để tạo ra một không khí cảm xúc cụ thể (Mood/Vibe), khác biệt với Color Correction (Chỉ sửa lỗi để đưa màu về chuẩn tự nhiên).</p>
+          </div>
+        </div>
+
+        <!-- D -->
+        <div class="term-group" id="D">
+          <div class="term-letter">D</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Depth of Field (DoF) <span class="term-cat">Quang học</span></h3>
+            <p class="term-desc">Độ sâu trường ảnh. Vùng không gian phía trước và phía sau điểm lấy nét mà hình ảnh vẫn được coi là sắc nét chấp nhận được. Phụ thuộc vào 3 yếu tố: Khẩu độ, Tiêu cự, và Khoảng cách đến chủ thể.</p>
+          </div>
+          <div class="term-card">
+            <h3 class="term-name">Diffraction (Nhiễu xạ) <span class="term-cat">Vật lý</span></h3>
+            <p class="term-desc">Hiện tượng suy giảm độ sắc nét quang học khi khép khẩu độ quá nhỏ (f/16, f/22). Sóng ánh sáng bị bẻ cong khi đi qua khe hở hẹp của lá khẩu, làm mất chi tiết hình ảnh (Diffraction Limit).</p>
+          </div>
+        </div>
+
+        <!-- E -->
+        <div class="term-group" id="E">
+          <div class="term-letter">E</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">ETTR (Expose To The Right) <span class="term-cat">Kỹ thuật</span></h3>
+            <p class="term-desc">Kỹ thuật "Phơi sáng lệch phải". Cố tình chụp dư sáng một chút (vừa chạm ngưỡng cháy sáng trên Histogram) để thu thập lượng tín hiệu ánh sáng (SNR) tối đa, giảm Noise khi kéo lại bóng râm ở khâu hậu kỳ RAW.</p>
+          </div>
+        </div>
+
+        <!-- F -->
+        <div class="term-group" id="F">
+          <div class="term-letter">F</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Focus Breathing <span class="term-cat">Thiết bị</span></h3>
+            <p class="term-desc">Hiện tượng khung hình (Field of View) bị thay đổi (zoom in/out nhẹ) khi bạn xoay vòng lấy nét từ vô cực về cận cảnh. Đây là điểm trừ của các ống kính nhiếp ảnh khi dùng để quay phim.</p>
+          </div>
+          <div class="term-card">
+            <h3 class="term-name">Focal Length (Tiêu cự) <span class="term-cat">Quang học</span></h3>
+            <p class="term-desc">Khoảng cách quang học từ tâm thấu kính hội tụ (optical center) đến bề mặt cảm biến khi lấy nét ở vô cực, tính bằng millimeter (mm). Xác định góc nhìn (Angle of View).</p>
+          </div>
+        </div>
+
+        <!-- H -->
+        <div class="term-group" id="H">
+          <div class="term-letter">H</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Hyperfocal Distance <span class="term-cat">Kỹ thuật</span></h3>
+            <p class="term-desc">Khoảng cách lấy nét tối ưu để đạt được độ sâu trường ảnh (DoF) từ một nửa khoảng cách đó cho đến vô cực (Infinity). Kỹ thuật sống còn trong chụp ảnh phong cảnh.</p>
+          </div>
+          <div class="term-card">
+            <h3 class="term-name">HSS (High-Speed Sync) <span class="term-cat">Ánh sáng</span></h3>
+            <p class="term-desc">Tính năng đồng bộ đèn flash ở tốc độ cao (vượt qua mức X-Sync thông thường là 1/200s). Flash sẽ phát ra hàng ngàn xung sáng nhỏ liên tục để phủ sáng khi màn trập trượt qua cảm biến, đánh đổi lại là sự suy giảm mạnh về công suất đèn.</p>
+          </div>
+        </div>
+
+        <!-- I -->
+        <div class="term-group" id="I">
+          <div class="term-letter">I</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Inverse Square Law <span class="term-cat">Vật lý Ánh sáng</span></h3>
+            <p class="term-desc">Định luật Bình phương Nghịch đảo (I=1/d²). Khi khoảng cách đến nguồn sáng tăng gấp đôi, lượng ánh sáng giảm đi 4 lần (mất 2 stops).</p>
+          </div>
+          <div class="term-card">
+            <h3 class="term-name">ISO Invariance <span class="term-cat">Cảm biến</span></h3>
+            <p class="term-desc">Khái niệm "Bất biến ISO" trên một số cảm biến hiện đại. Khi đó, việc chụp thiếu sáng ở ISO thấp rồi tăng sáng (Push Exposure) trong Lightroom sẽ cho mức nhiễu (Noise) tương đương với việc chụp đúng sáng bằng ISO cao ở trong máy.</p>
+          </div>
+        </div>
+        
+        <!-- S -->
+        <div class="term-group" id="S">
+          <div class="term-letter">S</div>
+          
+          <div class="term-card">
+            <h3 class="term-name">Split Toning <span class="term-cat">Hậu kỳ</span></h3>
+            <p class="term-desc">Kỹ thuật nhuộm hai tông màu khác nhau vào hai vùng cường độ sáng khác nhau (thường là nhuộm màu ấm vào Highlights và nhuộm màu lạnh vào Shadows). Tiền thân của bảng Color Grading hiện đại.</p>
+          </div>
+        </div>
+
+      </div>
+      
+      <div id="no-results" class="no-results hidden">
+        Không tìm thấy thuật ngữ nào phù hợp.
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge Glossary.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('glossary-search');
+      const termCards = document.querySelectorAll('.term-card');
+      const termGroups = document.querySelectorAll('.term-group');
+      const noResults = document.getElementById('no-results');
+
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        let anyVisible = false;
+
+        termCards.forEach(card => {
+          const text = card.textContent.toLowerCase();
+          if (text.includes(query)) {
+            card.classList.remove('hidden');
+            anyVisible = true;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        // Hide empty groups
+        termGroups.forEach(group => {
+          const visibleCards = group.querySelectorAll('.term-card:not(.hidden)');
+          if (visibleCards.length === 0) {
+            group.classList.add('hidden');
+          } else {
+            group.classList.remove('hidden');
+          }
+        });
+
+        if (!anyVisible) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

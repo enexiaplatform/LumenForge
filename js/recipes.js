@@ -570,14 +570,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="meta-item"><span>📷 Ống kính</span><strong>${recipe.lens.split('hoặc')[0].trim()}</strong></div>
         <div class="meta-item"><span>💡 Ánh sáng</span><strong>${recipe.light.substring(0, 32)}...</strong></div>
       </div>
-      <button class="recipe-view-btn" data-id="${recipe.id}">Xem công thức →</button>
+      <a href="recipes/${recipe.title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '')}.html" class="recipe-view-btn" style="text-decoration: none; display: inline-block; text-align: center;">Xem chi tiết & Sơ đồ sáng →</a>
       <div class="recipe-card-stripe" style="background: ${recipe.colorAccent}"></div>
     `;
 
     recipesGrid.appendChild(card);
   });
-
-  // Modal Open Handler
   function openRecipeModal(recipeId) {
     const recipe = shotRecipes.find(r => r.id === recipeId);
     if (!recipe) return;

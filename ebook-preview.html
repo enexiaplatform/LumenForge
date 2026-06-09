@@ -3,129 +3,291 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đọc thử: The Light Codex — Chương 1</title>
-  <meta name="keywords" content="the light codex, ebook nhiếp ảnh, đọc thử, bí quyết ánh sáng">
-  <meta name="description" content="Đọc thử miễn phí chương 1 của The Light Codex. Khám phá khoa học vật lý đằng sau nhiếp ảnh và điện ảnh.">
+  <title>The Cinematic Alchemist (Preview) — LumenForge</title>
+  <meta name="keywords" content="the light codex, ebook nhiếp ảnh, the cinematic alchemist, đọc thử, bí quyết ánh sáng">
+  <meta name="description" content="Đọc thử 3 chương chuyên sâu của siêu phẩm E-Book 'The Cinematic Alchemist'. Khám phá nghệ thuật ánh sáng, tiêu cự và màu sắc.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="css/design-system.css">
   <style>
-    .preview-container {
-      max-width: 800px;
-      margin: var(--space-3xl) auto;
-      padding: var(--space-xl);
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-    }
-    .preview-header {
+    .ebook-hero {
+      background: linear-gradient(135deg, rgba(10,10,12,0.9), rgba(10,10,12,0.9)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop') center/cover;
+      padding: var(--space-3xl) 0;
       text-align: center;
-      margin-bottom: var(--space-2xl);
-    }
-    .preview-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: var(--space-sm);
-      color: var(--accent-amber);
-    }
-    .preview-header p {
-      color: var(--text-secondary);
-      font-style: italic;
+      border-bottom: 1px solid var(--border-color);
     }
     
+    .ebook-hero h1 {
+      font-size: 3rem;
+      color: var(--accent-amber);
+      margin-bottom: var(--space-sm);
+      letter-spacing: -1px;
+    }
+    
+    .ebook-hero p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .chapter-nav {
+      position: sticky;
+      top: 70px;
+      background: rgba(10, 10, 12, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 100;
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .chapter-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 5px 15px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .chapter-link:hover, .chapter-link.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent-amber);
+    }
+
+    .preview-container {
+      max-width: 800px;
+      margin: var(--space-2xl) auto;
+      padding: 0 var(--space-xl);
+    }
+
+    .chapter-block {
+      margin-bottom: var(--space-3xl);
+      padding-bottom: var(--space-3xl);
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .chapter-number {
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .chapter-title {
+      font-size: 2.2rem;
+      margin-bottom: var(--space-xl);
+      color: var(--text-primary);
+    }
+
     .page-content {
       font-family: var(--font-body);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       line-height: 1.8;
-      color: var(--text-primary);
+      color: #ccc;
     }
-    .page-content h2 {
+
+    .page-content h3 {
+      color: #fff;
       margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
-      color: var(--text-primary);
+      font-size: 1.5rem;
     }
+
     .page-content p {
       margin-bottom: var(--space-md);
     }
+
     .page-content blockquote {
       border-left: 4px solid var(--accent-amber);
       padding-left: var(--space-md);
       margin: var(--space-xl) 0;
       font-style: italic;
-      color: var(--text-secondary);
+      color: var(--accent-amber);
+      font-size: 1.3rem;
+      line-height: 1.6;
     }
-    
+
+    .page-content .dropcap::first-letter {
+      float: left;
+      font-size: 4rem;
+      line-height: 0.8;
+      padding-right: 8px;
+      padding-top: 5px;
+      color: var(--accent-amber);
+      font-family: var(--font-heading);
+    }
+
+    .highlight-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-xl) 0;
+    }
+
     .paywall {
-      margin-top: var(--space-3xl);
-      padding: var(--space-2xl);
       text-align: center;
-      background: linear-gradient(180deg, transparent 0%, rgba(20, 20, 28, 0.95) 20%, var(--bg-primary) 100%);
-      position: relative;
-      border-top: 1px solid var(--border-color);
-      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      padding: var(--space-3xl) var(--space-xl);
+      background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
+      border: 1px solid var(--accent-amber);
+      border-radius: var(--radius-lg);
+      margin-top: var(--space-2xl);
     }
-    .paywall h3 {
-      font-size: 1.8rem;
+
+    .paywall h2 {
+      font-size: 2rem;
+      color: var(--accent-amber);
       margin-bottom: var(--space-md);
-      color: #fff;
-    }
-    .paywall p {
-      color: var(--text-secondary);
-      margin-bottom: var(--space-xl);
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
     }
   </style>
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
       <div class="nav-menu">
         <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
         <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
       </div>
     </div>
   </nav>
 
+  <!-- Hero -->
+  <header class="ebook-hero">
+    <div class="container">
+      <h1>The Cinematic Alchemist</h1>
+      <p>Trích đoạn đọc thử từ quyển sách định hình lại toàn bộ tư duy thị giác của bạn. 3 Chương cốt lõi về Ánh sáng, Quang học và Màu sắc.</p>
+    </div>
+  </header>
+
+  <!-- Sticky Nav -->
+  <div class="chapter-nav">
+    <a href="#chap-1" class="chapter-link">Chương 1: Ánh sáng</a>
+    <a href="#chap-2" class="chapter-link">Chương 2: Tiêu cự</a>
+    <a href="#chap-3" class="chapter-link">Chương 3: Màu sắc</a>
+  </div>
+
   <div class="container">
     <div class="preview-container">
-      <div class="preview-header">
-        <div style="font-family: var(--font-mono); color: var(--text-dim); letter-spacing: 2px; margin-bottom: 10px;">TRÍCH ĐOẠN ĐỌC THỬ (CHƯƠNG 1)</div>
-        <h1>Định Luật Bình Phương Nghịch Đảo</h1>
-        <p>Sự thật tàn nhẫn của quang học mà không chiếc máy ảnh nào che giấu được.</p>
-      </div>
-
-      <div class="page-content">
-        <p>Khi bạn bắt đầu chơi đèn flash, điều khiến bạn bối rối nhất không phải là nút bấm trên đèn, mà là ánh sáng dường như biến mất quá nhanh trong không gian.</p>
+      
+      <!-- Chapter 1 -->
+      <div class="chapter-block" id="chap-1">
+        <span class="chapter-number">CHƯƠNG 01 / VẬT LÝ ÁNH SÁNG</span>
+        <h2 class="chapter-title">Định Luật Bình Phương Nghịch Đảo: Kẻ Nói Dối Vĩ Đại Của Không Gian</h2>
         
-        <p>Bạn đặt chủ thể cách đèn 1 mét, bức ảnh sáng rực rỡ hoàn hảo. Bạn lùi chủ thể ra xa thành 2 mét, mong đợi ánh sáng sẽ chỉ giảm đi một nửa. Nhưng không, bức ảnh tối thui.</p>
+        <div class="page-content">
+          <p class="dropcap">K</p>
+          <p>hi bạn bắt đầu chơi đèn flash hoặc đèn liên tục trong studio, điều khiến bạn bối rối nhất không phải là các nút bấm phức tạp trên đèn, mà là việc ánh sáng dường như biến mất quá nhanh trong không gian một cách vô lý.</p>
+          
+          <p>Bạn đặt chủ thể (người mẫu) cách đèn 1 mét, bức ảnh sáng rực rỡ và hoàn hảo. Sau đó, bạn muốn lấy thêm cảnh nền, nên bạn lùi chủ thể ra xa thành 2 mét. Theo logic toán học thông thường (tuyến tính), khoảng cách tăng gấp đôi thì ánh sáng sẽ giảm đi một nửa (50%). Bạn chỉnh máy ảnh sáng lên 1 stop và tự tin bấm chụp. Nhưng không, bức ảnh tối thui.</p>
 
-        <blockquote>
-          "Ánh sáng không tuân theo phép tính cộng trừ đơn giản. Nó là một sự bùng nổ theo hình cầu."
-        </blockquote>
+          <blockquote>
+            "Ánh sáng không tuân theo phép tính cộng trừ đơn giản. Sự lan tỏa của ánh sáng trong không gian ba chiều là một vụ nổ theo dạng hình cầu."
+          </blockquote>
 
-        <h2>Toán học của sự lan tỏa</h2>
-        <p>Định luật Bình phương Nghịch đảo (Inverse Square Law) phát biểu rằng: Cường độ của ánh sáng tỷ lệ nghịch với bình phương khoảng cách từ nguồn sáng. (I = 1/d²).</p>
-        <p>Nghĩa là khi khoảng cách tăng lên gấp đôi (2x), lượng ánh sáng không giảm đi 2 lần, mà nó giảm đi 2² = 4 lần. Tức là bạn mất đi 75% lượng ánh sáng ban đầu (hay nói theo ngôn ngữ nhiếp ảnh: bạn mất đi 2 stop sáng).</p>
+          <h3>Toán học của sự lan tỏa (Light Fall-off)</h3>
+          <p>Định luật Bình phương Nghịch đảo (Inverse Square Law) phát biểu rằng: <strong>Cường độ của ánh sáng tỷ lệ nghịch với bình phương khoảng cách từ nguồn sáng. (I = 1/d²).</strong></p>
+          <p>Điều này có nghĩa là, khi khoảng cách từ nguồn sáng đến chủ thể tăng lên gấp đôi (2x), lượng ánh sáng đập vào chủ thể không giảm đi 2 lần, mà nó giảm đi <strong>2² = 4 lần</strong>. Tức là bạn đã mất đi tới 75% lượng ánh sáng ban đầu (hay nói theo ngôn ngữ nhiếp ảnh: bạn bị hụt mất 2 stop sáng, chứ không phải 1 stop).</p>
 
-        <h2>Ứng dụng thực chiến: Biến tường trắng thành tường đen</h2>
-        <p>Hầu hết những người mới chụp studio đều cố gắng mua phông nền đen để có được background đen tuyền. Nhưng nếu bạn hiểu Định luật này, bạn có thể chụp phông đen ngay trong một căn phòng tường trắng.</p>
-        <p>Bí quyết nằm ở Fall-off (độ rớt sáng). Khi bạn đưa nguồn sáng sát vào mặt chủ thể (cách 0.5 mét), và đưa chủ thể cách xa bức tường phía sau (cách 3 mét). Lượng ánh sáng đi từ đèn đến mặt chủ thể là 100%. Lượng ánh sáng rớt xuống bức tường phía sau ở khoảng cách 3 mét sẽ bị giảm đi 3² = 9 lần. Ánh sáng đập vào tường lúc này yếu đến mức cảm biến máy ảnh chỉ ghi nhận nó là một màu đen thăm thẳm.</p>
-
+          <div class="highlight-box">
+            <h4 style="color: var(--accent-amber); margin-bottom: 10px;">💡 Ứng dụng Thực chiến: Biến bức tường trắng thành tường đen tuyền</h4>
+            <p style="font-size: 1rem;">Hầu hết những người mới chụp studio đều cố gắng mua một phông nền vải đen thật xịn để có được background đen tuyền. Nhưng nếu thấu hiểu định luật này, bạn có thể chụp ra một background đen thẳm ngay trong một căn phòng có bức tường sơn trắng.</p>
+            <p style="font-size: 1rem;"><strong>Bí quyết nằm ở tỷ lệ khoảng cách:</strong> Đưa nguồn sáng sát vào mặt chủ thể (cách 0.5 mét), và yêu cầu chủ thể đứng cách xa bức tường trắng phía sau (cách 3 mét). Lượng ánh sáng đập vào mặt chủ thể rất mạnh, nhưng phần ánh sáng "rơi rớt" đến bức tường 3m phía sau sẽ bị suy yếu đi 3² = 9 lần. So với chủ thể, bức tường nhận được lượng ánh sáng cực kỳ yếu ớt. Khi bạn thiết lập phơi sáng đúng cho mặt chủ thể, bức tường trắng kia sẽ tự động chìm vào bóng tối hoàn toàn.</p>
+          </div>
+        </div>
       </div>
 
+      <!-- Chapter 2 -->
+      <div class="chapter-block" id="chap-2">
+        <span class="chapter-number">CHƯƠNG 02 / QUANG HỌC KHÔNG GIAN</span>
+        <h2 class="chapter-title">Tâm Lý Học Tiêu Cự: Ống Kính Định Hình Cảm Xúc</h2>
+        
+        <div class="page-content">
+          <p class="dropcap">T</p>
+          <p>rong thế giới nhiếp ảnh, có một lầm tưởng kinh điển: <em>"Ống kính góc rộng bóp méo khuôn mặt, còn ống kính tele thu hẹp không gian."</em> Thực tế vật lý phũ phàng hơn thế: Bản thân ống kính không hề bóp méo bất cứ thứ gì. Thứ duy nhất bóp méo không gian chính là <strong>Khoảng Cách (Distance)</strong>.</p>
+          
+          <p>Một ống kính 14mm không tự động làm mũi người mẫu to ra. Nó làm mũi to ra bởi vì để chụp được người mẫu bằng ống 14mm, bạn phải cầm máy ảnh dí sát vào mặt họ ở khoảng cách 20cm. Khoảng cách 20cm từ mũi đến máy ảnh, so với khoảng cách 30cm từ tai đến máy ảnh là một sự khác biệt tỷ lệ khổng lồ, tạo ra hiệu ứng Extension (Kéo giãn).</p>
+
+          <h3>Quyền lực của 35mm vs 85mm</h3>
+          <p>Các đạo diễn điện ảnh không chọn tiêu cự ngẫu nhiên. Họ chọn tiêu cự dựa trên cảm xúc họ muốn khán giả trải nghiệm.</p>
+          
+          <ul style="color: #ccc; margin-left: 20px; margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><strong>Tiêu cự 35mm (The Storyteller):</strong> Tiêu cự kinh điển của báo chí và phim ảnh. Nó ép bạn phải tiến lại gần chủ thể (khoảng 1-2 mét) để lấp đầy khung hình. Ở khoảng cách này, bức ảnh chứa đựng cả nhân vật lẫn bối cảnh xung quanh họ (Environmental Portrait). Nó tạo ra cảm giác <em>"Khán giả đang đứng ngay trong căn phòng cùng với nhân vật"</em>. Nó mang tính tương tác và chân thực tột độ.</li>
+            <li><strong>Tiêu cự 85mm - 200mm (The Observer):</strong> Để chụp cùng một khung hình như trên, bạn phải lùi ra xa 5-10 mét. Sự khác biệt tỷ lệ khoảng cách giữa mũi và tai biến mất, khiến khuôn mặt phẳng lại, thon gọn và nịnh mắt hơn (Lý do 85mm được gọi là Portrait Lens). Tuy nhiên, về mặt tâm lý, bức ảnh tele tạo ra cảm giác "Nhìn trộm từ xa" (Voyeuristic). Khán giả bị tách rời khỏi nhân vật, trở thành những kẻ quan sát bị động.</li>
+          </ul>
+
+          <p>Đó là lý do tại sao các cảnh quay rượt đuổi nghẹt thở luôn dùng góc rộng (14mm-24mm) để ném khán giả vào giữa cuộc chiến, trong khi các cảnh đặc tả tâm lý đau buồn tĩnh lặng thường dùng Tele (135mm) để cô lập nhân vật khỏi môi trường xung quanh.</p>
+        </div>
+      </div>
+
+      <!-- Chapter 3 -->
+      <div class="chapter-block" id="chap-3" style="border-bottom: none;">
+        <span class="chapter-number">CHƯƠNG 03 / LÝ THUYẾT MÀU SẮC</span>
+        <h2 class="chapter-title">Sự Lên Ngôi Của Teal & Orange</h2>
+        
+        <div class="page-content">
+          <p class="dropcap">N</p>
+          <p>ếu bạn xem bất kỳ bom tấn Hollywood nào trong vòng 10 năm qua (từ Mad Max, Transformers đến The Avengers), bạn sẽ nhận thấy một công thức màu lặp đi lặp lại đến mức ám ảnh: Bầu trời và bóng râm luôn có màu xanh ngọc lạnh lẽo (Teal), trong khi vụ nổ, ánh nắng và đặc biệt là khuôn mặt người luôn rực rỡ màu cam đỏ (Orange).</p>
+
+          <h3>Tại sao không phải là Tím và Vàng?</h3>
+          <p>Câu trả lời nằm ở bản chất sinh học của loài người. Dù bạn thuộc sắc tộc nào (Da trắng, Châu Á hay Da đen), dòng máu chảy dưới da luôn khiến màu da (Skin tones) phản xạ ánh sáng ở một dải hẹp nằm gọn trong phổ <strong>Màu Cam (Orange - Hue 30°)</strong>.</p>
+          
+          <p>Khi các chuyên gia chỉnh màu (Colorists) muốn nhân vật "bật" ra khỏi màn hình (3D Pop) mà không cần phải dùng kỹ xảo lóa mắt, họ sử dụng Định luật Tương phản (Complementary Colors). Cứ lật bánh xe màu RGB đối diện 180° với màu Cam, bạn sẽ chạm đến màu <strong>Xanh Ngọc (Teal/Cyan - Hue 210°)</strong>.</p>
+
+          <blockquote>
+            "Bằng cách ám màu Teal lạnh giá vào những vùng tối (Shadows), đạo diễn đẩy bật màu Cam ấm áp của làn da ở vùng sáng (Midtones) lên mức độ rực rỡ nhất."
+          </blockquote>
+
+          <p>Sự tương phản này không chỉ thỏa mãn về mặt thị giác mà còn thao túng tâm lý. Sự lạnh lẽo của vùng tối bao bọc lấy sự ấm áp của con người, tạo ra một sự giằng xé cảm xúc vô thức khiến khán giả không thể rời mắt khỏi màn hình.</p>
+        </div>
+      </div>
+
+      <!-- Call To Action (Paywall) -->
       <div class="paywall">
-        <h3>Đây chỉ là bề nổi của tảng băng chìm.</h3>
-        <p>Để đọc tiếp về hệ thống Color Matrix, nghệ thuật đánh sáng Rembrandt và tâm lý học thị giác Gestalt, hãy sở hữu bản Full E-Book của The Light Codex.</p>
-        <a href="store.html" class="btn btn-gold" style="padding: 15px 30px; font-size: 1.1rem;">Sở hữu Ngay E-Book ($19)</a>
+        <h2>Bạn Vừa Chạm Vào Bề Nổi Của Tảng Băng Chìm</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1.1rem;">Ba chương ngắn trên chỉ là 5% lượng kiến thức đồ sộ nằm trong quyển sách <strong>"The Cinematic Alchemist" (Dung lượng 250 trang)</strong>. Bạn sẽ học được toàn bộ bí thuật về Ánh sáng Chiaroscuro, Kiến trúc Cảm biến, và Kỹ thuật Color Grading thực chiến.</p>
+        
+        <a href="store.html" class="btn btn-gold" style="padding: 20px 40px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);">
+          Mua Bản Full E-Book ($19)
+        </a>
+        <p style="margin-top: 20px; font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-dim);">Định dạng: PDF Độ phân giải cao | Tặng kèm 10 Lightroom Presets</p>
       </div>
+
     </div>
   </div>
 
-  <footer style="text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85rem;">
-    &copy; 2026 LumenForge Academy. All rights reserved.
+  <footer class="footer" style="margin-top: 100px;">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge. Hiểu ánh sáng. Rèn phong cách.
+    </div>
   </footer>
+
+  <script>
+    // Simple smooth scroll and active state for chapter nav
+    const links = document.querySelectorAll('.chapter-link');
+    links.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        window.scrollTo({
+          top: targetElement.offsetTop - 100,
+          behavior: 'smooth'
+        });
+
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
