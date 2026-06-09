@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Alchemist Preset Pack — LumenForge</title>
+  <meta name="description" content="Sở hữu bộ 15 Cinematic Lightroom Presets và 5 Video LUTs để giả lập màu phim điện ảnh chuẩn Hollywood. Khám phá sự ma thuật của Color Matrix.">
+  <meta name="keywords" content="preset lightroom, video luts, cinematic look, color grading, teal and orange, màu phim, lumenforge">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    /* Hero Section */
+    .alchemist-hero {
+      text-align: center;
+      padding: var(--space-3xl) var(--space-md);
+      background: url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+      box-shadow: inset 0 0 0 2000px rgba(10, 10, 12, 0.85);
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .alchemist-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      margin-bottom: var(--space-sm);
+      background: linear-gradient(135deg, #fff 0%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin-bottom: var(--space-xl);
+      line-height: 1.6;
+    }
+
+    /* Before/After Showcase Section */
+    .showcase-section {
+      padding: var(--space-3xl) 0;
+      background: var(--bg-main);
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .showcase-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .showcase-header p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Slider Container */
+    .ba-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto var(--space-xl) auto;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      border: 1px solid var(--border-color);
+      cursor: crosshair;
+    }
+
+    .ba-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* BEFORE Image (Raw/Log) */
+    .ba-before {
+      z-index: 1;
+      /* Simulate flat RAW look via CSS */
+      filter: contrast(0.8) saturate(0.6) brightness(1.1);
+    }
+
+    /* AFTER Image (Graded) with Clipping */
+    .ba-after-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%; /* Initial split at 50% */
+      height: 100%;
+      overflow: hidden;
+      z-index: 2;
+    }
+    
+    .ba-after {
+      width: 100vw;
+      max-width: 900px; /* Match container max-width */
+      /* CSS Magic: Cinematic Color Grading */
+      /* Example Teal & Orange Look */
+      filter: contrast(1.15) saturate(1.2) sepia(0.2) hue-rotate(-10deg) drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    }
+
+    /* Slider Handle */
+    .ba-slider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: var(--accent-amber);
+      z-index: 3;
+      transform: translateX(-50%);
+      pointer-events: none; /* Let drag events pass through to container */
+      box-shadow: 0 0 15px rgba(245, 166, 35, 0.5);
+    }
+
+    .ba-slider-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: var(--accent-amber);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    /* Labels */
+    .ba-label {
+      position: absolute;
+      bottom: 20px;
+      padding: 5px 15px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      z-index: 4;
+      pointer-events: none;
+    }
+    .ba-label.before { right: 20px; }
+    .ba-label.after { left: 20px; }
+
+    /* Preset selector */
+    .preset-selector {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-2xl);
+      flex-wrap: wrap;
+    }
+
+    .preset-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      transition: all 0.3s;
+    }
+
+    .preset-btn.active {
+      background: var(--accent-amber);
+      color: #000;
+      border-color: var(--accent-amber);
+    }
+
+    /* Package Details */
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+      margin-bottom: var(--space-3xl);
+    }
+
+    .pack-card {
+      background: var(--bg-surface);
+      padding: var(--space-xl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+    }
+    
+    .pack-card h3 {
+      color: var(--accent-amber);
+      margin-bottom: var(--space-md);
+      font-size: 1.5rem;
+    }
+
+    .pack-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: var(--space-xl);
+    }
+    
+    .pack-list li {
+      margin-bottom: 10px;
+      padding-left: 24px;
+      position: relative;
+      color: var(--text-secondary);
+    }
+    .pack-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    /* Checkout Modal */
+    .checkout-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .checkout-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .checkout-modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 500px;
+      padding: var(--space-xl);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    
+    .checkout-overlay.active .checkout-modal {
+      transform: translateY(0);
+    }
+
+    .checkout-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-xl);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-sm);
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .checkout-form label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .checkout-form input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      font-family: inherit;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 20px 0;
+      padding-top: 15px;
+      border-top: 1px dotted var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="alchemist-hero">
+    <p class="section-label">[&thinsp;THE COLOR ALCHEMIST&thinsp;]</p>
+    <h1>Phép Thuật Của Màu Sắc</h1>
+    <p class="hero-subtitle">Bộ 15 Preset Lightroom và 5 Cinematic LUTs được thiết kế dựa trên thuyết toán học về Color Matrix. Biến hóa ảnh RAW nhợt nhạt thành tác phẩm điện ảnh Hollywood chỉ với 1 cú click.</p>
+    <button class="btn btn-gold" style="font-size: 1.2rem; padding: 15px 40px;" onclick="openCheckout()">Sở Hữu Ngay — $49</button>
+  </header>
+
+  <!-- Interactive Showcase -->
+  <section class="showcase-section">
+    <div class="container">
+      
+      <div class="showcase-header">
+        <h2>Kiểm chứng Trực quan</h2>
+        <p>Kéo thanh trượt để so sánh ảnh gốc (RAW/Log) bên phải và ảnh sau khi áp dụng Preset bên trái.</p>
+      </div>
+
+      <div class="preset-selector" id="preset-tabs">
+        <button class="preset-btn active" data-filter="contrast(1.15) saturate(1.2) sepia(0.2) hue-rotate(-10deg) drop-shadow(0 0 10px rgba(0,0,0,0.5))" data-img="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop">Teal & Orange (Cyberpunk)</button>
+        <button class="preset-btn" data-filter="contrast(0.9) saturate(0.8) sepia(0.3) brightness(1.1)" data-img="https://images.unsplash.com/photo-1502982720700-baf97d4220a0?q=80&w=2000&auto=format&fit=crop">Kodak Portra 400 (Film)</button>
+        <button class="preset-btn" data-filter="contrast(1.3) saturate(0.5) brightness(0.9) sepia(0.1) hue-rotate(180deg)" data-img="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop">Moody Matrix (Sci-Fi)</button>
+        <button class="preset-btn" data-filter="contrast(1.1) saturate(1.4) brightness(1.05) hue-rotate(10deg)" data-img="https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2?q=80&w=2000&auto=format&fit=crop">Clean Studio (Commercial)</button>
+      </div>
+
+      <!-- Before/After Slider -->
+      <div class="ba-container" id="slider-container">
+        <!-- Before image (RAW simulation) -->
+        <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop" class="ba-img ba-before" id="img-before" alt="RAW Image">
+        <div class="ba-label before">RAW / Log</div>
+        
+        <!-- After image (Graded simulation via CSS) -->
+        <div class="ba-after-wrapper" id="after-wrapper">
+          <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop" class="ba-img ba-after" id="img-after" alt="Color Graded Image">
+        </div>
+        <div class="ba-label after" id="after-label">Teal & Orange</div>
+        
+        <!-- Handle -->
+        <div class="ba-slider" id="slider-handle">
+          <div class="ba-slider-btn">↔</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pricing Details -->
+  <section class="section" style="background: var(--bg-body);">
+    <div class="container" style="max-width: 900px;">
+      <h2 style="text-align: center; margin-bottom: var(--space-2xl);">Bạn Sẽ Nhận Được Gì?</h2>
+      
+      <div class="package-grid">
+        <div class="pack-card">
+          <h3>The Assets</h3>
+          <ul class="pack-list">
+            <li>15 Cinematic Lightroom Presets (.XMP) tương thích Desktop & Mobile.</li>
+            <li>5 Video LUTs (.CUBE) chuyên dụng cho Premiere Pro, Davinci Resolve và Final Cut.</li>
+            <li>Tối ưu hóa sẵn cho cả hệ máy Sony, Canon, và Fuji.</li>
+            <li>Bảo lưu hoàn hảo Skin Tone (màu da thật).</li>
+          </ul>
+        </div>
+        
+        <div class="pack-card" style="border-color: var(--accent-amber); background: linear-gradient(180deg, rgba(212, 175, 55, 0.05), transparent);">
+          <h3>The Knowledge</h3>
+          <ul class="pack-list">
+            <li><strong>TẶNG KÈM:</strong> Cuốn E-Book The Light Codex (Bản PDF 300 trang - Trị giá $19).</li>
+            <li>Video hướng dẫn chi tiết cách tinh chỉnh Exposure trước khi áp Preset.</li>
+            <li>Cheat sheet cân bằng trắng khi quay phim bằng thẻ xám.</li>
+            <li>Quyền truy cập Group kín hỗ trợ kỹ thuật trọn đời.</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style="text-align: center;">
+        <button class="btn btn-gold" style="font-size: 1.3rem; padding: 20px 50px;" onclick="openCheckout()">Mua Gói Toàn Diện — $49</button>
+        <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Thanh toán an toàn qua thẻ tín dụng hoặc PayPal. Link tải gửi ngay qua Email.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fake Checkout Modal -->
+  <div class="checkout-overlay" id="checkout-overlay">
+    <div class="checkout-modal">
+      <div class="checkout-header">
+        <h3 style="color: #fff; margin: 0;">Hoàn Tất Thanh Toán</h3>
+        <button class="close-modal" onclick="closeCheckout()">&times;</button>
+      </div>
+      <div class="checkout-form">
+        <label>Email Nhận Link Tải Về</label>
+        <input type="email" placeholder="john.doe@example.com" required id="chk-email">
+        
+        <label>Tên Chủ Thẻ</label>
+        <input type="text" placeholder="NGUYEN VAN A" required>
+        
+        <label>Số Thẻ (Giả lập tính năng an toàn)</label>
+        <input type="text" placeholder="**** **** **** 1234" maxlength="19">
+        
+        <div style="display: flex; gap: 15px;">
+          <div style="flex: 1;">
+            <label>Ngày hết hạn</label>
+            <input type="text" placeholder="MM/YY">
+          </div>
+          <div style="flex: 1;">
+            <label>CVC</label>
+            <input type="text" placeholder="***">
+          </div>
+        </div>
+
+        <div class="total-row">
+          <span>Tổng Cộng (Đã bao gồm VAT)</span>
+          <span style="color: var(--accent-amber);">$49.00</span>
+        </div>
+
+        <button class="btn btn-gold" style="width: 100%; font-size: 1.1rem; padding: 15px;" onclick="processPayment()">Thanh Toán Ngay & Nhận Hàng</button>
+        <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--text-dim);">
+          Giao dịch được mã hóa SSL an toàn 256-bit. <br>LumenForge Demo - Không thu phí thật.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge Academy. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // --- Before/After Slider Logic ---
+    const container = document.getElementById('slider-container');
+    const sliderHandle = document.getElementById('slider-handle');
+    const afterWrapper = document.getElementById('after-wrapper');
+    const afterImg = document.getElementById('img-after'); // To fix max-width when resizing
+    let isDragging = false;
+
+    // Fix dynamic width of after image to match container width
+    function resizeAfterImg() {
+      afterImg.style.width = container.offsetWidth + 'px';
+    }
+    window.addEventListener('resize', resizeAfterImg);
+    resizeAfterImg(); // Init
+
+    function updateSlider(e) {
+      if (!isDragging) return;
+      const rect = container.getBoundingClientRect();
+      let x = e.clientX || e.touches[0].clientX;
+      let pos = x - rect.left;
+      pos = Math.max(0, Math.min(pos, rect.width)); // Clamp
+      let percentage = (pos / rect.width) * 100;
+      
+      sliderHandle.style.left = percentage + '%';
+      afterWrapper.style.width = percentage + '%';
+    }
+
+    container.addEventListener('mousedown', () => isDragging = true);
+    container.addEventListener('touchstart', () => isDragging = true);
+    
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('touchend', () => isDragging = false);
+    
+    window.addEventListener('mousemove', updateSlider);
+    window.addEventListener('touchmove', updateSlider);
+
+    // --- Preset Tabs Logic ---
+    const presetBtns = document.querySelectorAll('.preset-btn');
+    const imgBefore = document.getElementById('img-before');
+    const imgAfter = document.getElementById('img-after');
+    const afterLabel = document.getElementById('after-label');
+
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Reset active states
+        presetBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Apply new filter and image
+        const filterRule = btn.getAttribute('data-filter');
+        const imgSrc = btn.getAttribute('data-img');
+        const presetName = btn.innerText.split('(')[0].trim(); // Get name before parenthesis
+
+        imgBefore.src = imgSrc;
+        imgAfter.src = imgSrc;
+        imgAfter.style.filter = filterRule;
+        afterLabel.innerText = presetName;
+
+        // Reset slider to center
+        sliderHandle.style.left = '50%';
+        afterWrapper.style.width = '50%';
+      });
+    });
+
+    // --- Checkout Logic ---
+    const overlay = document.getElementById('checkout-overlay');
+    function openCheckout() {
+      overlay.classList.add('active');
+    }
+    function closeCheckout() {
+      overlay.classList.remove('active');
+    }
+    
+    function processPayment() {
+      const email = document.getElementById('chk-email').value;
+      if (!email) {
+        alert("Vui lòng nhập Email để nhận link tải.");
+        return;
+      }
+      
+      const btn = document.querySelector('.checkout-form .btn-gold');
+      btn.innerText = "Đang xử lý...";
+      btn.style.opacity = '0.7';
+      
+      setTimeout(() => {
+        overlay.innerHTML = `
+          <div class="checkout-modal" style="text-align: center; transform: translateY(0);">
+            <div style="font-size: 4rem; color: var(--accent-cyan); margin-bottom: 20px;">✓</div>
+            <h2 style="color: #fff; margin-bottom: 10px;">Thanh toán thành công!</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Link tải trọn bộ Color Alchemist và Ebook đã được gửi tới email:<br><strong style="color: #fff;">${email}</strong></p>
+            <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 30px;">Vui lòng kiểm tra cả thư mục Spam nếu bạn không thấy email sau 5 phút.</p>
+            <button class="btn btn-outline" onclick="closeCheckout()">Trở về Cửa hàng</button>
+          </div>
+        `;
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
