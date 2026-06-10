@@ -50,11 +50,69 @@
   line-height: 1.6;
 }
 
+/* === Search Bar === */
+.codex-search-wrapper {
+  position: relative;
+  max-width: 600px;
+  margin: var(--space-xl) auto 0;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+}
+
+.codex-search-input {
+  width: 100%;
+  background: rgba(26, 26, 38, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 16px 20px 16px 48px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition);
+}
+
+.codex-search-input:focus {
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 0 2px rgba(245, 166, 35, 0.1);
+  background: var(--bg-card);
+}
+
+/* === Path Sections === */
+.codex-path-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.path-header {
+  margin-bottom: var(--space-xl);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-sm);
+}
+
+.path-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.path-desc {
+  color: var(--text-secondary);
+  margin-top: 8px;
+  font-size: 1.1rem;
+}
+
 /* === Filters === */
 .codex-filters-wrapper {
   overflow-x: auto;
   padding-bottom: var(--space-md);
-  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-xl);
   scrollbar-width: none; /* Firefox */
 }
 
@@ -126,6 +184,25 @@
   transition: all 0.35s var(--ease-default);
   position: relative;
   overflow: hidden;
+  z-index: 1;
+}
+
+/* Card SVG Background Pattern */
+.card-bg-pattern {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  opacity: 0.5;
+  z-index: -1;
+  transition: all 0.5s var(--ease-default);
+  pointer-events: none;
+}
+
+.codex-card:hover .card-bg-pattern {
+  transform: scale(1.1) rotate(5deg);
+  opacity: 1;
 }
 
 .codex-card::before {

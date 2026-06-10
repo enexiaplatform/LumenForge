@@ -38,501 +38,52 @@
     <div class="container">
       <p class="section-label">[&thinsp;LIGHT CODEX&thinsp;]</p>
       <h1>The Light Codex</h1>
-      <p class="hero-subtitle">Thư viện giải mã ánh sáng, quang học ứng dụng và tâm lý học thị giác.</p>
+      <p class="hero-subtitle">Học viện ánh sáng, quang học ứng dụng và tâm lý học thị giác.</p>
+      
+      <!-- Search Bar -->
+      <div class="codex-search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="codex-search" class="codex-search-input" placeholder="Tìm kiếm kiến thức (VD: Bokeh, ISO, Phơi sáng...)">
+      </div>
     </div>
     <div class="codex-hero-divider"></div>
   </section>
 
-  <!-- Articles & Filters -->
-  <section class="section">
-    <div class="container">
-      
-      <!-- Filters -->
-      <div class="codex-filters-wrapper">
-        <div class="codex-filters" id="codex-filters">
-          <button class="filter-btn active" data-category="all">Tất cả</button>
-          <button class="filter-btn" data-category="optics">Quang học 101</button>
-          <button class="filter-btn" data-category="lens">Tính cách Lens</button>
-          <button class="filter-btn" data-category="digital-film">Số hóa vs Phim</button>
-          <button class="filter-btn" data-category="color">Khoa học Màu sắc</button>
-          <button class="filter-btn" data-category="psychology">Tâm lý Thị giác</button>
-        </div>
+  <main class="container" style="padding-top: var(--space-2xl); padding-bottom: var(--space-3xl);">
+    
+    <!-- Lộ trình: Start Here -->
+    <div class="codex-path-section" id="section-start">
+      <div class="path-header">
+        <h2 class="path-title"><span style="color: var(--accent-amber);">#1</span> Bắt đầu từ đâu?</h2>
+        <p class="path-desc">Những nền tảng cốt lõi nhất để xây dựng tư duy nhiếp ảnh gia và nhà làm phim.</p>
       </div>
-
-      <!-- Article Grid -->
-      <div class="codex-grid" id="codex-grid">
-        
-        <!-- Article 17: Metering Science -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Nghệ thuật Đo sáng: Vì sao máy ảnh luôn bị lừa?</h3>
-          <p>Đi sâu vào vật lý của photodiode silicon, lịch sử xám 18%, và cách thuần hóa ba chế độ đo sáng để không bao giờ bị phơi sáng sai.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/metering-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 18: White Balance Science -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Khoa học Màu sắc</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Nhiệt độ Màu & Cân bằng Trắng: Khoa học đằng sau sắc ấm lạnh</h3>
-          <p>Vật lý của thang nhiệt độ Kelvin, lý thuyết màu sắc của ánh sáng, và cách sử dụng cân bằng trắng sáng tạo để điều khiển cảm xúc ảnh.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/white-balance-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 21: Color Harmonies -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Khoa học Màu sắc</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Lý thuyết Vòng Thuần Sắc & Bí ẩn Màu Điện Ảnh (Teal & Orange)</h3>
-          <p>Giải mã các vòng thuần sắc, tương phản màu sắc (Color Harmonies), và tâm lý học đằng sau kỹ thuật Split Toning của Hollywood.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/color-harmony-theory.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 19: Shutter Speed Mastery -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Tốc độ Màn trập: Đóng băng Thời gian hay Vẽ bằng Chuyển động?</h3>
-          <p>Cơ chế vật lý của màn trập cơ học và điện tử. Làm chủ nghệ thuật phơi sáng dài, tốc độ ăn đèn flash, và motion blur.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/shutter-speed-mastery.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 26: Depth of Field Science -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Quang học Không gian: Hyperfocal Distance & Bí ẩn Độ Sâu Trường Ảnh</h3>
-          <p>Nghiên cứu nguyên lý Circle of Confusion (CoC), khoảng nét tối ưu (Hyperfocal) và hiện tượng nhiễu xạ quang học (Diffraction) ở khẩu độ nhỏ.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/depth-of-field-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 27: Three-Point Lighting -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Nghệ thuật Đánh sáng 3 Điểm: Điêu khắc hình khối từ bóng tối</h3>
-          <p>Tìm hiểu vai trò của Key Light, Fill Light, Rim Light và các setup ánh sáng chân dung kinh điển như Rembrandt, Split, Paramount.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">12 phút đọc</span>
-            <a href="articles/three-point-lighting.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 28: Flash Physics & HSS -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Nhiếp ảnh Flash: Quyền lực Thao túng Thời gian & High-Speed Sync</h3>
-          <p>Khám phá giới hạn tốc độ ăn đèn (X-Sync), nguyên lý rèm trập, và công nghệ HSS giúp bạn áp đảo mặt trời giữa trưa.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/flash-physics-hss.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 29: ISO & Noise Science -->
-        <article class="codex-card animate-on-scroll" data-category="sensor">
-          <div class="codex-card-tag tag-sensor">Cảm biến</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>ISO Không Phải Là Độ Nhạy Sáng: Sự thật về Dual Gain & Nhiễu hạt</h3>
-          <p>Bác bỏ lầm tưởng về ISO, tìm hiểu cách cảm biến khuếch đại tín hiệu điện từ và thuật toán Dual Native ISO chống noise.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/iso-noise-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 30: Focal Length & Distortion -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Tâm lý học Tiêu Cự: Từ 14mm Bóp méo không gian đến 200mm Xóa nhòa khoảng cách</h3>
-          <p>Phân tích hiệu ứng bóp méo phối cảnh (Perspective Distortion) và cách chọn tiêu cự 35mm, 50mm, 85mm trong kể chuyện.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/focal-length-distortion.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 31: Color Space & Bit Depth -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Màu sắc</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Ma trận Không Gian Màu: sRGB vs AdobeRGB vs DCI-P3 & Bit Depth</h3>
-          <p>Tại sao file RAW 14-bit chứa hàng nghìn tỷ màu? Khi nào dùng sRGB cho Web và AdobeRGB cho In ấn.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">12 phút đọc</span>
-            <a href="articles/color-space-bitdepth.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 32: Inverse Square Law -->
-        <article class="codex-card animate-on-scroll" data-category="light">
-          <div class="codex-card-tag tag-light">Vật lý Ánh sáng</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Định luật Nghịch Đảo Bình Phương: Chìa khóa làm chủ Đèn Studio</h3>
-          <p>Tại sao di chuyển đèn ra xa gấp đôi lại mất đi 75% lượng ánh sáng? Bí quyết kiểm soát light fall-off trong Studio.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/inverse-square-law.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 33: Histogram & ETTR -->
-        <article class="codex-card animate-on-scroll" data-category="sensor">
-          <div class="codex-card-tag tag-sensor">Cảm biến</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Sự thật về Histogram & Kỹ thuật Phơi sáng Lệch Phải (ETTR)</h3>
-          <p>Giải mã màn hình LCD nói dối và cách áp dụng Expose To The Right để tối đa hóa dải nhạy sáng cho file RAW.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/histogram-ettr.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 34: Tone Curve Mastery -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Màu sắc</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Quyền năng của Tone Curve: Bẻ gãy ánh sáng trong phòng tối kỹ thuật số</h3>
-          <p>Giải phẫu đường cong Parametric và Point Curve. Kỹ thuật tạo ra màu phim cổ điển "Faded Matte".</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/tone-curve-mastery.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 35: HSL vs Color Grading -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Màu sắc</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>HSL & Color Grading: Biên giới giữa "Hiệu chỉnh" và "Kiến tạo"</h3>
-          <p>Sự khác biệt cốt lõi giữa việc sửa lỗi từng kênh màu (HSL) và nhuộm màu không gian Teal & Orange (Color Grading).</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/hsl-vs-color-grading.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 36: Chiaroscuro Lighting -->
-        <article class="codex-card animate-on-scroll" data-category="light">
-          <div class="codex-card-tag tag-light">Vật lý Ánh sáng</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Chiaroscuro: Nghệ thuật chiêu hồn ánh sáng từ thời Phục Hưng</h3>
-          <p>Sự khác biệt tâm lý giữa Low-key bí ẩn và High-key thuần khiết. Cách kiểm soát Light Fall-off để vẽ hình khối.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/chiaroscuro-lighting.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 37: Gestalt Psychology -->
-        <article class="codex-card animate-on-scroll" data-category="psychology">
-          <div class="codex-card-tag tag-psychology">Tâm lý Thị giác</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Tâm lý học Gestalt: Cách não bộ lấp đầy khoảng trống khung hình</h3>
-          <p>Luật Gần gũi, Đồng dạng và Khép kín. Tại sao một ngón tay chỉ vào không trung lại tạo ra đường dẫn vô hình mạnh mẽ.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/gestalt-psychology-photography.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 38: Polarization Physics -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Phân cực Ánh sáng (Polarization): Ma thuật của CPL Filter</h3>
-          <p>Giải mã hạt photon và sóng phân cực. Tại sao CPL là kính lọc duy nhất không thể giả lập bằng phần mềm.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/polarization-physics.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 39: Shutter Angle Rule -->
-        <article class="codex-card animate-on-scroll" data-category="cinema">
-          <div class="codex-card-tag tag-cinema">Điện ảnh 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Quy tắc Góc Màn Trập (180-Degree Rule): Bí quyết của Motion Blur điện ảnh</h3>
-          <p>Tại sao dân quay phim dùng Góc thay vì Tốc độ, và cách tạo vệt mờ chuyển động mượt mà như rạp chiếu phim.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/shutter-angle-rule.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 40: Log Profile Science -->
-        <article class="codex-card animate-on-scroll" data-category="cinema">
-          <div class="codex-card-tag tag-cinema">Điện ảnh 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Vật lý của Log Profile: Tại sao video điện ảnh nguyên bản luôn xám xịt?</h3>
-          <p>Sức mạnh của đường cong Gamma Logarithmic trong việc nén Dynamic Range và bảo vệ Highlight.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/log-profile-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 41: ND Filter Video -->
-        <article class="codex-card animate-on-scroll" data-category="cinema">
-          <div class="codex-card-tag tag-cinema">Điện ảnh 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Kính lọc ND (Neutral Density): Cặp kính râm sống còn của dân làm phim</h3>
-          <p>Tại sao bạn không thể tăng tốc độ màn trập để giảm sáng trong video và sự cần thiết của Variable ND.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/nd-filter-video.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 42: Motivated Lighting -->
-        <article class="codex-card animate-on-scroll" data-category="cinema">
-          <div class="codex-card-tag tag-cinema">Điện ảnh 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Ánh sáng Có Nguồn Gốc (Motivated Lighting): Đánh sáng Bối cảnh thay vì Chủ thể</h3>
-          <p>Nghệ thuật tạo ra ảo giác ánh sáng chân thực từ cửa sổ, đèn ngủ và kỹ thuật Short Lighting điện ảnh.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">12 phút đọc</span>
-            <a href="articles/motivated-lighting.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 43: Frame Rate Psychology -->
-        <article class="codex-card animate-on-scroll" data-category="cinema">
-          <div class="codex-card-tag tag-cinema">Điện ảnh 101</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Tâm lý học Tốc độ Khung hình: 24fps Điện ảnh vs 60fps Chân thực</h3>
-          <p>Tại sao 24fps tạo ra cảm giác thoát ly thực tại của phim rạp, trong khi 60fps lại mang đến Soap Opera Effect.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/frame-rate-psychology.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 20: Golden Ratio Composition -->
-        <article class="codex-card animate-on-scroll" data-category="psychology">
-          <div class="codex-card-tag tag-psychology">Tâm lý Thị giác</div>
-          <span class="codex-card-date">09 Thg 6, 2026</span>
-          <h3>Vượt qua Quy tắc Một phần Ba: Bố cục Xoắn ốc Vàng & Phi Heuristic</h3>
-          <p>Tỷ lệ vàng (1.618), Dynamic Symmetry, không gian âm (Ma), và nghệ thuật xây dựng sự căng thẳng tâm lý thông qua hình học.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">11 phút đọc</span>
-            <a href="articles/golden-ratio-composition.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 1: Canon R50 vs iPhone -->
-        <article class="codex-card animate-on-scroll" data-category="digital-film">
-          <div class="codex-card-tag tag-film">Số hóa vs Phim</div>
-          <span class="codex-card-date">05 Thg 6, 2026</span>
-          <h3>Vì sao Canon R50 chụp khác iPhone Pro Max?</h3>
-          <p>Mổ xẻ sự khác biệt thực sự giữa cảm biến lớn của máy ảnh entry-level và thuật toán AI xử lý hình ảnh trên smartphone cao cấp.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/canon-r50-vs-iphone.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 2: Focal Length Explained -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">03 Thg 6, 2026</span>
-          <h3>Tiêu cự là gì? Hiểu 24mm, 35mm, 50mm, 85mm trong 10 phút</h3>
-          <p>Hướng dẫn bằng hình ảnh về tiêu cự. Cách góc nhìn thay đổi cảm xúc không gian và nén phối cảnh hậu cảnh.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">10 phút đọc</span>
-            <a href="articles/focal-length-explained.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 3: Why 50mm is the People's Lens -->
-        <article class="codex-card animate-on-scroll" data-category="lens">
-          <div class="codex-card-tag tag-lens">Tính cách Lens</div>
-          <span class="codex-card-date">28 Thg 5, 2026</span>
-          <h3>Vì sao 50mm f/1.8 được gọi là ống kính quốc dân?</h3>
-          <p>Giải mã sức hút kỳ lạ của tiêu cự 50mm. Lý do góc nhìn này mô tả thế giới một cách trung thực và chân thành nhất.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">6 phút đọc</span>
-            <a href="articles/why-50mm-is-the-peoples-lens.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 4: Bokeh Explanation -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">05 Thg 6, 2026</span>
-          <h3>Bokeh là gì? Vì sao xóa phông không đồng nghĩa với ảnh đẹp?</h3>
-          <p>Bản chất quang học của vùng ngoài khoảng nét. Cách điều khiển bokeh để tạo chiều sâu thay vì chỉ làm nhòe bối cảnh một cách vô nghĩa.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">7 phút đọc</span>
-            <a href="articles/bokeh-demystified.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 5: Film scans -->
-        <article class="codex-card animate-on-scroll" data-category="digital-film">
-          <div class="codex-card-tag tag-film">Số hóa vs Phim</div>
-          <span class="codex-card-date">03 Thg 6, 2026</span>
-          <h3>Noritsu vs Frontier: Hai thế giới scan film đối lập</h3>
-          <p>Phân tích màu sắc, độ tương phản và hạt nhiễu (grain) giữa hai hệ máy scan film phổ biến nhất thế giới.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/noritsu-vs-frontier.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 6: Tâm lý Thị giác -->
-        <article class="codex-card animate-on-scroll" data-category="psychology">
-          <div class="codex-card-tag tag-psychology">Tâm lý Thị giác</div>
-          <span class="codex-card-date">01 Thg 6, 2026</span>
-          <h3>Vì sao ảnh hơi thiếu sáng (Low-key) lại có sức hút mãnh liệt?</h3>
-          <p>Phân tích tâm lý thị giác đằng sau bóng tối. Cách bộ não điền vào những khoảng trống thiếu thông tin để khơi gợi xúc cảm bí ẩn.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">7 phút đọc</span>
-            <a href="articles/psychology-of-low-key.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 7: Nature of Grain -->
-        <article class="codex-card animate-on-scroll" data-category="digital-film">
-          <div class="codex-card-tag tag-film">Số hóa vs Phim</div>
-          <span class="codex-card-date">07 Thg 6, 2026</span>
-          <h3>Bản chất của Hạt: Film Grain vs Digital Noise</h3>
-          <p>Mổ xẻ sự khác biệt vật lý, hóa học và tâm lý thị giác giữa hạt nhiễu của phim analog hữu cơ và nhiễu điện tử kỹ thuật số.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/nature-of-grain.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 8: Human Eye vs Sensor -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">07 Thg 6, 2026</span>
-          <h3>Vì sao mắt người nhìn tối tốt gấp 10 lần máy ảnh?</h3>
-          <p>Giải mã dải động sáng (Dynamic Range) tĩnh và động của võng mạc sinh học đối mặt với các cảm biến silicon tĩnh.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/human-eye-vs-sensor.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 9: Hard vs Soft Light -->
-        <article class="codex-card animate-on-scroll" data-category="optics">
-          <div class="codex-card-tag tag-optics">Quang học 101</div>
-          <span class="codex-card-date">07 Thg 6, 2026</span>
-          <h3>Ánh sáng Cứng vs Ánh sáng Mềm: Làm chủ bóng đổ</h3>
-          <p>Kích thước biểu kiến của nguồn sáng quyết định độ sắc nét bóng đổ như thế nào? Cách ứng dụng bóng đổ để kể câu chuyện chân dung và kiến trúc.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">7 phút đọc</span>
-            <a href="articles/hard-vs-soft-light.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 10: Color Science -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Khoa học Màu sắc</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Canon vs Sony vs Fujifilm: Giải mã Khoa học Màu sắc</h3>
-          <p>Tại sao cùng một cảnh vật, ảnh từ các hãng máy ảnh lại có tông màu và cảm xúc khác biệt hoàn toàn? Mổ xẻ bản chất vật lý và toán học đằng sau.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/canon-vs-sony-color-science.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 11: Anamorphic Lenses -->
-        <article class="codex-card animate-on-scroll" data-category="lens">
-          <div class="codex-card-tag tag-lens">Tính cách Lens</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Giải mã ống kính Anamorphic: Linh hồn điện ảnh</h3>
-          <p>Tại sao phim chiếu rạp trông khác biệt hoàn toàn video thông thường? Mổ xẻ cơ học bóp méo hình ảnh và những khiếm khuyết quang học đầy nghệ thuật của thấu kính biến hình.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/anamorphic-lenses.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 12: Gestalt Composition -->
-        <article class="codex-card animate-on-scroll" data-category="psychology">
-          <div class="codex-card-tag tag-psychology">Tâm lý Thị giác</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Tâm lý học Gestalt: Nghệ thuật điều khiển ánh nhìn</h3>
-          <p>Bố cục không chỉ là những đường kẻ chia ba vô hồn. Đó là cách bộ não diễn giải thế giới. Ứng dụng các quy luật tâm lý học nhận thức để tạo nên sức hút khó cưỡng.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/gestalt-composition.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 13: Color Spaces -->
-        <article class="codex-card animate-on-scroll" data-category="color">
-          <div class="codex-card-tag tag-color">Khoa học Màu sắc</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>sRGB vs Adobe RGB vs DCI-P3: Tránh nhạt màu khi đăng Web</h3>
-          <p>Bí ẩn đằng sau các hệ màu sắc phổ biến. Cách xuất ảnh chuẩn màu từ Lightroom giúp giữ nguyên độ rực rỡ và độ tương phản nguyên bản khi chia sẻ mạng xã hội.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/color-spaces.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 14: Visual Flow -->
-        <article class="codex-card animate-on-scroll" data-category="psychology">
-          <div class="codex-card-tag tag-psychology">Tâm lý Thị giác</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Dòng chảy Thị giác: Mắt chúng ta đọc ảnh như thế nào?</h3>
-          <p>Khám phá lộ trình quét ảnh vô thức của bộ não. Giải mã xu hướng quét từ trái sang phải, neo thị giác và cách lật ngang ảnh để thay đổi hoàn toàn cảm xúc.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">8 phút đọc</span>
-            <a href="articles/visual-flow.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 15: CCD vs CMOS -->
-        <article class="codex-card animate-on-scroll" data-category="digital-film">
-          <div class="codex-card-tag tag-film">Số hóa vs Phim</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Cảm biến CCD vs CMOS: Tại sao máy ảnh cổ lại sốt giá?</h3>
-          <p>Mổ xẻ cơn sốt Digicam compact cổ và Leica M9. Giải thích sự khác biệt vật lý ở màng lọc màu Bayer dày và rò rỉ hồng ngoại tạo nên hạt màu hoài cổ.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/ccd-vs-cmos.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
-        <!-- Article 16: Optical Aberrations -->
-        <article class="codex-card animate-on-scroll" data-category="lens">
-          <div class="codex-card-tag tag-lens">Tính cách Lens</div>
-          <span class="codex-card-date">08 Thg 6, 2026</span>
-          <h3>Khi khiếm khuyết tạo nên nghệ thuật: Bản chất Quang sai</h3>
-          <p>Tại sao những ống kính cổ lỗi thời đầy quang sai lại được săn đón? Cách quang sai cầu, loe coma và viền sắc kiến tạo nên những vòng bokeh đầy cá tính.</p>
-          <div class="codex-card-footer">
-            <span class="read-time">9 phút đọc</span>
-            <a href="articles/optical-aberrations.html" class="read-more-btn">Đọc bài viết →</a>
-          </div>
-        </article>
-
+      <div class="codex-grid" id="grid-start">
+        <!-- Rendered by JS -->
       </div>
     </div>
-  </section>
+
+    <!-- Filters for exploring -->
+    <div class="codex-path-section" id="section-explore">
+      <div class="path-header" style="margin-top: 60px;">
+        <h2 class="path-title">Khám phá theo Lộ trình</h2>
+      </div>
+      <div class="codex-filters-wrapper">
+        <div class="codex-filters" id="codex-filters">
+          <button class="filter-btn active" data-category="all">Tất cả Thư viện</button>
+          <button class="filter-btn" data-category="optics">Quang học & Ánh sáng</button>
+          <button class="filter-btn" data-category="color">Khoa học Màu sắc</button>
+          <button class="filter-btn" data-category="psychology">Tâm lý & Bố cục</button>
+          <button class="filter-btn" data-category="cinema">Điện ảnh 101</button>
+          <button class="filter-btn" data-category="lens">Tính cách Ống kính</button>
+        </div>
+      </div>
+      
+      <div class="codex-grid" id="grid-explore">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -542,21 +93,6 @@
           <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
           <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
         </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4>Khám phá</h4>
-            <a href="light-codex.html">Light Codex</a>
-            <a href="tool-lab.html">Xưởng Công cụ</a>
-            <a href="shot-recipes.html">Công thức Chụp</a>
-            <a href="gear-map.html">Bản đồ Thiết bị</a>
-          </div>
-          <div class="footer-col">
-            <h4>Công cụ</h4>
-            <a href="tools/lens-decoder.html">Giải mã Ống kính</a>
-            <a href="tools/exposure-reactor.html">Mô phỏng Phơi sáng</a>
-            <a href="tools/film-look.html">Giả lập Màu phim</a>
-          </div>
-        </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
@@ -565,39 +101,361 @@
   </footer>
 
   <script src="js/common.js"></script>
+  <script src="js/codex.js"></script>
   <script>
-    // Inline filter JS for speed & simplicity
-    document.addEventListener('DOMContentLoaded', () => {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      const cards = document.querySelectorAll('.codex-card');
-
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // Remove active class
-          filterBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-
-          const category = btn.getAttribute('data-category');
-
-          cards.forEach(card => {
-            const cardCategory = card.getAttribute('data-category');
-            if (category === 'all' || cardCategory === category) {
-              card.style.display = 'flex';
-              // Trigger stagger fade in
-              card.style.opacity = '0';
-              card.style.transform = 'translateY(15px)';
-              setTimeout(() => {
-                card.style.transition = 'all 0.4s ease';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-              }, 50);
-            } else {
-              card.style.display = 'none';
-            }
-          });
-        });
-      });
-    });
+    window.ARTICLES_DB = [
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Nghệ thuật Đo sáng: Vì sao máy ảnh luôn bị lừa?",
+    "desc": "Đi sâu vào vật lý của photodiode silicon, lịch sử xám 18%, và cách thuần hóa ba chế độ đo sáng để không bao giờ bị phơi sáng sai.",
+    "readTime": "10 phút đọc",
+    "link": "articles/metering-science.html"
+  },
+  {
+    "category": "color",
+    "tag": "Khoa học Màu sắc",
+    "date": "09 Thg 6, 2026",
+    "title": "Nhiệt độ Màu & Cân bằng Trắng: Khoa học đằng sau sắc ấm lạnh",
+    "desc": "Vật lý của thang nhiệt độ Kelvin, lý thuyết màu sắc của ánh sáng, và cách sử dụng cân bằng trắng sáng tạo để điều khiển cảm xúc ảnh.",
+    "readTime": "9 phút đọc",
+    "link": "articles/white-balance-science.html"
+  },
+  {
+    "category": "color",
+    "tag": "Khoa học Màu sắc",
+    "date": "09 Thg 6, 2026",
+    "title": "Lý thuyết Vòng Thuần Sắc & Bí ẩn Màu Điện Ảnh (Teal & Orange)",
+    "desc": "Giải mã các vòng thuần sắc, tương phản màu sắc (Color Harmonies), và tâm lý học đằng sau kỹ thuật Split Toning của Hollywood.",
+    "readTime": "10 phút đọc",
+    "link": "articles/color-harmony-theory.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Tốc độ Màn trập: Đóng băng Thời gian hay Vẽ bằng Chuyển động?",
+    "desc": "Cơ chế vật lý của màn trập cơ học và điện tử. Làm chủ nghệ thuật phơi sáng dài, tốc độ ăn đèn flash, và motion blur.",
+    "readTime": "10 phút đọc",
+    "link": "articles/shutter-speed-mastery.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Quang học Không gian: Hyperfocal Distance & Bí ẩn Độ Sâu Trường Ảnh",
+    "desc": "Nghiên cứu nguyên lý Circle of Confusion (CoC), khoảng nét tối ưu (Hyperfocal) và hiện tượng nhiễu xạ quang học (Diffraction) ở khẩu độ nhỏ.",
+    "readTime": "11 phút đọc",
+    "link": "articles/depth-of-field-science.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Nghệ thuật Đánh sáng 3 Điểm: Điêu khắc hình khối từ bóng tối",
+    "desc": "Tìm hiểu vai trò của Key Light, Fill Light, Rim Light và các setup ánh sáng chân dung kinh điển như Rembrandt, Split, Paramount.",
+    "readTime": "12 phút đọc",
+    "link": "articles/three-point-lighting.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Nhiếp ảnh Flash: Quyền lực Thao túng Thời gian & High-Speed Sync",
+    "desc": "Khám phá giới hạn tốc độ ăn đèn (X-Sync), nguyên lý rèm trập, và công nghệ HSS giúp bạn áp đảo mặt trời giữa trưa.",
+    "readTime": "10 phút đọc",
+    "link": "articles/flash-physics-hss.html"
+  },
+  {
+    "category": "sensor",
+    "tag": "Cảm biến",
+    "date": "09 Thg 6, 2026",
+    "title": "ISO Không Phải Là Độ Nhạy Sáng: Sự thật về Dual Gain & Nhiễu hạt",
+    "desc": "Bác bỏ lầm tưởng về ISO, tìm hiểu cách cảm biến khuếch đại tín hiệu điện từ và thuật toán Dual Native ISO chống noise.",
+    "readTime": "11 phút đọc",
+    "link": "articles/iso-noise-science.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Tâm lý học Tiêu Cự: Từ 14mm Bóp méo không gian đến 200mm Xóa nhòa khoảng cách",
+    "desc": "Phân tích hiệu ứng bóp méo phối cảnh (Perspective Distortion) và cách chọn tiêu cự 35mm, 50mm, 85mm trong kể chuyện.",
+    "readTime": "10 phút đọc",
+    "link": "articles/focal-length-distortion.html"
+  },
+  {
+    "category": "color",
+    "tag": "Màu sắc",
+    "date": "09 Thg 6, 2026",
+    "title": "Ma trận Không Gian Màu: sRGB vs AdobeRGB vs DCI-P3 & Bit Depth",
+    "desc": "Tại sao file RAW 14-bit chứa hàng nghìn tỷ màu? Khi nào dùng sRGB cho Web và AdobeRGB cho In ấn.",
+    "readTime": "12 phút đọc",
+    "link": "articles/color-space-bitdepth.html"
+  },
+  {
+    "category": "light",
+    "tag": "Vật lý Ánh sáng",
+    "date": "09 Thg 6, 2026",
+    "title": "Định luật Nghịch Đảo Bình Phương: Chìa khóa làm chủ Đèn Studio",
+    "desc": "Tại sao di chuyển đèn ra xa gấp đôi lại mất đi 75% lượng ánh sáng? Bí quyết kiểm soát light fall-off trong Studio.",
+    "readTime": "9 phút đọc",
+    "link": "articles/inverse-square-law.html"
+  },
+  {
+    "category": "sensor",
+    "tag": "Cảm biến",
+    "date": "09 Thg 6, 2026",
+    "title": "Sự thật về Histogram & Kỹ thuật Phơi sáng Lệch Phải (ETTR)",
+    "desc": "Giải mã màn hình LCD nói dối và cách áp dụng Expose To The Right để tối đa hóa dải nhạy sáng cho file RAW.",
+    "readTime": "11 phút đọc",
+    "link": "articles/histogram-ettr.html"
+  },
+  {
+    "category": "color",
+    "tag": "Màu sắc",
+    "date": "09 Thg 6, 2026",
+    "title": "Quyền năng của Tone Curve: Bẻ gãy ánh sáng trong phòng tối kỹ thuật số",
+    "desc": "Giải phẫu đường cong Parametric và Point Curve. Kỹ thuật tạo ra màu phim cổ điển \"Faded Matte\".",
+    "readTime": "10 phút đọc",
+    "link": "articles/tone-curve-mastery.html"
+  },
+  {
+    "category": "color",
+    "tag": "Màu sắc",
+    "date": "09 Thg 6, 2026",
+    "title": "HSL & Color Grading: Biên giới giữa \"Hiệu chỉnh\" và \"Kiến tạo\"",
+    "desc": "Sự khác biệt cốt lõi giữa việc sửa lỗi từng kênh màu (HSL) và nhuộm màu không gian Teal & Orange (Color Grading).",
+    "readTime": "11 phút đọc",
+    "link": "articles/hsl-vs-color-grading.html"
+  },
+  {
+    "category": "light",
+    "tag": "Vật lý Ánh sáng",
+    "date": "09 Thg 6, 2026",
+    "title": "Chiaroscuro: Nghệ thuật chiêu hồn ánh sáng từ thời Phục Hưng",
+    "desc": "Sự khác biệt tâm lý giữa Low-key bí ẩn và High-key thuần khiết. Cách kiểm soát Light Fall-off để vẽ hình khối.",
+    "readTime": "9 phút đọc",
+    "link": "articles/chiaroscuro-lighting.html"
+  },
+  {
+    "category": "psychology",
+    "tag": "Tâm lý Thị giác",
+    "date": "09 Thg 6, 2026",
+    "title": "Tâm lý học Gestalt: Cách não bộ lấp đầy khoảng trống khung hình",
+    "desc": "Luật Gần gũi, Đồng dạng và Khép kín. Tại sao một ngón tay chỉ vào không trung lại tạo ra đường dẫn vô hình mạnh mẽ.",
+    "readTime": "10 phút đọc",
+    "link": "articles/gestalt-psychology-photography.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Phân cực Ánh sáng (Polarization): Ma thuật của CPL Filter",
+    "desc": "Giải mã hạt photon và sóng phân cực. Tại sao CPL là kính lọc duy nhất không thể giả lập bằng phần mềm.",
+    "readTime": "9 phút đọc",
+    "link": "articles/polarization-physics.html"
+  },
+  {
+    "category": "cinema",
+    "tag": "Điện ảnh 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Quy tắc Góc Màn Trập (180-Degree Rule): Bí quyết của Motion Blur điện ảnh",
+    "desc": "Tại sao dân quay phim dùng Góc thay vì Tốc độ, và cách tạo vệt mờ chuyển động mượt mà như rạp chiếu phim.",
+    "readTime": "10 phút đọc",
+    "link": "articles/shutter-angle-rule.html"
+  },
+  {
+    "category": "cinema",
+    "tag": "Điện ảnh 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Vật lý của Log Profile: Tại sao video điện ảnh nguyên bản luôn xám xịt?",
+    "desc": "Sức mạnh của đường cong Gamma Logarithmic trong việc nén Dynamic Range và bảo vệ Highlight.",
+    "readTime": "11 phút đọc",
+    "link": "articles/log-profile-science.html"
+  },
+  {
+    "category": "cinema",
+    "tag": "Điện ảnh 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Kính lọc ND (Neutral Density): Cặp kính râm sống còn của dân làm phim",
+    "desc": "Tại sao bạn không thể tăng tốc độ màn trập để giảm sáng trong video và sự cần thiết của Variable ND.",
+    "readTime": "9 phút đọc",
+    "link": "articles/nd-filter-video.html"
+  },
+  {
+    "category": "cinema",
+    "tag": "Điện ảnh 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Ánh sáng Có Nguồn Gốc (Motivated Lighting): Đánh sáng Bối cảnh thay vì Chủ thể",
+    "desc": "Nghệ thuật tạo ra ảo giác ánh sáng chân thực từ cửa sổ, đèn ngủ và kỹ thuật Short Lighting điện ảnh.",
+    "readTime": "12 phút đọc",
+    "link": "articles/motivated-lighting.html"
+  },
+  {
+    "category": "cinema",
+    "tag": "Điện ảnh 101",
+    "date": "09 Thg 6, 2026",
+    "title": "Tâm lý học Tốc độ Khung hình: 24fps Điện ảnh vs 60fps Chân thực",
+    "desc": "Tại sao 24fps tạo ra cảm giác thoát ly thực tại của phim rạp, trong khi 60fps lại mang đến Soap Opera Effect.",
+    "readTime": "10 phút đọc",
+    "link": "articles/frame-rate-psychology.html"
+  },
+  {
+    "category": "psychology",
+    "tag": "Tâm lý Thị giác",
+    "date": "09 Thg 6, 2026",
+    "title": "Vượt qua Quy tắc Một phần Ba: Bố cục Xoắn ốc Vàng & Phi Heuristic",
+    "desc": "Tỷ lệ vàng (1.618), Dynamic Symmetry, không gian âm (Ma), và nghệ thuật xây dựng sự căng thẳng tâm lý thông qua hình học.",
+    "readTime": "11 phút đọc",
+    "link": "articles/golden-ratio-composition.html"
+  },
+  {
+    "category": "digital-film",
+    "tag": "Số hóa vs Phim",
+    "date": "05 Thg 6, 2026",
+    "title": "Vì sao Canon R50 chụp khác iPhone Pro Max?",
+    "desc": "Mổ xẻ sự khác biệt thực sự giữa cảm biến lớn của máy ảnh entry-level và thuật toán AI xử lý hình ảnh trên smartphone cao cấp.",
+    "readTime": "8 phút đọc",
+    "link": "articles/canon-r50-vs-iphone.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "03 Thg 6, 2026",
+    "title": "Tiêu cự là gì? Hiểu 24mm, 35mm, 50mm, 85mm trong 10 phút",
+    "desc": "Hướng dẫn bằng hình ảnh về tiêu cự. Cách góc nhìn thay đổi cảm xúc không gian và nén phối cảnh hậu cảnh.",
+    "readTime": "10 phút đọc",
+    "link": "articles/focal-length-explained.html"
+  },
+  {
+    "category": "lens",
+    "tag": "Tính cách Lens",
+    "date": "28 Thg 5, 2026",
+    "title": "Vì sao 50mm f/1.8 được gọi là ống kính quốc dân?",
+    "desc": "Giải mã sức hút kỳ lạ của tiêu cự 50mm. Lý do góc nhìn này mô tả thế giới một cách trung thực và chân thành nhất.",
+    "readTime": "6 phút đọc",
+    "link": "articles/why-50mm-is-the-peoples-lens.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "05 Thg 6, 2026",
+    "title": "Bokeh là gì? Vì sao xóa phông không đồng nghĩa với ảnh đẹp?",
+    "desc": "Bản chất quang học của vùng ngoài khoảng nét. Cách điều khiển bokeh để tạo chiều sâu thay vì chỉ làm nhòe bối cảnh một cách vô nghĩa.",
+    "readTime": "7 phút đọc",
+    "link": "articles/bokeh-demystified.html"
+  },
+  {
+    "category": "digital-film",
+    "tag": "Số hóa vs Phim",
+    "date": "03 Thg 6, 2026",
+    "title": "Noritsu vs Frontier: Hai thế giới scan film đối lập",
+    "desc": "Phân tích màu sắc, độ tương phản và hạt nhiễu (grain) giữa hai hệ máy scan film phổ biến nhất thế giới.",
+    "readTime": "8 phút đọc",
+    "link": "articles/noritsu-vs-frontier.html"
+  },
+  {
+    "category": "psychology",
+    "tag": "Tâm lý Thị giác",
+    "date": "01 Thg 6, 2026",
+    "title": "Vì sao ảnh hơi thiếu sáng (Low-key) lại có sức hút mãnh liệt?",
+    "desc": "Phân tích tâm lý thị giác đằng sau bóng tối. Cách bộ não điền vào những khoảng trống thiếu thông tin để khơi gợi xúc cảm bí ẩn.",
+    "readTime": "7 phút đọc",
+    "link": "articles/psychology-of-low-key.html"
+  },
+  {
+    "category": "digital-film",
+    "tag": "Số hóa vs Phim",
+    "date": "07 Thg 6, 2026",
+    "title": "Bản chất của Hạt: Film Grain vs Digital Noise",
+    "desc": "Mổ xẻ sự khác biệt vật lý, hóa học và tâm lý thị giác giữa hạt nhiễu của phim analog hữu cơ và nhiễu điện tử kỹ thuật số.",
+    "readTime": "9 phút đọc",
+    "link": "articles/nature-of-grain.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "07 Thg 6, 2026",
+    "title": "Vì sao mắt người nhìn tối tốt gấp 10 lần máy ảnh?",
+    "desc": "Giải mã dải động sáng (Dynamic Range) tĩnh và động của võng mạc sinh học đối mặt với các cảm biến silicon tĩnh.",
+    "readTime": "8 phút đọc",
+    "link": "articles/human-eye-vs-sensor.html"
+  },
+  {
+    "category": "optics",
+    "tag": "Quang học 101",
+    "date": "07 Thg 6, 2026",
+    "title": "Ánh sáng Cứng vs Ánh sáng Mềm: Làm chủ bóng đổ",
+    "desc": "Kích thước biểu kiến của nguồn sáng quyết định độ sắc nét bóng đổ như thế nào? Cách ứng dụng bóng đổ để kể câu chuyện chân dung và kiến trúc.",
+    "readTime": "7 phút đọc",
+    "link": "articles/hard-vs-soft-light.html"
+  },
+  {
+    "category": "color",
+    "tag": "Khoa học Màu sắc",
+    "date": "08 Thg 6, 2026",
+    "title": "Canon vs Sony vs Fujifilm: Giải mã Khoa học Màu sắc",
+    "desc": "Tại sao cùng một cảnh vật, ảnh từ các hãng máy ảnh lại có tông màu và cảm xúc khác biệt hoàn toàn? Mổ xẻ bản chất vật lý và toán học đằng sau.",
+    "readTime": "9 phút đọc",
+    "link": "articles/canon-vs-sony-color-science.html"
+  },
+  {
+    "category": "lens",
+    "tag": "Tính cách Lens",
+    "date": "08 Thg 6, 2026",
+    "title": "Giải mã ống kính Anamorphic: Linh hồn điện ảnh",
+    "desc": "Tại sao phim chiếu rạp trông khác biệt hoàn toàn video thông thường? Mổ xẻ cơ học bóp méo hình ảnh và những khiếm khuyết quang học đầy nghệ thuật của thấu kính biến hình.",
+    "readTime": "8 phút đọc",
+    "link": "articles/anamorphic-lenses.html"
+  },
+  {
+    "category": "psychology",
+    "tag": "Tâm lý Thị giác",
+    "date": "08 Thg 6, 2026",
+    "title": "Tâm lý học Gestalt: Nghệ thuật điều khiển ánh nhìn",
+    "desc": "Bố cục không chỉ là những đường kẻ chia ba vô hồn. Đó là cách bộ não diễn giải thế giới. Ứng dụng các quy luật tâm lý học nhận thức để tạo nên sức hút khó cưỡng.",
+    "readTime": "9 phút đọc",
+    "link": "articles/gestalt-composition.html"
+  },
+  {
+    "category": "color",
+    "tag": "Khoa học Màu sắc",
+    "date": "08 Thg 6, 2026",
+    "title": "sRGB vs Adobe RGB vs DCI-P3: Tránh nhạt màu khi đăng Web",
+    "desc": "Bí ẩn đằng sau các hệ màu sắc phổ biến. Cách xuất ảnh chuẩn màu từ Lightroom giúp giữ nguyên độ rực rỡ và độ tương phản nguyên bản khi chia sẻ mạng xã hội.",
+    "readTime": "8 phút đọc",
+    "link": "articles/color-spaces.html"
+  },
+  {
+    "category": "psychology",
+    "tag": "Tâm lý Thị giác",
+    "date": "08 Thg 6, 2026",
+    "title": "Dòng chảy Thị giác: Mắt chúng ta đọc ảnh như thế nào?",
+    "desc": "Khám phá lộ trình quét ảnh vô thức của bộ não. Giải mã xu hướng quét từ trái sang phải, neo thị giác và cách lật ngang ảnh để thay đổi hoàn toàn cảm xúc.",
+    "readTime": "8 phút đọc",
+    "link": "articles/visual-flow.html"
+  },
+  {
+    "category": "digital-film",
+    "tag": "Số hóa vs Phim",
+    "date": "08 Thg 6, 2026",
+    "title": "Cảm biến CCD vs CMOS: Tại sao máy ảnh cổ lại sốt giá?",
+    "desc": "Mổ xẻ cơn sốt Digicam compact cổ và Leica M9. Giải thích sự khác biệt vật lý ở màng lọc màu Bayer dày và rò rỉ hồng ngoại tạo nên hạt màu hoài cổ.",
+    "readTime": "9 phút đọc",
+    "link": "articles/ccd-vs-cmos.html"
+  },
+  {
+    "category": "lens",
+    "tag": "Tính cách Lens",
+    "date": "08 Thg 6, 2026",
+    "title": "Khi khiếm khuyết tạo nên nghệ thuật: Bản chất Quang sai",
+    "desc": "Tại sao những ống kính cổ lỗi thời đầy quang sai lại được săn đón? Cách quang sai cầu, loe coma và viền sắc kiến tạo nên những vòng bokeh đầy cá tính.",
+    "readTime": "9 phút đọc",
+    "link": "articles/optical-aberrations.html"
+  }
+];
   </script>
 </body>
 </html>
