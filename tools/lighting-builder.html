@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighting Diagram Builder — LumenForge</title>
+  <meta name="keywords" content="lighting diagram, sơ đồ ánh sáng, công cụ, lumenforge">
+  <meta name="description" content="Tự tay thiết kế sơ đồ ánh sáng nhiếp ảnh chuyên nghiệp. Kéo thả các loại đèn, máy ảnh và xuất ra file PNG.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .builder-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    
+    @media (max-width: 900px) {
+      .builder-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .toolbar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .tool-btn {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 12px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+
+    .tool-btn:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    .tool-btn.active {
+      background: var(--accent-amber);
+      color: #000;
+      border-color: var(--accent-amber);
+    }
+
+    .canvas-container {
+      background: #151518;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: crosshair;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      touch-action: none; /* Prevent scroll on touch */
+    }
+
+    .controls-panel {
+      margin-top: var(--space-md);
+      padding: var(--space-md);
+      background: rgba(255,255,255,0.02);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .properties-panel {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .properties-panel.active {
+      display: flex;
+    }
+
+    .color-picker {
+      width: 100%;
+      height: 40px;
+      border: none;
+      border-radius: 4px;
+      background: none;
+      cursor: pointer;
+    }
+
+    .btn-export {
+      margin-top: auto;
+      background: var(--accent-cyan);
+      color: #000;
+      font-weight: bold;
+      border: none;
+    }
+    .btn-export:hover {
+      background: #00b4d8;
+      color: #000;
+    }
+
+    .btn-danger {
+      background: rgba(255, 59, 48, 0.1);
+      color: #ff3b30;
+      border-color: rgba(255, 59, 48, 0.3);
+    }
+    .btn-danger:hover {
+      background: rgba(255, 59, 48, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(245,166,35,0.1); color: var(--accent-amber);">Flagship Tool</span>
+      <h1>Lighting Diagram Builder</h1>
+      <p class="tool-desc">Kéo thả các vật thể vào khung lưới để thiết kế sơ đồ ánh sáng. Bấm vào vật thể để xoay hoặc thay đổi màu sắc. Xuất file PNG chất lượng cao để lưu trữ vào thư viện của bạn.</p>
+    </div>
+
+    <div class="builder-layout">
+      <!-- Toolbar -->
+      <div class="toolbar">
+        <h3 style="font-size: 0.9rem; color: var(--text-dim); text-transform: uppercase; margin-bottom: 10px;">Thêm Vật Thể</h3>
+        
+        <button class="tool-btn" data-add="subject">
+          <span style="font-size: 1.2rem;">👤</span> Chủ thể (Subject)
+        </button>
+        <button class="tool-btn" data-add="camera">
+          <span style="font-size: 1.2rem;">📷</span> Máy ảnh (Camera)
+        </button>
+        <button class="tool-btn" data-add="softbox">
+          <span style="font-size: 1.2rem;">💡</span> Softbox (Key/Fill)
+        </button>
+        <button class="tool-btn" data-add="strobe">
+          <span style="font-size: 1.2rem;">🔦</span> Đèn trần (Strobe/Rim)
+        </button>
+        <button class="tool-btn" data-add="reflector">
+          <span style="font-size: 1.2rem;">💿</span> Phản quang (Reflector)
+        </button>
+        <button class="tool-btn" data-add="background">
+          <span style="font-size: 1.2rem;">⬛</span> Phông nền (Backdrop)
+        </button>
+
+        <div class="controls-panel">
+          <div id="no-selection" style="color: var(--text-dim); font-size: 0.85rem; text-align: center;">
+            Chọn một vật thể để chỉnh sửa.
+          </div>
+          
+          <div id="properties-panel" class="properties-panel">
+            <h4 style="font-size: 0.9rem; color: var(--text-primary);" id="prop-title">Thuộc tính</h4>
+            
+            <div class="control-group">
+              <label>Xoay (Góc chiếu):</label>
+              <input type="range" id="prop-rotate" min="0" max="360" value="0">
+            </div>
+            
+            <div class="control-group" id="prop-color-group">
+              <label>Màu ánh sáng:</label>
+              <input type="color" id="prop-color" class="color-picker" value="#ffffff">
+            </div>
+
+            <button class="tool-btn btn-danger" id="btn-delete" style="justify-content: center; margin-top: 10px;">
+              Xóa vật thể này
+            </button>
+          </div>
+        </div>
+
+        <div style="flex-grow: 1;"></div>
+        
+        <button class="tool-btn btn-danger" id="btn-clear" style="justify-content: center;">
+          Xóa toàn bộ
+        </button>
+        <button class="tool-btn btn-export" id="btn-export" style="justify-content: center;">
+          ⬇ Tải xuống PNG
+        </button>
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-container" id="canvas-wrapper">
+        <canvas id="builder-canvas"></canvas>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/tools/lighting-builder.js"></script>
+</body>
+</html>
