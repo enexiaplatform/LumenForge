@@ -105,40 +105,7 @@ button {
   --text-sm: 0.95rem;
   --text-base: 1.05rem;     /* Increased from 1rem */
 
-  /* ============================================================
-     SCROLL REVEAL & MICRO-ANIMATIONS (Phase 44)
-     ============================================================ */
-  
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-  }
 
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Different directions */
-  .reveal-left { transform: translateX(-30px); }
-  .reveal-right { transform: translateX(30px); }
-  .reveal-left.active, .reveal-right.active { transform: translateX(0); }
-
-  /* Delay utility */
-  .delay-100 { transition-delay: 100ms; }
-  .delay-200 { transition-delay: 200ms; }
-  .delay-300 { transition-delay: 300ms; }
-
-  /* Smooth scroll behavior for whole page */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Magnetic hover effect logic in JS, but we need transition */
-  .magnetic {
-    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
 
   --text-lg: 1.15rem;      /* Increased from 1.125rem */
   --text-xl: 1.35rem;      /* Increased from 1.25rem */
@@ -202,10 +169,42 @@ button {
 }
 
 /* ============================================================
+   UTILITIES & MICRO-ANIMATIONS
+   ============================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Different directions */
+.reveal-left { transform: translateX(-30px); }
+.reveal-right { transform: translateX(30px); }
+.reveal-left.active, .reveal-right.active { transform: translateX(0); }
+
+/* Delay utility */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+/* Magnetic hover effect logic in JS, but we need transition */
+.magnetic {
+  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  display: inline-block; /* Ensure transforms work */
+}
+
+/* ============================================================
    3. BASE STYLES
    ============================================================ */
 html {
   background-color: var(--bg-primary);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -410,16 +409,17 @@ body {
   left: 0;
   right: 0;
   z-index: var(--z-nav);
-  background: rgba(10, 10, 12, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(42, 42, 58, 0.5);
-  transition: background var(--transition-base), border-color var(--transition-base);
+  background: rgba(10, 10, 12, 0.65);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(42, 42, 58, 0.2);
+  transition: all var(--transition-base);
 }
 
 .nav-scrolled {
-  background: rgba(10, 10, 12, 0.95);
+  background: rgba(10, 10, 12, 0.85);
   border-bottom-color: var(--border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const fileInput = document.getElementById('file-input');
   const uploadOverlay = document.getElementById('upload-overlay');
   const canvas = document.getElementById('poster-canvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
   const inpTitle = document.getElementById('inp-title');
   const inpSub = document.getElementById('inp-sub');
@@ -138,11 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
     reader.onload = (event) => {
       const img = new Image();
       img.onload = () => {
-        currentImg = img;
-        uploadOverlay.style.display = 'none';
-        
-        // Wait for fonts to load before rendering
-        document.fonts.ready.then(render);
+        // Downscale if too large to prevent canvas freeze
+        const MAX_WIDTH = 1920;
+        if (img.width > MAX_WIDTH) {
+          const ratio = MAX_WIDTH / img.width;
+          const offCanvas = document.createElement('canvas');
+          offCanvas.width = MAX_WIDTH;
+          offCanvas.height = img.height * ratio;
+          const offCtx = offCanvas.getContext('2d');
+          offCtx.drawImage(img, 0, 0, offCanvas.width, offCanvas.height);
+          
+          const downscaledImg = new Image();
+          downscaledImg.onload = () => {
+            currentImg = downscaledImg;
+            uploadOverlay.style.display = 'none';
+            document.fonts.ready.then(render);
+          };
+          downscaledImg.src = offCanvas.toDataURL('image/jpeg', 0.9);
+        } else {
+          currentImg = img;
+          uploadOverlay.style.display = 'none';
+          document.fonts.ready.then(render);
+        }
       };
       img.src = event.target.result;
     };
