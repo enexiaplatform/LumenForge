@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posing Guide Library — LumenForge</title>
+  <meta name="keywords" content="posing guide, tư thế tạo dáng, tâm lý học hình thể, lumenforge">
+  <meta name="description" content="Bách khoa toàn thư tư thế tạo dáng tĩnh, phân loại theo tâm lý học và mục đích chụp.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: var(--space-lg) 0;
+      padding: 15px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-dim);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-purple);
+      color: #000;
+      border-color: var(--accent-purple);
+      font-weight: bold;
+    }
+
+    .pose-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .pose-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pose-card:hover {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--accent-purple);
+      transform: translateY(-2px);
+    }
+
+    .pose-svg-container {
+      width: 100%;
+      height: 220px;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .pose-svg-container svg {
+      width: 120px;
+      height: 180px;
+      stroke: var(--text-primary);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .pose-info {
+      padding: 15px;
+    }
+
+    .pose-title {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .pose-tag {
+      font-size: 0.75rem;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .modal-hero-svg {
+      width: 100%;
+      height: 300px;
+      background: #111;
+      border-radius: var(--radius-md);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-hero-svg svg {
+      width: 150px;
+      height: 250px;
+      stroke: var(--accent-purple);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .modal-desc-box {
+      background: rgba(255,255,255,0.02);
+      padding: 15px;
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--accent-purple);
+    }
+
+    .modal-desc-box h4 {
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .modal-desc-box p {
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(188, 0, 255, 0.1); color: var(--accent-purple);">Reference Library</span>
+      <h1>Posing Guide Library</h1>
+      <p class="tool-desc">Bách khoa toàn thư tư thế tạo dáng tĩnh dựa trên tâm lý học hình thể. Sử dụng SVG tối giản để tập trung vào luồng chuyển động và ngôn ngữ cơ thể.</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar" id="filter-bar">
+      <button class="filter-btn active" data-filter="all">Tất cả</button>
+      <button class="filter-btn" data-filter="power">Quyền lực (Power)</button>
+      <button class="filter-btn" data-filter="feminine">Nữ tính / Đường cong</button>
+      <button class="filter-btn" data-filter="casual">Đời thường / Tự nhiên</button>
+      <button class="filter-btn" data-filter="portrait">Chân dung cận</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="pose-grid" id="pose-grid">
+      <!-- Generated by JS -->
+    </div>
+
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="pose-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">Tên Tư Thế</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-hero-svg" id="modal-svg">
+          <!-- Injected SVG -->
+        </div>
+        <div class="modal-desc-box">
+          <h4>Bí quyết Tâm lý hình thể</h4>
+          <p id="modal-desc">Giải thích tại sao tư thế này lại hiệu quả...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/tools/posing-guide.js"></script>
+</body>
+</html>
