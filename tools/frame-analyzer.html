@@ -212,13 +212,13 @@
         <canvas id="image-canvas"></canvas>
         <canvas id="overlay-canvas" style="position: absolute; top: 0; left: 0; pointer-events: none;"></canvas>
         
-        <div class="upload-overlay" id="upload-overlay">
-          <input type="file" id="file-input" accept="image/*" style="display: none;">
-          <button class="btn-upload" onclick="document.getElementById('file-input').click()">
-            Upload Khung Hình (JPG/PNG)
-          </button>
-          <p style="color: var(--text-dim); margin-top: 10px; font-size: 0.9rem;">Dữ liệu xử lý trực tiếp trên trình duyệt, không upload lên máy chủ.</p>
+        <div class="upload-overlay hidden" id="upload-overlay">
         </div>
+        
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
+        <button class="btn-upload floating-btn" onclick="document.getElementById('file-input').click()" style="position: absolute; bottom: 20px; right: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); z-index: 20; padding: 10px 20px; font-size: 0.9rem;">
+          <span style="margin-right: 5px;">📷</span> Tải ảnh khác
+        </button>
       </div>
 
       <!-- Sidebar -->
@@ -269,10 +269,6 @@
             </label>
           </div>
         </div>
-
-        <button id="reupload-btn" onclick="document.getElementById('file-input').click()">
-          Tải ảnh khác
-        </button>
 
       </div>
 

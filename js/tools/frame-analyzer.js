@@ -31,17 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const reader = new FileReader();
     reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        currentImage = img;
-        uploadOverlay.classList.add('hidden');
-        renderImage();
-        extractPalette();
-      };
-      img.src = event.target.result;
+      loadImage(event.target.result);
     };
     reader.readAsDataURL(file);
   });
+
+  function loadImage(src) {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      currentImage = img;
+      uploadOverlay.classList.add('hidden');
+      renderImage();
+      extractPalette();
+    };
+    img.src = src;
+  }
+
+  function loadDefaultImage() {
+    // Cinematic shot from Unsplash
+    loadImage('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1200&auto=format&fit=crop');
+  }
+
+  // Load default on start
+  loadDefaultImage();
 
   // Handle Window Resize
   window.addEventListener('resize', () => {

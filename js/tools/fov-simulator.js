@@ -69,135 +69,112 @@ document.addEventListener('DOMContentLoaded', () => {
     const w = 800;
     const h = 450;
 
-    // Background compression factor (higher eqFocal = larger background = compressed perspective)
-    // 50mm is base scale (1.0). Telephoto zooms in, Wide angle scales out.
-    const baseFocal = 50;
-    const scaleFactor = eqFocal / baseFocal;
+    // Base Focal Length is 50mm. Scale factor relative to 50mm.
+    const scaleFactor = eqFocal / 50;
 
-    // Subject size is directly proportional to focal length, and inversely proportional to distance
-    // Let's create a reasonable scale for rendering
-    const baseDistance = 3; // 3m is base distance
+    // Background is far away (infinity), so it scales directly with focal length
+    const bgScale = scaleFactor;
+    
+    // Subject scale depends on BOTH focal length and distance
+    // If distance increases, subject looks smaller. If focal increases, subject looks bigger.
+    const baseDistance = 3; // 3m is base distance for 1x scale
     const subjectScale = scaleFactor * (baseDistance / distance);
-    const subjectHeight = 220 * subjectScale;
-    const subjectWidth = 70 * subjectScale;
+    
+    const subjectHeight = 250 * subjectScale;
+    const subjectWidth = 100 * subjectScale;
 
     // Clean canvas
     fovSvg.innerHTML = '';
 
-    // Create Background Sky
-    const sky = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    sky.setAttribute('x', '0');
-    sky.setAttribute('y', '0');
-    sky.setAttribute('width', w.toString());
-    sky.setAttribute('height', h.toString());
-    sky.setAttribute('fill', 'url(#skyGradient)');
-    fovSvg.appendChild(sky);
-
-    // Setup Gradients
+    // Create defs
     const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-    defs.innerHTML = `
-      <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#0F0F1A" />
-        <stop offset="60%" stop-color="#1A1C30" />
-        <stop offset="100%" stop-color="#261E33" />
-      </linearGradient>
-      <linearGradient id="mountains" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#2D2845" />
-        <stop offset="100%" stop-color="#131222" />
-      </linearGradient>
-      <linearGradient id="subjectGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="var(--accent-amber)" />
-        <stop offset="100%" stop-color="var(--accent-film)" />
-      </linearGradient>
-    `;
+    
+    // Create Clip Path for Subject (Stylized human silhouette)
+    const clipPath = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+    clipPath.setAttribute('id', 'subjectClip');
+    
+    // Head and shoulders path (normalized 0 to 1)
+    const sPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    sPath.setAttribute('d', 'M0.3,1 L0.3,0.7 C0.3,0.5 0.2,0.4 0,0.4 L0,0.3 C0.2,0.3 0.35,0.2 0.35,0 L0.65,0 C0.65,0.2 0.8,0.3 1,0.3 L1,0.4 C0.8,0.4 0.7,0.5 0.7,0.7 L0.7,1 Z');
+    // Using objectBoundingBox so the path scales to the image
+    clipPath.setAttribute('clipPathUnits', 'objectBoundingBox');
+    clipPath.appendChild(sPath);
+    defs.appendChild(clipPath);
+
     fovSvg.appendChild(defs);
 
-    // Create Background Mountains (scale with eqFocal)
-    const m1Scale = 40 * scaleFactor;
-    const m2Scale = 70 * scaleFactor;
-    const horizon = 320; // Horizon y-coordinate
+    // 1. Draw Background Image
+    // We scale the background from the center
+    const bgW = w * bgScale;
+    const bgH = h * bgScale;
+    const bgX = (w - bgW) / 2;
+    const bgY = (h - bgH) / 2;
 
-    const mountainsPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const mPoints = [
-      `M -100 ${horizon}`,
-      `Q ${w * 0.25} ${horizon - m1Scale - 20} ${w * 0.5} ${horizon - m1Scale}`,
-      `Q ${w * 0.75} ${horizon - m2Scale - 30} ${w + 100} ${horizon - m2Scale}`,
-      `L ${w + 100} ${h}`,
-      `L -100 ${h} Z`
-    ].join(' ');
-    mountainsPath.setAttribute('d', mPoints);
-    mountainsPath.setAttribute('fill', 'url(#mountains)');
-    fovSvg.appendChild(mountainsPath);
-
-    // Create Ground
-    const ground = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    ground.setAttribute('x', '0');
-    ground.setAttribute('y', horizon.toString());
-    ground.setAttribute('width', w.toString());
-    ground.setAttribute('height', (h - horizon).toString());
-    ground.setAttribute('fill', '#0E0D14');
-    fovSvg.appendChild(ground);
-
-    // Create Sun/Light Source (at horizon)
-    const sunScale = 120 * scaleFactor;
-    if (sunScale > 5) {
-      const sun = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      sun.setAttribute('cx', (w * 0.5).toString());
-      sun.setAttribute('cy', horizon.toString());
-      sun.setAttribute('r', sunScale.toString());
-      sun.setAttribute('fill', 'rgba(245, 166, 35, 0.08)');
-      sun.setAttribute('filter', 'blur(10px)');
-      fovSvg.appendChild(sun);
+    const bgImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+    bgImage.setAttribute('href', 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop');
+    bgImage.setAttribute('x', bgX.toString());
+    bgImage.setAttribute('y', bgY.toString());
+    bgImage.setAttribute('width', bgW.toString());
+    bgImage.setAttribute('height', bgH.toString());
+    // Blur background based on distance and focal length to simulate Depth of Field
+    const blurAmount = Math.max(0, (eqFocal - 35) / 20 * (3 / distance));
+    if (blurAmount > 0) {
+      bgImage.setAttribute('filter', `blur(${blurAmount}px)`);
     }
+    fovSvg.appendChild(bgImage);
 
-    // Create Subject (Silhouette standing)
-    // Draw subject centered horizontally
-    const subX = w / 2;
-    const subY = horizon + 30; // Feet position on the ground
+    // 2. Draw Subject Image (Foreground)
+    const subX = (w - subjectWidth) / 2;
+    const subY = h - subjectHeight + (subjectHeight * 0.1); // Slightly below bottom
 
-    // Only draw subject if size is reasonable (not zoomed in too close or far away)
-    if (subjectHeight > 5 && subjectHeight < h * 3) {
-      const gSubject = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      
-      // Draw silhouette head
-      const head = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      head.setAttribute('cx', subX.toString());
-      head.setAttribute('cy', (subY - subjectHeight).toString());
-      head.setAttribute('r', (subjectWidth * 0.35).toString());
-      head.setAttribute('fill', 'url(#subjectGrad)');
-      gSubject.appendChild(head);
-
-      // Draw body (neck + shoulders + body)
-      const body = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      const neckY = subY - subjectHeight + (subjectWidth * 0.35);
-      const bPoints = [
-        `M ${subX - subjectWidth * 0.2} ${neckY}`,
-        `C ${subX - subjectWidth * 0.5} ${neckY + subjectHeight * 0.15} ${subX - subjectWidth * 0.5} ${subY}`,
-        `L ${subX - subjectWidth * 0.3} ${subY}`,
-        `L ${subX - subjectWidth * 0.1} ${subY - subjectHeight * 0.4}`,
-        `L ${subX + subjectWidth * 0.1} ${subY - subjectHeight * 0.4}`,
-        `L ${subX + subjectWidth * 0.3} ${subY}`,
-        `L ${subX + subjectWidth * 0.5} ${subY}`,
-        `C ${subX + subjectWidth * 0.5} ${neckY + subjectHeight * 0.15} ${subX + subjectWidth * 0.2} ${neckY}`,
-        `Z`
-      ].join(' ');
-      body.setAttribute('d', bPoints);
-      body.setAttribute('fill', 'url(#subjectGrad)');
-      gSubject.appendChild(body);
-
-      fovSvg.appendChild(gSubject);
-    } else if (subjectHeight >= h * 3) {
+    if (subjectHeight > 10 && subjectHeight < h * 4) {
+      const subImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      subImage.setAttribute('href', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600&auto=format&fit=crop');
+      subImage.setAttribute('x', subX.toString());
+      subImage.setAttribute('y', subY.toString());
+      subImage.setAttribute('width', subjectWidth.toString());
+      subImage.setAttribute('height', subjectHeight.toString());
+      subImage.setAttribute('clip-path', 'url(#subjectClip)');
+      // Preserve aspect ratio slice
+      subImage.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      fovSvg.appendChild(subImage);
+    } else if (subjectHeight >= h * 4) {
       // Too close warning graphic indicator
       const warningText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       warningText.setAttribute('x', (w / 2).toString());
       warningText.setAttribute('y', (h / 2).toString());
       warningText.setAttribute('fill', 'var(--accent-film)');
       warningText.setAttribute('font-family', 'var(--font-mono)');
-      warningText.setAttribute('font-size', '14');
+      warningText.setAttribute('font-weight', 'bold');
+      warningText.setAttribute('font-size', '18');
       warningText.setAttribute('text-anchor', 'middle');
-      warningText.textContent = '[ CHỦ THỂ QUÁ GẦN / CẬN CẢNH CỰC ĐẠI ]';
+      warningText.textContent = '[ CHỦ THỂ QUÁ GẦN / OUT OF FOCUS ]';
+      // Add text shadow
+      warningText.setAttribute('style', 'text-shadow: 0 2px 10px rgba(0,0,0,0.8);');
       fovSvg.appendChild(warningText);
     }
+
+    // 3. UI Viewfinder Overlay
+    // Crosshair
+    const crosshair = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    crosshair.setAttribute('d', `M ${w/2 - 20} ${h/2} L ${w/2 + 20} ${h/2} M ${w/2} ${h/2 - 20} L ${w/2} ${h/2 + 20}`);
+    crosshair.setAttribute('stroke', 'rgba(255, 255, 255, 0.4)');
+    crosshair.setAttribute('stroke-width', '1');
+    fovSvg.appendChild(crosshair);
+    
+    // Focus brackets
+    const bracketSize = 60;
+    const brackets = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    brackets.setAttribute('d', `
+      M ${w/2 - bracketSize} ${h/2 - bracketSize + 10} L ${w/2 - bracketSize} ${h/2 - bracketSize} L ${w/2 - bracketSize + 10} ${h/2 - bracketSize}
+      M ${w/2 + bracketSize - 10} ${h/2 - bracketSize} L ${w/2 + bracketSize} ${h/2 - bracketSize} L ${w/2 + bracketSize} ${h/2 - bracketSize + 10}
+      M ${w/2 - bracketSize} ${h/2 + bracketSize - 10} L ${w/2 - bracketSize} ${h/2 + bracketSize} L ${w/2 - bracketSize + 10} ${h/2 + bracketSize}
+      M ${w/2 + bracketSize - 10} ${h/2 + bracketSize} L ${w/2 + bracketSize} ${h/2 + bracketSize} L ${w/2 + bracketSize} ${h/2 + bracketSize - 10}
+    `);
+    brackets.setAttribute('stroke', 'rgba(255, 255, 255, 0.6)');
+    brackets.setAttribute('stroke-width', '2');
+    brackets.setAttribute('fill', 'none');
+    fovSvg.appendChild(brackets);
 
     // Border HUD lines
     const borderHud = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -205,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     borderHud.setAttribute('y', '20');
     borderHud.setAttribute('width', (w - 40).toString());
     borderHud.setAttribute('height', (h - 40).toString());
-    borderHud.setAttribute('stroke', 'rgba(255, 255, 255, 0.08)');
+    borderHud.setAttribute('stroke', 'rgba(255, 255, 255, 0.15)');
     borderHud.setAttribute('stroke-width', '1');
     borderHud.setAttribute('fill', 'none');
     fovSvg.appendChild(borderHud);

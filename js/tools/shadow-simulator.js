@@ -116,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.shadowBlur = 0;
 
     // Draw Drop Shadow on the "floor" (fake 3D)
-    // Assume light comes from top-ish, so cast shadow to the opposite direction
     const shadowDist = sphereRadius * 1.5;
     const sx = cx - Math.cos(rad) * shadowDist;
     const sy = cy - Math.sin(rad) * shadowDist;
@@ -129,32 +128,87 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.fill();
     ctx.filter = 'none';
 
-    // Form Shadow (The Sphere)
-    // To make a realistic 3D sphere, the gradient center should move based on lightAngle.
-    // The gradient highlight is mapped to the surface of the sphere pointing to the light.
-    const hx = cx + Math.cos(rad) * (sphereRadius * 0.6);
-    const hy = cy + Math.sin(rad) * (sphereRadius * 0.6);
+    // --- DRAW STYLIZED 3D FACE ---
+    
+    // Calculate light vector
+    const lightDx = Math.cos(rad);
+    const lightDy = Math.sin(rad);
 
-    const sphereGrad = ctx.createRadialGradient(hx, hy, sphereRadius * 0.1, cx, cy, sphereRadius);
-    sphereGrad.addColorStop(0, '#ffffff'); // Specular highlight
-    sphereGrad.addColorStop(0.2, '#d4af37'); // Base subject color
-    sphereGrad.addColorStop(0.7, '#222222'); // Core shadow
-    sphereGrad.addColorStop(1, '#050505'); // Reflected shadow edge (darkest)
+    // 1. Base Head shape
+    // Gradient highlight mapped to light direction
+    const hx = cx + lightDx * (sphereRadius * 0.6);
+    const hy = cy + lightDy * (sphereRadius * 0.6);
+
+    const headGrad = ctx.createRadialGradient(hx, hy, sphereRadius * 0.1, cx, cy, sphereRadius * 1.2);
+    headGrad.addColorStop(0, '#f2d5c4'); // Specular/bright skin
+    headGrad.addColorStop(0.3, '#d4a382'); // Base skin
+    headGrad.addColorStop(0.7, '#6b432a'); // Core shadow
+    headGrad.addColorStop(1, '#1a0e08'); // Edge
 
     ctx.beginPath();
-    ctx.arc(cx, cy, sphereRadius, 0, Math.PI*2);
-    ctx.fillStyle = sphereGrad;
+    ctx.ellipse(cx, cy, sphereRadius * 0.85, sphereRadius, 0, 0, Math.PI * 2);
+    ctx.fillStyle = headGrad;
     ctx.fill();
 
-    // Small Rim light logic (if light is behind the subject > 110 degrees)
-    // Just a trick: draw a bright arc on the side of the light if it's far away
-    if (Math.abs(Math.cos(rad)) < 0.2 && Math.sin(rad) < 0) {
-      // It's rim lighting territory
+    // 2. Nose Cast Shadow (This is what creates Rembrandt/Butterfly)
+    const noseLength = 35; // Height of the nose
+    // Calculate offset based on light direction. The shadow goes opposite the light.
+    const noseShadowX = cx - lightDx * noseLength;
+    const noseShadowY = cy - lightDy * noseLength;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - 20); // Bridge of nose
+    ctx.lineTo(noseShadowX, noseShadowY); // Shadow tip
+    ctx.lineTo(cx, cy + 30); // Base of nose
+    
+    // Fill nose shadow
+    ctx.fillStyle = 'rgba(40, 15, 5, 0.7)'; // Dark skin shadow
+    ctx.filter = 'blur(4px)';
+    ctx.fill();
+    ctx.filter = 'none';
+
+    // 3. The Nose itself (3D structure)
+    // One side of the nose catches light, the other is in shadow
+    const noseGrad = ctx.createLinearGradient(cx + lightDx*10, cy + lightDy*10, cx - lightDx*20, cy - lightDy*20);
+    noseGrad.addColorStop(0, '#ffe5d4'); // Highlight on nose tip
+    noseGrad.addColorStop(1, '#8a5a3a'); // Shadow side
+    
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - 25); // Bridge
+    ctx.lineTo(cx - 15, cy + 25); // Left nostril base
+    ctx.lineTo(cx + 15, cy + 25); // Right nostril base
+    ctx.closePath();
+    ctx.fillStyle = noseGrad;
+    ctx.fill();
+
+    // 4. Eye Sockets / Cheekbones shadows
+    // Draw shadows where eyes would be, creating dramatic mood
+    const eyeOffsetX = 35;
+    const eyeOffsetY = -10;
+    
+    // Left eye socket
+    ctx.beginPath();
+    ctx.ellipse(cx - eyeOffsetX, cy + eyeOffsetY, 20, 10, 0.1, 0, Math.PI * 2);
+    // If light is coming from right, left eye is deeply shadowed
+    ctx.fillStyle = lightDx > 0 ? 'rgba(30, 10, 0, 0.6)' : 'rgba(30, 10, 0, 0.2)';
+    ctx.filter = 'blur(6px)';
+    ctx.fill();
+
+    // Right eye socket
+    ctx.beginPath();
+    ctx.ellipse(cx + eyeOffsetX, cy + eyeOffsetY, 20, 10, -0.1, 0, Math.PI * 2);
+    ctx.fillStyle = lightDx < 0 ? 'rgba(30, 10, 0, 0.6)' : 'rgba(30, 10, 0, 0.2)';
+    ctx.fill();
+    ctx.filter = 'none';
+
+    // 5. Rim light effect
+    // If light is behind the subject (top), draw rim light
+    if (lightDy < -0.2) {
       ctx.beginPath();
-      ctx.arc(cx, cy, sphereRadius, rad - 0.5, rad + 0.5);
-      ctx.strokeStyle = '#fff';
+      ctx.ellipse(cx, cy, sphereRadius * 0.85, sphereRadius, 0, Math.PI, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
       ctx.lineWidth = 4;
-      ctx.filter = 'blur(2px)';
+      ctx.filter = 'blur(3px)';
       ctx.stroke();
       ctx.filter = 'none';
     }
