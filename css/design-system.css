@@ -725,13 +725,7 @@ body {
   border: none;
 }
 
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-main);
-}
-.btn-primary:hover {
-  background: #ccc;
-}
+
 
 .btn-outline {
   background: transparent;
