@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighting Gels Physics — LumenForge</title>
+  <meta name="keywords" content="lighting gels, filter màu, color theory, lumenforge">
+  <meta name="description" content="Trải nghiệm Vật lý Hòa trộn Màu trừ (Subtractive Mixing) với kính lọc màu điện ảnh (CTB, CTO).">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .gel-layout {
+      margin-top: var(--space-lg);
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 900px) {
+      .gel-layout { grid-template-columns: 1fr; }
+    }
+
+    .studio-viewer {
+      background: #111;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 500px;
+    }
+
+    .subject-img {
+      max-width: 100%;
+      max-height: 500px;
+      border-radius: var(--radius-md);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* The Draggable Gels */
+    .gel {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      cursor: grab;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255,255,255,0.8);
+      font-weight: bold;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      /* Critical for subtractive mixing over the image */
+      mix-blend-mode: multiply;
+      transition: box-shadow 0.2s;
+    }
+    .gel:active { cursor: grabbing; box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
+
+    .gel-ctb { background: rgba(0, 150, 255, 0.8); top: 50px; left: 50px; }
+    .gel-cto { background: rgba(255, 120, 0, 0.8); top: 50px; left: 300px; }
+    .gel-green { background: rgba(0, 255, 50, 0.8); top: 280px; left: 50px; }
+    .gel-magenta { background: rgba(255, 0, 255, 0.8); top: 280px; left: 300px; }
+
+    .gel-palette {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .gel-info {
+      background: rgba(255,255,255,0.05);
+      padding: 15px;
+      border-radius: var(--radius-md);
+    }
+    
+    .gel-info h4 {
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .color-dot {
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Lighting Physics</span>
+      <h1>Subtractive Gels Simulator</h1>
+      <p class="tool-desc">Kéo các tấm kính lọc (Gels) đè lên hình ảnh hoặc đè lên nhau. Khám phá cách ánh sáng bị triệt tiêu màu sắc theo vật lý hòa trộn trừ (Multiply Blend).</p>
+    </div>
+
+    <div class="gel-layout">
+      
+      <div class="studio-viewer" id="studio-viewer">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop" class="subject-img" alt="Subject" draggable="false">
+        
+        <!-- Draggable Gels -->
+        <div class="gel gel-ctb" id="gel1">CTB (Blue)</div>
+        <div class="gel gel-cto" id="gel2">CTO (Orange)</div>
+        <div class="gel gel-green" id="gel3">Plus Green</div>
+        <div class="gel gel-magenta" id="gel4">Minus Green</div>
+      </div>
+
+      <div class="gel-palette">
+        <h3>Lý thuyết Gels</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px;">
+          Gels không <strong>thêm</strong> màu vào ánh sáng. Chúng <strong>chặn</strong> các bước sóng khác và chỉ cho màu của chúng đi qua.
+        </p>
+
+        <div class="gel-info">
+          <h4><span class="color-dot" style="background: rgb(0, 150, 255);"></span> CTB (Color Temp Blue)</h4>
+          <p style="font-size: 0.85rem; color: #888;">Biến đèn ánh sáng vàng (Tungsten 3200K) thành ánh sáng trắng ban ngày (Daylight 5600K).</p>
+        </div>
+
+        <div class="gel-info">
+          <h4><span class="color-dot" style="background: rgb(255, 120, 0);"></span> CTO (Color Temp Orange)</h4>
+          <p style="font-size: 0.85rem; color: #888;">Biến đèn ánh sáng trắng (Daylight 5600K) thành ánh sáng vàng ấm (Tungsten 3200K).</p>
+        </div>
+
+        <div class="gel-info">
+          <h4><span class="color-dot" style="background: rgb(255, 0, 255);"></span> Minus Green (Magenta)</h4>
+          <p style="font-size: 0.85rem; color: #888;">Dùng để khử ám xanh lá ác mộng từ đèn huỳnh quang dân dụng.</p>
+        </div>
+        
+        <div class="gel-info" style="border: 1px dashed var(--accent-cyan); background: rgba(0, 212, 255, 0.05);">
+          <h4 style="color: var(--accent-cyan);">Thí nghiệm</h4>
+          <p style="font-size: 0.85rem; color: #ccc;">Hãy thử kéo tấm CTB đè lên tấm CTO. Bạn sẽ thấy ánh sáng bị chặn gần như hoàn toàn và chuyển thành màu Đen đục (Subtractive mixing).</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/tools/lighting-gels.js"></script>
+</body>
+</html>

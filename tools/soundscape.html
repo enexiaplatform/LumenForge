@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematic Soundscape — LumenForge</title>
+  <meta name="keywords" content="soundscape, âm thanh điện ảnh, foley, ambient, lumenforge">
+  <meta name="description" content="Mixer hòa âm điện ảnh. Tạo cảm hứng viết kịch bản với các dải âm trường thanh (Ambient) như Mưa, Cyberpunk, Rumble.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .soundscape-layout {
+      margin-top: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mixer-board {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .master-control {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    .btn-play-all {
+      background: var(--accent-cyan);
+      color: #000;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    .btn-play-all:hover { transform: scale(1.05); }
+    .btn-play-all.playing { background: var(--accent-red); color: #fff; }
+
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .channel {
+      background: #1a1a1a;
+      border: 1px solid #222;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .channel-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .channel-name {
+      color: var(--text-primary);
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .channel-desc {
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Vertical Slider */
+    .fader-wrapper {
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    input[type=range].fader {
+      writing-mode: bt-lr; /* IE */
+      -webkit-appearance: slider-vertical; /* WebKit */
+      width: 8px;
+      height: 150px;
+      background: #000;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .vu-meter {
+      width: 100%;
+      height: 4px;
+      background: #222;
+      margin-top: 20px;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .vu-level {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: var(--accent-cyan);
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+    /* Preset buttons */
+    .presets {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn-preset {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-preset:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Audio Design</span>
+      <h1>Cinematic Soundscape</h1>
+      <p class="tool-desc">"Âm thanh chiếm 50% trải nghiệm điện ảnh" - George Lucas. Hòa trộn các dải âm Ambient để tạo không gian cảm xúc khi viết kịch bản hoặc lên ý tưởng.</p>
+    </div>
+
+    <div class="soundscape-layout">
+      
+      <div class="mixer-board">
+        
+        <div class="master-control">
+          <div>
+            <h3 style="color: #fff; margin-bottom: 5px;">Master Mix</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Hòa âm thời gian thực.</p>
+          </div>
+          <button class="btn-play-all magnetic" id="btn-master">
+            ▶ Khởi động
+          </button>
+        </div>
+
+        <div class="channels">
+          
+          <!-- Channel 1: Rain -->
+          <div class="channel" data-sound="rain">
+            <div class="channel-icon">🌧️</div>
+            <div class="channel-name">Heavy Rain</div>
+            <div class="channel-desc">Tần số cao, dải rộng</div>
+            <div class="fader-wrapper">
+              <input type="range" class="fader" min="0" max="100" value="0">
+            </div>
+            <div class="vu-meter"><div class="vu-level"></div></div>
+          </div>
+
+          <!-- Channel 2: Cyberpunk City -->
+          <div class="channel" data-sound="city">
+            <div class="channel-icon">🏙️</div>
+            <div class="channel-name">Neon City</div>
+            <div class="channel-desc">Còi xe, máy móc tĩnh</div>
+            <div class="fader-wrapper">
+              <input type="range" class="fader" min="0" max="100" value="0">
+            </div>
+            <div class="vu-meter"><div class="vu-level"></div></div>
+          </div>
+
+          <!-- Channel 3: Cinematic Rumble -->
+          <div class="channel" data-sound="rumble">
+            <div class="channel-icon">🎛️</div>
+            <div class="channel-name">Sub Rumble</div>
+            <div class="channel-desc">Tần số cực thấp, kịch tính</div>
+            <div class="fader-wrapper">
+              <input type="range" class="fader" min="0" max="100" value="0">
+            </div>
+            <div class="vu-meter"><div class="vu-level"></div></div>
+          </div>
+
+          <!-- Channel 4: Wind -->
+          <div class="channel" data-sound="wind">
+            <div class="channel-icon">🌬️</div>
+            <div class="channel-name">Desert Wind</div>
+            <div class="channel-desc">Tiếng gió hú cô lập</div>
+            <div class="fader-wrapper">
+              <input type="range" class="fader" min="0" max="100" value="0">
+            </div>
+            <div class="vu-meter"><div class="vu-level"></div></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="presets">
+        <button class="btn-preset" data-preset="blade-runner">Blade Runner Mood</button>
+        <button class="btn-preset" data-preset="interstellar">Interstellar Isolation</button>
+        <button class="btn-preset" data-preset="noir">Film Noir Detective</button>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/tools/soundscape.js"></script>
+</body>
+</html>
