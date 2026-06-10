@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (type === 'background') {
       obj.color = '#333333';
       obj.y = 50; // default top
+    } else if (type === 'vflat') {
+      obj.color = '#111111'; // Black default
+    } else if (type === 'diffuser') {
+      obj.color = '#ffffff'; // Translucent white
     }
 
     objects.push(obj);
@@ -193,13 +197,15 @@ document.addEventListener('DOMContentLoaded', () => {
       softbox: 'Softbox',
       strobe: 'Đèn Strobe',
       reflector: 'Phản quang',
-      background: 'Phông nền'
+      background: 'Phông nền',
+      vflat: 'V-Flat / Cờ đen',
+      diffuser: 'Tản sáng (Diffuser)'
     };
     propTitle.textContent = 'Thuộc tính: ' + names[obj.type];
 
     propRotate.value = obj.rot;
 
-    if (['softbox', 'strobe', 'background', 'reflector'].includes(obj.type)) {
+    if (['softbox', 'strobe', 'background', 'reflector', 'vflat'].includes(obj.type)) {
       propColorGroup.style.display = 'block';
       propColor.value = obj.color;
     } else {
@@ -269,6 +275,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (showGrid) {
       drawGrid(w, h);
+    }
+
+    // Draw Distance Lines (if a light/obj is selected)
+    if (selectedId && showGrid) {
+      const selObj = objects.find(o => o.id === selectedId);
+      if (selObj && ['softbox', 'strobe', 'reflector', 'vflat', 'diffuser', 'camera'].includes(selObj.type)) {
+        const subject = objects.find(o => o.type === 'subject');
+        if (subject) {
+          ctx.beginPath();
+          ctx.moveTo(selObj.x, selObj.y);
+          ctx.lineTo(subject.x, subject.y);
+          ctx.strokeStyle = 'rgba(0, 212, 170, 0.4)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([5, 5]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          
+          // Draw text distance
+          const dx = subject.x - selObj.x;
+          const dy = subject.y - selObj.y;
+          const distPx = Math.sqrt(dx*dx + dy*dy);
+          // Scale: 100px = 1 meter
+          const distM = (distPx / 100).toFixed(1);
+          
+          ctx.fillStyle = 'rgba(0, 212, 170, 0.9)';
+          ctx.font = '12px monospace';
+          ctx.fillText(distM + 'm', selObj.x + dx/2 + 10, selObj.y + dy/2);
+        }
+      }
     }
 
     // Draw objects
@@ -367,6 +402,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.strokeStyle = '#555';
         ctx.lineWidth = 1;
         ctx.strokeRect(-100, -5, 200, 10);
+
+      } else if (obj.type === 'vflat') {
+        ctx.fillStyle = obj.color;
+        ctx.fillRect(-30, -4, 60, 8);
+        ctx.strokeStyle = '#555';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(-30, -4, 60, 8);
+
+      } else if (obj.type === 'diffuser') {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.lineWidth = 4;
+        ctx.setLineDash([8, 4]);
+        ctx.beginPath();
+        ctx.moveTo(-40, 0);
+        ctx.lineTo(40, 0);
+        ctx.stroke();
+        ctx.setLineDash([]);
       }
 
       // Selection ring
@@ -387,11 +439,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // Init
   setTimeout(() => {
     resize();
-    // Default setup
-    addObject('subject');
-    addObject('camera');
-    objects[1].y += 150; // move camera down
-    objects[1].rot = 180; // point up
+    
+    // Parse URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const recipe = urlParams.get('recipe');
+    
+    // Assume middle of canvas for recipe positioning
+    const cx = (wrapper.getBoundingClientRect().width * (window.devicePixelRatio || 1)) / 2 || 400;
+    const cy = (wrapper.getBoundingClientRect().height * (window.devicePixelRatio || 1)) / 2 || 300;
+    
+    if (recipe === 'rembrandt') {
+      objects = [
+        { id: '1', type: 'subject', x: cx, y: cy, rot: 0, color: '#ffffff' },
+        { id: '2', type: 'camera', x: cx, y: cy + 150, rot: 180, color: '#ffffff' },
+        { id: '3', type: 'softbox', x: cx - 100, y: cy + 80, rot: -135, color: '#fffbe6' },
+        { id: '4', type: 'reflector', x: cx + 120, y: cy + 50, rot: 135, color: '#c0c0c0' },
+        { id: '5', type: 'background', x: cx, y: 50, rot: 0, color: '#333333' }
+      ];
+    } else if (recipe === 'split') {
+      objects = [
+        { id: '1', type: 'subject', x: cx, y: cy, rot: 0, color: '#ffffff' },
+        { id: '2', type: 'camera', x: cx, y: cy + 150, rot: 180, color: '#ffffff' },
+        { id: '3', type: 'softbox', x: cx - 150, y: cy, rot: -90, color: '#fffbe6' },
+        { id: '4', type: 'vflat', x: cx + 100, y: cy, rot: 90, color: '#111111' },
+        { id: '5', type: 'background', x: cx, y: 50, rot: 0, color: '#333333' }
+      ];
+    } else {
+      // Default setup
+      addObject('subject');
+      addObject('camera');
+      objects[1].y += 150; // move camera down
+      objects[1].rot = 180; // point up
+    }
+    
+    render();
   }, 100);
 
 });

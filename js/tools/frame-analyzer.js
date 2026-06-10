@@ -142,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         swatches[i].querySelector('span').textContent = color.toUpperCase();
         swatches[i].style.opacity = '1';
       });
+      analyzeHarmony(finalPalette);
     }, 300);
   }
 
@@ -238,5 +239,71 @@ document.addEventListener('DOMContentLoaded', () => {
       Math.pow(c1.g - c2.g, 2) +
       Math.pow(c1.b - c2.b, 2)
     );
+  }
+
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+      h = s = 0; // achromatic
+    } else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    return [h * 360, s * 100, l * 100];
+  }
+
+  function analyzeHarmony(palette) {
+    const harmonyBox = document.getElementById('harmony-result');
+    const harmonyText = document.getElementById('harmony-text');
+    
+    // Convert hex to HSL
+    const hslColors = palette.map(hex => {
+      const {r, g, b} = hexToRgb(hex);
+      return rgbToHsl(r, g, b);
+    });
+
+    // Filter out very dark (L < 15), very bright (L > 85), or very desaturated (S < 15) colors
+    const validHues = hslColors
+      .filter(c => c[2] > 15 && c[2] < 85 && c[1] > 15)
+      .map(c => c[0]);
+
+    if (validHues.length < 2) {
+      harmonyBox.style.display = 'block';
+      harmonyText.textContent = "Bức ảnh mang tính Đơn Sắc (Monochromatic) hoặc Vô Sắc (Achromatic) do chỉ có 1 dải màu nổi bật hoặc các màu quá nhạt/tối.";
+      return;
+    }
+
+    // Find the max angular distance between any two dominant hues
+    let maxDiff = 0;
+    for(let i = 0; i < validHues.length; i++) {
+      for(let j = i+1; j < validHues.length; j++) {
+        let diff = Math.abs(validHues[i] - validHues[j]);
+        if (diff > 180) diff = 360 - diff;
+        if (diff > maxDiff) maxDiff = diff;
+      }
+    }
+
+    let result = "";
+    if (maxDiff >= 150 && maxDiff <= 180) {
+      result = "Tương phản (Complementary): Khung hình sử dụng hai màu đối xứng trên vòng thuần sắc (ví dụ Teal & Orange), tạo sức hút thị giác và kịch tính rất mạnh.";
+    } else if (maxDiff <= 45) {
+      result = "Tương đồng (Analogous): Khung hình sử dụng các màu liền kề nhau trên vòng màu, tạo cảm giác hài hòa, êm dịu và tự nhiên.";
+    } else if (maxDiff > 90 && maxDiff < 140) {
+      result = "Tam giác (Triadic) hoặc Phân tách (Split-Complementary): Khung hình có sự phân bổ màu sắc phức tạp, rực rỡ nhưng vẫn giữ được sự cân bằng đa dạng.";
+    } else {
+      result = "Phức hợp (Complex/Tetradic): Khung hình phối hợp nhiều dải màu phong phú, thường thấy ở các cảnh quay náo nhiệt hoặc có ánh sáng hỗn hợp (Mixed Lighting).";
+    }
+
+    harmonyBox.style.display = 'block';
+    harmonyText.textContent = result;
   }
 });

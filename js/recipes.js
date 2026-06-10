@@ -603,6 +603,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="recipe-section-card">
             <h4>💡 Sắp Đặt Ánh Sáng</h4>
             <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">${recipe.light}</p>
+            <a href="tools/lighting-builder.html?recipe=${recipe.id === 'rec-003' ? 'split' : 'rembrandt'}" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background: rgba(245, 166, 35, 0.1); color: var(--accent-amber); border: 1px solid rgba(245, 166, 35, 0.5); border-radius: 4px; text-decoration: none; font-size: 0.85rem; font-weight: bold; transition: background 0.2s;" onmouseover="this.style.background='rgba(245, 166, 35, 0.2)'" onmouseout="this.style.background='rgba(245, 166, 35, 0.1)'">
+              Mở trong Diagram Builder ➔
+            </a>
           </div>
 
           <div class="recipe-section-card">
