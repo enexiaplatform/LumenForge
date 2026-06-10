@@ -3,149 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giả lập Màu phim — LumenForge</title>
-  <meta name="keywords" content="film look, nhiếp ảnh, điện ảnh, lumenforge, công cụ">
-  <meta name="description" content="Chọn mood bạn muốn, nhận công thức màu film hoàn chỉnh — color palette, Lightroom settings, lens recommendation, và pro tips.">
+  <title>Interactive Film Emulator — LumenForge</title>
+  <meta name="keywords" content="film look, giả lập màu phim, kodak, portra, cinestill, lumenforge">
+  <meta name="description" content="Công cụ xử lý ảnh giả lập chất màu và nhiễu hạt của các cuộn phim huyền thoại như Kodak Portra 400, Cinestill 800T.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .emulator-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    
+    @media (max-width: 900px) {
+      .emulator-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-container {
+      background: #111;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
+      overflow: hidden;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    .upload-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(10,10,12,0.8);
+      z-index: 10;
+    }
+
+    .upload-overlay.hidden { display: none; }
+
+    .btn-upload {
+      background: var(--accent-amber);
+      color: #000;
+      padding: 15px 30px;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 1.1rem;
+    }
+    .btn-upload:hover { background: #f5b942; }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .film-btn {
+      padding: 15px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .film-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .film-btn.active {
+      border-color: var(--text-primary);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .film-btn h4 { margin-bottom: 5px; font-size: 1.1rem; color: var(--text-primary); }
+    .film-btn p { font-size: 0.85rem; color: var(--text-dim); margin: 0; }
+
+    #btn-download {
+      margin-top: 20px;
+      background: var(--accent-cyan);
+      color: #000;
+      border: none;
+      padding: 15px;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #btn-download:hover { background: #00b4d8; }
+
+    #btn-reset {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    #btn-reset:hover { color: #fff; border-color: #fff; }
+
+    /* Film badges */
+    .badge-portra { color: #f5a623; }
+    .badge-cinestill { color: #00d4ff; }
+    .badge-fuji { color: #32d74b; }
+    .badge-trix { color: #ccc; }
+
+    .loader {
+      position: absolute;
+      top: 20px; left: 20px;
+      color: #fff;
+      background: rgba(0,0,0,0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="nav-menu" id="nav-menu">
+      <div class="nav-menu">
         <a href="../index.html" class="nav-link">Trang chủ</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
         <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
-        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
-        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
-        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
       </div>
     </div>
   </nav>
 
-  <!-- Tool Hero -->
-  <section class="tool-hero">
-    <p class="tool-back"><a href="../tool-lab.html">← Quay lại Xưởng Công cụ</a></p>
-    <p class="section-label">[TOOL 05]</p>
-    <h1>Giả lập Màu phim</h1>
-    <p class="tool-hero-desc">Chọn mood bạn muốn. Nhận công thức màu, setup, và cảm hứng film look.</p>
-  </section>
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Image Processing</span>
+      <h1>Interactive Film Emulator</h1>
+      <p class="tool-desc">Giả lập màu sắc, dải nhạy sáng và nhiễu hạt (Grain) của các cuộn phim huyền thoại trực tiếp trên trình duyệt của bạn.</p>
+    </div>
 
-  <!-- Main Tool Section -->
-  <section class="section">
-    <div class="container">
-      <div class="tool-panel">
-
-        <div class="input-group full-width">
-          <label>CHỌN MOOD</label>
-          <div class="mood-grid" id="mood-grid">
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="japan-afternoon">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #F5DEB3, #DEB887, #8FBC8F)"></div>
-              <span class="mood-card-title">Nhật Bản buổi chiều</span>
-              <span class="mood-card-desc">Nắng nhẹ, pastel, bình yên</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="saigon-rain">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #2F4F4F, #556B2F, #8B8682)"></div>
-              <span class="mood-card-title">Sài Gòn mưa</span>
-              <span class="mood-card-desc">Ướt, phản chiếu, trầm</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="old-cafe">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #8B7355, #DAA520, #CD853F)"></div>
-              <span class="mood-card-title">Quán cà phê cũ</span>
-              <span class="mood-card-desc">Ấm, hoài niệm, gần gũi</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="girlfriend-portrait">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #FFB6C1, #DDA0DD, #F0E68C)"></div>
-              <span class="mood-card-title">Chân dung người yêu</span>
-              <span class="mood-card-desc">Dịu dàng, mềm mại, tình cảm</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="street-night">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #191970, #FF4500, #FFD700)"></div>
-              <span class="mood-card-title">Street Night</span>
-              <span class="mood-card-desc">Neon, bí ẩn, đô thị</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="luxury-studio">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #1a1a1a, #C0C0C0, #2F2F2F)"></div>
-              <span class="mood-card-title">Luxury Studio</span>
-              <span class="mood-card-desc">Sang, tối giản, quyền lực</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="kodak-memory">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #F4A460, #CD853F, #FFF8DC)"></div>
-              <span class="mood-card-title">Kodak Memory</span>
-              <span class="mood-card-desc">Ấm, vàng, ký ức tuổi thơ</span>
-            </label>
-
-            <label class="mood-card">
-              <input type="radio" name="mood" value="fuji-green">
-              <div class="mood-card-color" style="background: linear-gradient(135deg, #2E8B57, #98FB98, #F0FFF0)"></div>
-              <span class="mood-card-title">Fuji Green</span>
-              <span class="mood-card-desc">Tươi, xanh, tự nhiên</span>
-            </label>
-
-          </div>
+    <div class="emulator-layout">
+      
+      <div class="canvas-container">
+        <canvas id="img-canvas"></canvas>
+        <div id="loader" class="loader">Processing...</div>
+        
+        <div class="upload-overlay" id="upload-overlay">
+          <input type="file" id="file-input" accept="image/*" style="display: none;">
+          <button class="btn-upload" onclick="document.getElementById('file-input').click()">
+            Upload Ảnh
+          </button>
         </div>
-
-        <button class="btn-generate" id="generate-btn" disabled>Generate Film Look</button>
-
       </div>
 
-      <!-- Output -->
-      <div class="tool-output" id="film-output" style="display:none;"></div>
+      <div class="panel">
+        <h3 style="margin-bottom: 10px; font-size: 1rem; color: var(--text-dim);">CHỌN CUỘN PHIM (FILM STOCK)</h3>
+        
+        <div class="film-btn active" data-film="original">
+          <h4>Original</h4>
+          <p>Ảnh gốc, không qua xử lý.</p>
+        </div>
+
+        <div class="film-btn" data-film="portra">
+          <h4 class="badge-portra">Kodak Portra 400</h4>
+          <p>Tông ấm, da hồng hào, Shadow nhạt màu (Fade) và Grain mịn. Tiêu chuẩn của ảnh chân dung.</p>
+        </div>
+
+        <div class="film-btn" data-film="cinestill">
+          <h4 class="badge-cinestill">Cinestill 800T</h4>
+          <p>Cân bằng trắng Tungsten (ám xanh lơ), tương phản cao và hiệu ứng quầng đỏ (Halation) ở vùng sáng.</p>
+        </div>
+
+        <div class="film-btn" data-film="fuji">
+          <h4 class="badge-fuji">Fujifilm Superia 400</h4>
+          <p>Ám xanh lá ở Shadow, màu đỏ bị nén, Grain sắc nét. Phù hợp cho ảnh đời thường (Street).</p>
+        </div>
+
+        <div class="film-btn" data-film="trix">
+          <h4 class="badge-trix">Kodak Tri-X 400</h4>
+          <p>Đen trắng cổ điển. Tương phản gắt (High contrast) và hạt Grain rất to và thô.</p>
+        </div>
+
+        <button id="btn-download">⬇ Tải ảnh đã xử lý</button>
+        <button id="btn-reset" onclick="document.getElementById('file-input').click()">Upload ảnh khác</button>
+      </div>
 
     </div>
-  </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
-          <p class="footer-tagline">Hiểu ánh sáng. Rèn phong cách hình ảnh.</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4>Khám phá</h4>
-            <a href="../light-codex.html">Light Codex</a>
-            <a href="../tool-lab.html">Xưởng Công cụ</a>
-            <a href="../shot-recipes.html">Công thức Chụp</a>
-            <a href="../gear-map.html">Bản đồ Thiết bị</a>
-          </div>
-          <div class="footer-col">
-            <h4>Công cụ</h4>
-            <a href="lens-decoder.html">Giải mã Ống kính</a>
-            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
-            <a href="film-look.html">Giả lập Màu phim</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="../js/common.js"></script>
   <script src="../js/tools/film-look.js"></script>
 </body>
 </html>

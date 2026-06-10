@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumenForge PRO — Early Access</title>
+  <meta name="keywords" content="lumenforge pro, khóa học nhiếp ảnh, masterclass, cinematography">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+    }
+
+    /* Premium Nav */
+    .nav-pro {
+      position: fixed; top: 0; width: 100%;
+      padding: 20px 0; z-index: 100;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Gold border */
+    }
+
+    .nav-pro-container {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .nav-logo-pro {
+      font-family: var(--font-mono); font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: bold;
+    }
+    .nav-logo-pro span { color: #d4af37; /* Gold */ }
+
+    /* Hero */
+    .pro-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, #000 70%);
+      padding: 0 20px;
+    }
+
+    .pro-badge {
+      padding: 8px 16px;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    .pro-title {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #fff, #d4af37);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .pro-subtitle {
+      font-size: 1.2rem;
+      color: #999;
+      max-width: 600px;
+      line-height: 1.6;
+      margin-bottom: 50px;
+    }
+
+    /* Email Form */
+    .early-access-form {
+      display: flex;
+      gap: 10px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .early-access-form input {
+      flex-grow: 1;
+      padding: 15px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+    .early-access-form input:focus {
+      outline: none;
+      border-color: #d4af37;
+    }
+
+    .early-access-form button {
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #d4af37 0%, #b38b22 100%);
+      color: #000;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .early-access-form button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Features */
+    .pro-features {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+    }
+
+    .feature-box {
+      border-top: 1px solid rgba(212, 175, 55, 0.3);
+      padding-top: 30px;
+    }
+
+    .feature-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .feature-box p {
+      color: #888;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .pro-title { font-size: 3rem; }
+      .early-access-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav-pro">
+    <div class="nav-pro-container">
+      <a href="index.html" class="nav-logo-pro">LUMEN<span>FORGE</span></a>
+      <a href="index.html" style="color: #888; text-decoration: none;">&larr; Trở về bản Miễn phí</a>
+    </div>
+  </nav>
+
+  <section class="pro-hero">
+    <div class="pro-badge">Sắp ra mắt (2026)</div>
+    <h1 class="pro-title">Nâng cấp Tầm nhìn.<br>Định hình Nghệ thuật.</h1>
+    <p class="pro-subtitle">LumenForge PRO là câu lạc bộ độc quyền dành cho những đạo diễn hình ảnh và nhiếp ảnh gia không chấp nhận sự tầm thường. Mở khóa sức mạnh tối đa của hệ sinh thái.</p>
+    
+    <form class="early-access-form" id="waitlist-form">
+      <input type="email" placeholder="Nhập email của bạn..." required id="waitlist-email">
+      <button type="submit">Tham gia Waitlist</button>
+    </form>
+    <p id="form-message" style="margin-top: 20px; color: #d4af37; display: none;">Cảm ơn bạn! Chúng tôi sẽ thông báo khi mở đăng ký.</p>
+  </section>
+
+  <section class="pro-features">
+    <div class="feature-box">
+      <span style="font-size: 2rem; color: #d4af37; display: block; margin-bottom: 15px;">🎬</span>
+      <h3>Phân tích Phim chiếu rạp</h3>
+      <p>Thư viện phân tích độc quyền bóc tách ánh sáng (Reverse Engineering) của hơn 50 bộ phim đoạt giải Oscar. Bạn sẽ biết đích xác D.P đã đặt đèn gì, ở đâu.</p>
+    </div>
+    
+    <div class="feature-box">
+      <span style="font-size: 2rem; color: #d4af37; display: block; margin-bottom: 15px;">🚀</span>
+      <h3>Pro Studio Builder</h3>
+      <p>Công cụ vẽ sơ đồ ánh sáng nhưng ở định dạng 3D thực tế ảo (VR-ready). Có thể xuất ra file PDF trình diễn cực kỳ chuyên nghiệp cho khách hàng (Pitching).</p>
+    </div>
+    
+    <div class="feature-box">
+      <span style="font-size: 2rem; color: #d4af37; display: block; margin-bottom: 15px;">👥</span>
+      <h3>1-on-1 Mentorship</h3>
+      <p>Cộng đồng kín Discord và những buổi đánh giá Portfolio (Review) trực tiếp hàng tháng với các chuyên gia điện ảnh/nhiếp ảnh hàng đầu.</p>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('waitlist-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('waitlist-email').value;
+      if (email) {
+        // Giả lập lưu email vào localStorage (chỉ để demo)
+        let waitlist = JSON.parse(localStorage.getItem('lf_waitlist')) || [];
+        waitlist.push(email);
+        localStorage.setItem('lf_waitlist', JSON.stringify(waitlist));
+        
+        document.getElementById('waitlist-form').style.display = 'none';
+        document.getElementById('form-message').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

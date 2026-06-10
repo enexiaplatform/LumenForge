@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighting Setup Gallery — LumenForge</title>
+  <meta name="keywords" content="lighting setup, sơ đồ ánh sáng, gallery, lumenforge">
+  <meta name="description" content="Thư viện các sơ đồ ánh sáng nhiếp ảnh và điện ảnh xuất sắc để bạn tham khảo cho dự án tiếp theo.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    .gallery-hero {
+      padding: 120px 0 60px 0;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-xl);
+      margin-top: 40px;
+    }
+
+    .gallery-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: transform 0.3s;
+    }
+    .gallery-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .setup-viz {
+      height: 250px;
+      background: #111;
+      border-radius: var(--radius-md);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .tag-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="gallery-hero">
+    <div class="container">
+      <h1 style="font-size: 3rem; margin-bottom: 20px;">Lighting Gallery</h1>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Thư viện Sơ đồ Ánh sáng tham khảo. Mọi setup ở đây đều có thể được bạn vẽ lại và tinh chỉnh trong <a href="tools/lighting-builder.html" style="color: var(--accent-amber);">Lighting Diagram Builder</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section">
+    <div class="container">
+      <div class="gallery-grid">
+
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: linear-gradient(45deg, #111 50%, #333 100%);">💡👤</div>
+          <h3 class="card-title">Classic Rembrandt Portrait</h3>
+          <p class="card-desc">Đánh sáng nghiêng 45 độ. Tạo ra tam giác sáng đặc trưng dưới mắt nhân vật. Cổ điển và tạo khối cực tốt.</p>
+          <div class="tag-list">
+            <span class="tag">1 Đèn</span>
+            <span class="tag">Chân dung</span>
+            <span class="tag">Cổ điển</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: linear-gradient(90deg, #111 50%, #4a90e2 100%);">🔦👤</div>
+          <h3 class="card-title">Moody Split Lighting</h3>
+          <p class="card-desc">Đèn đặt vuông góc 90 độ so với máy ảnh. Một nửa mặt chìm trong bóng tối. Tạo cảm giác bí ẩn, giằng xé.</p>
+          <div class="tag-list">
+            <span class="tag">1 Đèn</span>
+            <span class="tag">Kịch tính (Dramatic)</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: radial-gradient(circle, #f5a623 0%, #111 70%);">☀️👤💿</div>
+          <h3 class="card-title">Commercial Beauty (Butterfly)</h3>
+          <p class="card-desc">Đèn chính đặt cao đánh chúi xuống, phản quang đặt hắt ngược lên. Triệt tiêu bóng đổ dưới cằm. Da mịn màng.</p>
+          <div class="tag-list">
+            <span class="tag">1 Đèn + Phản quang</span>
+            <span class="tag">Beauty / Mỹ phẩm</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: linear-gradient(135deg, #ff0055 0%, #111 50%, #00d4ff 100%);">🔴👤🔵</div>
+          <h3 class="card-title">Cyberpunk Dual Color</h3>
+          <p class="card-desc">Một Key light màu đỏ hoặc hồng, và một Rim light chéo góc màu xanh lơ (Cyan). Tạo cảm giác tương lai rực rỡ.</p>
+          <div class="tag-list">
+            <span class="tag">2 Đèn</span>
+            <span class="tag">Color Gel</span>
+            <span class="tag">Neon</span>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: #e0e0e0; color: #111;">⬜👤⬜</div>
+          <h3 class="card-title">High Key Fashion</h3>
+          <p class="card-desc">Đánh cháy phông nền phía sau bằng 2 đèn Strobe, kết hợp ánh sáng tản cực rộng phía trước. Cực kỳ trong trẻo.</p>
+          <div class="tag-list">
+            <span class="tag">3 Đèn</span>
+            <span class="tag">Fashion Lookbook</span>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="gallery-card">
+          <div class="setup-viz" style="background: #000; box-shadow: inset 0 0 50px #fff;">⬛👤</div>
+          <h3 class="card-title">Dramatic Silhouette</h3>
+          <p class="card-desc">Không đánh sáng chủ thể. Chỉ dùng một đèn cực mạnh đánh thẳng vào phông nền để tạo bóng đen (Silhouette).</p>
+          <div class="tag-list">
+            <span class="tag">1 Đèn</span>
+            <span class="tag">Hình thể / Nghệ thuật</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge. Hãy dùng công cụ <a href="tools/lighting-builder.html" style="color:var(--text-secondary);">Lighting Builder</a> để tạo thêm các sơ đồ khác.
+    </div>
+  </footer>
+
+</body>
+</html>

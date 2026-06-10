@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinematographer Cheat Sheet — LumenForge</title>
+  <meta name="keywords" content="cheat sheet, cinematographer, nd filter, kelvin, shutter angle">
+  <meta name="description" content="Bảng tra cứu vạn năng tại hiện trường dành cho nhà làm phim và nhiếp ảnh gia.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .cheat-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: 40px;
+    }
+
+    .cheat-section h2 {
+      margin-top: 0;
+      color: var(--accent-cyan);
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .cheat-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+    }
+
+    .cheat-table th, .cheat-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cheat-table th {
+      color: var(--text-dim);
+      font-weight: normal;
+    }
+
+    .cheat-table tr:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .color-swatch {
+      display: inline-block;
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .flex-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 800px) {
+      .flex-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Reference</span>
+      <h1>On-set Cheat Sheet</h1>
+      <p class="tool-desc">Bảng tra cứu "Cứu mạng" tại hiện trường. Hãy Bookmark trang này trên điện thoại của bạn.</p>
+    </div>
+
+    <!-- Kelvin Scale -->
+    <div class="cheat-section">
+      <h2>1. Thang Đo Nhiệt Độ Màu (Kelvin)</h2>
+      <table class="cheat-table">
+        <thead>
+          <tr>
+            <th>Nhiệt độ (K)</th>
+            <th>Nguồn sáng tiêu biểu</th>
+            <th>Màu sắc (Color Cast)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1,900K</td>
+            <td>Ánh nến, lửa sưởi</td>
+            <td><span class="color-swatch" style="background: #ff7b00;"></span>Cam rất ấm (Cực kỳ vàng)</td>
+          </tr>
+          <tr>
+            <td>2,800K - 3,200K</td>
+            <td>Đèn sợi đốt (Tungsten), Đèn vàng</td>
+            <td><span class="color-swatch" style="background: #ffb74d;"></span>Vàng ấm (Warm)</td>
+          </tr>
+          <tr>
+            <td>4,000K</td>
+            <td>Đèn huỳnh quang (Fluorescent)</td>
+            <td><span class="color-swatch" style="background: #fff8e1;"></span>Trắng hơi ngả xanh lá</td>
+          </tr>
+          <tr>
+            <td>5,500K - 5,600K</td>
+            <td>Ánh sáng ban ngày (Daylight), Đèn Flash/Strobe</td>
+            <td><span class="color-swatch" style="background: #ffffff; border: 1px solid #555;"></span>Trắng trung tính (Neutral)</td>
+          </tr>
+          <tr>
+            <td>6,500K - 7,500K</td>
+            <td>Trời nhiều mây (Overcast), Bóng râm</td>
+            <td><span class="color-swatch" style="background: #bbdefb;"></span>Hơi ngả xanh dương (Cool)</td>
+          </tr>
+          <tr>
+            <td>9,000K - 10,000K</td>
+            <td>Trời trong, không có mặt trời trực tiếp</td>
+            <td><span class="color-swatch" style="background: #64b5f6;"></span>Xanh dương lạnh (Rất xanh)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex-grid">
+      <!-- ND Filters -->
+      <div class="cheat-section">
+        <h2>2. Tính toán ND Filter (Giảm Stop)</h2>
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Tên ND (ND Number)</th>
+              <th>Optical Density (OD)</th>
+              <th>Giảm sáng (f-Stops)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>ND2</td><td>0.3</td><td>1 Stop</td></tr>
+            <tr><td>ND4</td><td>0.6</td><td>2 Stops</td></tr>
+            <tr><td>ND8</td><td>0.9</td><td>3 Stops</td></tr>
+            <tr><td>ND16</td><td>1.2</td><td>4 Stops</td></tr>
+            <tr><td>ND32</td><td>1.5</td><td>5 Stops</td></tr>
+            <tr><td>ND64</td><td>1.8</td><td>6 Stops</td></tr>
+            <tr><td>ND1000</td><td>3.0</td><td>10 Stops</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Shutter Angle -->
+      <div class="cheat-section">
+        <h2>3. Shutter Angle vs Speed (24fps)</h2>
+        <p style="color: var(--text-dim); margin-bottom: 15px; font-size: 0.9rem;">Quy tắc 180 độ: Tốc độ trập = 1 / (2 x FPS). Ở 24fps, 180° = 1/48s (Mờ nhòe chuyển động tự nhiên nhất).</p>
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Shutter Angle</th>
+              <th>Shutter Speed (ở 24fps)</th>
+              <th>Hiệu ứng (Motion Blur)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>360°</td><td>1/24s</td><td>Cực nhòe (Mộng mị, say xỉn)</td></tr>
+            <tr><td>270°</td><td>1/32s</td><td>Hơi nhòe</td></tr>
+            <tr><td style="color: var(--accent-amber); font-weight: bold;">180°</td><td style="color: var(--accent-amber); font-weight: bold;">1/48s (hoặc 1/50s)</td><td style="color: var(--accent-amber); font-weight: bold;">Điện ảnh tiêu chuẩn (Cinematic)</td></tr>
+            <tr><td>90°</td><td>1/96s (hoặc 1/100s)</td><td>Hơi gắt, giật (Staccato)</td></tr>
+            <tr><td>45°</td><td>1/198s (hoặc 1/200s)</td><td>Cực nét, giật cục (Saving Private Ryan, Cảnh hành động)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Director's Viewfinder — LumenForge</title>
+  <meta name="keywords" content="viewfinder, director, camera, aspect ratio, ống ngắm">
+  <meta name="description" content="Biến điện thoại của bạn thành ống ngắm đạo diễn (Director's Viewfinder) để dò tìm góc máy và bố cục với tỷ lệ khung hình điện ảnh.">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <style>
+    body, html {
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      background: #000; color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .video-container {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    video {
+      width: 100%; height: 100%;
+      object-fit: cover; /* Cover full screen */
+    }
+
+    /* Aspect Ratio Overlay */
+    .ar-overlay {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100vw;
+      box-shadow: 0 0 0 1000px rgba(0,0,0,0.8);
+      border: 2px solid #fff;
+      pointer-events: none;
+      transition: height 0.3s ease;
+    }
+
+    /* Grid Overlay */
+    .grid-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      display: none;
+      pointer-events: none;
+    }
+    
+    .grid-overlay.active { display: block; }
+
+    .grid-line-v1, .grid-line-v2 {
+      position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.4);
+    }
+    .grid-line-v1 { left: 33.33%; }
+    .grid-line-v2 { left: 66.66%; }
+
+    .grid-line-h1, .grid-line-h2 {
+      position: absolute; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.4);
+    }
+    .grid-line-h1 { top: 33.33%; }
+    .grid-line-h2 { top: 66.66%; }
+
+    /* UI Controls */
+    .controls {
+      position: absolute;
+      bottom: 30px; left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    button {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    button.active {
+      background: #fff;
+      color: #000;
+    }
+
+    .top-bar {
+      position: absolute;
+      top: 20px; left: 20px; right: 20px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 100;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .top-bar a {
+      color: #fff; text-decoration: none; font-weight: bold;
+    }
+
+    .btn-camera {
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%; width: 40px; height: 40px;
+      display: flex; justify-content: center; align-items: center; cursor: pointer;
+    }
+
+    /* Start Screen */
+    .start-screen {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 200;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .start-screen h1 { margin-bottom: 10px; }
+    .start-screen p { color: #888; margin-bottom: 30px; max-width: 400px; }
+    .btn-start {
+      background: #00d4ff; color: #000; padding: 15px 30px; border-radius: 30px;
+      font-size: 1.2rem; border: none; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Start Screen (Needs manual interaction to start camera) -->
+  <div class="start-screen" id="start-screen">
+    <h1 style="color: #00d4ff;">Director's Viewfinder</h1>
+    <p>Công cụ cần quyền truy cập Camera để giả lập ống ngắm điện ảnh. Dữ liệu hình ảnh không bị lưu lại.</p>
+    <button class="btn-start" id="btn-start">Mở Camera</button>
+    <a href="../tool-lab.html" style="color: #fff; margin-top: 20px; text-decoration: none;">&larr; Trở về Tool Lab</a>
+  </div>
+
+  <div class="top-bar">
+    <a href="../tool-lab.html">← LUMENFORGE</a>
+    <div class="btn-camera" id="btn-flip">↻</div>
+  </div>
+
+  <div class="video-container">
+    <video id="camera-stream" autoplay playsinline muted></video>
+    
+    <!-- AR Overlay -->
+    <div class="ar-overlay" id="ar-box">
+      <!-- Grid -->
+      <div class="grid-overlay" id="grid">
+        <div class="grid-line-v1"></div>
+        <div class="grid-line-v2"></div>
+        <div class="grid-line-h1"></div>
+        <div class="grid-line-h2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="ar-btn active" data-ar="16/9">16:9</button>
+    <button class="ar-btn" data-ar="2.35/1">2.35:1</button>
+    <button class="ar-btn" data-ar="4/3">4:3</button>
+    <button id="btn-grid" style="border-left: 2px solid #555; border-radius: 0; border-top: none; border-bottom: none; border-right: none;"># Lưới</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.getElementById('camera-stream');
+      const startScreen = document.getElementById('start-screen');
+      const btnStart = document.getElementById('btn-start');
+      const btnFlip = document.getElementById('btn-flip');
+      const arBox = document.getElementById('ar-box');
+      const grid = document.getElementById('grid');
+      const btnGrid = document.getElementById('btn-grid');
+      const arBtns = document.querySelectorAll('.ar-btn');
+
+      let currentFacingMode = 'environment'; // default to back camera
+      let stream = null;
+
+      // Start Camera
+      btnStart.addEventListener('click', async () => {
+        await initCamera();
+        startScreen.style.display = 'none';
+        updateAR('16/9');
+      });
+
+      // Flip Camera
+      btnFlip.addEventListener('click', async () => {
+        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+        await initCamera();
+      });
+
+      async function initCamera() {
+        if (stream) {
+          stream.getTracks().forEach(track => track.stop());
+        }
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: currentFacingMode }
+          });
+          video.srcObject = stream;
+        } catch (err) {
+          alert('Không thể truy cập Camera. Vui lòng cấp quyền trong cài đặt trình duyệt.');
+          console.error(err);
+        }
+      }
+
+      // Aspect Ratio Control
+      function updateAR(ratioStr) {
+        const [w, h] = ratioStr.split('/').map(Number);
+        const ratio = w / h;
+        const screenW = window.innerWidth;
+        const targetH = screenW / ratio;
+        arBox.style.height = targetH + 'px';
+      }
+
+      window.addEventListener('resize', () => {
+        const activeBtn = document.querySelector('.ar-btn.active');
+        if (activeBtn) updateAR(activeBtn.getAttribute('data-ar'));
+      });
+
+      arBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          arBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          updateAR(btn.getAttribute('data-ar'));
+        });
+      });
+
+      // Grid Toggle
+      btnGrid.addEventListener('click', () => {
+        btnGrid.classList.toggle('active');
+        grid.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
