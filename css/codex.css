@@ -548,3 +548,8 @@
 .codex-back-link a:hover {
   color: var(--accent-amber);
 }
+
+/* === FIX CODEX JUMP AND CODE TAG === */
+#grid-explore { min-height: 80vh; align-content: start; }
+.codex-card-code { background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.8em; margin-right: 6px; border: 1px solid rgba(255,255,255,0.1); }
+

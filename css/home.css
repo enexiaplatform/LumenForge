@@ -471,3 +471,14 @@
     font-size: var(--text-xl);
   }
 }
+
+/* === NEW ECOSYSTEM CARDS === */
+.lab-card.has-bg { position: relative; overflow: hidden; background-size: cover; background-position: center; border: 1px solid var(--border); padding: 0; min-height: 250px; display: flex; flex-direction: column; justify-content: flex-end; }
+.lab-card-overlay { position: absolute; inset: 0; background: rgba(10,10,12,0.8); z-index: 1; transition: opacity 0.3s; }
+.lab-card.has-bg:hover .lab-card-overlay { opacity: 0.9; }
+.lab-card-content { position: relative; z-index: 2; padding: 30px; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; transform: translateY(10px); transition: transform 0.3s; }
+.lab-card.has-bg:hover .lab-card-content { transform: translateY(0); }
+.lab-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+.lab-card-content p { color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; font-size: 0.95rem; }
+.lab-card-content h3 { font-size: 1.4rem; margin-bottom: 10px; font-weight: 700; color: var(--text-primary); }
+

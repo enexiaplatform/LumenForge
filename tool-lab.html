@@ -36,575 +36,134 @@
     <p class="lab-label">[&thinsp;CÔNG CỤ NHIẾP ẢNH TƯƠNG TÁC&thinsp;]</p>
     <h1>Xưởng Công cụ</h1>
     <p class="hero-subtitle">Công cụ tương tác cho nhiếp ảnh gia</p>
-  </section>
-
-  <!-- Tool Grid -->
+    <!-- Tool Categories -->
   <section class="section">
     <div class="container">
-      <div class="tool-grid">
-
-        <!-- Flagship 01: Lighting Diagram Builder -->
-        <a href="tools/lighting-builder.html" class="tool-card" data-accent="amber" style="grid-column: span 2; border: 1px solid var(--accent-amber);">
-          <span class="tool-card-number" style="color: var(--accent-amber);">★ 01</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="6" y="10" width="24" height="16" rx="2" fill="none" stroke="currentColor"/>
-              <circle cx="18" cy="18" r="4"/>
-              <path d="M4,10 L12,4"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Lighting Diagram Builder</h3>
-          <p class="tool-card-desc">Kéo thả vật thể và đèn để tự vẽ sơ đồ ánh sáng 2D chuyên nghiệp.</p>
-          <span class="tool-status active" style="background: var(--accent-amber); color: #000;">Flagship Tool</span>
-        </a>
-
-        <!-- Flagship 02: Cinematic Frame Analyzer -->
-        <a href="tools/frame-analyzer.html" class="tool-card" data-accent="cyan" style="grid-column: span 2; border: 1px solid var(--accent-cyan);">
-          <span class="tool-card-number" style="color: var(--accent-cyan);">★ 02</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="4" y="6" width="28" height="24" rx="2" fill="none" stroke="currentColor"/>
-              <line x1="4" y1="14" x2="32" y2="14"/>
-              <line x1="4" y1="22" x2="32" y2="22"/>
-              <line x1="13" y1="6" x2="13" y2="30"/>
-              <line x1="23" y1="6" x2="23" y2="30"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Cinematic Frame Analyzer</h3>
-          <p class="tool-card-desc">Upload ảnh để trí tuệ nhân tạo trích xuất Color Palette và phủ lưới Bố cục.</p>
-          <span class="tool-status active" style="background: var(--accent-cyan); color: #000;">Flagship Tool</span>
-        </a>
-
-        <!-- AI Engine 01: AI Storyboard Builder -->
-        <a href="tools/ai-storyboard.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">AI</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <path d="M10,26 L18,10 L26,26 M14,20 L22,20" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">AI Prompt Builder</h3>
-          <p class="tool-card-desc">Tạo Prompt Midjourney/SD chuẩn xác.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Sim 01: Shadow Simulator -->
-        <a href="tools/shadow-simulator.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">3D</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="10" fill="none" stroke="currentColor"/>
-              <path d="M18,8 A10,10 0 0,0 18,28" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">3D Shadow Simulator</h3>
-          <p class="tool-card-desc">Giả lập hướng đổ bóng của gương mặt.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Prod 01: Shoot Planner -->
-        <a href="tools/shoot-planner.html" class="tool-card" data-accent="film">
-          <span class="tool-card-number">PROD</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="8" y="6" width="20" height="26" rx="2" fill="none" stroke="currentColor"/>
-              <line x1="12" y1="12" x2="24" y2="12" stroke="currentColor"/>
-              <line x1="12" y1="18" x2="24" y2="18" stroke="currentColor"/>
-              <line x1="12" y1="24" x2="20" y2="24" stroke="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Shoot Planner</h3>
-          <p class="tool-card-desc">Tạo và in Call Sheet cho Ekip.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Prod 02: Posing Guide -->
-        <a href="tools/posing-guide.html" class="tool-card" data-accent="purple">
-          <span class="tool-card-number">POSE</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="10" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
-              <path d="M18 14 L18 26 M18 18 L10 22 M18 18 L26 22 M18 26 L12 34 M18 26 L24 34" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Posing Guide Library</h3>
-          <p class="tool-card-desc">Bách khoa toàn thư tư thế tạo dáng.</p>
-          <span class="tool-status active" style="background: rgba(188, 0, 255, 0.1); color: var(--accent-purple);">Reference</span>
-        </a>
-
-        <!-- Tool 01: Tính cách Lens Decoder -->
-        <a href="tools/lens-decoder.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">01</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="14"/>
-              <circle cx="18" cy="18" r="9"/>
-              <circle cx="18" cy="18" r="4"/>
-              <line x1="18" y1="4" x2="18" y2="9"/>
-              <line x1="18" y1="27" x2="18" y2="32"/>
-              <line x1="4" y1="18" x2="9" y2="18"/>
-              <line x1="27" y1="18" x2="32" y2="18"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Tính cách Lens Decoder</h3>
-          <p class="tool-card-desc">Giải mã tính cách lens của bạn</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 02: Giả lập Góc nhìn (FOV) -->
-        <a href="tools/fov-simulator.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">02</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="4" y="8" width="28" height="20" rx="2"/>
-              <line x1="4" y1="13" x2="32" y2="13"/>
-              <circle cx="18" cy="22" r="4"/>
-              <line x1="8" y1="28" x2="14" y2="35"/>
-              <line x1="28" y1="28" x2="22" y2="35"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Giả lập Góc nhìn (FOV)</h3>
-          <p class="tool-card-desc">Mô phỏng góc nhìn theo tiêu cự</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 03: Giải thích Độ sâu Trường ảnh (DOF) -->
-        <a href="tools/dof-calculator.html" class="tool-card" data-accent="blue">
-          <span class="tool-card-number">03</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <line x1="18" y1="4" x2="18" y2="32"/>
-              <circle cx="18" cy="12" r="3" fill="currentColor" opacity="0.3"/>
-              <circle cx="18" cy="20" r="3"/>
-              <circle cx="18" cy="28" r="3" fill="currentColor" opacity="0.3"/>
-              <line x1="6" y1="8" x2="12" y2="12"/>
-              <line x1="30" y1="8" x2="24" y2="12"/>
-              <line x1="6" y1="32" x2="12" y2="28"/>
-              <line x1="30" y1="32" x2="24" y2="28"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Giải thích Độ sâu Trường ảnh (DOF)</h3>
-          <p class="tool-card-desc">Hiểu xóa phông qua hình ảnh</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 04: Mô phỏng Phơi sáng -->
-        <a href="tools/exposure-reactor.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">04</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <polygon points="18,4 22,14 32,14 24,21 27,32 18,25 9,32 12,21 4,14 14,14"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Mô phỏng Phơi sáng</h3>
-          <p class="tool-card-desc">Playground tương tác cho tam giác phơi sáng</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 05: Giả lập Màu phim -->
-        <a href="tools/film-look.html" class="tool-card" data-accent="film">
-          <span class="tool-card-number">05</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="6" y="6" width="24" height="24" rx="3"/>
-              <rect x="10" y="10" width="16" height="16" rx="1"/>
-              <line x1="6" y1="12" x2="10" y2="12"/>
-              <line x1="6" y1="18" x2="10" y2="18"/>
-              <line x1="6" y1="24" x2="10" y2="24"/>
-              <line x1="26" y1="12" x2="30" y2="12"/>
-              <line x1="26" y1="18" x2="30" y2="18"/>
-              <line x1="26" y1="24" x2="30" y2="24"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Giả lập Màu phim (Interactive)</h3>
-          <p class="tool-card-desc">Xử lý ảnh thật thành màu Film (Kodak, Portra)</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- LR Gen -->
-        <a href="tools/lightroom-generator.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">LR</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="8" y="8" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
-              <text x="18" y="22" fill="currentColor" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">Lr</text>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Lightroom Preset Generator</h3>
-          <p class="tool-card-desc">Kéo thông số ánh sáng và tự động xuất file .XMP Preset nội bộ.</p>
-          <span class="tool-status active" style="background: rgba(0,212,255,0.1); color: var(--accent-cyan);">Offline Engine</span>
-        </a>
-
-        <!-- Tool 06: Khảo sát Bản sắc Thị giác -->
-        <a href="tools/visual-identity.html" class="tool-card" data-accent="purple">
-          <span class="tool-card-number">06</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="14" r="6"/>
-              <ellipse cx="18" cy="14" rx="3" ry="6"/>
-              <path d="M8 30 C8 22, 28 22, 28 30"/>
-              <line x1="18" y1="20" x2="18" y2="24"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Khảo sát Bản sắc Thị giác</h3>
-          <p class="tool-card-desc">Khám phá phong cách hình ảnh cá nhân</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 07: Phòng thí nghiệm Màu sắc -->
-        <a href="tools/color-alchemy.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">07</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <path d="M18 4 C10 4, 4 10, 4 18 C4 26, 10 32, 18 32 C20 32, 22 30, 22 28 C22 27, 21.5 26, 21 25 C20.5 24, 20 23, 20 22 C20 20, 22 18, 24 18 L26 18 C29.5 18, 32 15.5, 32 12 C32 7.5, 26 4, 18 4 Z"/>
-              <circle cx="11" cy="13" r="2" fill="var(--accent-cyan)"/>
-              <circle cx="11" cy="23" r="2" fill="var(--accent-film)"/>
-              <circle cx="17" cy="10" r="2" fill="var(--accent-blue)"/>
-              <circle cx="23" cy="13" r="2" fill="var(--accent-purple)"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Phòng thí nghiệm Màu sắc</h3>
-          <p class="tool-card-desc">Mô phỏng cân bằng trắng & màu sắc (WB & Tint)</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 08: Phòng chụp Ánh sáng 3 Điểm -->
-        <a href="tools/lighting-studio.html" class="tool-card" data-accent="film">
-          <span class="tool-card-number">08</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <!-- Spotlight / lamp icon -->
-              <path d="M18 4 L10 18 L26 18 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="18" y1="18" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="12" y1="28" x2="24" y2="28" stroke="currentColor" stroke-width="1.5"/>
-              <!-- Light rays -->
-              <line x1="10" y1="18" x2="4" y2="26" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
-              <line x1="26" y1="18" x2="32" y2="26" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
-              <line x1="18" y1="18" x2="18" y2="32" stroke="currentColor" stroke-width="0.8" opacity="0.3"/>
-              <!-- Small glow dot -->
-              <circle cx="18" cy="12" r="2" fill="var(--accent-amber)" opacity="0.6"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Phòng chụp Ánh sáng 3 Điểm</h3>
-          <p class="tool-card-desc">Mô phỏng setup ánh sáng 3 điểm cho chân dung</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 09: Trợ lý Bố cục Cổ điển -->
-        <a href="tools/composition-overlay.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">09</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <!-- Tone curve S-shape -->
-              <rect x="4" y="4" width="28" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-              <!-- Diagonal reference line -->
-              <line x1="6" y1="30" x2="30" y2="6" stroke="currentColor" stroke-width="0.5" opacity="0.2" stroke-dasharray="2 2"/>
-              <!-- S-curve path -->
-              <path d="M6 30 C10 28, 14 22, 18 18 C22 14, 26 8, 30 6" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round"/>
-              <!-- Control points -->
-              <circle cx="10" cy="26" r="2" fill="var(--accent-amber)"/>
-              <circle cx="18" cy="18" r="2" fill="var(--accent-amber)"/>
-              <circle cx="26" cy="10" r="2" fill="var(--accent-amber)"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Biểu đồ & Đường cong Tông màu</h3>
-          <p class="tool-card-desc">Kéo thả đường cong tông màu và phân tích histogram</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 10: Mô phỏng Cân bằng Trắng -->
-        <a href="tools/wb-simulator.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">10</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="15" y="4" width="6" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="18" cy="28" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="18" cy="28" r="2.5" fill="var(--accent-amber)"/>
-              <rect x="17" y="10" width="2" height="14" rx="1" fill="var(--accent-amber)" opacity="0.7"/>
-              <line x1="23" y1="8" x2="27" y2="8" stroke="#ff8a21" stroke-width="1.5" opacity="0.6"/>
-              <line x1="23" y1="13" x2="26" y2="13" stroke="#ffcc66" stroke-width="1.5" opacity="0.5"/>
-              <line x1="23" y1="18" x2="27" y2="18" stroke="#aabbff" stroke-width="1.5" opacity="0.6"/>
-              <line x1="23" y1="23" x2="26" y2="23" stroke="#6688ff" stroke-width="1.5" opacity="0.5"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Mô phỏng Cân bằng Trắng</h3>
-          <p class="tool-card-desc">Trực quan hóa nhiệt độ màu Kelvin & Tint</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 11: Cinematic Color Matrix -->
-        <a href="tools/color-matrix.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">11</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="12" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="12" cy="22" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="24" cy="22" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Bảng Màu Điện Ảnh</h3>
-          <p class="tool-card-desc">Giả lập 3-Way Color Wheels & Split Toning</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 12: DoF Calculator -->
-        <a href="tools/dof-calculator.html" class="tool-card" data-accent="green">
-          <span class="tool-card-number">12</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="6" y="10" width="24" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="18" cy="18" r="4" fill="currentColor"/>
-              <line x1="18" y1="4" x2="18" y2="10" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="18" y1="26" x2="18" y2="32" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">DoF Calculator</h3>
-          <p class="tool-card-desc">Tính toán độ sâu trường ảnh & Hyperfocal</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 13: 3-Point Lighting Simulator -->
-        <a href="tools/lighting-simulator.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">13</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="8" cy="10" r="3" fill="var(--accent-amber)"/>
-              <circle cx="28" cy="10" r="3" fill="var(--accent-cyan)"/>
-              <circle cx="18" cy="30" r="3" fill="var(--accent-purple)"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Phòng Đánh Sáng 3 Điểm</h3>
-          <p class="tool-card-desc">Sa bàn mô phỏng hướng sáng & Tỉ lệ tương phản</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 14: Flash Sync Simulator -->
-        <a href="tools/flash-simulator.html" class="tool-card" data-accent="red">
-          <span class="tool-card-number">14</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <path d="M14 2 L22 14 L18 16 L24 34 L12 20 L16 18 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Mô phỏng Đèn Flash & HSS</h3>
-          <p class="tool-card-desc">Giải mã hiện tượng X-Sync và cân bằng sáng độc lập.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 15: Composition Analyzer -->
-        <a href="tools/composition-analyzer.html" class="tool-card" data-accent="purple">
-          <span class="tool-card-number">15</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="6" y="8" width="24" height="20" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="14" y1="8" x2="14" y2="28" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-              <line x1="22" y1="8" x2="22" y2="28" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-              <line x1="6" y1="14.6" x2="30" y2="14.6" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-              <line x1="6" y1="21.3" x2="30" y2="21.3" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Sa bàn Bố cục Hình học</h3>
-          <p class="tool-card-desc">Phân tích khung hình bằng Tỉ lệ Vàng & Xoắn ốc Fibonacci.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-        <!-- Tool 17: Anamorphic Lens Simulator -->
-        <a href="tools/anamorphic-simulator.html" class="tool-card" data-accent="film">
-          <span class="tool-card-number">17</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <ellipse cx="18" cy="18" rx="8" ry="14" fill="none" stroke="var(--accent-film)" stroke-width="2"/>
-              <line x1="4" y1="18" x2="32" y2="18" stroke="var(--accent-blue)" stroke-width="1.5" opacity="0.8"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Anamorphic Lens Simulator</h3>
-          <p class="tool-card-desc">Mô phỏng ống kính điện ảnh: Oval Bokeh & Blue Streak Flare.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 18: 3-Way Color Corrector -->
-        <a href="tools/color-wheels.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">18</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="12" r="6" stroke="var(--accent-cyan)" stroke-width="1.5" fill="none"/>
-              <circle cx="12" cy="22" r="6" stroke="var(--accent-cyan)" stroke-width="1.5" fill="none"/>
-              <circle cx="24" cy="22" r="6" stroke="var(--accent-cyan)" stroke-width="1.5" fill="none"/>
-              <circle cx="18" cy="12" r="1.5" fill="var(--accent-cyan)"/>
-              <circle cx="10" cy="24" r="1.5" fill="var(--accent-cyan)"/>
-              <circle cx="26" cy="20" r="1.5" fill="var(--accent-cyan)"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">3-Way Color Corrector</h3>
-          <p class="tool-card-desc">Bảng điều khiển Color Grading Lift/Gamma/Gain chuyên nghiệp.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-        <!-- Tool 19: Timelapse Calculator -->
-        <a href="tools/timelapse-calculator.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">19</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <circle cx="18" cy="18" r="14" fill="none" stroke="var(--accent-amber)" stroke-width="2"/>
-              <line x1="18" y1="18" x2="18" y2="8" stroke="var(--accent-amber)" stroke-width="2" stroke-linecap="round"/>
-              <line x1="18" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M18 4 A14 14 0 0 1 32 18" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Máy tính Timelapse</h3>
-          <p class="tool-card-desc">Tính toán số lượng ảnh, Interval và thời gian thực tế.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 20: Cinematic Aspect Ratio -->
-        <a href="tools/aspect-ratio.html" class="tool-card" data-accent="film">
-          <span class="tool-card-number">20</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="4" y="10" width="28" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
-              <line x1="4" y1="14" x2="32" y2="14" stroke="currentColor"/>
-              <line x1="4" y1="22" x2="32" y2="22" stroke="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Cinematic Aspect Ratio</h3>
-          <p class="tool-card-desc">Mô phỏng Crop tỉ lệ phim điện ảnh</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 21: Mastery Exam -->
-        <a href="tools/mastery-quiz.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">21</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <polygon points="18,4 22,14 32,14 24,21 27,32 18,25 9,32 12,21 4,14 14,14" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">LumenForge Mastery Exam</h3>
-          <p class="tool-card-desc">Bài test trắc nghiệm kiến thức quang học</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-      <!-- Tool 22: Director Viewfinder -->
-        <a href="tools/viewfinder.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">22</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="4" y="10" width="28" height="16" fill="none" stroke="currentColor" stroke-width="2"/>
-              <line x1="18" y1="10" x2="18" y2="26" stroke="currentColor"/>
-              <circle cx="18" cy="18" r="4" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">Director's Viewfinder</h3>
-          <p class="tool-card-desc">Giả lập ống ngắm đạo diễn bằng Camera</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 23: Cheat Sheet -->
-        <a href="tools/cheat-sheet.html" class="tool-card" data-accent="purple">
-          <span class="tool-card-number">23</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36">
-              <rect x="8" y="4" width="20" height="28" rx="2" fill="none" stroke="currentColor"/>
-              <line x1="12" y1="12" x2="24" y2="12" stroke="currentColor"/>
-              <line x1="12" y1="18" x2="24" y2="18" stroke="currentColor"/>
-              <line x1="12" y1="24" x2="20" y2="24" stroke="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="tool-card-title">On-set Cheat Sheet</h3>
-          <p class="tool-card-desc">Bảng tra cứu vạn năng (ND, Kelvin, Shutter)</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 24: Chroma Key -->
-        <a href="tools/chroma-key.html" class="tool-card" data-accent="green">
-          <span class="tool-card-number">24</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><rect x="4" y="4" width="28" height="28" fill="currentColor"/></svg>
-          </div>
-          <h3 class="tool-card-title">Chroma Key VFX</h3>
-          <p class="tool-card-desc">Học cách xóa phông xanh bằng Canvas Pixel Manipulation.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 25: Dolly Zoom -->
-        <a href="tools/dolly-zoom.html" class="tool-card" data-accent="red">
-          <span class="tool-card-number">25</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><polygon points="18,4 4,32 32,32" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-          </div>
-          <h3 class="tool-card-title">Dolly Zoom Playground</h3>
-          <p class="tool-card-desc">Trực quan hóa Nén không gian (Vertigo Effect).</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 26: Title Generator -->
-        <a href="tools/title-generator.html" class="tool-card" data-accent="blue">
-          <span class="tool-card-number">26</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><rect x="4" y="10" width="28" height="16" fill="currentColor"/></svg>
-          </div>
-          <h3 class="tool-card-title">Title Generator</h3>
-          <p class="tool-card-desc">Tạo Poster Điện ảnh tức thì với Film Grain.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 27: Color Matcher -->
-        <a href="tools/color-matcher.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">27</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="12" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-          </div>
-          <h3 class="tool-card-title">Color Matcher</h3>
-          <p class="tool-card-desc">Trích xuất Palette và giả lập Color Wheels.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 28: Storyboard Drawer -->
-        <a href="tools/storyboard-drawer.html" class="tool-card" data-accent="amber">
-          <span class="tool-card-number">28</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><rect x="6" y="6" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-          </div>
-          <h3 class="tool-card-title">Storyboard Drawer</h3>
-          <p class="tool-card-desc">Bảng vẽ phác thảo kịch bản với Camera Move.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 29: Soundscape -->
-        <a href="tools/soundscape.html" class="tool-card" data-accent="purple">
-          <span class="tool-card-number">29</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="10" fill="currentColor"/></svg>
-          </div>
-          <h3 class="tool-card-title">Soundscape Generator</h3>
-          <p class="tool-card-desc">Mixer hòa âm Ambient (Mưa, Cyberpunk).</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 30: Sync Simulator -->
-        <a href="tools/sync-simulator.html" class="tool-card" data-accent="cyan">
-          <span class="tool-card-number">30</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><path d="M10 18h16" stroke="currentColor" stroke-width="2"/></svg>
-          </div>
-          <h3 class="tool-card-title">Audio Sync Simulator</h3>
-          <p class="tool-card-desc">Minigame đồng bộ âm thanh Clapperboard.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
-        <!-- Tool 31: Lighting Gels -->
-        <a href="tools/lighting-gels.html" class="tool-card" data-accent="blue">
-          <span class="tool-card-number">31</span>
-          <div class="tool-card-icon">
-            <svg viewBox="0 0 36 36"><rect x="10" y="10" width="16" height="16" fill="currentColor"/></svg>
-          </div>
-          <h3 class="tool-card-title">Lighting Gels Physics</h3>
-          <p class="tool-card-desc">Kéo thả kính lọc để học Subtractive Mixing.</p>
-          <span class="tool-status active">Đang hoạt động</span>
-        </a>
-
+      
+      <!-- Category 1: Flagship Labs -->
+      <div class="tool-category">
+        <h2 class="category-title">01 // Flagship Labs</h2>
+        <p class="category-desc">Bộ công cụ cốt lõi làm nên sức mạnh của LumenForge.</p>
+        <div class="tool-gallery">
+          <a href="tools/lighting-builder.html" class="tool-gallery-card" data-accent="amber">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=800&auto=format&fit=crop');">
+              <div class="tool-status-badge">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Lighting Diagram Builder</h3>
+              <p>Kéo thả vật thể và đèn để tự vẽ sơ đồ ánh sáng 2D chuyên nghiệp.</p>
+            </div>
+          </a>
+          <a href="tools/frame-analyzer.html" class="tool-gallery-card" data-accent="cyan">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1606138676646-0bdf60ff7561?q=80&w=800&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-cyan);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Cinematic Frame Analyzer</h3>
+              <p>Upload ảnh để AI trích xuất Color Palette và lưới Bố cục.</p>
+            </div>
+          </a>
+        </div>
       </div>
+
+      <!-- Category 2: Physics Simulators -->
+      <div class="tool-category">
+        <h2 class="category-title">02 // 3D Simulators</h2>
+        <p class="category-desc">Mô phỏng vật lý ánh sáng và quang học theo thời gian thực.</p>
+        <div class="tool-gallery">
+          <a href="tools/shadow-simulator.html" class="tool-gallery-card" data-accent="amber">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop');">
+              <div class="tool-status-badge">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>3D Shadow Simulator</h3>
+              <p>Giả lập hướng đổ bóng của gương mặt trong không gian 3D.</p>
+            </div>
+          </a>
+          <a href="tools/fov-simulator.html" class="tool-gallery-card" data-accent="cyan">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1502982720700-baf97d4220a0?q=80&w=800&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-cyan);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>FOV Simulator</h3>
+              <p>Mô phỏng góc nhìn và hiệu ứng nén phối cảnh theo tiêu cự.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 3: Physics Calculators -->
+      <div class="tool-category">
+        <h2 class="category-title">03 // Physics Calculators</h2>
+        <p class="category-desc">Máy tính kỹ thuật số phục vụ tính toán nhiếp ảnh.</p>
+        <div class="tool-gallery 3-cols">
+          <a href="tools/lens-decoder.html" class="tool-gallery-card" data-accent="blue">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Lens Decoder</h3>
+              <p>Giải mã tính cách thấu kính của bạn.</p>
+            </div>
+          </a>
+          <a href="tools/dof-calculator.html" class="tool-gallery-card" data-accent="blue">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>DOF Calculator</h3>
+              <p>Tính toán độ sâu trường ảnh và Hyperfocal.</p>
+            </div>
+          </a>
+          <a href="tools/exposure-reactor.html" class="tool-gallery-card" data-accent="blue">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Exposure Reactor</h3>
+              <p>Playground cho tam giác phơi sáng.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 4: Production & AI -->
+      <div class="tool-category">
+        <h2 class="category-title">04 // Production & AI</h2>
+        <p class="category-desc">Trợ lý ảo và hệ thống quản lý sản xuất tiền kỳ.</p>
+        <div class="tool-gallery 3-cols">
+          <a href="tools/shoot-planner.html" class="tool-gallery-card" data-accent="film">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-film); color: #000;">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Shoot Planner</h3>
+              <p>In Call Sheet cho Ekip sản xuất.</p>
+            </div>
+          </a>
+          <a href="tools/ai-storyboard.html" class="tool-gallery-card" data-accent="purple">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1681423851532-6a45bd4a1c53?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-purple);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>AI Prompt Builder</h3>
+              <p>Tạo Prompt Midjourney chuẩn điện ảnh.</p>
+            </div>
+          </a>
+          <a href="tools/posing-guide.html" class="tool-gallery-card" data-accent="purple">
+            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop');">
+              <div class="tool-status-badge" style="background: var(--accent-purple);">Hoạt động</div>
+            </div>
+            <div class="tool-gallery-content">
+              <h3>Posing Guide Library</h3>
+              <p>Bách khoa toàn thư tư thế tạo dáng.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
     </div>
-  </section>
+
 
   <!-- Footer -->
   <footer class="footer">

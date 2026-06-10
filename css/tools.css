@@ -1468,3 +1468,24 @@
     height: 40px;
   }
 }
+
+/* === TOOL LAB REDESIGN === */
+.tool-category { margin-bottom: 4rem; }
+.category-title { font-family: var(--font-mono); font-size: 1.5rem; letter-spacing: 0.1em; color: var(--accent-film); margin-bottom: 0.5rem; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; }
+.category-desc { color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
+.tool-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.tool-gallery.3-cols { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.tool-gallery-card { display: flex; flex-direction: column; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden; text-decoration: none; transition: transform 0.3s ease, border-color 0.3s ease; }
+.tool-gallery-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
+.tool-gallery-card[data-accent="amber"]:hover { border-color: var(--accent-amber); box-shadow: 0 10px 30px rgba(255,160,0,0.1); }
+.tool-gallery-card[data-accent="cyan"]:hover { border-color: var(--accent-cyan); box-shadow: 0 10px 30px rgba(0,212,255,0.1); }
+.tool-gallery-card[data-accent="blue"]:hover { border-color: var(--accent-blue); box-shadow: 0 10px 30px rgba(58,134,255,0.1); }
+.tool-gallery-card[data-accent="purple"]:hover { border-color: var(--accent-purple); box-shadow: 0 10px 30px rgba(188,0,255,0.1); }
+.tool-gallery-card[data-accent="film"]:hover { border-color: var(--accent-film); box-shadow: 0 10px 30px rgba(255,215,0,0.1); }
+.tool-gallery-img { height: 250px; background-size: cover; background-position: center; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.tool-status-badge { position: absolute; top: 1rem; right: 1rem; background: var(--accent-amber); color: #000; font-family: var(--font-mono); font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+.tool-gallery-content { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+.tool-gallery-content h3 { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.5rem; color: #fff; }
+.tool-gallery-content p { font-size: 0.9rem; color: #aaa; margin: 0; line-height: 1.5; }
+@media (max-width: 768px) { .tool-gallery { grid-template-columns: 1fr; } }
+

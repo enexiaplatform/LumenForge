@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `
       <article class="codex-card animate-on-scroll">
         ${getPatternForCategory(article.category)}
-        <div class="codex-card-tag ${getTagClass(article.category)}">${article.tag}</div>
+        <div class="codex-card-tag ${getTagClass(article.category)}">${article.code ? `<span class="codex-card-code">${article.code}</span> ` : ''}${article.tag}</div>
         <span class="codex-card-date">${article.date}</span>
         <h3>${article.title}</h3>
         <p>${article.desc}</p>

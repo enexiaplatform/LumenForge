@@ -204,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
   tierTabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       tierTabs.forEach(t => t.classList.remove('active'));
-      e.target.classList.add('active');
-      currentTier = e.target.getAttribute('data-tier');
+      e.currentTarget.classList.add('active');
+      currentTier = e.currentTarget.getAttribute('data-tier');
       renderGear();
     });
   });
@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
   categoryFilters.forEach(btn => {
     btn.addEventListener('click', (e) => {
       categoryFilters.forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      currentCategory = e.target.getAttribute('data-cat');
+      e.currentTarget.classList.add('active');
+      currentCategory = e.currentTarget.getAttribute('data-cat');
       renderGear();
     });
   });

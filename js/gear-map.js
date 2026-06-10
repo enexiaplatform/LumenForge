@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
 
       <div class="gearmap-actions gear-fade-in" style="animation-delay: 0.2s;">
-        <button class="btn-generate" id="gearmap-reset" style="margin-top:0; max-width:280px;">Bắt đầu lại sơ đồ</button>
+        <button class="btn-primary" id="gearmap-reset" style="margin-top:0; max-width:280px;">Bắt đầu lại sơ đồ</button>
       </div>
     `;
 

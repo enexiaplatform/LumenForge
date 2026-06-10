@@ -42,7 +42,7 @@
   gap: 10px;
   padding: 12px 24px;
   background: var(--text-primary);
-  color: var(--bg-main);
+  color: var(--bg-primary);
   font-family: var(--font-mono);
   font-size: 0.85rem;
   text-transform: uppercase;
