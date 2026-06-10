@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Dashboard — LumenForge</title>
+  <meta name="keywords" content="dashboard, tiến độ, user, lumenforge">
+  <meta name="description" content="Trang cá nhân của bạn trên LumenForge. Theo dõi tiến độ học tập và các bài đã lưu.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <style>
+    .dashboard-hero {
+      padding: 120px 0 60px 0;
+      background: linear-gradient(180deg, rgba(20,20,25,1) 0%, rgba(10,10,12,1) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .user-info h1 {
+      margin-bottom: 5px;
+      font-size: 2.5rem;
+    }
+
+    .user-info p {
+      color: var(--accent-amber);
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+      margin-top: 40px;
+    }
+
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .dash-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-cyan);
+      width: 0%; /* updated via JS */
+      transition: width 1s ease-out;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .stat-val {
+      font-weight: bold;
+      color: var(--text-primary);
+    }
+
+    .bookmark-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .bookmark-list li {
+      margin-bottom: 15px;
+    }
+    
+    .bookmark-list a {
+      color: var(--accent-amber);
+      text-decoration: none;
+    }
+    
+    .bookmark-list a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-reset {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 20px;
+      background: rgba(255, 59, 48, 0.1);
+      color: #ff3b30;
+      border: 1px solid rgba(255, 59, 48, 0.3);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-reset:hover {
+      background: rgba(255, 59, 48, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="dashboard-hero">
+    <div class="container">
+      <div class="user-profile">
+        <div class="avatar" id="user-avatar">?</div>
+        <div class="user-info">
+          <h1>Chào mừng, Cinematic Artist</h1>
+          <p id="user-rank">Rank: Novice (Người mới)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="section">
+    <div class="container">
+
+      <div class="dashboard-grid">
+        
+        <!-- Progress Card -->
+        <div class="dash-card">
+          <h3>📈 Tiến độ Light Codex</h3>
+          <p style="color: var(--text-dim); font-size: 0.9rem;">Số lượng bài viết lý thuyết bạn đã hoàn thành.</p>
+          
+          <div class="stat-row" style="margin-top: 20px; border:none; padding:0;">
+            <span>Đã đọc:</span>
+            <span class="stat-val"><span id="read-count">0</span> / 12 Bài</span>
+          </div>
+          
+          <div class="progress-bar">
+            <div class="progress-fill" id="read-progress"></div>
+          </div>
+        </div>
+
+        <!-- Mastery Quiz Stats -->
+        <div class="dash-card">
+          <h3>🎯 Thành tích Mastery Quiz</h3>
+          
+          <div class="stat-row" style="margin-top: 20px;">
+            <span>Bài thi gần nhất:</span>
+            <span class="stat-val" id="quiz-score">Chưa có dữ liệu</span>
+          </div>
+          
+          <div class="stat-row">
+            <span>Danh hiệu:</span>
+            <span class="stat-val" style="color: var(--accent-cyan);" id="quiz-title">N/A</span>
+          </div>
+
+          <a href="quiz.html" style="display: block; margin-top: 20px; color: var(--accent-amber); text-decoration: none;">&rarr; Làm lại bài test</a>
+        </div>
+
+        <!-- Bookmarks (Dummy for now, could be dynamic) -->
+        <div class="dash-card">
+          <h3>🔖 Đã lưu (Bookmarks)</h3>
+          <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Các công thức Shot Recipes yêu thích của bạn.</p>
+          
+          <ul class="bookmark-list">
+            <li><a href="recipes/cyberpunk-alley.html">Cyberpunk Alley (Neon & Rain)</a></li>
+            <li><a href="recipes/dramatic-portrait.html">Dramatic Portrait (Chiaroscuro)</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="text-align: right;">
+        <button class="btn-reset" id="btn-reset">Cài đặt lại toàn bộ Dữ liệu</button>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge. Dữ liệu được lưu trữ cục bộ trên trình duyệt của bạn (Local Storage).
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Fake loading stats from localStorage
+      let articlesRead = localStorage.getItem('lumenforge_read') || 0;
+      let lastScore = localStorage.getItem('lumenforge_lastScore') || null;
+      
+      // Update Progress
+      const totalArticles = 12;
+      document.getElementById('read-count').textContent = articlesRead;
+      const pct = Math.min(100, Math.round((articlesRead / totalArticles) * 100));
+      setTimeout(() => {
+        document.getElementById('read-progress').style.width = pct + '%';
+      }, 500);
+
+      // Rank
+      const rankEl = document.getElementById('user-rank');
+      if (articlesRead > 8) rankEl.textContent = 'Rank: Director of Photography';
+      else if (articlesRead > 4) rankEl.textContent = 'Rank: Advanced Shooter';
+      else rankEl.textContent = 'Rank: Novice';
+
+      // Avatar letter
+      document.getElementById('user-avatar').textContent = 'C';
+
+      // Quiz Stats
+      if (lastScore) {
+        document.getElementById('quiz-score').textContent = lastScore + ' / 10';
+        let title = 'Tân binh';
+        if (lastScore >= 9) title = 'Bậc thầy Ánh sáng';
+        else if (lastScore >= 6) title = 'Thợ săn bóng tối';
+        document.getElementById('quiz-title').textContent = title;
+      }
+
+      // Reset
+      document.getElementById('btn-reset').addEventListener('click', () => {
+        if(confirm('Toàn bộ dữ liệu tiến độ sẽ bị xóa. Tiếp tục?')) {
+          localStorage.clear();
+          location.reload();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

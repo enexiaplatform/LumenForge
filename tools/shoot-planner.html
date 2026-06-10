@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shoot Planner & Call Sheet — LumenForge</title>
+  <meta name="keywords" content="shoot planner, call sheet, kế hoạch quay, lumenforge">
+  <meta name="description" content="Lên kế hoạch tiền kỳ (Pre-production) cho buổi chụp ảnh hoặc quay phim. Xuất Call Sheet để gửi cho Ekip.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .planner-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    
+    @media (max-width: 900px) {
+      .planner-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .btn-action {
+      background: var(--text-primary);
+      color: #000;
+      padding: 15px 30px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+
+    .btn-action:hover {
+      background: var(--accent-cyan);
+    }
+
+    /* Print View */
+    .print-view {
+      display: none;
+      background: #fff;
+      color: #000;
+      padding: 40px;
+      border-radius: 8px;
+    }
+
+    .print-header {
+      border-bottom: 3px solid #000;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .print-section {
+      margin-bottom: 30px;
+    }
+
+    .print-section h3 {
+      background: #f0f0f0;
+      padding: 10px;
+      border-left: 5px solid #000;
+      margin-bottom: 15px;
+    }
+
+    /* Print CSS */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .print-view, .print-view * {
+        visibility: visible;
+      }
+      .print-view {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+      }
+      .nav, .footer, .form-panel, .tool-header {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Pre-Production</span>
+      <h1>Shoot Planner & Call Sheet</h1>
+      <p class="tool-desc">Điền thông tin dự án, danh sách thiết bị và thời gian. Hệ thống sẽ tạo ra một Call Sheet chuẩn công nghiệp để bạn in ra (hoặc lưu PDF) gửi cho ekip.</p>
+    </div>
+
+    <div class="planner-layout">
+      
+      <!-- Input Form -->
+      <div class="form-panel" id="form-panel">
+        
+        <div class="form-group">
+          <label class="form-label">Tên Dự án (Project Name)</label>
+          <input type="text" id="p-name" class="form-input" placeholder="Ví dụ: MV 'Ánh Sáng Cuối Đường'">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+          <div class="form-group">
+            <label class="form-label">Ngày quay (Date)</label>
+            <input type="date" id="p-date" class="form-input">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Giờ có mặt (Call Time)</label>
+            <input type="time" id="p-time" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Địa điểm (Location)</label>
+          <input type="text" id="p-location" class="form-input" placeholder="Địa chỉ phim trường hoặc ngoại cảnh">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Thành phần Ekip (Key Crew & Talent)</label>
+          <textarea id="p-crew" class="form-textarea" placeholder="- Đạo diễn: ...\n- D.P: ...\n- Talent 1: ..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Danh sách Thiết bị (Gear Checklist)</label>
+          <textarea id="p-gear" class="form-textarea" placeholder="- Máy ảnh: Sony FX3\n- Lens: 35mm, 85mm\n- Đèn: Key light, 2 đèn ven\n- Pin: 4 cục đã sạc đầy"></textarea>
+        </div>
+
+        <button class="btn-action" id="btn-generate">🖨️ Tạo & In Call Sheet</button>
+
+      </div>
+
+      <!-- Live Preview (Read Only) -->
+      <div class="print-view" id="print-view" style="display: block; position: sticky; top: 100px; height: fit-content;">
+        <div class="print-header">
+          <h1 id="out-name" style="margin-bottom: 5px;">[TÊN DỰ ÁN]</h1>
+          <h3 style="color: #666; font-weight: normal;">OFFICIAL CALL SHEET</h3>
+        </div>
+
+        <div class="print-section">
+          <h3>THỜI GIAN & ĐỊA ĐIỂM</h3>
+          <p><strong>Ngày:</strong> <span id="out-date">...</span></p>
+          <p><strong>Giờ có mặt (Call Time):</strong> <span id="out-time" style="color: #e60000; font-weight: bold; font-size: 1.2rem;">...</span></p>
+          <p><strong>Địa điểm:</strong> <span id="out-location">...</span></p>
+        </div>
+
+        <div class="print-section">
+          <h3>THÀNH PHẦN EKIP & DIỄN VIÊN</h3>
+          <div id="out-crew" style="white-space: pre-wrap; line-height: 1.6;">...</div>
+        </div>
+
+        <div class="print-section">
+          <h3>THIẾT BỊ CẦN CHUẨN BỊ</h3>
+          <div id="out-gear" style="white-space: pre-wrap; line-height: 1.6;">...</div>
+        </div>
+        
+        <p style="text-align: center; color: #999; font-size: 0.8rem; margin-top: 50px;">Generated by LumenForge Pre-Production Engine</p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = {
+        name: document.getElementById('p-name'),
+        date: document.getElementById('p-date'),
+        time: document.getElementById('p-time'),
+        location: document.getElementById('p-location'),
+        crew: document.getElementById('p-crew'),
+        gear: document.getElementById('p-gear')
+      };
+
+      const outputs = {
+        name: document.getElementById('out-name'),
+        date: document.getElementById('out-date'),
+        time: document.getElementById('out-time'),
+        location: document.getElementById('out-location'),
+        crew: document.getElementById('out-crew'),
+        gear: document.getElementById('out-gear')
+      };
+
+      function updatePreview() {
+        outputs.name.textContent = inputs.name.value || '[TÊN DỰ ÁN]';
+        outputs.date.textContent = inputs.date.value || '...';
+        outputs.time.textContent = inputs.time.value || '...';
+        outputs.location.textContent = inputs.location.value || '...';
+        outputs.crew.textContent = inputs.crew.value || '...';
+        outputs.gear.textContent = inputs.gear.value || '...';
+      }
+
+      // Live update
+      Object.values(inputs).forEach(el => {
+        el.addEventListener('input', updatePreview);
+      });
+
+      // Print action
+      document.getElementById('btn-generate').addEventListener('click', () => {
+        updatePreview();
+        window.print();
+      });
+    });
+  </script>
+</body>
+</html>

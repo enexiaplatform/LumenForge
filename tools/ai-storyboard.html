@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Storyboard Prompt Builder — LumenForge</title>
+  <meta name="keywords" content="ai prompt builder, midjourney prompt, storyboard, nhiếp ảnh, điện ảnh">
+  <meta name="description" content="Trình tạo lệnh (Prompt) siêu chuẩn xác dành cho Midjourney & Stable Diffusion để thiết kế Storyboard điện ảnh.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .prompt-layout {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    
+    @media (max-width: 900px) {
+      .prompt-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-lg);
+    }
+
+    .form-label {
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+    }
+
+    .result-panel {
+      position: sticky;
+      top: 100px;
+      background: linear-gradient(180deg, rgba(10,10,12,0.9), rgba(15,15,20,1));
+      border: 1px solid var(--accent-cyan);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      height: fit-content;
+    }
+
+    .result-label {
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .prompt-box {
+      background: #000;
+      border: 1px dashed rgba(0, 212, 255, 0.3);
+      padding: 20px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      min-height: 150px;
+      margin-bottom: 20px;
+      word-break: break-word;
+    }
+
+    .btn-copy {
+      width: 100%;
+      background: var(--accent-cyan);
+      color: #000;
+      padding: 15px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-copy:hover {
+      background: #00b4d8;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(0,212,255,0.1); color: var(--accent-cyan);">AI Engine</span>
+      <h1>AI Storyboard Prompt Builder</h1>
+      <p class="tool-desc">Dịch ý tưởng thị giác của bạn thành câu lệnh (Prompt) chuẩn xác nhất dành cho Midjourney V6 hoặc Stable Diffusion để thiết kế Storyboard/Moodboard.</p>
+    </div>
+
+    <div class="prompt-layout">
+      
+      <!-- Controls -->
+      <div class="form-panel">
+        
+        <div class="form-group">
+          <label class="form-label">1. Chủ thể & Hành động (Subject & Action)</label>
+          <input type="text" id="p-subject" class="form-input" placeholder="Ví dụ: A weary detective smoking a cigarette in the rain" value="A weary detective smoking a cigarette in the rain">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">2. Góc máy (Shot Type)</label>
+          <select id="p-shot" class="form-select">
+            <option value="medium shot">Medium Shot (Nửa người)</option>
+            <option value="close up shot">Close Up (Cận cảnh)</option>
+            <option value="extreme close up">Extreme Close Up (Đặc tả)</option>
+            <option value="wide establishing shot">Wide Establishing Shot (Toàn cảnh)</option>
+            <option value="low angle shot">Low Angle (Góc thấp)</option>
+            <option value="high angle shot">High Angle (Góc cao)</option>
+            <option value="dutch angle shot">Dutch Angle (Góc nghiêng)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">3. Ống kính & Tiêu cự (Focal Length)</label>
+          <select id="p-lens" class="form-select">
+            <option value="35mm lens, f/1.8">35mm f/1.8 (Chân thực, đời thường)</option>
+            <option value="85mm lens, f/1.4">85mm f/1.4 (Chân dung xóa phông)</option>
+            <option value="14mm ultra-wide angle lens">14mm Ultra-Wide (Rộng, méo phối cảnh)</option>
+            <option value="200mm telephoto lens">200mm Telephoto (Xóa nhòa nền, nén không gian)</option>
+            <option value="anamorphic lens with blue streaks">Anamorphic Lens (Lens phim, viền xanh)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">4. Đánh sáng (Lighting Setup)</label>
+          <select id="p-light" class="form-select">
+            <option value="cinematic lighting, dramatic chiaroscuro">Chiaroscuro (Tương phản gắt, kịch tính)</option>
+            <option value="soft diffused window light">Soft Window Light (Ánh sáng cửa sổ mềm mại)</option>
+            <option value="neon cyberpunk lighting, rim light">Cyberpunk Neon & Rim Light (Đèn ven, viền neon)</option>
+            <option value="rembrandt lighting, dark shadows">Rembrandt Lighting (Tam giác sáng dưới mắt)</option>
+            <option value="high key lighting, bright and airy">High Key (Sáng trắng, tinh khiết)</option>
+            <option value="silhouette lighting, backlit">Silhouette (Ngược sáng toàn phần)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">5. Màu sắc & Film Stock (Color & Mood)</label>
+          <select id="p-color" class="form-select">
+            <option value="shot on Kodak Portra 400, muted tones">Kodak Portra 400 (Tông màu da ấm, hoài cổ)</option>
+            <option value="teal and orange color grading, hollywood blockbuster style">Teal & Orange (Màu bom tấn Hollywood)</option>
+            <option value="shot on Cinestill 800T, halation effect">Cinestill 800T (Ám xanh, viền đỏ sáng - Halation)</option>
+            <option value="black and white noir film, high contrast">Noir B&W (Trắng đen, cổ điển)</option>
+            <option value="monochromatic green matrix style">Matrix Green (Ám xanh lá hacker)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">6. Tỷ lệ khung hình (Aspect Ratio)</label>
+          <select id="p-ar" class="form-select">
+            <option value="--ar 21:9">2.35:1 (Cinemascope - Siêu rộng)</option>
+            <option value="--ar 16:9">16:9 (Widescreen - Chuẩn phim)</option>
+            <option value="--ar 3:2">3:2 (Chuẩn máy ảnh 35mm)</option>
+            <option value="--ar 4:5">4:5 (Portrait - Đăng Instagram)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">7. Môi trường Render (Engine)</label>
+          <select id="p-engine" class="form-select">
+            <option value="--v 6.0 --style raw">Midjourney V6 (Raw Style)</option>
+            <option value="--v 6.0">Midjourney V6 (Default)</option>
+            <option value="photorealistic, 8k resolution, unreal engine 5">Stable Diffusion (Photorealism)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Result -->
+      <div class="result-panel">
+        <span class="result-label">GENERATED PROMPT</span>
+        <div class="prompt-box" id="final-prompt">
+          <!-- Rendered here -->
+        </div>
+        <button class="btn-copy" id="btn-copy">📋 Copy Prompt</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge AI Lab.
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = [
+        document.getElementById('p-subject'),
+        document.getElementById('p-shot'),
+        document.getElementById('p-lens'),
+        document.getElementById('p-light'),
+        document.getElementById('p-color'),
+        document.getElementById('p-ar'),
+        document.getElementById('p-engine')
+      ];
+      
+      const outBox = document.getElementById('final-prompt');
+      const btnCopy = document.getElementById('btn-copy');
+
+      function generatePrompt() {
+        const subject = inputs[0].value.trim() || 'A subject';
+        const shot = inputs[1].value;
+        const lens = inputs[2].value;
+        const light = inputs[3].value;
+        const color = inputs[4].value;
+        const ar = inputs[5].value;
+        const engine = inputs[6].value;
+
+        // Formula: [Shot Type] of [Subject], [Lens], [Lighting], [Color/Film Stock], photorealistic masterpiece [AR] [Engine]
+        let prompt = `Film still, ${shot} of ${subject}, ${lens}, ${light}, ${color}. Masterpiece, highly detailed.`;
+        
+        // Append engine specific tags
+        if(engine.includes('--v')) {
+           prompt += ` ${ar} ${engine}`;
+        } else {
+           prompt += `, ${engine}.`; // SD approach
+        }
+
+        outBox.textContent = prompt;
+      }
+
+      // Listen to changes
+      inputs.forEach(el => {
+        el.addEventListener('input', generatePrompt);
+      });
+
+      // Initial generation
+      generatePrompt();
+
+      // Copy to clipboard
+      btnCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(outBox.textContent).then(() => {
+          const originalText = btnCopy.textContent;
+          btnCopy.textContent = '✅ Đã Copy!';
+          btnCopy.style.background = '#32d74b';
+          setTimeout(() => {
+            btnCopy.textContent = originalText;
+            btnCopy.style.background = 'var(--accent-cyan)';
+          }, 2000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

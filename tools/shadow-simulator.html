@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Shadow Simulator — LumenForge</title>
+  <meta name="keywords" content="shadow simulator, ánh sáng, rembrandt, split lighting, lumenforge">
+  <meta name="description" content="Giả lập khối ánh sáng 3D. Di chuyển nguồn sáng để hiểu cách bóng đổ định hình gương mặt (Rembrandt, Split, Butterfly).">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .sim-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: var(--space-xl);
+      margin-top: var(--space-lg);
+    }
+    
+    @media (max-width: 900px) {
+      .sim-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-wrapper {
+      background: #111;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 500px;
+      overflow: hidden;
+      touch-action: none;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    .instruction {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.6);
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .light-type {
+      padding: 15px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .light-type:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--accent-amber);
+    }
+    
+    .light-type.active {
+      background: var(--accent-amber);
+      color: #000;
+    }
+    .light-type.active p {
+      color: #333;
+    }
+
+    .light-type h4 { margin-bottom: 5px; font-size: 1rem; }
+    .light-type p { font-size: 0.85rem; color: var(--text-dim); margin: 0; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(245,166,35,0.1); color: var(--accent-amber);">Physics Simulator</span>
+      <h1>3D Shadow Simulator</h1>
+      <p class="tool-desc">Di chuyển nguồn sáng xung quanh khối cầu (tượng trưng cho gương mặt) để hiểu cách đổ bóng định hình khối 3D (Form) trên bề mặt 2D.</p>
+    </div>
+
+    <div class="sim-layout">
+      
+      <!-- Canvas Area -->
+      <div class="canvas-wrapper" id="sim-wrapper">
+        <div class="instruction">Kéo chuột/chạm để di chuyển Nguồn sáng (Key Light)</div>
+        <canvas id="shadow-canvas"></canvas>
+      </div>
+
+      <!-- Controls -->
+      <div class="panel">
+        <h3 style="margin-bottom: 15px;">Các góc kinh điển</h3>
+        
+        <div class="light-type active" data-angle="45">
+          <h4>Rembrandt Lighting</h4>
+          <p>Góc 45 độ. Tạo tam giác sáng nhỏ dưới mắt bên tối. Góc đánh sáng thần thánh cho chân dung.</p>
+        </div>
+
+        <div class="light-type" data-angle="90">
+          <h4>Split Lighting</h4>
+          <p>Góc 90 độ ngang. Một nửa sáng, một nửa tối hoàn toàn. Rất kịch tính (Dramatic).</p>
+        </div>
+
+        <div class="light-type" data-angle="0">
+          <h4>Butterfly / Paramount</h4>
+          <p>Đánh thẳng từ trên xuống trước mặt. Tạo bóng nhỏ hình bướm dưới mũi. Thường dùng cho Beauty/Glamour.</p>
+        </div>
+
+        <div class="light-type" data-angle="135">
+          <h4>Rim / Edge Lighting</h4>
+          <p>Đánh từ phía sau chéo lên. Chỉ lấy đường viền sáng bao quanh ven, tạo chiều sâu tách biệt nền.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../js/tools/shadow-simulator.js"></script>
+</body>
+</html>

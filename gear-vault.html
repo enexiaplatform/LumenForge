@@ -3,60 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kho Thiết Bị (Gear Vault) — LumenForge</title>
-  <meta name="keywords" content="thiết bị nhiếp ảnh, máy ảnh sony, ống kính sigma, đèn godox, review máy ảnh">
-  <meta name="description" content="Khám phá kho vũ khí nhiếp ảnh được LumenForge kiểm chứng. Đánh giá thiết bị và link mua hàng chính hãng.">
+  <title>The Gear Vault — LumenForge</title>
+  <meta name="keywords" content="gear vault, máy ảnh, ống kính, thiết bị, lumenforge">
+  <meta name="description" content="Thư khố thiết bị nhiếp ảnh và điện ảnh tốt nhất được LumenForge tuyển chọn, phân chia theo từng ngân sách.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="css/design-system.css">
   <style>
     .vault-hero {
+      padding: 120px 0 60px 0;
       text-align: center;
-      padding: var(--space-2xl) 0;
+      background: linear-gradient(180deg, rgba(20,20,25,1) 0%, rgba(10,10,12,1) 100%);
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: var(--space-2xl);
-    }
-    .vault-hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: var(--space-md);
-      background: linear-gradient(90deg, #fff, #888);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .vault-hero p {
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1.1rem;
     }
 
-    /* Filters */
-    .filter-bar {
+    .tier-tabs {
       display: flex;
       justify-content: center;
-      gap: var(--space-md);
-      margin-bottom: var(--space-xl);
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      padding: 8px 20px;
-      border-radius: 30px;
-      color: var(--text-primary);
-      cursor: pointer;
-      font-family: var(--font-mono);
-      transition: all 0.2s;
-    }
-    .filter-btn:hover, .filter-btn.active {
-      background: var(--text-primary);
-      color: var(--bg-main);
+      gap: 15px;
+      margin: 40px 0;
     }
 
-    /* Gear Grid */
+    .tier-tab {
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .tier-tab.active, .tier-tab:hover {
+      background: var(--text-primary);
+      color: #000;
+    }
+
+    .tier-content {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tier-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .gear-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: var(--space-xl);
     }
 
@@ -67,83 +67,90 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s;
+      transition: transform 0.3s, border-color 0.3s;
     }
+
     .gear-card:hover {
       transform: translateY(-5px);
-      border-color: var(--border-glow);
+      border-color: rgba(255,255,255,0.3);
     }
 
     .gear-img {
-      width: 100%;
       height: 200px;
-      object-fit: cover;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
       border-bottom: 1px solid var(--border-color);
     }
 
-    .gear-content {
+    .gear-info {
       padding: var(--space-lg);
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
 
-    .gear-tag {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--accent-cyan);
-      margin-bottom: 8px;
+    .gear-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      font-size: 0.7rem;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      margin-bottom: 10px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .gear-title {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
+      color: var(--text-primary);
       margin-bottom: 10px;
     }
 
     .gear-desc {
       color: var(--text-secondary);
       font-size: 0.95rem;
-      margin-bottom: 20px;
       line-height: 1.5;
+      margin-bottom: 20px;
+      flex-grow: 1;
     }
 
-    .gear-specs {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 20px 0;
+    .gear-price {
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--text-dim);
-    }
-    .gear-specs li {
-      margin-bottom: 4px;
-    }
-    .gear-specs li strong {
-      color: var(--text-primary);
+      font-size: 1.2rem;
+      color: var(--accent-amber);
+      margin-bottom: 15px;
     }
 
-    .gear-footer {
-      margin-top: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .gear-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: var(--text-primary);
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: var(--radius-md);
+      transition: background 0.3s;
     }
 
-    .price-check {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
+    .gear-btn:hover {
+      background: var(--accent-cyan);
     }
-    
-    .btn-affiliate {
-      flex: 1;
-      justify-content: center;
-    }
+
+    /* Tiers specific badges */
+    .tier-indie .gear-badge { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
+    .tier-pro .gear-badge { background: rgba(245, 166, 35, 0.2); color: var(--accent-amber); }
+    .tier-dream .gear-badge { background: rgba(255, 0, 102, 0.2); color: #ff0066; }
 
   </style>
 </head>
 <body>
 
+  <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
@@ -151,148 +158,176 @@
         <a href="index.html" class="nav-link">Trang chủ</a>
         <a href="light-codex.html" class="nav-link">Light Codex</a>
         <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
-        <a href="gear-vault.html" class="nav-link active">Kho Thiết Bị</a>
-        <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+        <a href="gear-vault.html" class="nav-link active">Thư Khố Thiết Bị</a>
       </div>
     </div>
   </nav>
 
-  <header class="vault-hero" style="background: url('https://images.unsplash.com/photo-1502982720700-baf97d4220a0?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; box-shadow: inset 0 0 0 2000px rgba(10,10,12,0.85); min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+  <!-- Hero -->
+  <section class="vault-hero">
     <div class="container">
-      <h1>Kho Thiết Bị (Gear Vault)</h1>
-      <p>Không có "máy ảnh tốt nhất", chỉ có thiết bị phù hợp nhất với triết lý ánh sáng của bạn. Dưới đây là những vũ khí được LumenForge kiểm chứng và khuyên dùng.</p>
-    </div>
-  </header>
+      <p style="color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 10px;">[ GEAR VAULT ]</p>
+      <h1 style="font-size: 3rem; margin-bottom: 20px;">Kho Báu Thiết Bị</h1>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+        Không có chiếc máy ảnh nào tốt nhất, chỉ có chiếc máy phù hợp nhất với ngân sách và tầm nhìn của bạn. Đây là những Combo được LumenForge tuyển chọn kỹ lưỡng.
+      </p>
 
-  <main class="section" style="padding-top: 0;">
-    <div class="container">
-      
-      <div class="filter-bar">
-        <button class="filter-btn active">Tất cả</button>
-        <button class="filter-btn">Máy ảnh (Body)</button>
-        <button class="filter-btn">Ống kính (Lens)</button>
-        <button class="filter-btn">Ánh sáng (Lighting)</button>
-      </div>
-
-      <div class="gear-grid">
-        
-        <!-- Gear 1 -->
-        <article class="gear-card">
-          <img src="https://images.unsplash.com/photo-1516961642265-531546e84af2?q=80&w=600&auto=format&fit=crop" alt="Sony A7 IV" class="gear-img">
-          <div class="gear-content">
-            <span class="gear-tag">HYBRID BODY</span>
-            <h3 class="gear-title">Sony A7 IV</h3>
-            <p class="gear-desc">Con quái vật Hybrid hoàn hảo. Dải nhạy sáng 15 stops tuyệt vời để bạn thỏa sức kéo shadow trong lý thuyết Color Matrix của chúng ta.</p>
-            <ul class="gear-specs">
-              <li><strong>Cảm biến:</strong> 33MP Full-Frame Exmor R</li>
-              <li><strong>Dynamic Range:</strong> 15 Stops</li>
-              <li><strong>Video:</strong> 4K 60p 10-bit 4:2:2</li>
-            </ul>
-            <div class="gear-footer">
-              <div class="price-check">
-                <a href="https://amazon.com/dp/B09JZT6YW5?tag=lumenforge-20" target="_blank" class="btn btn-affiliate">
-                  Amazon ($2,498)
-                </a>
-                <a href="https://bhphotovideo.com/c/product/1667800-REG/sony_ilce_7m4_b_alpha_a7_iv_mirrorless.html?BI=lumenforge" target="_blank" class="btn btn-affiliate">B&H Photo</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Gear 2 -->
-        <article class="gear-card">
-          <img src="https://images.unsplash.com/photo-1620025985854-54c753b26c7e?q=80&w=600&auto=format&fit=crop" alt="Lumix S5 IIX" class="gear-img">
-          <div class="gear-content">
-            <span class="gear-tag">CINEMA BODY</span>
-            <h3 class="gear-title">Panasonic Lumix S5 IIX</h3>
-            <p class="gear-desc">Sinh ra để quay phim. Tích hợp quạt tản nhiệt, quay 6K ProRes RAW trực tiếp ra ổ SSD ngoài. V-Log của Lumix là hệ màu điện ảnh nhất hiện tại.</p>
-            <ul class="gear-specs">
-              <li><strong>Cảm biến:</strong> 24MP Full-Frame CMOS</li>
-              <li><strong>Video:</strong> 6K 30p / 4K 60p ProRes</li>
-              <li><strong>Tính năng:</strong> Phase Hybrid AF</li>
-            </ul>
-            <div class="gear-footer">
-              <a href="articles/log-profile-science.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Học cách Color Grade V-Log →</a>
-              <div class="price-check">
-                <a href="https://amazon.com/dp/B0BR8J5XV1?tag=lumenforge-20" target="_blank" class="btn btn-affiliate">Amazon ($2,197)</a>
-                <a href="https://bhphotovideo.com/c/product/1744111-REG/panasonic_dc_s5m2xbody_lumix_s5_iix_mirrorless.html?BI=lumenforge" target="_blank" class="btn btn-affiliate">B&H Photo</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Gear 3 -->
-        <article class="gear-card">
-          <img src="https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=600&auto=format&fit=crop" alt="Sigma 24-70mm f/2.8 Art" class="gear-img">
-          <div class="gear-content">
-            <span class="gear-tag">ZOOM LENS</span>
-            <h3 class="gear-title">Sigma 24-70mm f/2.8 DG DN Art</h3>
-            <p class="gear-desc">Ống kính đa dụng duy nhất bạn cần để bắt đầu. Độ nét ngang ngửa G-Master nhưng giá chỉ bằng một nửa. Phục vụ hoàn hảo cho chân dung lẫn phong cảnh.</p>
-            <ul class="gear-specs">
-              <li><strong>Khẩu độ:</strong> f/2.8 toàn dải</li>
-              <li><strong>Số lá khẩu:</strong> 11 (Bokeh siêu mịn)</li>
-              <li><strong>Ngàm:</strong> Sony E / Leica L</li>
-            </ul>
-            <div class="gear-footer">
-              <a href="articles/focal-length-distortion.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Hiểu về Tiêu cự & Biến dạng →</a>
-              <div class="price-check">
-                <a href="https://amazon.com/dp/B081L5HZNN?tag=lumenforge-20" target="_blank" class="btn btn-affiliate">Amazon ($1,099)</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Gear 4 -->
-        <article class="gear-card">
-          <img src="https://images.unsplash.com/photo-1596205835688-6677918a09bc?q=80&w=600&auto=format&fit=crop" alt="Godox AD200 Pro" class="gear-img">
-          <div class="gear-content">
-            <span class="gear-tag">STROBE LIGHTING</span>
-            <h3 class="gear-title">Godox AD200 Pro</h3>
-            <p class="gear-desc">Chiếc đèn ma thuật bỏ túi. Hỗ trợ HSS (High-Speed Sync) giúp bạn dễ dàng "áp đảo mặt trời" ở tốc độ 1/4000s như chúng ta đã học.</p>
-            <ul class="gear-specs">
-              <li><strong>Công suất:</strong> 200Ws</li>
-              <li><strong>Tính năng:</strong> TTL, HSS 1/8000s</li>
-              <li><strong>Nhiệt độ màu:</strong> 5600K ±200K</li>
-            </ul>
-            <div class="gear-footer">
-              <a href="articles/flash-physics-hss.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Đọc bài viết về Flash & HSS →</a>
-              <div class="price-check">
-                <a href="https://amazon.com/dp/B07RMVFV23?tag=lumenforge-20" target="_blank" class="btn btn-affiliate">Amazon ($349)</a>
-                <a href="#" class="btn btn-affiliate">B&H Photo</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Gear 5 -->
-        <article class="gear-card">
-          <img src="https://images.unsplash.com/photo-1589417431264-58abfc709c99?q=80&w=600&auto=format&fit=crop" alt="Aputure LS 300d II" class="gear-img">
-          <div class="gear-content">
-            <span class="gear-tag">CONTINUOUS LIGHTING</span>
-            <h3 class="gear-title">Aputure LS 300d II</h3>
-            <p class="gear-desc">Key Light chuẩn công nghiệp cho quay phim và livestream. Sử dụng kết hợp với Light Dome II để tạo ra nguồn sáng Soft Light siêu mềm mịn.</p>
-            <ul class="gear-specs">
-              <li><strong>Độ rọi:</strong> 80,000 lux ở 1 mét (với Reflector)</li>
-              <li><strong>Chỉ số màu:</strong> CRI 96, TLCI 96</li>
-              <li><strong>Ngàm:</strong> Bowens Mount</li>
-            </ul>
-            <div class="gear-footer">
-              <a href="articles/three-point-lighting.html" style="font-size: 0.8rem; color: var(--text-dim); text-decoration: underline; margin-bottom: 5px;">Cách Setup Ánh sáng 3 Điểm →</a>
-              <div class="price-check">
-                <a href="https://amazon.com/dp/B07TV6Z4ZD?tag=lumenforge-20" target="_blank" class="btn btn-affiliate">Amazon ($949)</a>
-              </div>
-            </div>
-          </div>
-        </article>
-
+      <div class="tier-tabs">
+        <div class="tier-tab active" data-target="indie">Guerilla Indie ($1,000)</div>
+        <div class="tier-tab" data-target="pro">Commercial Pro ($4,000)</div>
+        <div class="tier-tab" data-target="dream">Hollywood Dream (No Limit)</div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <footer style="text-align: center; padding: 40px; color: var(--text-dim); font-size: 0.85rem;">
-    *Lưu ý: Các liên kết mua hàng ở trên là link Affiliate. Khi bạn mua qua link này, LumenForge sẽ nhận được một khoản hoa hồng nhỏ để duy trì server và phát triển công cụ miễn phí, trong khi giá sản phẩm bạn mua không hề thay đổi. Cảm ơn sự ủng hộ của bạn!
+  <!-- Content -->
+  <section class="section">
+    <div class="container">
+
+      <!-- TIER: INDIE -->
+      <div class="tier-content active tier-indie" id="indie">
+        <div class="gear-grid">
+          
+          <div class="gear-card">
+            <div class="gear-img">📷</div>
+            <div class="gear-info">
+              <span class="gear-badge">Hybrid Camera</span>
+              <h3 class="gear-title">Sony A6700</h3>
+              <p class="gear-desc">Kẻ hủy diệt phân khúc APS-C. Auto-focus AI tốt nhất thế giới, quay 4K 120p, chống rung IBIS. Tuyệt hảo cho người chạy sự kiện một mình.</p>
+              <div class="gear-price">~$1,398</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">🔍</div>
+            <div class="gear-info">
+              <span class="gear-badge">Prime Lens</span>
+              <h3 class="gear-title">Sigma 30mm f/1.4 DC DN</h3>
+              <p class="gear-desc">Ống kính "phải có" cho cảm biến Crop. Tiêu cự tương đương 45mm trên Full-frame, hoàn hảo cho chân dung lẫn đường phố. Độ nét tuyệt đối ở f/1.4.</p>
+              <div class="gear-price">~$289</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">💡</div>
+            <div class="gear-info">
+              <span class="gear-badge">Lighting</span>
+              <h3 class="gear-title">Amaran 60x Bi-Color</h3>
+              <p class="gear-desc">Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Đủ mạnh cho không gian phòng ngủ, hỗ trợ pin V-Mount siêu di động.</p>
+              <div class="gear-price">~$199</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TIER: PRO -->
+      <div class="tier-content tier-pro" id="pro">
+        <div class="gear-grid">
+          
+          <div class="gear-card">
+            <div class="gear-img">🎥</div>
+            <div class="gear-info">
+              <span class="gear-badge">Cinema Camera</span>
+              <h3 class="gear-title">Sony FX3 / A7S III</h3>
+              <p class="gear-desc">Quái vật thiếu sáng. Cảm biến Full-frame 12MP thu ánh sáng đỉnh cao, quạt tản nhiệt quay 4K không bao giờ quá nhiệt. Tiêu chuẩn của MV thương mại.</p>
+              <div class="gear-price">~$3,898</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">🔭</div>
+            <div class="gear-info">
+              <span class="gear-badge">Zoom Lens</span>
+              <h3 class="gear-title">Sony 24-70mm f/2.8 GM II</h3>
+              <p class="gear-desc">Ống kính đa dụng tối thượng. Nhẹ hơn phiên bản trước 20%, lấy nét cực nhanh, đủ cân mọi job từ Wedding đến Commercial.</p>
+              <div class="gear-price">~$2,298</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">☀️</div>
+            <div class="gear-info">
+              <span class="gear-badge">Lighting</span>
+              <h3 class="gear-title">Aputure 300D Mark II</h3>
+              <p class="gear-desc">Nguồn sáng chính tiêu chuẩn công nghiệp. Đủ mạnh để hắt qua rèm cửa giả lập ánh sáng mặt trời tự nhiên vào ban ngày.</p>
+              <div class="gear-price">~$949</div>
+              <a href="#" class="gear-btn">Xem chi tiết</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TIER: DREAM -->
+      <div class="tier-content tier-dream" id="dream">
+        <div class="gear-grid">
+          
+          <div class="gear-card">
+            <div class="gear-img">🎬</div>
+            <div class="gear-info">
+              <span class="gear-badge">Arri Alexa</span>
+              <h3 class="gear-title">ARRI Alexa 35</h3>
+              <p class="gear-desc">Huyền thoại Hollywood. 17-stop Dynamic Range, tái tạo màu da (Skin tone) không một máy ảnh nào trên thế giới có thể sánh kịp.</p>
+              <div class="gear-price">~$75,000</div>
+              <a href="#" class="gear-btn">Mơ mộng</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">🔬</div>
+            <div class="gear-info">
+              <span class="gear-badge">Cine Prime Set</span>
+              <h3 class="gear-title">Cooke Panchro/i Classic FF</h3>
+              <p class="gear-desc">"Cooke Look" trứ danh. Cho ra hình ảnh ấm áp, organic và vùng chuyển nét (Roll-off) mượt mà như bơ. Lựa chọn số 1 của các D.P.</p>
+              <div class="gear-price">~$55,000 (Bộ 5 lens)</div>
+              <a href="#" class="gear-btn">Mơ mộng</a>
+            </div>
+          </div>
+
+          <div class="gear-card">
+            <div class="gear-img">⚡</div>
+            <div class="gear-info">
+              <span class="gear-badge">Lighting</span>
+              <h3 class="gear-title">ARRI SkyPanel S60-C</h3>
+              <p class="gear-desc">Bảng đèn Soft-light bá chủ mọi phim trường. Chỉnh mọi không gian màu, giả lập gel màu chính xác đến từng bước sóng.</p>
+              <div class="gear-price">~$6,450</div>
+              <a href="#" class="gear-btn">Mơ mộng</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="text-align: center; color: var(--text-dim);">
+      &copy; 2026 LumenForge. Disclaimer: Một số liên kết trên trang này là affiliate links.
+    </div>
   </footer>
 
-  <script src="js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = document.querySelectorAll('.tier-tab');
+      const contents = document.querySelectorAll('.tier-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          tab.classList.add('active');
+          document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
