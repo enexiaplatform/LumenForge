@@ -193,6 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initial jump
-  goToStep(projectState.step);
+  goToStep(1);
 
 });

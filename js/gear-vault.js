@@ -12,7 +12,7 @@ const GEAR_DB = [
     type: 'Hybrid Camera (APS-C)',
     specs: ['26MP BSI CMOS', '4K 120p', '10-bit 4:2:2', 'AI AutoFocus'],
     desc: 'Kẻ hủy diệt phân khúc APS-C. Auto-focus AI tốt nhất thế giới, quay 4K siêu nét, chống rung IBIS. Tuyệt hảo cho người chạy sự kiện một mình.',
-    price: '~$1,398',
+    price: '~35.500.000đ',
     icon: '📷',
     link: '#'
   },
@@ -24,7 +24,7 @@ const GEAR_DB = [
     type: 'Prime Lens',
     specs: ['Ngàm E/X/EF-M', 'Khẩu f/1.4', 'Nặng 265g', 'Độ nét cao'],
     desc: 'Ống kính "phải có" cho cảm biến Crop. Tiêu cự tương đương 45mm trên Full-frame, hoàn hảo cho chân dung lẫn đường phố. Độ nét tuyệt đối ở f/1.4.',
-    price: '~$289',
+    price: '~7.500.000đ',
     icon: '🔍',
     link: '#'
   },
@@ -36,7 +36,7 @@ const GEAR_DB = [
     type: 'LED Video Light',
     specs: ['65W Output', '2700K - 6500K', 'Pin V-Mount', 'App Sidus Link'],
     desc: 'Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Đủ mạnh cho không gian phòng ngủ, hỗ trợ pin siêu di động.',
-    price: '~$199',
+    price: '~5.000.000đ',
     icon: '💡',
     link: '#'
   },
@@ -48,7 +48,7 @@ const GEAR_DB = [
     type: 'Entry-level Camera (APS-C)',
     specs: ['24.2MP APS-C', '4K 30p Uncropped', 'Dual Pixel AF II', 'Gọn nhẹ'],
     desc: 'Ông vua của phân khúc nhập môn. Chụp đẹp ngay từ file JPEG nhờ Color Science trứ danh của Canon, hệ thống lấy nét Dual Pixel cực kỳ bám người.',
-    price: '~$679',
+    price: '~17.500.000đ',
     icon: '📷',
     link: '#'
   },
@@ -62,7 +62,7 @@ const GEAR_DB = [
     type: 'Cinema Camera (Full-frame)',
     specs: ['12MP Full-Frame', '4K 120p 10-bit', 'Base ISO 12800', 'Active Cooling'],
     desc: 'Quái vật thiếu sáng. Cảm biến 12MP thu ánh sáng đỉnh cao, quạt tản nhiệt quay không bao giờ quá nhiệt. Tiêu chuẩn của MV thương mại.',
-    price: '~$3,898',
+    price: '~98.000.000đ',
     icon: '🎥',
     link: '#'
   },
@@ -74,7 +74,7 @@ const GEAR_DB = [
     type: 'Hybrid Pro (Full-frame)',
     specs: ['45MP Sensor', '8K RAW Video', 'IBIS 8-Stop', 'CFexpress Type B'],
     desc: 'Cỗ máy lai hoàn hảo nhất cho cả quay và chụp thương mại. Khả năng in ấn khổ lớn nhờ cảm biến 45MP và khả năng quay RAW 8K vô tiền khoáng hậu.',
-    price: '~$3,399',
+    price: '~85.000.000đ',
     icon: '📸',
     link: '#'
   },
@@ -86,7 +86,7 @@ const GEAR_DB = [
     type: 'Zoom Lens',
     specs: ['Thấu kính XA', 'Nhẹ hơn 20%', 'Khẩu f/2.8', 'Focus nhanh'],
     desc: 'Ống kính đa dụng tối thượng. Nhẹ hơn phiên bản trước 20%, lấy nét cực nhanh, đủ cân mọi job từ Wedding đến Commercial.',
-    price: '~$2,298',
+    price: '~58.000.000đ',
     icon: '🔭',
     link: '#'
   },
@@ -98,7 +98,7 @@ const GEAR_DB = [
     type: 'COB LED Light',
     specs: ['350W Output', 'Ngàm Bowens', 'CRI 96+', 'V-Mount Battery'],
     desc: 'Nguồn sáng chính tiêu chuẩn công nghiệp. Đủ mạnh để hắt qua rèm cửa giả lập ánh sáng mặt trời tự nhiên vào ban ngày.',
-    price: '~$949',
+    price: '~24.000.000đ',
     icon: '☀️',
     link: '#'
   },
@@ -112,7 +112,7 @@ const GEAR_DB = [
     type: 'Cinema Camera (Super 35)',
     specs: ['Sensor 4.6K', '17 Stop DR', 'REVEAL Color', 'Nặng 2.9kg'],
     desc: 'Huyền thoại Hollywood. 17-stop Dynamic Range, tái tạo màu da (Skin tone) không một máy ảnh nào trên thế giới có thể sánh kịp.',
-    price: '~$75,000',
+    price: '~1.900.000.000đ',
     icon: '🎬',
     link: '#'
   },
@@ -124,7 +124,7 @@ const GEAR_DB = [
     type: 'Cine Prime Set',
     specs: ['Phủ quang học vintage', 'Lấy nét cơ học', 'Full-Frame', 'i/ Technology'],
     desc: '"Cooke Look" trứ danh. Cho ra hình ảnh ấm áp, organic và vùng chuyển nét (Roll-off) mượt mà như bơ. Lựa chọn số 1 của các D.P.',
-    price: '~$55,000 (Bộ 5 lens)',
+    price: '~1.400.000.000đ (Bộ 5 lens)',
     icon: '🔬',
     link: '#'
   },
@@ -136,7 +136,7 @@ const GEAR_DB = [
     type: 'LED Soft Light',
     specs: ['RGBW Full Color', '2800K - 10000K', 'CRI 95+', 'DMX Control'],
     desc: 'Bảng đèn Soft-light bá chủ mọi phim trường. Chỉnh mọi không gian màu, giả lập gel màu chính xác đến từng bước sóng.',
-    price: '~$6,450',
+    price: '~165.000.000đ',
     icon: '⚡',
     link: '#'
   }
