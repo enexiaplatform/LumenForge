@@ -60,19 +60,16 @@
   <section class="hero" id="hero" style="background: url('https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; box-shadow: inset 0 0 0 2000px rgba(10,10,12,0.85);">
     <canvas class="hero-particles" id="hero-particles"></canvas>
 
-    <div class="hero-content">
-      <p class="hero-lab-label">[&thinsp;PHÒNG THÍ NGHIỆM ÁNH SÁNG&thinsp;]</p>
-
-      <h1 class="hero-title">LUMEN<span class="text-gradient">FORGE</span></h1>
-
-      <p class="hero-tagline">Hệ sinh thái Nhiếp ảnh & Ánh sáng toàn diện.</p>
-
-      <p class="hero-subtitle">Giải pháp End-to-End: Từ lý thuyết quang học, sơ đồ ánh sáng, đến bản thiết kế thực thi.</p>
-
-      <div class="hero-ctas">
-        <a href="studio-planner.html" class="btn-primary" style="background: linear-gradient(135deg, var(--accent-amber), var(--accent-red)); box-shadow: 0 4px 15px rgba(245, 166, 35, 0.4); border: none;">Khởi tạo Dự án Chụp</a>
-        <a href="light-codex.html" class="btn-secondary">Khám phá Light Codex</a>
-        <a href="tool-lab.html" class="btn-secondary">Vào Xưởng Công cụ</a>
+    <div class="hero-content reveal">
+      <div class="hero-badge reveal delay-100">Bản Cập nhật Tối thượng 2026</div>
+      <h1 class="hero-title reveal delay-200">Khai mở <span class="hero-title-accent">Tầm nhìn.</span><br>Định hình Nghệ thuật.</h1>
+      <p class="hero-subtitle reveal delay-300">
+        LumenForge là vũ trụ tương tác toàn diện dành cho Nhiếp ảnh gia và Đạo diễn hình ảnh.
+        Học hỏi qua giả lập vật lý, làm chủ ánh sáng, và phá vỡ mọi giới hạn sáng tạo.
+      </p>
+      <div class="hero-cta reveal delay-300">
+        <a href="tool-lab.html" class="btn btn-primary magnetic">Trải nghiệm Xưởng Công cụ</a>
+        <a href="light-codex.html" class="btn btn-secondary magnetic">Khám phá Light Codex</a>
       </div>
     </div>
 
@@ -139,7 +136,7 @@
           <div class="lab-card-number">02</div>
           <h3>Tool Lab</h3>
           <p>Công cụ tương tác: giải mã lens, mô phỏng exposure, tạo film look.</p>
-          <a href="tool-lab.html" class="lab-card-link">Mở Xưởng Công cụ →</a>
+          <a href="tool-lab.html" class="module-card reveal delay-100">Mở Xưởng Công cụ →</a>
         </div>
 
         <!-- Card 3: Shot Recipes -->
@@ -157,7 +154,7 @@
           <div class="lab-card-number">03</div>
           <h3>Shot Recipes</h3>
           <p>Công thức chụp ảnh thực tế — từ studio portrait đến Saigon street cinematic.</p>
-          <a href="shot-recipes.html" class="lab-card-link">Xem Công thức →</a>
+          <a href="shot-recipes.html" class="module-card reveal delay-200">Xem Công thức →</a>
         </div>
 
         <!-- Card 4: Gear Map -->
@@ -258,14 +255,15 @@
   <!-- ============================================================
        CÔNG CỤ NỔI BẬT PREVIEW
        ============================================================ -->
-  <section class="section featured-tools" id="featured-tools">
-    <div class="container">
-      <p class="section-label">CÔNG CỤ NỔI BẬT</p>
-      <h2 class="section-title">Bắt đầu Thử nghiệm</h2>
+  <section class="modules-grid-section container">
+    <div class="section-header reveal">
+      <h2 class="section-title">Hệ Sinh Thái <span class="text-accent-cyan">Công Cụ</span></h2>
+      <p class="section-desc">Bốn cột mốc định hình phong cách điện ảnh của bạn.</p>
+    </div>
 
-      <div class="featured-grid">
-
-        <a href="tools/lens-decoder.html" class="featured-card animate-on-scroll">
+    <div class="modules-grid">
+      <!-- M1 -->
+      <a href="light-codex.html" class="module-card reveal">
           <div class="featured-card-accent" style="background: var(--gradient-amber)"></div>
           <h3>Tính cách Lens Decoder</h3>
           <p>Giải mã tính cách lens — tìm ống kính phù hợp với phong cách của bạn.</p>

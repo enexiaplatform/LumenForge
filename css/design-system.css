@@ -104,6 +104,42 @@ button {
   --text-xs: 0.85rem;
   --text-sm: 0.95rem;
   --text-base: 1.05rem;     /* Increased from 1rem */
+
+  /* ============================================================
+     SCROLL REVEAL & MICRO-ANIMATIONS (Phase 44)
+     ============================================================ */
+  
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Different directions */
+  .reveal-left { transform: translateX(-30px); }
+  .reveal-right { transform: translateX(30px); }
+  .reveal-left.active, .reveal-right.active { transform: translateX(0); }
+
+  /* Delay utility */
+  .delay-100 { transition-delay: 100ms; }
+  .delay-200 { transition-delay: 200ms; }
+  .delay-300 { transition-delay: 300ms; }
+
+  /* Smooth scroll behavior for whole page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Magnetic hover effect logic in JS, but we need transition */
+  .magnetic {
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
   --text-lg: 1.15rem;      /* Increased from 1.125rem */
   --text-xl: 1.35rem;      /* Increased from 1.25rem */
   --text-2xl: 1.6rem;      /* Increased from 1.5rem */

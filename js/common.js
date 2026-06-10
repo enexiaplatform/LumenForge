@@ -72,7 +72,8 @@
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('visible'); // old logic
+            entry.target.classList.add('active');  // new reveal logic
             observer.unobserve(entry.target); // animate once
           }
         });
@@ -86,10 +87,10 @@
     // Function to observe elements under a given root
     function observeElements(root) {
       if (!root) return;
-      if (root.classList && root.classList.contains('animate-on-scroll')) {
+      if (root.classList && (root.classList.contains('animate-on-scroll') || root.classList.contains('reveal'))) {
         observer.observe(root);
       }
-      const elements = root.querySelectorAll ? root.querySelectorAll('.animate-on-scroll') : [];
+      const elements = root.querySelectorAll ? root.querySelectorAll('.animate-on-scroll, .reveal') : [];
       elements.forEach(el => observer.observe(el));
     }
 
@@ -194,6 +195,29 @@
   }
 
   /* --------------------------------------------------------
+     6. MAGNETIC BUTTON EFFECT
+     -------------------------------------------------------- */
+  function initMagneticButtons() {
+    const magnetics = document.querySelectorAll('.magnetic');
+    
+    magnetics.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        // Move button slightly towards mouse
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+      });
+      
+      btn.addEventListener('mouseleave', () => {
+        // Reset
+        btn.style.transform = 'translate(0px, 0px)';
+      });
+    });
+  }
+
+  /* --------------------------------------------------------
      INIT
      -------------------------------------------------------- */
   function init() {
@@ -201,6 +225,7 @@
     initScrollAnimations();
     initSmoothScroll();
     initNavScroll();
+    initMagneticButtons();
   }
 
   // Run when DOM is ready

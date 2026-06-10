@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dolly Zoom Simulator — LumenForge</title>
+  <meta name="keywords" content="dolly zoom, vertigo, tiêu cự, perspective, lumenforge">
+  <meta name="description" content="Trực quan hóa hiện tượng nén không gian (Perspective Compression) và hiệu ứng Vertigo kinh điển trong điện ảnh.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .vertigo-layout {
+      margin-top: var(--space-lg);
+    }
+
+    .scene-container {
+      width: 100%;
+      height: 60vh;
+      min-height: 400px;
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      
+      /* The magic of CSS 3D */
+      perspective: 300px; /* Default wide angle */
+      perspective-origin: center center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .scene-3d {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Background: Far away */
+    .bg-layer {
+      position: absolute;
+      width: 300%; /* Make it huge so it covers when compressed */
+      height: 300%;
+      background: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+      transform: translateZ(-3000px); /* Push it back */
+    }
+
+    /* Middle layer: Optional */
+    .mid-layer {
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1000&auto=format&fit=crop&q=80') center/cover;
+      opacity: 0.5;
+      transform: translateZ(-1000px) translateY(200px);
+      mask-image: linear-gradient(to top, black, transparent);
+      -webkit-mask-image: linear-gradient(to top, black, transparent);
+    }
+
+    /* Foreground Subject: Z=0 */
+    .fg-layer {
+      position: absolute;
+      width: 300px;
+      height: 500px;
+      /* Just a silhouette placeholder */
+      background: url('https://plus.unsplash.com/premium_photo-1669882255850-25e24cb91cd4?q=80&w=500&auto=format&fit=crop') center/cover no-repeat;
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      transform: translateZ(0); /* Anchor point */
+    }
+
+    /* Overlay grid */
+    .rule-of-thirds {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .rule-of-thirds::before, .rule-of-thirds::after {
+      content: ''; position: absolute; background: rgba(255,255,255,0.2);
+    }
+    .rule-of-thirds::before {
+      top: 33.33%; bottom: 33.33%; left: 0; right: 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .rule-of-thirds::after {
+      left: 33.33%; right: 33.33%; top: 0; bottom: 0;
+      border-left: 1px solid rgba(255,255,255,0.2);
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .controls-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-top: 20px;
+    }
+
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--accent-cyan);
+    }
+
+    .lens-info {
+      font-family: var(--font-mono);
+      color: var(--accent-amber);
+      font-size: 1.5rem;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .desc-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container" style="padding-top: 100px; padding-bottom: 50px;">
+    
+    <div class="tool-header">
+      <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Optics Physics</span>
+      <h1>Dolly Zoom Playground</h1>
+      <p class="tool-desc">Kéo thanh trượt để trải nghiệm hiệu ứng Vertigo (Zoom in + Move back). Tiền cảnh giữ nguyên, nhưng Hậu cảnh (background) bị nén và kéo sập vào màn hình.</p>
+    </div>
+
+    <div class="vertigo-layout">
+      
+      <div class="scene-container" id="scene">
+        <div class="rule-of-thirds"></div>
+        <div class="scene-3d">
+          <div class="bg-layer"></div>
+          <!-- <div class="mid-layer"></div> -->
+          <div class="fg-layer"></div>
+        </div>
+      </div>
+
+      <div class="controls-panel">
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Tiêu cự Lens (Focal Length)</span>
+            <span>Khoảng cách máy ảnh đang tự bù trừ</span>
+          </div>
+          <!-- 
+            We map:
+            Value 0   -> Wide (14mm)     -> perspective 200px
+            Value 100 -> Tele (200mm)    -> perspective 4000px
+          -->
+          <input type="range" id="zoom-slider" min="0" max="100" value="15">
+        </div>
+
+        <div class="lens-info" id="lens-display">35mm (Tiêu chuẩn)</div>
+        
+        <p class="desc-text" id="desc-display">
+          Ở tiêu cự 35mm, không gian có độ sâu vừa phải. Hậu cảnh và tiền cảnh được phân chia rõ ràng, tạo cảm giác hiện diện (Presence) tự nhiên như mắt người.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slider = document.getElementById('zoom-slider');
+      const scene = document.getElementById('scene');
+      const lensDisplay = document.getElementById('lens-display');
+      const descDisplay = document.getElementById('desc-display');
+
+      // Map slider 0-100 to Perspective (200px - 5000px) and Focal Length (14mm - 200mm)
+      function updateScene() {
+        const val = parseInt(slider.value);
+        
+        // Perspective Math: 
+        // 0 -> 200px, 100 -> 5000px
+        const minP = 200;
+        const maxP = 6000;
+        const perspective = minP + (maxP - minP) * Math.pow(val / 100, 2); // Non-linear for better feel
+        
+        scene.style.perspective = perspective + 'px';
+
+        // Focal Length text
+        // 0 -> 14, 100 -> 200
+        const minF = 14;
+        const maxF = 200;
+        const focal = minF + (maxF - minF) * Math.pow(val / 100, 1.5);
+        
+        lensDisplay.textContent = Math.round(focal) + 'mm';
+
+        // Description logic
+        if (focal < 24) {
+          descDisplay.textContent = "Góc siêu rộng. Gây bóp méo phối cảnh mạnh (Extension Distortion). Hậu cảnh bị đẩy lùi ra xa tít tắp, tạo cảm giác mênh mông, cô đơn hoặc vĩ đại.";
+        } else if (focal < 70) {
+          descDisplay.textContent = "Góc tiêu chuẩn. Không gian có độ sâu vừa phải. Hậu cảnh và tiền cảnh được phân chia rõ ràng, tạo cảm giác hiện diện (Presence) tự nhiên như mắt người.";
+        } else if (focal < 135) {
+          descDisplay.textContent = "Telephoto. Bắt đầu xuất hiện hiện tượng Nén Không Gian (Perspective Compression). Hậu cảnh bị kéo lại gần chủ thể hơn. Rất tôn dáng cho chụp chân dung.";
+        } else {
+          descDisplay.textContent = "Siêu Tele. Nén không gian cực mạnh. Ngọn núi phía sau cao khổng lồ và áp sát vào lưng nhân vật. Khoảng cách vật lý bị xóa nhòa hoàn toàn.";
+        }
+      }
+
+      slider.addEventListener('input', updateScene);
+      updateScene(); // Init
+    });
+  </script>
+</body>
+</html>
