@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sh: document.getElementById('sl-sh'),
     vib: document.getElementById('sl-vib'),
     sat: document.getElementById('sl-sat'),
+    hslRed: document.getElementById('sl-hsl-red'),
+    hslOrg: document.getElementById('sl-hsl-org'),
+    hslGrn: document.getElementById('sl-hsl-grn'),
+    hslBlu: document.getElementById('sl-hsl-blu'),
+    splitShHue: document.getElementById('sl-split-sh-hue'),
+    splitShSat: document.getElementById('sl-split-sh-sat'),
+    splitHiHue: document.getElementById('sl-split-hi-hue'),
+    splitHiSat: document.getElementById('sl-split-hi-sat'),
   };
 
   const values = {
@@ -31,6 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     sh: document.getElementById('val-sh'),
     vib: document.getElementById('val-vib'),
     sat: document.getElementById('val-sat'),
+    hslRed: document.getElementById('val-hsl-red'),
+    hslOrg: document.getElementById('val-hsl-org'),
+    hslGrn: document.getElementById('val-hsl-grn'),
+    hslBlu: document.getElementById('val-hsl-blu'),
+    splitShHue: document.getElementById('val-split-sh-hue'),
+    splitShSat: document.getElementById('val-split-sh-sat'),
+    splitHiHue: document.getElementById('val-split-hi-hue'),
+    splitHiSat: document.getElementById('val-split-hi-sat'),
   };
 
   // Setup Event Listeners for sliders
@@ -126,6 +142,23 @@ document.addEventListener('DOMContentLoaded', () => {
       Shadows2012: parseInt(sliders.sh.value),
       Vibrance: parseInt(sliders.vib.value),
       Saturation: parseInt(sliders.sat.value),
+      HueAdjustmentRed: 0,
+      SaturationAdjustmentRed: parseInt(sliders.hslRed.value),
+      LuminanceAdjustmentRed: 0,
+      HueAdjustmentOrange: 0,
+      SaturationAdjustmentOrange: parseInt(sliders.hslOrg.value),
+      LuminanceAdjustmentOrange: 0,
+      HueAdjustmentGreen: 0,
+      SaturationAdjustmentGreen: parseInt(sliders.hslGrn.value),
+      LuminanceAdjustmentGreen: 0,
+      HueAdjustmentBlue: 0,
+      SaturationAdjustmentBlue: parseInt(sliders.hslBlu.value),
+      LuminanceAdjustmentBlue: 0,
+      SplitToningShadowHue: parseInt(sliders.splitShHue.value),
+      SplitToningShadowSaturation: parseInt(sliders.splitShSat.value),
+      SplitToningHighlightHue: parseInt(sliders.splitHiHue.value),
+      SplitToningHighlightSaturation: parseInt(sliders.splitHiSat.value),
+      SplitToningBalance: 0
     });
 
     const blob = new Blob([xmpData], { type: 'application/rdf+xml;charset=utf-8' });
@@ -177,6 +210,25 @@ document.addEventListener('DOMContentLoaded', () => {
    <crs:Clarity2012>0</crs:Clarity2012>
    <crs:Vibrance>${params.Vibrance}</crs:Vibrance>
    <crs:Saturation>${params.Saturation}</crs:Saturation>
+   
+   <crs:HueAdjustmentRed>${params.HueAdjustmentRed}</crs:HueAdjustmentRed>
+   <crs:SaturationAdjustmentRed>${params.SaturationAdjustmentRed}</crs:SaturationAdjustmentRed>
+   <crs:LuminanceAdjustmentRed>${params.LuminanceAdjustmentRed}</crs:LuminanceAdjustmentRed>
+   <crs:HueAdjustmentOrange>${params.HueAdjustmentOrange}</crs:HueAdjustmentOrange>
+   <crs:SaturationAdjustmentOrange>${params.SaturationAdjustmentOrange}</crs:SaturationAdjustmentOrange>
+   <crs:LuminanceAdjustmentOrange>${params.LuminanceAdjustmentOrange}</crs:LuminanceAdjustmentOrange>
+   <crs:HueAdjustmentGreen>${params.HueAdjustmentGreen}</crs:HueAdjustmentGreen>
+   <crs:SaturationAdjustmentGreen>${params.SaturationAdjustmentGreen}</crs:SaturationAdjustmentGreen>
+   <crs:LuminanceAdjustmentGreen>${params.LuminanceAdjustmentGreen}</crs:LuminanceAdjustmentGreen>
+   <crs:HueAdjustmentBlue>${params.HueAdjustmentBlue}</crs:HueAdjustmentBlue>
+   <crs:SaturationAdjustmentBlue>${params.SaturationAdjustmentBlue}</crs:SaturationAdjustmentBlue>
+   <crs:LuminanceAdjustmentBlue>${params.LuminanceAdjustmentBlue}</crs:LuminanceAdjustmentBlue>
+
+   <crs:SplitToningShadowHue>${params.SplitToningShadowHue}</crs:SplitToningShadowHue>
+   <crs:SplitToningShadowSaturation>${params.SplitToningShadowSaturation}</crs:SplitToningShadowSaturation>
+   <crs:SplitToningHighlightHue>${params.SplitToningHighlightHue}</crs:SplitToningHighlightHue>
+   <crs:SplitToningHighlightSaturation>${params.SplitToningHighlightSaturation}</crs:SplitToningHighlightSaturation>
+   <crs:SplitToningBalance>${params.SplitToningBalance}</crs:SplitToningBalance>
    
    <crs:ToneCurvePV2012>
     <rdf:Seq>
