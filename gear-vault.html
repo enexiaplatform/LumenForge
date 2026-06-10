@@ -9,144 +9,7 @@
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="css/design-system.css">
-  <style>
-    .vault-hero {
-      padding: 120px 0 60px 0;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(20,20,25,1) 0%, rgba(10,10,12,1) 100%);
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .tier-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin: 40px 0;
-    }
-
-    .tier-tab {
-      padding: 12px 24px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .tier-tab.active, .tier-tab:hover {
-      background: var(--text-primary);
-      color: #000;
-    }
-
-    .tier-content {
-      display: none;
-      animation: fadeIn 0.5s ease;
-    }
-
-    .tier-content.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .gear-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: var(--space-xl);
-    }
-
-    .gear-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s, border-color 0.3s;
-    }
-
-    .gear-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255,255,255,0.3);
-    }
-
-    .gear-img {
-      height: 200px;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .gear-info {
-      padding: var(--space-lg);
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .gear-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      font-size: 0.7rem;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.1);
-      margin-bottom: 10px;
-      width: fit-content;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .gear-title {
-      font-size: 1.2rem;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-    }
-
-    .gear-desc {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
-
-    .gear-price {
-      font-family: var(--font-mono);
-      font-size: 1.2rem;
-      color: var(--accent-amber);
-      margin-bottom: 15px;
-    }
-
-    .gear-btn {
-      display: block;
-      text-align: center;
-      padding: 12px;
-      background: var(--text-primary);
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: var(--radius-md);
-      transition: background 0.3s;
-    }
-
-    .gear-btn:hover {
-      background: var(--accent-cyan);
-    }
-
-    /* Tiers specific badges */
-    .tier-indie .gear-badge { background: rgba(0, 212, 255, 0.2); color: var(--accent-cyan); }
-    .tier-pro .gear-badge { background: rgba(245, 166, 35, 0.2); color: var(--accent-amber); }
-    .tier-dream .gear-badge { background: rgba(255, 0, 102, 0.2); color: #ff0066; }
-
-  </style>
+  <link rel="stylesheet" href="css/gear-vault.css">
 </head>
 <body>
 
@@ -154,11 +17,17 @@
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
-      <div class="nav-menu">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
         <a href="index.html" class="nav-link">Trang chủ</a>
         <a href="light-codex.html" class="nav-link">Light Codex</a>
         <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
-        <a href="gear-vault.html" class="nav-link active">Thư Khố Thiết Bị</a>
+        <a href="gear-vault.html" class="nav-link active">Kho Thiết Bị</a>
+        <a href="store.html" class="nav-link" style="color: #d4af37;">Cửa hàng</a>
+        <a href="shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="visual-experiments.html" class="nav-link">Thử nghiệm</a>
       </div>
     </div>
   </nav>
@@ -166,146 +35,69 @@
   <!-- Hero -->
   <section class="vault-hero">
     <div class="container">
-      <p style="color: var(--text-dim); font-family: var(--font-mono); margin-bottom: 10px;">[ GEAR VAULT ]</p>
-      <h1 style="font-size: 3rem; margin-bottom: 20px;">Kho Báu Thiết Bị</h1>
-      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-        Không có chiếc máy ảnh nào tốt nhất, chỉ có chiếc máy phù hợp nhất với ngân sách và tầm nhìn của bạn. Đây là những Combo được LumenForge tuyển chọn kỹ lưỡng.
+      <p class="section-label">[&thinsp;GEAR VAULT&thinsp;]</p>
+      <h1 class="vault-title">Kho Báu Thiết Bị</h1>
+      <p class="vault-subtitle">
+        Không có chiếc máy ảnh nào tốt nhất, chỉ có chiếc máy phù hợp nhất. Khám phá các Combo tối thượng được LumenForge tuyển chọn theo từng ngân sách.
       </p>
-
-      <div class="tier-tabs">
-        <div class="tier-tab active" data-target="indie">Guerilla Indie ($1,000)</div>
-        <div class="tier-tab" data-target="pro">Commercial Pro ($4,000)</div>
-        <div class="tier-tab" data-target="dream">Hollywood Dream (No Limit)</div>
-      </div>
+      <button class="matchmaker-trigger-btn" id="matchmaker-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        Tư vấn cấu hình nhanh
+      </button>
     </div>
   </section>
 
-  <!-- Content -->
-  <section class="section">
-    <div class="container">
-
-      <!-- TIER: INDIE -->
-      <div class="tier-content active tier-indie" id="indie">
-        <div class="gear-grid">
-          
-          <div class="gear-card">
-            <div class="gear-img">📷</div>
-            <div class="gear-info">
-              <span class="gear-badge">Hybrid Camera</span>
-              <h3 class="gear-title">Sony A6700</h3>
-              <p class="gear-desc">Kẻ hủy diệt phân khúc APS-C. Auto-focus AI tốt nhất thế giới, quay 4K 120p, chống rung IBIS. Tuyệt hảo cho người chạy sự kiện một mình.</p>
-              <div class="gear-price">~$1,398</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
+  <!-- Content Layout -->
+  <main class="container" style="padding-bottom: var(--space-3xl);">
+    <div class="vault-layout">
+      
+      <!-- Sidebar Filters -->
+      <aside class="vault-sidebar">
+        <div class="sidebar-group">
+          <h4 class="sidebar-title">Ngân Sách (Tiers)</h4>
+          <div class="tier-list">
+            <button class="tier-tab active" data-tier="indie">
+              <span>Guerilla Indie</span> <span style="font-size: 0.75rem; color: var(--text-dim);">~ $1k</span>
+            </button>
+            <button class="tier-tab" data-tier="pro">
+              <span>Commercial Pro</span> <span style="font-size: 0.75rem; color: var(--text-dim);">~ $4k</span>
+            </button>
+            <button class="tier-tab" data-tier="dream">
+              <span>Hollywood Dream</span> <span style="font-size: 0.75rem; color: var(--text-dim);">No Limit</span>
+            </button>
           </div>
-
-          <div class="gear-card">
-            <div class="gear-img">🔍</div>
-            <div class="gear-info">
-              <span class="gear-badge">Prime Lens</span>
-              <h3 class="gear-title">Sigma 30mm f/1.4 DC DN</h3>
-              <p class="gear-desc">Ống kính "phải có" cho cảm biến Crop. Tiêu cự tương đương 45mm trên Full-frame, hoàn hảo cho chân dung lẫn đường phố. Độ nét tuyệt đối ở f/1.4.</p>
-              <div class="gear-price">~$289</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
-          </div>
-
-          <div class="gear-card">
-            <div class="gear-img">💡</div>
-            <div class="gear-info">
-              <span class="gear-badge">Lighting</span>
-              <h3 class="gear-title">Amaran 60x Bi-Color</h3>
-              <p class="gear-desc">Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Đủ mạnh cho không gian phòng ngủ, hỗ trợ pin V-Mount siêu di động.</p>
-              <div class="gear-price">~$199</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
-          </div>
-
         </div>
-      </div>
 
-      <!-- TIER: PRO -->
-      <div class="tier-content tier-pro" id="pro">
-        <div class="gear-grid">
-          
-          <div class="gear-card">
-            <div class="gear-img">🎥</div>
-            <div class="gear-info">
-              <span class="gear-badge">Cinema Camera</span>
-              <h3 class="gear-title">Sony FX3 / A7S III</h3>
-              <p class="gear-desc">Quái vật thiếu sáng. Cảm biến Full-frame 12MP thu ánh sáng đỉnh cao, quạt tản nhiệt quay 4K không bao giờ quá nhiệt. Tiêu chuẩn của MV thương mại.</p>
-              <div class="gear-price">~$3,898</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
+        <div class="sidebar-group">
+          <h4 class="sidebar-title">Danh mục</h4>
+          <div class="category-list">
+            <button class="cat-filter active" data-cat="all">Tất cả Thiết bị</button>
+            <button class="cat-filter" data-cat="camera">Máy ảnh / Máy quay</button>
+            <button class="cat-filter" data-cat="lens">Ống kính (Lenses)</button>
+            <button class="cat-filter" data-cat="light">Ánh sáng (Lighting)</button>
           </div>
-
-          <div class="gear-card">
-            <div class="gear-img">🔭</div>
-            <div class="gear-info">
-              <span class="gear-badge">Zoom Lens</span>
-              <h3 class="gear-title">Sony 24-70mm f/2.8 GM II</h3>
-              <p class="gear-desc">Ống kính đa dụng tối thượng. Nhẹ hơn phiên bản trước 20%, lấy nét cực nhanh, đủ cân mọi job từ Wedding đến Commercial.</p>
-              <div class="gear-price">~$2,298</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
-          </div>
-
-          <div class="gear-card">
-            <div class="gear-img">☀️</div>
-            <div class="gear-info">
-              <span class="gear-badge">Lighting</span>
-              <h3 class="gear-title">Aputure 300D Mark II</h3>
-              <p class="gear-desc">Nguồn sáng chính tiêu chuẩn công nghiệp. Đủ mạnh để hắt qua rèm cửa giả lập ánh sáng mặt trời tự nhiên vào ban ngày.</p>
-              <div class="gear-price">~$949</div>
-              <a href="#" class="gear-btn">Xem chi tiết</a>
-            </div>
-          </div>
-
         </div>
+      </aside>
+
+      <!-- Gear Grid -->
+      <div class="gear-grid" id="gear-grid">
+        <!-- Rendered by JS -->
       </div>
-
-      <!-- TIER: DREAM -->
-      <div class="tier-content tier-dream" id="dream">
-        <div class="gear-grid">
-          
-          <div class="gear-card">
-            <div class="gear-img">🎬</div>
-            <div class="gear-info">
-              <span class="gear-badge">Arri Alexa</span>
-              <h3 class="gear-title">ARRI Alexa 35</h3>
-              <p class="gear-desc">Huyền thoại Hollywood. 17-stop Dynamic Range, tái tạo màu da (Skin tone) không một máy ảnh nào trên thế giới có thể sánh kịp.</p>
-              <div class="gear-price">~$75,000</div>
-              <a href="#" class="gear-btn">Mơ mộng</a>
-            </div>
-          </div>
-
-          <div class="gear-card">
-            <div class="gear-img">🔬</div>
-            <div class="gear-info">
-              <span class="gear-badge">Cine Prime Set</span>
-              <h3 class="gear-title">Cooke Panchro/i Classic FF</h3>
-              <p class="gear-desc">"Cooke Look" trứ danh. Cho ra hình ảnh ấm áp, organic và vùng chuyển nét (Roll-off) mượt mà như bơ. Lựa chọn số 1 của các D.P.</p>
-              <div class="gear-price">~$55,000 (Bộ 5 lens)</div>
-              <a href="#" class="gear-btn">Mơ mộng</a>
-            </div>
-          </div>
-
-          <div class="gear-card">
-            <div class="gear-img">⚡</div>
-            <div class="gear-info">
-              <span class="gear-badge">Lighting</span>
-              <h3 class="gear-title">ARRI SkyPanel S60-C</h3>
-              <p class="gear-desc">Bảng đèn Soft-light bá chủ mọi phim trường. Chỉnh mọi không gian màu, giả lập gel màu chính xác đến từng bước sóng.</p>
-              <div class="gear-price">~$6,450</div>
-              <a href="#" class="gear-btn">Mơ mộng</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
+      
     </div>
-  </section>
+  </main>
+
+  <!-- Matchmaker Modal -->
+  <div class="matchmaker-modal" id="matchmaker-modal">
+    <div class="matchmaker-content">
+      <button class="matchmaker-close" id="matchmaker-close">&times;</button>
+      <h2>Gear Matchmaker</h2>
+      <p>Tính năng tư vấn tự động đang được LumenForge phát triển. Tính năng này sẽ hỏi bạn 3 câu hỏi về ngân sách, sở thích chụp và phong cách màu để đưa ra Combo phù hợp nhất!</p>
+      <div style="padding: 20px; border: 1px dashed var(--border); border-radius: var(--radius-sm); color: var(--accent-cyan); text-align: center; font-family: var(--font-mono); font-size: 0.85rem;">
+        > STATUS: IN DEVELOPMENT (PHASE 57)
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="container" style="text-align: center; color: var(--text-dim);">
@@ -313,21 +105,7 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tabs = document.querySelectorAll('.tier-tab');
-      const contents = document.querySelectorAll('.tier-content');
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-
-          tab.classList.add('active');
-          document.getElementById(tab.getAttribute('data-target')).classList.add('active');
-        });
-      });
-    });
-  </script>
+  <script src="js/common.js"></script>
+  <script src="js/gear-vault.js"></script>
 </body>
 </html>
