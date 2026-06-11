@@ -11,8 +11,8 @@ function openCheckoutModal(productId, priceVnd) {
   const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceVnd);
 
   // Bank details for VietQR
-  const BANK_ID = '970436'; // Vietcombank BIN
-  const ACCOUNT_NO = '1011122233'; // Replace with actual account number
+  const BANK_ID = 'MSB'; // Ngân hàng Hàng Hải (MSB)
+  const ACCOUNT_NO = '04201013810536'; // Số tài khoản MSB của user
   const TEMPLATE = 'compact';
   const ADD_INFO = `LF ${productId}`;
   
@@ -59,15 +59,19 @@ function openCheckoutModal(productId, priceVnd) {
             <!-- Tab Content: VietQR -->
             <div id="tab-vietqr" style="text-align: center; display: block;">
               <img src="${qrUrl}" alt="VietQR" style="width: 200px; height: 200px; border-radius: 8px; border: 1px solid #fff; padding: 5px; background: #fff; margin-bottom: 15px;">
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">Ngân hàng: <strong>Vietcombank</strong></div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">Chủ tài khoản: <strong>LUMENFORGE ACADEMY</strong></div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary);">Ngân hàng: <strong>MSB (Ngân hàng Hàng Hải)</strong></div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary);">Số tài khoản: <strong>04201013810536</strong></div>
             </div>
 
             <!-- Tab Content: MoMo -->
             <div id="tab-momo" style="text-align: center; display: none;">
-              <div style="width: 200px; height: 200px; background: #a50064; color: #fff; border-radius: 8px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold;">[MoMo QR CODE]</div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">SĐT: <strong>0901.234.567</strong></div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">Tên: <strong>LumenForge</strong></div>
+              <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #a50064 0%, #0068ff 100%); color: #fff; border-radius: 8px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-direction: column; padding: 10px;">
+                <div style="font-size: 0.85rem; opacity: 0.9;">MoMo / ZaloPay</div>
+                <div style="font-size: 1.8rem; margin: 15px 0;">0708450246</div>
+                <div style="font-size: 0.8rem; font-weight: normal;">Chuyển đúng số tiền: ${formattedPrice}</div>
+              </div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary);">SĐT nhận tiền: <strong>0708.450.246</strong></div>
+              <div style="font-size: 0.9rem; color: var(--text-secondary);">Nội dung CK: <strong>${ADD_INFO}</strong></div>
             </div>
 
             <!-- Step 2: Email form -->
