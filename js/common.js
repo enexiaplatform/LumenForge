@@ -265,3 +265,26 @@
   }
 
 })();
+
+  /* --------------------------------------------------------
+     AUTO-ACTIVE NAVIGATION LINK
+     -------------------------------------------------------- */
+  function setActiveNav() {
+    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+    const currentPath = window.location.pathname;
+    const pageName = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const targetPage = href.substring(href.lastIndexOf('/') + 1);
+      link.classList.remove('active');
+      if (pageName === targetPage) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setActiveNav();
+  });
