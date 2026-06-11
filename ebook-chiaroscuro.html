@@ -187,10 +187,10 @@
       
       <div class="sales-cta-box">
         <div class="price-block">
-          <div class="price-old">Giá gốc: $49.00</div>
-          <div class="price-new">$29.00</div>
+          <div class="price-old">Giá gốc: 499.000đ</div>
+          <div class="price-new">299.000đ</div>
         </div>
-        <a href="#" class="btn-checkout" onclick="alert('Proceeding to Checkout...'); return false;">Tải xuống PDF Ngay</a>
+        <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); return false;">Tải xuống PDF Ngay</a>
       </div>
       <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ Tải ngay sau khi thanh toán &nbsp; ✓ PDF Chất lượng cao &nbsp; ✓ Đọc trên mọi thiết bị</p>
     </div>
@@ -271,7 +271,7 @@
       <div class="guarantee">
         <h2 style="font-size: 2rem; color: var(--accent-amber); margin-bottom: 15px;">Cam kết Hoàn tiền 100% trong 30 ngày</h2>
         <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Nếu cuốn sách này không thay đổi hoàn toàn cách bạn nhìn nhận về ánh sáng và giúp bạn chụp những bức ảnh đẹp hơn, hãy gửi email cho chúng tôi. Bạn sẽ được hoàn lại toàn bộ số tiền mà không cần giải thích lý do.</p>
-        <a href="#" class="btn-checkout" onclick="alert('Proceeding to Checkout...'); return false;">Sở hữu Ebook ngay hôm nay — $29</a>
+        <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); return false;">Sở hữu Ebook ngay hôm nay — 299.000đ</a>
       </div>
     </div>
   </section>
@@ -280,11 +280,12 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom" style="text-align: center;">
-        <p>&copy; 2026 LumenForge Pro Store. Secure Payments by Stripe & Gumroad.</p>
+        <p>&copy; 2026 LumenForge Pro Store. Thanh toán an toàn qua VietQR & Ví điện tử (VN).</p>
       </div>
     </div>
   </footer>
 
   <script src="js/common.js"></script>
+  <script src="js/checkout.js"></script>
 </body>
 </html>
