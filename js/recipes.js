@@ -635,11 +635,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipe = shotRecipes.find(r => r.id === recipeId);
     if (!recipe) return;
 
+      const savedBookmarks = JSON.parse(localStorage.getItem('lumenforge_bookmarks') || '[]');
+      const isBookmarked = savedBookmarks.some(b => b.id === recipe.id);
+      const btnStyle = isBookmarked ? 'background: var(--accent-cyan); color: #000;' : 'background: transparent; color: var(--text-primary);';
+      const btnText = isBookmarked ? '✅ Đã lưu' : '🔖 Lưu';
+
     modalContent.innerHTML = `
-      <div class="recipe-detail-header" style="border-left: 4px solid ${recipe.colorAccent}">
+      <div class="recipe-detail-header" style="border-left: 4px solid ${recipe.colorAccent}; position: relative;">
         <span class="recipe-detail-num">${recipe.num}</span>
         <h2>${recipe.title}</h2>
         <p class="recipe-detail-summary">${recipe.desc}</p>
+        <button class="btn-bookmark" data-id="${recipe.id}" data-title="${recipe.title}" style="position: absolute; top: 10px; right: 10px; border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s; ${btnStyle}">${btnText}</button>
       </div>
 
       <div class="recipe-detail-grid">
@@ -724,6 +730,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   modalClose.addEventListener('click', closeRecipeModal);
   modalOverlay.addEventListener('click', closeRecipeModal);
+
+  // Bookmark logic
+  modalContent.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-bookmark')) {
+      const id = e.target.getAttribute('data-id');
+      const title = e.target.getAttribute('data-title');
+      let bookmarks = JSON.parse(localStorage.getItem('lumenforge_bookmarks') || '[]');
+      
+      const existingIdx = bookmarks.findIndex(b => b.id === id);
+      if (existingIdx === -1) {
+        bookmarks.push({ id, title });
+        e.target.textContent = '✅ Đã lưu';
+        e.target.style.background = 'var(--accent-cyan)';
+        e.target.style.color = '#000';
+      } else {
+        bookmarks.splice(existingIdx, 1);
+        e.target.textContent = '🔖 Lưu';
+        e.target.style.background = 'transparent';
+        e.target.style.color = 'var(--text-primary)';
+      }
+      localStorage.setItem('lumenforge_bookmarks', JSON.stringify(bookmarks));
+    }
+  });
 
   // ESC key to close
   document.addEventListener('keydown', (e) => {

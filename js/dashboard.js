@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScore = localStorage.getItem('lumenforge_lastScore') || null;
   
   // Update Progress
-  const totalArticles = 12;
+  const totalArticles = 46;
   const readCountEl = document.getElementById('read-count');
   if (readCountEl) readCountEl.textContent = articlesRead;
   const pct = Math.min(100, Math.round((articlesRead / totalArticles) * 100));
@@ -45,6 +45,22 @@ document.addEventListener('DOMContentLoaded', () => {
         location.reload();
       }
     });
+  }
+
+  // Load Bookmarks
+  const bookmarkList = document.getElementById('bookmark-list');
+  if (bookmarkList) {
+    const bookmarks = JSON.parse(localStorage.getItem('lumenforge_bookmarks') || '[]');
+    if (bookmarks.length > 0) {
+      bookmarkList.innerHTML = ''; // clear dummy
+      bookmarks.forEach(b => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="shot-recipes.html" style="color: var(--accent-amber); text-decoration: none;">▶ ${b.title}</a>`;
+        bookmarkList.appendChild(li);
+      });
+    } else {
+      bookmarkList.innerHTML = '<li style="color: var(--text-dim); font-style: italic;">Bạn chưa lưu công thức nào.</li>';
+    }
   }
 
   // --- THE DIRECTOR'S BINDER (Phase 49) ---

@@ -218,6 +218,29 @@
   }
 
   /* --------------------------------------------------------
+     7. ARTICLE READ TRACKING
+     -------------------------------------------------------- */
+  function initReadTracking() {
+    const articleHeader = document.querySelector('.article-header');
+    if (!articleHeader) return; // Not an article page
+
+    // Extract current path as identifier (e.g., "white-balance-science.html")
+    const pathParts = window.location.pathname.split('/');
+    const currentFile = pathParts[pathParts.length - 1] || 'unknown';
+    
+    if (currentFile !== 'unknown') {
+      let readArticles = JSON.parse(localStorage.getItem('lumenforge_read_articles') || '[]');
+      if (!readArticles.includes(currentFile)) {
+        readArticles.push(currentFile);
+        localStorage.setItem('lumenforge_read_articles', JSON.stringify(readArticles));
+        
+        // Also update the legacy counter for dashboard compatibility (optional, but good)
+        localStorage.setItem('lumenforge_read', readArticles.length);
+      }
+    }
+  }
+
+  /* --------------------------------------------------------
      INIT
      -------------------------------------------------------- */
   function init() {
@@ -226,6 +249,7 @@
     initSmoothScroll();
     initNavScroll();
     initMagneticButtons();
+    initReadTracking();
   }
 
   // Run when DOM is ready
