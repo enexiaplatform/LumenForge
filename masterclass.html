@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bậc Thầy Chiaroscuro - Khóa Học Ánh Sáng Từ LumenForge</title>
+  <meta name="description" content="Làm chủ nghệ thuật điêu khắc bóng tối. Đừng để bức ảnh của bạn phẳng lì và tẻ nhạt thêm một giây nào nữa.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    /* Landing Page Specific Styles */
+    body {
+      background-color: #050505;
+      font-family: var(--font-sans);
+    }
+    .lp-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 20px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(10,10,12,0.8) 0%, #050505 100%), url('images/masterclass_hero.png') center/cover no-repeat;
+    }
+    .lp-badge {
+      background: var(--accent-amber);
+      color: #000;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 25px;
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    .lp-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+    .lp-hero h1 span {
+      color: var(--accent-amber);
+    }
+    .lp-hero p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: #ddd;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .lp-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .lp-btn-primary {
+      width: 100%;
+      background: var(--accent-amber);
+      color: #000;
+      padding: 18px 30px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(245, 166, 35, 0.3);
+    }
+    .lp-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(245, 166, 35, 0.5);
+    }
+    .lp-guarantee {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Agitation Section */
+    .lp-agitate {
+      padding: 100px 20px;
+      background: #0A0A0C;
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 60px auto 0;
+    }
+    .pain-card {
+      background: rgba(255,255,255,0.03);
+      padding: 40px 30px;
+      border-radius: 12px;
+      border-top: 3px solid #ff4444;
+      text-align: center;
+    }
+    .pain-card h3 {
+      font-size: 1.3rem;
+      margin: 20px 0 15px;
+      color: #fff;
+    }
+    .pain-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Solution Section */
+    .lp-solution {
+      padding: 100px 20px;
+      background: #050505;
+      text-align: center;
+    }
+    .mockup-container {
+      margin: 60px auto;
+      max-width: 800px;
+      position: relative;
+    }
+    .mockup-img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Urgency Banner */
+    .urgency-banner {
+      background: #ff0044;
+      color: #fff;
+      text-align: center;
+      padding: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Sticky Mobile CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10,10,12,0.95);
+      backdrop-filter: blur(10px);
+      padding: 15px 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      z-index: 99;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+    }
+    @media (min-width: 768px) {
+      .sticky-cta {
+        display: none;
+      }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(245,166,35,0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(245,166,35,0); }
+      100% { box-shadow: 0 0 0 0 rgba(245,166,35,0); }
+    }
+  </style>
+
+  <!-- Facebook Pixel Code Snippet (Mock) -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1234567890');
+    fbq('track', 'PageView');
+  </script>
+</head>
+<body>
+
+  <!-- Urgency Banner -->
+  <div class="urgency-banner">
+    🔥 Ưu đãi Flash Sale giảm 40% chỉ dành riêng cho người dùng Facebook. Kết thúc trong <span id="countdown">23:59:59</span>
+  </div>
+
+  <!-- Hero -->
+  <section class="lp-hero">
+    <div class="lp-badge">Tài liệu Độc quyền 2026</div>
+    <h1>Ngừng Chụp Những Bức Ảnh <span>Phẳng Lì Tẻ Nhạt</span></h1>
+    <p>Khám phá bí mật 400 năm tuổi của danh họa Caravaggio để tạo ra những tác phẩm chân dung điện ảnh có chiều sâu 3D đầy kịch tính chỉ với 1 cây đèn.</p>
+    
+    <div class="lp-cta-group">
+      <a href="#" class="lp-btn-primary" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">Nhận Ebook Ngay (299K)</a>
+      <div class="lp-guarantee">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        Thanh toán an toàn. File PDF gửi thẳng về Email.
+      </div>
+    </div>
+  </section>
+
+  <!-- Agitate -->
+  <section class="lp-agitate">
+    <div class="container" style="text-align: center;">
+      <h2 style="font-size: 2.5rem; color: #fff; margin-bottom: 20px;">Sự Thật Phũ Phàng Về Ánh Sáng...</h2>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">Bạn mua máy ảnh 50 triệu, sắm lens f/1.2 đắt tiền, tham gia hàng chục buổi workshop... nhưng ảnh chụp ra vẫn trông như "ảnh thẻ"?</p>
+      
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div style="font-size: 3rem;">🫣</div>
+          <h3>Sợ Hãi Bóng Tối</h3>
+          <p>Bạn luôn cố gắng nâng sáng (Shadows) trong Lightroom để cứu ảnh, khiến tác phẩm bị noise, nhợt nhạt và mất sạch khối lượng 3D của khuôn mặt.</p>
+        </div>
+        <div class="pain-card">
+          <div style="font-size: 3rem;">💡</div>
+          <h3>Lệ Thuộc Tự Nhiên</h3>
+          <p>Bạn chỉ biết chụp vào "Giờ vàng" (Golden Hour). Khi trời râm mát hoặc phải vào Studio, bạn hoàn toàn bối rối không biết đặt đèn ở đâu.</p>
+        </div>
+        <div class="pain-card">
+          <div style="font-size: 3rem;">📸</div>
+          <h3>Thiếu Chất "Điện Ảnh"</h3>
+          <p>Ảnh của bạn rực rỡ, sắc nét, nhưng lại không có "Hồn". Khán giả lướt qua nó trong 1 giây mà không đọng lại bất cứ cảm xúc mạnh mẽ nào.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="lp-solution">
+    <div class="container">
+      <h2 style="font-size: 3rem; color: #fff; margin-bottom: 20px;">Giới thiệu Ebook Bậc Thầy <span style="color: var(--accent-amber);">Chiaroscuro</span></h2>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">Cuốn sách kỹ thuật (PDF - 120 trang) duy nhất dạy bạn cách KHÔNG chiếu sáng chủ thể, mà điêu khắc bóng tối xung quanh họ.</p>
+      
+      <div class="mockup-container">
+        <img loading="lazy" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Ebook Mockup" class="mockup-img">
+      </div>
+
+      <ul style="text-align: left; max-width: 600px; margin: 0 auto 50px; font-size: 1.1rem; color: #ccc; line-height: 1.8; list-style: none; padding: 0;">
+        <li style="margin-bottom: 15px;">✅ <strong>Sơ đồ ánh sáng thực chiến:</strong> Cách đặt Key Light, Fill Light để tạo ven 3D.</li>
+        <li style="margin-bottom: 15px;">✅ <strong>Bí mật Negative Fill:</strong> Cách dùng tấm xốp đen để hút ánh sáng thừa.</li>
+        <li style="margin-bottom: 15px;">✅ <strong>Định luật vật lý:</strong> Hiểu rõ Inverse Square Law để kiểm soát sự rớt sáng (Fall-off).</li>
+        <li style="margin-bottom: 15px;">✅ <strong>Phân tích tâm lý:</strong> Tại sao bóng tối lại kích thích tiềm thức con người?</li>
+      </ul>
+
+      <a href="#" class="lp-btn-primary" style="display: inline-block; max-width: 400px;" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">MỞ KHÓA EBOOK NGAY (299K)</a>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section style="padding: 80px 20px; background: #0A0A0C; text-align: center;">
+    <div class="container">
+      <h2 style="color: #fff; margin-bottom: 40px;">Đã giúp 1,200+ Nhiếp ảnh gia thay đổi tư duy</h2>
+      <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+        <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; max-width: 350px; text-align: left;">
+          <div style="color: var(--accent-amber); margin-bottom: 10px;">★★★★★</div>
+          <p style="color: #ddd; font-size: 0.95rem; margin-bottom: 15px;">"Trước đây tôi mua 3 cây đèn Godox về nhưng chụp trông rất giả. Ebook này giúp tôi hiểu rằng chỉ cần 1 cây đèn và một tấm xốp đen là đủ để tạo ra ảnh Cinematic."</p>
+          <div style="color: #888; font-size: 0.85rem;">- Minh Tuấn, Commercial Photographer</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; max-width: 350px; text-align: left;">
+          <div style="color: var(--accent-amber); margin-bottom: 10px;">★★★★★</div>
+          <p style="color: #ddd; font-size: 0.95rem; margin-bottom: 15px;">"Rất đáng tiền. Kiến thức được giải thích theo dạng vật lý lượng tử nhưng lại cực kỳ dễ hiểu. Cảm ơn tác giả LumenForge!"</p>
+          <div style="color: #888; font-size: 0.85rem;">- Hoàng Yến, Cinematographer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+    <p style="color: var(--text-dim); font-size: 0.85rem;">&copy; 2026 LumenForge. This site is not a part of the Facebook website or Facebook Inc. Additionally, This site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+  </footer>
+
+  <!-- Sticky CTA for Mobile -->
+  <div class="sticky-cta">
+    <div>
+      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through;">499.000đ</div>
+      <div style="color: var(--accent-amber); font-weight: bold; font-size: 1.2rem;">299.000đ</div>
+    </div>
+    <a href="#" class="lp-btn-primary" style="padding: 12px 24px; font-size: 1rem; margin: 0; width: auto;" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">MUA NGAY</a>
+  </div>
+
+  <script src="js/checkout.js"></script>
+  <script>
+    // Simple 24h countdown
+    function startTimer(duration, display) {
+      let timer = duration, hours, minutes, seconds;
+      setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          timer = duration;
+        }
+      }, 1000);
+    }
+
+    window.onload = function () {
+      let time = 23 * 3600 + 45 * 60 + 12; // 23h 45m 12s
+      let display = document.querySelector('#countdown');
+      startTimer(time, display);
+    };
+  </script>
+</body>
+</html>
