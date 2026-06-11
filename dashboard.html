@@ -137,6 +137,23 @@
       background: rgba(255, 59, 48, 0.2);
     }
   </style>
+
+  <link rel="canonical" href="https://lumenforge.com/dashboard.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Your Dashboard — LumenForge",
+    "headline": "Your Dashboard — LumenForge",
+    "description": "Trang cá nhân của bạn trên LumenForge. Theo dõi tiến độ học tập và các bài đã lưu.",
+    "url": "https://lumenforge.com/dashboard.html",
+    "author": {
+      "@type": "Organization",
+      "name": "LumenForge"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -157,7 +174,14 @@
   <section class="dashboard-hero">
     <div class="container">
       <div class="user-profile">
-        <div class="avatar" id="user-avatar">?</div>
+        <div style="display: flex; gap: var(--space-xl); align-items: center; flex-wrap: wrap;">
+          <div class="avatar" id="user-avatar">C</div>
+          <div class="user-info">
+            <h2 style="font-family: var(--font-heading); margin-bottom: 5px; font-size: 1.8rem;">Cameron Webb</h2>
+            <p id="user-rank" style="color: var(--text-secondary); font-size: 1rem;">Rank: Novice</p>
+            <p id="user-xp" style="color: var(--accent-amber); font-weight: bold; font-family: var(--font-mono); margin-top: 5px;">0 XP</p>
+          </div>
+        </div>
         <div class="stat-card reveal delay-200">
           <div class="stat-value">5</div>
           <div class="stat-label">Công cụ mới mở khóa</div>

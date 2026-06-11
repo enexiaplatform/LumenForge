@@ -234,8 +234,13 @@
         readArticles.push(currentFile);
         localStorage.setItem('lumenforge_read_articles', JSON.stringify(readArticles));
         
-        // Also update the legacy counter for dashboard compatibility (optional, but good)
+        // Also update the legacy counter for dashboard compatibility
         localStorage.setItem('lumenforge_read', readArticles.length);
+
+        // Add 50 XP per article
+        let currentXP = parseInt(localStorage.getItem('lumenforge_xp') || '0', 10);
+        currentXP += 50;
+        localStorage.setItem('lumenforge_xp', currentXP);
       }
     }
   }

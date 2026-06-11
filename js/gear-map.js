@@ -350,12 +350,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const rec = gearRecommendations[resultId];
     if (!rec) return;
 
+    let affiliateHtml = '';
+    if (rec.price.includes('triệu')) {
+      affiliateHtml = `
+      <div class="gearmap-affiliate-box" style="margin-top: 15px; padding: 15px; background: rgba(245, 166, 35, 0.05); border: 1px solid rgba(245, 166, 35, 0.3); border-radius: 8px; text-align: center;">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;">Để hỗ trợ LumenForge duy trì máy chủ, bạn có thể tham khảo giá mua thiết bị chính hãng tại đây:</p>
+        <a href="#" onclick="alert('Affiliate Link to Shopee/Lazada/Amazon'); return false;" class="btn-primary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem; margin-right: 10px;">🛒 Check giá Shopee Mall</a>
+        <a href="#" onclick="alert('Affiliate Link to B&H Photo'); return false;" class="btn-secondary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem;">📦 Check giá B&H Photo</a>
+      </div>`;
+    }
+
     stepContainer.innerHTML = `
       <div class="gearmap-result-header gear-fade-in">
         <span class="gearmap-step-num">BẢN ĐỒ QUYẾT ĐỊNH — KẾT QUẢ GỢI Ý</span>
         <h2>${rec.title}</h2>
         <p class="gearmap-result-subtitle">${rec.subtitle}</p>
         <div class="gearmap-price-tag">Giá tham khảo: ${rec.price}</div>
+        ${affiliateHtml}
       </div>
       
       <div class="gearmap-result-grid gear-fade-in" style="animation-delay: 0.1s;">

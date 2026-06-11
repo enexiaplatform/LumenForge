@@ -13,11 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pBar) pBar.style.width = pct + '%';
   }, 500);
 
-  // Rank
+  // Rank & XP Logic
+  let currentXP = parseInt(localStorage.getItem('lumenforge_xp') || '0', 10);
+  const xpEl = document.getElementById('user-xp');
+  if (xpEl) xpEl.textContent = currentXP + ' XP';
+
   const rankEl = document.getElementById('user-rank');
   if (rankEl) {
-    if (articlesRead > 8) rankEl.textContent = 'Rank: Director of Photography';
-    else if (articlesRead > 4) rankEl.textContent = 'Rank: Advanced Shooter';
+    if (currentXP >= 1500) rankEl.textContent = 'Rank: Director of Photography';
+    else if (currentXP >= 500) rankEl.textContent = 'Rank: Advanced Shooter';
     else rankEl.textContent = 'Rank: Novice';
   }
 
