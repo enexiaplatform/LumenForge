@@ -513,6 +513,61 @@ const shotRecipes = [
       clarity: '+15'
     },
     proTip: 'Sử dụng kỹ thuật Focus Stacking chụp 5-10 tấm để ghép lại cho rõ nét toàn bộ thân chai và nắp chai tại khẩu độ f/11.'
+  },
+  {
+    id: 'rec-019',
+    num: 'RECIPE 019',
+    title: 'Neon Motorcycle Cinematic',
+    desc: 'Bắt khoảnh khắc đường phố tốc độ cao với nền ánh sáng neon nhòe (Motion Blur).',
+    colorAccent: '#FF3B30', // Red
+    camera: 'Máy ảnh hỗ trợ lấy nét bám theo (Tracking AF)',
+    lens: '70-200mm f/2.8 (để nén hậu cảnh và làm nổi bật chủ thể từ xa)',
+    light: 'Ánh sáng neon đường phố có sẵn. Chủ thể đi xuyên qua vệt đèn pha của xe đối diện.',
+    background: 'Phố đêm, xe cộ đang di chuyển tấp nập phía sau với hiệu ứng panning nhòe mượt.',
+    outfit: 'Mũ bảo hiểm fullface, áo khoác biker da dày dặn.',
+    pose: 'Đang lái xe nghiêng người qua góc cua hoặc nhìn thẳng dũng mãnh.',
+    mood: 'Tốc độ, Nguy hiểm, Cinematic, Nổi loạn',
+    settings: {
+      aperture: 'f/4.0',
+      shutter: '1/30s - 1/50s (lia máy - panning theo tốc độ xe máy)',
+      iso: '800 - 1600',
+      wb: 'Lạnh (4000K)'
+    },
+    editing: {
+      contrast: '+20',
+      highlights: '-20, shadows: +10',
+      clarity: '+30 (tăng độ sắc nét trên vỏ mũ bảo hiểm và áo da)',
+      vibrance: '+15'
+    },
+    proTip: 'Kỹ thuật Panning: Đứng vững hai chân, vặn mình từ eo theo hướng di chuyển của chiếc xe, bấm chụp liên tục (burst mode) để chọn được tấm nét nhất.'
+  },
+  {
+    id: 'rec-020',
+    num: 'RECIPE 020',
+    title: 'Soft Moody Raindrop',
+    desc: 'Bức ảnh tâm trạng buồn chụp qua ô cửa sổ kính bám đầy giọt nước mưa.',
+    colorAccent: '#5AC8FA', // Light blue
+    camera: 'Mọi thiết bị',
+    lens: '35mm hoặc 50mm f/1.8',
+    light: 'Ánh sáng cửa sổ u ám ngày mưa bão (Overcast).',
+    background: 'Đường phố nhòe đi phía sau lớp kính ướt.',
+    outfit: 'Áo len mỏng, phong cách mặc nhà lười biếng.',
+    pose: 'Áp hờ má hoặc chạm đầu ngón tay vào lớp kính lạnh lẽo, mắt nhìn xa xăm buồn bã.',
+    mood: 'Melancholy, Lãng mạn, Cô đơn, Chữa lành',
+    settings: {
+      aperture: 'f/2.2 (lấy nét vào giọt nước trên kính, để khuôn mặt người mờ ảo phía sau, hoặc ngược lại)',
+      shutter: '1/100s',
+      iso: '400',
+      wb: 'Cool (4500K)'
+    },
+    editing: {
+      exposure: '-0.3 EV',
+      contrast: '-15 (làm ảnh mềm và đục mờ như sương)',
+      highlights: '-10, shadows: +10',
+      clarity: '-20',
+      splitTone: 'Highlight: Ám lục lam nhẹ; Shadow: Ám xanh dương sẫm.'
+    },
+    proTip: 'Sử dụng đèn pin điện thoại soi chéo từ ngoài kính vào (hoặc một đèn LED nhỏ) để làm các giọt nước mưa lấp lánh nổi bật.'
   }
 ];
 
