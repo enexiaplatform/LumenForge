@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards: Ôn tập Kiến thức — LumenForge</title>
+  <meta name="keywords" content="flashcards, srs, nhiếp ảnh, lumenforge, công cụ">
+  <meta name="description" content="Hệ thống Flashcards ôn tập kiến thức nhiếp ảnh và điện ảnh theo phương pháp lặp lại ngắt quãng.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/tools.css">
+  <style>
+    .flashcard-container {
+      max-width: 600px;
+      margin: 0 auto;
+      perspective: 1000px; /* 3D effect */
+      min-height: 400px;
+      position: relative;
+    }
+
+    .deck-selector {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .deck-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin: 0 5px;
+      transition: all 0.2s;
+    }
+
+    .deck-btn.active, .deck-btn:hover {
+      background: rgba(0, 212, 170, 0.1);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .card-element {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      position: absolute;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .card-element.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: var(--radius-lg);
+      padding: var(--space-2xl);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .card-front {
+      /* Front is visible by default */
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      border-color: var(--accent-amber);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .card-question {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+    }
+
+    .card-answer {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .card-explanation {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      font-style: italic;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 30px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .controls.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .btn-confidence {
+      padding: 10px 25px;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s;
+    }
+    
+    .btn-confidence:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-hard { background: rgba(231, 76, 60, 0.2); color: #e74c3c; border: 1px solid #e74c3c; }
+    .btn-good { background: rgba(245, 166, 35, 0.2); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+    .btn-easy { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--bg-surface);
+      margin-top: 40px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent-cyan);
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .deck-completed {
+      display: none;
+      text-align: center;
+      padding: 50px 20px;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--accent-cyan);
+    }
+
+    .deck-completed h2 {
+      color: var(--accent-cyan);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <div class="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link active">Xưởng Công cụ</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: 100px;">
+    <div class="container">
+      
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h1 style="font-family: var(--font-heading); font-size: 2.5rem; margin-bottom: 10px;">Lumen<span style="color:var(--accent-cyan)">Cards</span></h1>
+        <p style="color: var(--text-secondary);">Hệ thống Flashcards ôn tập kiến thức cốt lõi</p>
+      </div>
+
+      <div class="deck-selector" id="deck-selector">
+        <button class="deck-btn active" data-deck="all">Tất cả</button>
+        <button class="deck-btn" data-deck="optics">Quang học</button>
+        <button class="deck-btn" data-deck="sensor">Cảm biến</button>
+        <button class="deck-btn" data-deck="light">Ánh sáng</button>
+      </div>
+
+      <div class="flashcard-container" id="card-container">
+        <div class="card-element" id="card-element" onclick="flipCard()">
+          
+          <div class="card-face card-front">
+            <span class="card-tag" id="card-front-tag">OPTICS</span>
+            <div class="card-question" id="card-question">Loading...</div>
+            <p style="margin-top: 40px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); letter-spacing: 1px;">Nhấp để lật thẻ</p>
+          </div>
+
+          <div class="card-face card-back">
+            <span class="card-tag" id="card-back-tag">ANSWER</span>
+            <div class="card-answer" id="card-answer">Loading...</div>
+            <div class="card-explanation" id="card-explanation">Loading...</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Result Screen -->
+      <div class="deck-completed" id="deck-completed">
+        <h2>Hoàn thành Bộ thẻ!</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">Bạn đã ôn tập xong tất cả các thẻ trong bộ nhớ ngắn hạn. Hãy quay lại vào ngày mai.</p>
+        <button class="btn btn-primary" onclick="resetDeck()">Ôn tập lại từ đầu</button>
+      </div>
+
+      <div class="controls" id="controls">
+        <button class="btn-confidence btn-hard" onclick="answerCard('hard')">Khó (Lặp lại ngay)</button>
+        <button class="btn-confidence btn-good" onclick="answerCard('good')">Ổn (Nhớ sương sương)</button>
+        <button class="btn-confidence btn-easy" onclick="answerCard('easy')">Dễ (Đã nắm vững)</button>
+      </div>
+
+      <div class="progress-bar-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/tools/flashcards.js"></script>
+</body>
+</html>
