@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Màu sắc trong Điện ảnh: Tâm lý học & Phối màu (Color Grading) — LumenForge</title>
+  <meta name="keywords" content="color grading, màu điện ảnh, tâm lý học màu sắc, frame analyzer">
+  <meta name="description" content="Giải mã sức mạnh của màu sắc trong việc điều hướng cảm xúc. Hiểu cách các bom tấn điện ảnh áp dụng lý thuyết phối màu để kể chuyện.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/codex.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Trang chủ</a>
+        <a href="../light-codex.html" class="nav-link active">Light Codex</a>
+        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
+        <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
+        <a href="../gear-map.html" class="nav-link">Bản đồ Thiết bị</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="container">
+      <div class="codex-back-link">
+        <a href="../light-codex.html">&larr; Quay lại Light Codex</a>
+      </div>
+      <div class="article-header-meta">
+        <span class="codex-card-tag tag-psychology">Tâm lý Thị giác & Điện ảnh</span>
+        <span class="read-time">12 phút đọc</span>
+      </div>
+      <h1>Màu sắc trong Điện ảnh: Tâm lý học & Phối màu (Color Grading)</h1>
+      <p class="article-header-desc">Vì sao Ma Trận (The Matrix) nhuốm màu xanh lá úa, còn Mad Max rực lửa trong sắc cam cháy? Màu sắc không chỉ là lớp sơn phủ bên ngoài — nó là nhịp đập cảm xúc của tác phẩm điện ảnh.</p>
+    </div>
+  </header>
+
+  <!-- Article Body Section -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="article-layout">
+        
+        <!-- Main Content -->
+        <article class="article-content">
+          
+          <div class="margin-note" style="top: 80px;">[0.1]</div>
+          <p>Màu sắc là một trong những công cụ tiềm thức mạnh mẽ nhất của nhà làm phim. Khán giả có thể không chú ý đến tiêu cự ống kính hay góc máy, nhưng họ lập tức cảm nhận được sự áp ngột của một căn phòng đỏ rực, hay sự lạnh lẽo cô đơn của một hành lang xanh thép. <strong>Color Grading (Chỉnh màu kỹ thuật số)</strong> đã nâng tầm việc kiểm soát màu sắc lên thành một môn khoa học tâm lý.</p>
+
+          <div class="margin-note" style="top: 250px;">[0.2]</div>
+          <h2>1. Tâm lý Học Màu Sắc Cơ Bản</h2>
+          <p>Mỗi phổ màu mang theo một mã khóa sinh học và văn hóa tiến hóa hàng triệu năm của loài người. Trong điện ảnh, màu sắc được gán cho những nguyên mẫu (archetypes) cảm xúc cố định:</p>
+          
+          <ul>
+            <li><strong>Đỏ (Red):</strong> Màu của máu và lửa. Tượng trưng cho sự nguy hiểm, cuồng nộ, bạo lực, nhưng đồng thời cũng là đam mê, dục vọng và tình yêu mãnh liệt. (Ví dụ: Chiếc váy đỏ trong <em>Schindler's List</em>, hay căn phòng ánh sáng đỏ rực trong <em>Joker</em>).</li>
+            <li><strong>Xanh lá (Green):</strong> Trong tự nhiên, đây là sự sống. Tuy nhiên, trong điện ảnh (đặc biệt khi kết hợp với độ bão hòa nhợt nhạt), xanh lá huỳnh quang đại diện cho sự bệnh hoạn, mục rữa, môi trường độc hại hoặc một thế giới giả tạo (như trong <em>The Matrix</em> hoặc <em>Saw</em>).</li>
+            <li><strong>Xanh lam (Blue):</strong> Bình yên, lạnh lẽo, cô lập và sự sầu muộn (melancholy). Xanh lam thường được dùng để mô tả những đêm dài đơn độc hoặc trạng thái vô cảm.</li>
+            <li><strong>Vàng/Cam (Yellow/Orange):</strong> Sự ấm áp, hoài niệm, điên rồ, hoặc cảnh báo. Ở những bộ phim lấy bối cảnh hoang mạc, sắc cam vàng tạo cảm giác khô nóng, ngột ngạt và kiệt quệ (<em>Mad Max: Fury Road</em>, <em>Breaking Bad - Mexico filter</em>).</li>
+          </ul>
+
+          <div class="lab-note-block">
+            <h5>Ghi chú phòng thí nghiệm [COLOR-THEORY]</h5>
+            <p>Sự kết hợp giữa <strong>Teal (Lục lam)</strong> và <strong>Orange (Cam)</strong> là quy tắc phối màu tương phản (Complementary) kinh điển nhất của Hollywood. Vì màu da người luôn nằm trên dải màu Cam, việc phủ màu Lục lam vào vùng tối (Shadows) tạo ra độ tương phản tách lớp hoàn hảo, khiến diễn viên nổi bật lên trên nền không gian (3D pop). Mã thí nghiệm: <strong>EXP-CINEMA-302</strong>.</p>
+          </div>
+
+          <div class="margin-note" style="top: 1050px;">[0.3]</div>
+          <h2>2. Sự Chuyển Biến Tâm Lý Theo Biểu Đồ Màu (Color Arc)</h2>
+          <p>Màu sắc hiếm khi đứng yên trong một bộ phim. Các Colorist (Chuyên gia chỉnh màu) giỏi nhất sử dụng <strong>Color Arc</strong> — sự dịch chuyển bảng màu theo sự phát triển của nhân vật. Khi nhân vật bước từ trạng thái ngây thơ sang tăm tối, bảng màu của khung hình cũng sẽ từ từ mất đi sự rực rỡ (Desaturation), hoặc chuyển từ dải màu ấm sang dải màu lạnh băng giá.</p>
+          <p>Ví dụ kinh điển: Quá trình tha hóa của Michael Corleone trong <em>The Godfather</em> được đánh dấu bằng sự tối dần của khung hình và tông màu chuyển từ hổ phách ấm áp sang sắc nâu đen lạnh lẽo, chết chóc.</p>
+
+          <div class="margin-note" style="top: 1550px;">[0.4]</div>
+          <h2>3. Áp Dụng Thực Tiễn: Khởi Tạo Color Palette</h2>
+          <p>Trước khi bắt đầu Color Grading, bạn phải xác định được <strong>Color Palette (Bảng màu)</strong> cho tác phẩm của mình. Không nên dùng quá 3 màu chủ đạo trong cùng một cảnh quay để tránh gây rối mắt khán giả. Hãy sử dụng công cụ <strong>Cinematic Frame Analyzer</strong> của chúng tôi để tải lên những cảnh phim yêu thích và bóc tách bảng mã Hex của chúng, từ đó áp dụng làm LUTs cho ảnh hoặc video của riêng bạn.</p>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          
+          <div class="sidebar-panel">
+            <h4>SIÊU DỮ LIỆU GHI CHÚ</h4>
+            <div class="metadata-list">
+              <div class="metadata-item">
+                <label>Mã Thí Nghiệm</label>
+                <span>EXP-CINEMA-302</span>
+              </div>
+              <div class="metadata-item">
+                <label>Danh Mục</label>
+                <span>Psychology & Color Grading</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-panel">
+            <h4>THỬ NGHIỆM ĐỒNG HÀNH</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Tải lên một khung hình điện ảnh bạn yêu thích để AI tự động bóc tách Color Palette và lưới bố cục.</p>
+            <a href="../tools/frame-analyzer.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Mở Frame Analyzer</a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2025 LumenForge. Thiết kế &amp; Xây dựng bởi Henry.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/common.js"></script>
+</body>
+</html>
