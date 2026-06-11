@@ -147,6 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       currentSearch = e.target.value;
+      filterArticles();
+    });
+  }
+
   // Default render
   filterArticles();
 });
