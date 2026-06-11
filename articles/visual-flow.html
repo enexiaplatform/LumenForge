@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tâm lý học Đường dẫn & Dòng chảy Thị giác — LumenForge</title>
-  <meta name="keywords" content="visual flow, nhiếp ảnh, điện ảnh, lumenforge, công cụ">
-  <meta name="description" content="Khám phá cách mắt người quét một bức ảnh. Tìm hiểu xu hướng quét từ trái sang phải, neo thị giác và cách kiểm soát dòng chảy thị giác (Visual Flow) trong bố cục.">
+  <title>Dòng chảy Thị giác (Visual Flow): Cách điều hướng mắt người xem qua khung hình — LumenForge</title>
+  <meta name="keywords" content="visual flow, tâm lý thị giác, eye-tracking, nhiếp ảnh, điện ảnh, bố cục, saccades, fixations">
+  <meta name="description" content="Khám phá sinh học của Saccades, hệ thống thứ bậc trọng lượng thị giác và các kỹ thuật điều hướng mắt người xem qua khung hình để tạo nên bức ảnh có chiều sâu.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="../css/design-system.css">
@@ -22,7 +22,7 @@
       </button>
       <div class="nav-menu" id="nav-menu">
         <a href="../index.html" class="nav-link">Trang chủ</a>
-        <a href="../light-codex.html" class="nav-link active">Light Codex</a>
+        <a href="../light-codex.html" class="nav-link active">Quang Thư</a>
         <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
         <a href="../shot-recipes.html" class="nav-link">Công thức Chụp</a>
         <a href="../visual-experiments.html" class="nav-link">Thử nghiệm</a>
@@ -35,14 +35,14 @@
   <header class="article-header">
     <div class="container">
       <div class="codex-back-link">
-        <a href="../light-codex.html">&larr; Quay lại Light Codex</a>
+        <a href="../light-codex.html">&larr; Quay lại Quang Thư</a>
       </div>
       <div class="article-header-meta">
         <span class="codex-card-tag tag-psychology">Tâm lý Thị giác</span>
-        <span class="read-time">8 phút đọc</span>
+        <span class="read-time">12 phút đọc</span>
       </div>
-      <h1>Dòng chảy Thị giác: Mắt chúng ta đọc ảnh như thế nào?</h1>
-      <p class="article-header-desc">Chúng ta không nhìn ảnh một cách ngẫu nhiên. Bộ não quét khung hình theo những quỹ đạo cực kỳ chính xác. Khám phá bí ẩn của dòng chảy thị giác và sức mạnh của hướng đọc.</p>
+      <h1>Dòng chảy Thị giác (Visual Flow): Cách điều hướng mắt người xem qua khung hình</h1>
+      <p class="article-header-desc">Chúng ta không nhìn ảnh một cách mượt mà và ngẫu nhiên. Bộ não quét khung hình qua những cú nhảy giật cục. Khám phá bí ẩn sinh học của mắt người và nghệ thuật làm chủ trọng lượng thị giác để giữ chân người xem.</p>
     </div>
   </header>
 
@@ -55,90 +55,118 @@
         <article class="article-content">
           
           <div class="margin-note" style="top: 80px;">[0.1]</div>
-          <p>Khi bạn nhìn vào một bức ảnh mới, bạn có thể nghĩ rằng mắt mình đang dạo chơi tự do trên khung hình. Nhưng các nghiên cứu về công nghệ theo dõi ánh mắt (**Eye-tracking**) đã chứng minh điều ngược lại: **ánh mắt của chúng ta bị dẫn dắt bởi một lực vô hình cực kỳ mạnh mẽ**. Bộ não xử lý hình ảnh theo các lộ trình có sẵn chịu ảnh hưởng sâu sắc bởi thói quen đọc chữ từ trái sang phải, độ tương phản của nguồn sáng, và các vector hướng nhìn của con người. Làm chủ **Dòng chảy Thị giác (Visual Flow)** là chìa khóa để giữ chân người xem ở lại bức ảnh lâu hơn.</p>
-
-          <div class="margin-note" style="top: 400px;">[0.2]</div>
-          <h2>1. Hiệu Ứng Trái-Sang-Phải (Left-to-Right Bias)</h2>
-          <p>Đối với những nền văn hóa đọc chữ từ trái sang phải và từ trên xuống dưới (bao gồm hầu hết ngôn ngữ hiện đại ngày nay), bộ não đã phát triển một thói quen vô thức khi tiếp nhận hình ảnh: **Mắt luôn đi vào khung hình từ phía bên trái, quét dần sang bên phải và kết thúc ở góc dưới bên phải**.</p>
+          <h2>1. Sinh học của sự quan sát: Saccades, Fixations và Góc nhìn Foveal</h2>
+          <p>Khi bạn ngắm nhìn một bức ảnh phong cảnh ngoạn mục của Ansel Adams hay một bức chân dung sắc sảo của Annie Leibovitz, bạn thường lầm tưởng rằng ánh mắt của mình đang lướt đi một cách êm ái và liền mạch trên mặt giấy. Nhưng khoa học thần kinh và các thiết bị theo dõi ánh mắt (Eye-tracking) hiện đại đã chứng minh một thực tế sinh học phũ phàng và hấp dẫn hơn nhiều: <strong>Mắt người không thể di chuyển mượt mà</strong> khi quan sát một cảnh tĩnh. Thay vào đó, bộ máy thị giác của chúng ta hoạt động như một cỗ máy quét quét liên tục với những cú nảy cực nhanh gọi là <strong>Saccades</strong>, đan xen với các khoảng dừng ngắn ngủi mang tên <strong>Fixations</strong>.</p>
           
-          <p>Thói quen này quyết định cách chúng ta cảm nhận về chuyển động và thời gian trong ảnh:</p>
-          <ul>
-            <li><strong>Chuyển động xuôi dòng (Left to Right):</strong> Một chiếc xe chạy hoặc một người đi bộ từ trái sang phải sẽ tạo cảm giác tự nhiên, mượt mà, đại diện cho sự tiến về phía trước, hướng tới tương lai hoặc sự phát triển.</li>
-            <li><strong>Chuyển động ngược dòng (Right to Left):</strong> Khi hướng di chuyển đi ngược lại từ phải sang trái, người xem sẽ vô thức cảm thấy có một lực cản, sự trở ngại, hành trình quay trở về nhà, hoặc sự đi ngược dòng.</li>
-          </ul>
+          <p>Thuật ngữ <strong>Saccade</strong> (từ tiếng Pháp mang nghĩa "sự giật") dùng để chỉ những chuyển động đạn đạo của nhãn cầu, có vận tốc kinh hoàng lên tới 900 độ mỗi giây. Trong quá trình bay (kéo dài khoảng 20 đến 200 mili-giây), não bộ chúng ta thiết lập một cơ chế tự vệ gọi là <em>Saccadic Masking (Mặt nạ Saccadic)</em>: nó chủ động ngắt hoàn toàn tín hiệu thị giác truyền từ võng mạc lên vỏ não nhằm ngăn chặn hiện tượng nhòe chuyển động (motion blur) làm ta chóng mặt. Tức là, một cách trớ trêu, bạn đang bị "mù tạm thời" hàng chục lần mỗi giây ngay trong lúc đang mở to mắt nhìn!</p>
+
+          <p>Thông tin duy nhất thực sự được nạp vào não bộ diễn ra ở những khoảnh khắc nhãn cầu khóa cứng lại – các <strong>Fixations (Khoảng cố định)</strong>, thường kéo dài từ 200 đến 300 mili-giây. Tại sao lại cần Fixations? Bởi vì cấu tạo võng mạc con người có một vùng trung tâm gọi là <strong>Hố trung tâm (Fovea)</strong>. Fovea chứa mật độ tế bào nón dày đặc nhất, mang lại độ phân giải tối đa và nhận diện màu sắc rõ ràng nhất, nhưng vùng phủ sóng của nó chỉ vỏn vẹn 2 độ trong toàn bộ trường nhìn (tương đương với việc nhìn thế giới qua một lỗ khóa nhỏ). Mọi thứ ngoài Fovea thuộc về thị giác ngoại vi (Peripheral Vision), nơi chỉ nhạy cảm với độ tương phản sáng tối và chuyển động mờ nhạt. Do đó, để "nhìn rõ" một bức tranh, bộ não phải liên tục bắn các tia Saccades, di chuyển điểm Fovea từ khu vực này sang khu vực khác để ráp nối từng mảnh thông tin rời rạc thành một bức tranh toàn cảnh.</p>
+          
+          <p>Với tư cách là người làm hình ảnh (Nhiếp ảnh gia, Quay phim, Thiết kế), bạn không đơn thuần là sắp xếp vạn vật vào một khung chữ nhật. Bạn đang <strong>thiết kế bản đồ lộ trình Saccade</strong> cho bộ não của khán giả. Một bức ảnh xuất sắc là bức ảnh nắm quyền kiểm soát tuyệt đối việc mắt người xem sẽ hạ cánh (Fixation) ở đâu đầu tiên, nảy đi đâu tiếp theo, và dừng lại ở điểm cuối cùng nào. Lộ trình vô hình này được gọi là <strong>Dòng chảy Thị giác (Visual Flow)</strong>.</p>
 
           <div class="lab-note-block">
-            <h5>Ghi chú phòng thí nghiệm [VISUAL-FLOW]</h5>
-            <p>"Trong điện ảnh và thiết kế màn chơi game, các nhân vật chính diện thường di chuyển từ trái sang phải màn hình để tạo cảm giác tiến triển. Khi họ gặp khó khăn hoặc đi vào vùng nguy hiểm, hướng đi thường được lật ngược lại từ phải sang trái."</p>
+            <h5>Ghi chú phòng thí nghiệm [EXP-PSY-405]</h5>
+            <p><strong>Thử nghiệm Saccadic Masking:</strong> Hãy đứng trước gương ở khoảng cách gần. Nhìn thẳng vào con ngươi mắt trái của bạn, sau đó lập tức đảo ánh nhìn sang con ngươi mắt phải. Bạn sẽ không bao giờ có thể bắt gặp khoảnh khắc tròng mắt mình đang di chuyển. Bộ não đã xóa sổ hoàn toàn những khung hình trung gian rác rưởi đó khỏi nhận thức của bạn.</p>
           </div>
 
-          <div class="margin-note" style="top: 960px;">[0.3]</div>
-          <h2>2. Neo Thị Giác: Thứ Gì Hút Mắt Chúng Ta Đầu Tiên?</h2>
-          <p>Không phải mọi chi tiết trong ảnh đều có trọng lượng thị giác như nhau. Có những yếu tố được gọi là **Neo Thị Giác (Visual Anchors)** sẽ cướp lấy sự chú ý của bộ não ngay trong 0.1 giây đầu tiên:</p>
+          <div class="margin-note" style="top: 850px;">[0.2]</div>
+          <h2>2. Hệ thống Thứ bậc của Trọng lượng Thị giác (Hierarchy of Visual Weight)</h2>
+          <p>Nếu ánh mắt di chuyển bằng cách nhảy cóc, điều gì quyết định điểm đến tiếp theo của nó giữa vô vàn chi tiết trong khung hình? Câu trả lời nằm ở khái niệm <strong>Trọng lượng Thị giác (Visual Weight)</strong>. Không phải mọi pixel đều sinh ra bình đẳng. Có những yếu tố mang lực hấp dẫn mạnh mẽ tới mức hệ thần kinh thị giác không thể cưỡng lại việc thực hiện một cú Fixation lên chúng. Thông qua hàng triệu năm tiến hóa trong tự nhiên khắc nghiệt, não bộ con người đã thiết lập một hệ thống ưu tiên phân cấp chặt chẽ để quét môi trường xung quanh. Hãy tận dụng hệ thống này để xây dựng một con đường dẫn dắt mắt:</p>
           
-          <ul>
-            <li><strong>Khuôn mặt và đôi mắt người:</strong> Bộ não người có một vùng chuyên biệt để nhận diện khuôn mặt. Bất kể bức ảnh phức tạp đến đâu, nếu có mặt người, mắt chúng ta sẽ nhảy tới đó trước tiên.</li>
-            <li><strong>Điểm tương phản cao nhất:</strong> Điểm sáng nhất trong một bối cảnh tối, hoặc điểm tối nhất trong một bối cảnh sáng. Ánh sáng luôn dẫn lối thị giác.</li>
-            <li><strong>Các ký tự hoặc chữ viết:</strong> Bộ não được lập trình để đọc. Bất cứ tấm biển hiệu, chữ viết nào xuất hiện trong ảnh cũng sẽ hút mắt người xem để giải mã thông điệp.</li>
-          </ul>
+          <p>Hệ thống phân cấp quyền lực (từ yếu đến mạnh): <strong>Độ Nét (Sharpness) &rarr; Màu sắc/Nhiệt độ (Color) &rarr; Tương phản (Contrast) &rarr; Khuôn mặt/Mắt người (Human Faces)</strong>. Dù bạn có thể thay đổi trật tự này bằng cách đẩy các yếu tố lên mức độ cực đoan, nhưng nhìn chung, bộ não luôn tuân theo các nguyên tắc sau:</p>
 
-          <div class="margin-note" style="top: 1460px;">[0.4]</div>
-          <h2>3. Vector Hướng Nhìn (Gaze Vector): Đường Dẫn Vô Hình</h2>
-          <p>Khi bạn nhìn vào một bức ảnh chụp một người đang chăm chú nhìn về phía một vật thể nằm ngoài rìa khung hình, mắt của bạn sẽ tự động di chuyển theo hướng ánh mắt của họ để tìm kiếm thứ họ đang nhìn. Đây được gọi là **Gaze Vector** (Vector hướng nhìn).</p>
-          
-          <p>Ánh mắt của chủ thể hoạt động như một mũi tên dẫn đường mạnh mẽ nhất. Nếu bạn chụp một người đang nhìn vào một sản phẩm, người xem sẽ nhìn vào sản phẩm đó. Nếu người đó nhìn thẳng vào ống kính, dòng chảy thị giác sẽ bị khóa lại tại khuôn mặt của họ, tạo ra sự kết nối trực tiếp nhưng lại làm giảm đi sự chú ý tới bối cảnh xung quanh.</p>
-
-          <div class="margin-note" style="top: 1980px;">[0.5]</div>
-          <h2>4. Sơ Đồ Gutenberg Và Quy Tắc Quét Hình Chữ F</h2>
-          <p>Khi đối mặt với các khung hình phẳng chứa nhiều thông tin (như một bố cục ảnh kiến trúc hoặc giao diện thiết kế), mắt người có xu hướng quét theo **Sơ đồ Gutenberg** chia khung hình làm 4 phần:</p>
           <ol>
-            <li><strong>Primary Optical Area (Góc trên bên trái):</strong> Nơi mắt bắt đầu đặt chân vào.</li>
-            <li><strong>Strong Fallow Area (Góc trên bên phải):</strong> Vùng phụ trợ sáng.</li>
-            <li><strong>Weak Fallow Area (Góc dưới bên trái):</strong> Vùng ít được chú ý nhất.</li>
-            <li><strong>Terminal Area (Góc dưới bên phải):</strong> Điểm rơi cuối cùng của ánh nhìn. Đây là vị trí hoàn hảo để đặt logo, chữ ký, hoặc chủ thể mang tính kết thúc thông điệp.</li>
+            <li><strong>Đỉnh cao quyền lực - Khuôn mặt và Đôi mắt người (Human Faces & Eyes):</strong> Con người là sinh vật mang tính bầy đàn và xã hội cao. Trong vỏ não của chúng ta tồn tại một cấu trúc thần kinh chuyên biệt mang tên <em>Fusiform Face Area (FFA)</em>, có chức năng duy nhất là nhận diện và giải mã khuôn mặt. Đây là cơ chế sống còn để phát hiện kẻ thù hay nhận biết cảm xúc của đồng loại. Trong bất kỳ bức ảnh nào có sự xuất hiện của con người, dù chủ thể đó nằm ở góc tối nhất hay mờ nhạt nhất, não bộ vẫn sẽ ưu tiên nhảy Saccade đến khuôn mặt đó đầu tiên. Đặc biệt, nếu đôi mắt của người trong ảnh nhìn thẳng vào ống kính, nó sẽ tạo ra một hiện tượng khóa thị giác (Eye-contact lock), khiến mắt người xem bị neo chặt lại và khó lòng rời đi.</li>
+            
+            <li><strong>Chúa tể ánh sáng - Độ Tương phản (Contrast / Tonal Range):</strong> Nếu không có khuôn mặt người, thứ tiếp theo cướp lấy sự chú ý là điểm có độ tương phản cục bộ cao nhất. Lịch sử tiến hóa dạy chúng ta rằng: thông tin nằm ở nơi có ánh sáng, trong khi bóng tối ẩn chứa sự bất định. Mắt người như loài bươm bướm đêm, luôn vô thức bị hút về vùng sáng nhất trong khung hình (nhất là khi vùng sáng đó được bao bọc bởi bóng tối - một nguyên lý cốt lõi của hội họa Chiaroscuro). Một đốm nắng hắt lên một ô cửa sổ giữa bức tường rêu phong tối tăm sẽ nghiễm nhiên trở thành tâm điểm của bức ảnh. Tương phản mạnh chính là "tiếng hét" thị giác.</li>
+            
+            <li><strong>Mã hóa sinh tồn - Màu sắc (Đặc biệt là Đỏ/Tone Ấm):</strong> Không phải mọi màu sắc đều thu hút ánh nhìn như nhau. Các màu mang bước sóng dài như Đỏ, Cam, Vàng (Warm colors) có khả năng đánh bại các màu lạnh (Cool colors) như Xanh lam, Xanh lục. Trong thế giới hoang dã, màu đỏ/cam là tín hiệu cảnh báo cực độ (máu, lửa, trái cây chín, thú dữ). Về mặt tâm lý hình học quang học, màu ấm mang đặc tính <em>Advancing Colors (màu tiến về phía trước)</em>, tạo cảm giác lồi lên trên mặt phẳng, trong khi màu lạnh là <em>Receding Colors (màu lùi xa)</em>. Một chấm áo đỏ nhỏ xíu giữa một khung cảnh rừng núi xanh ngắt rộng lớn vẫn đủ sức thiết lập điểm neo thị giác cực kỳ mạnh mẽ.</li>
+            
+            <li><strong>Làng ranh thông tin - Độ nét và Acutance (Sharpness):</strong> Thị giác Foveal yêu cầu độ phân giải cao để xử lý. Những khu vực mờ ảo (out-of-focus, bokeh) không chứa thông tin hữu ích nào để não bộ giải mã, do đó nó sẽ không bao giờ lãng phí một cú Fixation ở đó. Việc sử dụng độ sâu trường ảnh mỏng (shallow Depth of Field - khẩu độ f/1.4 hay f/2.8) là cách tàn nhẫn nhưng hiệu quả nhất để bạn cấm cản mắt người xem "đi lạc" vào hậu cảnh, ép buộc họ phải tập trung toàn bộ năng lượng thị giác vào những khu vực sắc nét.</li>
           </ol>
 
           <table class="comparison-table">
             <thead>
               <tr>
-                <th>Yếu tố dẫn đường</th>
-                <th>Tác động tâm lý nhận thức</th>
-                <th>Ứng dụng thực tế</th>
+                <th>Yếu tố Dẫn đường</th>
+                <th>Cơ sở Khoa học Tiến hóa</th>
+                <th>Thực hành trong Nhiếp ảnh / Cinematography</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Chuyển động Trái &rarr; Phải</strong></td>
-                <td>Cảm giác tự nhiên, tiến trình, tương lai, nhẹ nhàng.</td>
-                <td>Chụp chủ thể đang chạy, xe cộ đang di chuyển hướng đi tới.</td>
+                <td><strong>Khuôn mặt / Mắt</strong></td>
+                <td>Giao tiếp xã hội, nhận diện nguy hiểm qua thùy chẩm FFA.</td>
+                <td>Luôn lấy nét chính xác vào mắt chủ thể. Dùng hướng nhìn của mẫu để chỉ đường cho khán giả.</td>
               </tr>
               <tr>
-                <td><strong>Chuyển động Phải &rarr; Trái</strong></td>
-                <td>Sự cản trở, hoài niệm, quay về quá khứ, kịch tính.</td>
-                <td>Biểu đạt sự đấu tranh, hành trình hồi hương, hoặc đi ngược đám đông.</td>
+                <td><strong>Tương phản Sáng/Tối</strong></td>
+                <td>Thị giác ngoại vi rất nhạy bén với sự phân tách sáng tối để phát hiện hình khối trong tự nhiên.</td>
+                <td>Đặt chủ thể ở khu vực giao thoa ranh giới sáng-tối (Edge Contrast), sử dụng kỹ thuật Dodge & Burn để tạo đường đi sáng.</td>
               </tr>
               <tr>
-                <td><strong>Đường dẫn vật lý (Leading Lines)</strong></td>
-                <td>Buộc mắt phải trượt dọc theo đường cong/thẳng của vật thể.</td>
-                <td>Dùng đường ray, con đường, hàng rào để nối tiền cảnh vào trung tâm.</td>
+                <td><strong>Màu sắc (Ấm vs Lạnh)</strong></td>
+                <td>Bước sóng dài ít bị tán xạ, cảnh báo nguy hiểm hoặc nguồn thức ăn.</td>
+                <td>Áp dụng Color Accent (điểm xuyết màu). Bố cục Teal & Orange ép mắt phải nhìn vào màu Cam của da người.</td>
               </tr>
               <tr>
-                <td><strong>Hướng nhìn chủ thể (Gaze)</strong></td>
-                <td>Liên kết vô hình nối mắt mẫu tới vật thể tương tác.</td>
-                <td>Đặt vật thể quan trọng tại điểm mà mắt chủ thể đang hướng tới.</td>
+                <td><strong>Độ nét vs Blur</strong></td>
+                <td>Não bộ tiết kiệm năng lượng bằng cách bỏ qua những tín hiệu quang học bị nhiễu hoặc mờ (thiếu thông tin).</td>
+                <td>Dọn dẹp rác hậu cảnh bằng cách mở khẩu lớn (f/1.8). Focus Stacking nếu muốn mắt du ngoạn toàn bộ cảnh.</td>
               </tr>
             </tbody>
           </table>
 
-          <div class="margin-note" style="top: 2650px;">[0.6]</div>
-          <h2>Henry's Pro Tip: Ma Thuật Của Phép Lật Ngang (Horizontal Flip)</h2>
-          <p>Nếu bạn cảm thấy bức ảnh của mình có gì đó không ổn về mặt cảm xúc nhưng không thể lý giải được, hãy thử **lật ngang bức ảnh (Flip Horizontal)** trong Lightroom. Bạn sẽ kinh ngạc khi thấy cảm xúc của bức ảnh thay đổi hoàn toàn:</p>
+          <div class="margin-note" style="top: 2050px;">[0.3]</div>
+          <h2>3. Đường Dẫn Vật Lý (Leading Lines) vs Vector Vô Hình (Implied Vectors)</h2>
+          <p>Khi bạn đã hiểu về các "Trạm dừng chân" (Các điểm Fixation có trọng lượng thị giác), việc tiếp theo là xây dựng hệ thống giao thông để kết nối chúng lại với nhau. Các lộ trình Saccade không bay ngẫu nhiên, chúng thích trượt dọc theo các đường nét có sẵn hoặc tuân theo các lực căng tâm lý trong khung hình. Có hai phương pháp để tạo ra đường dẫn này:</p>
+          
+          <h3>Đường dẫn Hình học (Geometric Leading Lines)</h3>
+          <p>Đây là những đường nét mang tính cấu trúc vật lý hiện hữu trong ảnh. Nó có thể là một con đường ngoằn ngoèo biến mất sau rặng núi, một hàng rào bằng gỗ, những thanh tà vẹt đường ray xe lửa, hay các viền hội tụ của các tòa nhà cao tầng. Đặc điểm của Leading Lines là chúng hoạt động như những ống nước một chiều: một khi mắt người xem đã "bước" vào đường ống này ở rìa ảnh, họ không có lựa chọn nào khác ngoài việc bị cuốn trôi theo nó đến tận cùng.</p>
+          <p><em>Nguyên tắc Tối thượng:</em> <strong>Đừng bao giờ để Leading Lines dẫn mắt người xem văng ra khỏi khung hình.</strong> Đường dẫn hình học phải luôn hội tụ về phía tâm điểm, hoặc nhắm trực diện vào chủ thể chính. Nếu bạn chụp một con đường dẫn thẳng ra góc phải bức ảnh mà không có gì ở đó để neo lại, mắt khán giả cũng sẽ trượt ra khỏi màn hình và chuyển sang bài đăng tiếp theo trên mạng xã hội.</p>
+
+          <h3>Vector Vô Hình và Lực Căng Tâm Lý (Implied Vectors & Gaze Vectors)</h3>
+          <p>Tinh tế hơn cả những đường thẳng vật lý là các <strong>Vector</strong>. Vector không phải là đường vẽ hữu hình, mà là hướng của những lực căng vô hình, tạo ra dòng chảy tâm lý cực kỳ mạnh mẽ. Nhóm vector quyền lực nhất chính là <strong>Gaze Vector (Vector hướng nhìn)</strong>.</p>
+          <p>Hãy tưởng tượng bạn đang đi trên phố và thấy một đám đông đang ngửa cổ nhìn lên trời. Phản xạ đầu tiên của bạn là gì? Chắc chắn bạn cũng sẽ ngửa mặt nhìn theo. Trong nhiếp ảnh, nếu chủ thể của bạn đang hướng mắt chăm chú nhìn về phía mép phải của khung hình, bộ não người xem sẽ tự động phát sinh một tia Saccade phóng theo hướng đó để thỏa mãn sự tò mò ("Họ đang nhìn cái gì vậy?"). Các nhà làm phim quảng cáo cực kỳ thành thạo thủ thuật này: Mẫu quảng cáo không nhìn vào camera, họ nhìn đắm đuối vào sản phẩm (chiếc đồng hồ, chai nước hoa), và ép chúng ta phải nhìn theo. Một cánh tay chỉ trỏ, một mũi tên mờ ảo của <strong>Motion Vector (Vector chuyển động của chiếc xe lao đi hoặc cánh chim đang bay)</strong> cũng tạo ra những làn sóng năng lượng buộc mắt phải lướt theo.</p>
+
+          <div class="margin-note" style="top: 2800px;">[0.4]</div>
+          <h2>4. Khóa Chặt Dòng Chảy: Nghệ Thuật Framing và Vignetting</h2>
+          <p>Mối đe dọa lớn nhất đối với một Dòng chảy Thị giác hoàn hảo là <em>sự rò rỉ (visual leakage)</em>. Một vùng sáng chói lóa ở góc ảnh, một đường thẳng cắt ngang dẫn ra ngoài lề, hay một vật thể lạ thừa thãi cắt ngang rìa khung hình có thể đóng vai trò như một lối thoát hiểm, đẩy mắt người xem ra khỏi bức ảnh và vĩnh viễn không quay lại. Nghệ thuật quản lý Visual Flow đòi hỏi bạn phải thiết lập những bức tường giam lỏng sự chú ý.</p>
+          
+          <p>Có hai cách hiệu quả nhất để "nhốt" mắt khán giả:</p>
           <ul>
-            <li>Một bức ảnh chụp người lướt sóng đi từ phải sang trái khi lật lại sang trái sang phải sẽ có cảm giác nhanh hơn, tự do và tích cực hơn.</li>
-            <li>Một đường dẫn chạy từ góc dưới bên trái lên góc trên bên phải sẽ tạo cảm giác "leo dốc" đầy nỗ lực, trong khi đường dẫn ngược lại tạo cảm giác trôi dốc êm ái.</li>
+            <li><strong>Đóng khung trong khung (Framing within a Frame):</strong> Việc sử dụng các cấu trúc vật lý ở tiền cảnh như khung cửa sổ, vòm hang động, tán cây cành lá xung quanh rìa ảnh tạo ra một biên giới tâm lý rõ ràng. Khi não bộ nhận diện được cái khung thứ hai nằm bên trong khung ảnh gốc, nó hiểu rằng vùng rìa này là vách ngăn vô tri, không đáng quan tâm, từ đó nó tự động bật ngược ánh nhìn hội tụ vào không gian mở ở trung tâm. Thủ thuật này còn che giấu đi phần bầu trời trống rỗng hoặc phần đất thừa, nâng cao đáng kể cảm giác sâu sắc.</li>
+            <li><strong>Hiệu ứng Vignetting (Biên tối):</strong> Vignetting xuất phát điểm là một lỗi quang học yếu kém của các ống kính thời kỳ đầu (góc ảnh bị tối do rớt sáng). Nhưng trong kỷ nguyên hiện đại, nó là một vũ khí tâm lý hạng nặng. Như đã nói, thị giác ngoại vi rất nhạy cảm với ánh sáng và bóng tối. Bằng cách hạ thấp độ phơi sáng ở 4 góc và đường viền của bức ảnh (burning edges), bạn tước đi sự tương phản ở vùng rìa. Khi tia mắt đi lạc ra đến góc, nó gặp phải một khoảng tối tù mù. Lập tức, hiệu ứng quang học sẽ đẩy mắt bật ngược trở lại khu vực trung tâm, nơi duy nhất có ánh sáng rực rỡ và sắc nét đang chờ đợi. Đó là một vòng lặp kín không lối thoát.</li>
           </ul>
 
-          <p>Hãy thiết kế dòng chảy thị giác để dẫn dắt người xem qua một hành trình khám phá trong ảnh: đi vào từ trái, trượt qua đường dẫn tiền cảnh, neo lại ở khuôn mặt mẫu, và kết thúc ở một chi tiết nhỏ đầy ý nghĩa ở góc phải. Đó là đỉnh cao của nghệ thuật kể chuyện thị giác.</p>
+          <div class="margin-note" style="top: 3350px;">[0.5]</div>
+          <h2>5. Khai Phá Trục Z (Z-axis Depth): Cuộc Hành Trình Xuyên Mặt Phẳng 2D</h2>
+          <p>Nhiếp ảnh hay điện ảnh, về bản chất vật lý, bị giam cầm trong mặt phẳng 2 chiều không gian (Trục X ngang và Trục Y dọc). Nhưng sự ma thuật của nghệ thuật tạo hình là khả năng đánh lừa bộ não, ép buộc nó cảm nhận được chiều sâu không gian sâu thẳm của <strong>Trục Z (Z-axis)</strong> vươn thẳng từ màn hình vào bên trong thế giới của bức ảnh.</p>
+          <p>Để tạo ra một Dòng chảy Thị giác dọc theo Trục Z, ép mắt người xem phải liên tục du hành từ gần đến xa, khung hình bắt buộc phải được quy hoạch thành 3 phân tầng không gian kinh điển:</p>
+          
+          <ul>
+            <li><strong>Tiền cảnh (Foreground - Cánh cửa vào thế giới):</strong> Tiền cảnh phải nằm ngay sát ống kính. Một hòn đá phủ rêu, một đóa hoa nhòe mờ lướt qua, vũng nước phản chiếu ánh đèn. Tiền cảnh đóng vai trò cung cấp <em>Entry Point</em> (Điểm thâm nhập), một viên gạch đầu tiên đặt ngay dưới chân khán giả, mời gọi họ bước vào khung cảnh. Thiếu tiền cảnh, bức ảnh giống như một bức tường phẳng lì không thể với tới.</li>
+            <li><strong>Trung cảnh (Midground - Sân khấu chính):</strong> Đây là nơi phô diễn sức mạnh của nội dung, thường là vị trí đặt chủ thể chính, neo thị giác quan trọng nhất (nhân vật, ngôi nhà, ngọn núi). Đường dẫn hình học (Leading line) thường xuất phát từ tiền cảnh và uốn lượn trượt thẳng vào trung cảnh.</li>
+            <li><strong>Hậu cảnh (Background - Bối cảnh vô cực):</strong> Hậu cảnh mở ra ngữ cảnh không gian. Để đẩy Trục Z tới mức tối đa, các bậc thầy phong cảnh ứng dụng <em>Phối cảnh khí quyển (Atmospheric Perspective)</em>. Càng lùi xa, lượng không khí và hơi sương mù cản trở tầm nhìn càng dày đặc, khiến các dãy núi phía sau nhạt màu dần, mất đi độ tương phản và chuyển sang ám xanh (cool shift). Sự thay đổi sắc độ và tương phản từ Tiền cảnh (sắc nét, tối, ấm) đến Hậu cảnh (mờ ảo, sáng bợt, lạnh) tạo ra một độ sâu hun hút không thể cưỡng lại.</li>
+          </ul>
+
+          <div class="margin-note" style="top: 3950px;">[0.6]</div>
+          <h2>6. Thói Quen Đọc (Left-to-Right Bias) và Điệu Nhảy Gutenberg</h2>
+          <p>Mảnh ghép cuối cùng trong bức tranh Dòng chảy Thị giác bị chi phối bởi văn hóa. Đối với hàng tỷ người sử dụng ngôn ngữ phương Tây và nhiều ngôn ngữ hiện đại được đọc từ trái sang phải, từ trên xuống dưới, não bộ vô thức hình thành một quỹ đạo quét cố hữu mang tên <strong>Sơ đồ Gutenberg (Gutenberg Diagram)</strong> hoặc <strong>Quy tắc quét hình chữ F</strong>.</p>
+          
+          <p>Khi đối diện với một khung hình mới, mắt sẽ tự động đáp xuống góc trên bên trái (Primary Optical Area), quét ngang sang phải, rồi trượt chéo xuống góc dưới bên trái, và kết thúc hành trình ở góc dưới bên phải (Terminal Area - Điểm Rơi). Sự thiên lệch này sinh ra những ngôn ngữ hình ảnh cực kỳ thú vị, được áp dụng triệt để trong nghệ thuật kể chuyện (Storytelling):</p>
+          
+          <ul>
+            <li><strong>Sự di chuyển từ Trái sang Phải (Tương lai & Tự nhiên):</strong> Một chiếc ô tô, một người lính, hay một cơn bão đang tiến từ trái sang phải màn hình sẽ mang lại cảm giác mượt mà, xuôi dòng, cảm giác của sự phát triển, của việc hướng tới tương lai và chiến thắng. Não bộ tiếp nhận nó vô cùng thoải mái vì nó trùng khớp với chiều đọc.</li>
+            <li><strong>Sự di chuyển từ Phải sang Trái (Quá khứ & Kháng cự):</strong> Ngược lại, nếu chủ thể đang khó nhọc đi từ phải sang trái, mắt khán giả phải vật lộn chạy ngược chiều với thói quen sinh học. Sự ma sát tâm lý này ngay lập tức truyền tải cảm giác khó khăn, sự kháng cự, bước thụt lùi, hành trình trở về quê cũ ngập tràn hoài niệm, hoặc một nhân vật phản diện đang cản bước tiến của người anh hùng.</li>
+          </ul>
+
+          <div class="lab-note-block">
+            <h5>Henry's Pro Tip: Ma thuật của lệnh Lật Ngang (Horizontal Flip)</h5>
+            <p>Nếu bạn đang xử lý hậu kỳ một bức ảnh và cảm thấy bố cục dường như hơi "cấn" mà không thể chỉ ra lý do tại sao, hãy thử ấn <strong>Flip Horizontal (Lật ngang bức ảnh)</strong> trong Lightroom/Photoshop. Bạn sẽ kinh ngạc khi thấy cảm xúc của bức ảnh thay đổi 180 độ. Một đường chéo chạy từ góc dưới trái lên góc trên phải tượng trưng cho sự "leo dốc" đầy mệt mỏi, nhưng khi lật lại, nó trở thành một cú "trượt dốc" nhẹ nhàng êm ái. Hãy đặt chủ thể chính vào Điểm rơi (Terminal Area - dưới phải) để bộ não được nghỉ ngơi thoải mái sau khi đã chiêm ngưỡng trọn vẹn lộ trình của Dòng chảy Thị giác.</p>
+          </div>
+
+          <p>Tựu trung lại, một bức ảnh không phải là một lát cắt đóng băng thời gian tĩnh lặng, mà là một trải nghiệm có nhịp điệu, có bắt đầu và kết thúc. Bằng cách thấu hiểu <strong>Saccades</strong>, quản lý chặt chẽ <strong>Trọng lượng Thị giác</strong>, điều hướng bằng <strong>Leading Lines</strong> qua <strong>Trục Z</strong> và giam giữ ánh nhìn bằng <strong>Vignette</strong>, bạn đang thực sự viết nên một bản giao hưởng thị giác, và nắm quyền chỉ huy tuyệt đối trong việc khán giả sẽ cảm nhận tác phẩm của mình như thế nào.</p>
 
         </article>
 
@@ -150,27 +178,33 @@
             <div class="metadata-list">
               <div class="metadata-item">
                 <label>Mã Thí Nghiệm</label>
-                <span>EXP-PSYCH-018</span>
+                <span>EXP-PSY-405</span>
               </div>
               <div class="metadata-item">
                 <label>Danh Mục</label>
-                <span>Tâm lý Thị giác & Eye-Tracking</span>
+                <span>Tâm lý Thị giác & Sinh học</span>
               </div>
               <div class="metadata-item">
                 <label>Tác Giả</label>
                 <span>Henry / LumenForge</span>
               </div>
               <div class="metadata-item">
-                <label>Visual Vectors</label>
-                <span>Gaze Vector, Gutenberg Diagram, Left-to-Right Bias</span>
+                <label>Key Concepts</label>
+                <span>Saccades, Fixations, Fovea, Visual Weight, Z-axis, Gutenberg Diagram</span>
               </div>
             </div>
           </div>
 
           <div class="sidebar-panel">
             <h4>THỬ NGHIỆM ĐỒNG HÀNH</h4>
-            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Khám phá thêm các kỹ thuật làm chủ bố cục hình ảnh khác bằng thuyết Gestalt trong mục bài viết của Light Codex.</p>
-            <a href="gestalt-composition.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Đọc Bố cục Gestalt</a>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Đọc thêm về <strong>Bố cục Gestalt</strong> để hiểu cách bộ não tự động gộp nhóm các chi tiết rời rạc thành một chỉnh thể hoàn thiện.</p>
+            <a href="gestalt-composition.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Khám phá Thuyết Gestalt</a>
+          </div>
+
+          <div class="sidebar-panel" style="margin-top: 20px;">
+            <h4>CÔNG CỤ LIÊN QUAN</h4>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5;">Thử nghiệm kiểm soát dòng chảy ánh sáng và vùng tương phản mạnh bằng công cụ <strong>Mô phỏng Phơi sáng</strong>.</p>
+            <a href="../tools/exposure-reactor.html" class="btn-primary" style="display: block; text-align: center; padding: 10px; font-size: 0.72rem;">Mô phỏng Phơi sáng</a>
           </div>
 
         </aside>
@@ -190,21 +224,22 @@
         <div class="footer-links">
           <div class="footer-col">
             <h4>Khám phá</h4>
-            <a href="../light-codex.html">Light Codex</a>
+            <a href="../light-codex.html">Quang Thư</a>
             <a href="../tool-lab.html">Xưởng Công cụ</a>
             <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../visual-experiments.html">Thử nghiệm</a>
             <a href="../gear-map.html">Bản đồ Thiết bị</a>
           </div>
           <div class="footer-col">
             <h4>Công cụ</h4>
-            <a href="lens-decoder.html">Giải mã Ống kính</a>
-            <a href="exposure-reactor.html">Mô phỏng Phơi sáng</a>
-            <a href="film-look.html">Giả lập Màu phim</a>
+            <a href="../tools/lens-decoder.html">Giải mã Ống kính</a>
+            <a href="../tools/exposure-reactor.html">Mô phỏng Phơi sáng</a>
+            <a href="../tools/film-look.html">Giả lập Màu phim</a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2025 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
+        <p>&copy; 2026 LumenForge. Thiết kế & Xây dựng bởi Henry.</p>
       </div>
     </div>
   </footer>
