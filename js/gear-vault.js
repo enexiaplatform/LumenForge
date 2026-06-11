@@ -13,7 +13,7 @@ const GEAR_DB = [
     specs: ['26MP BSI CMOS', '4K 120p', '10-bit 4:2:2', 'AI AutoFocus'],
     desc: 'Kẻ hủy diệt phân khúc APS-C. Auto-focus AI tốt nhất thế giới, quay 4K siêu nét, chống rung IBIS. Tuyệt hảo cho người chạy sự kiện một mình.',
     price: '~35.500.000đ',
-    icon: '📷',
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -25,7 +25,7 @@ const GEAR_DB = [
     specs: ['Ngàm E/X/EF-M', 'Khẩu f/1.4', 'Nặng 265g', 'Độ nét cao'],
     desc: 'Ống kính "phải có" cho cảm biến Crop. Tiêu cự tương đương 45mm trên Full-frame, hoàn hảo cho chân dung lẫn đường phố. Độ nét tuyệt đối ở f/1.4.',
     price: '~7.500.000đ',
-    icon: '🔍',
+    image: 'https://images.unsplash.com/photo-1617005082633-e07e337de5cc?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -37,7 +37,7 @@ const GEAR_DB = [
     specs: ['65W Output', '2700K - 6500K', 'Pin V-Mount', 'App Sidus Link'],
     desc: 'Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Đủ mạnh cho không gian phòng ngủ, hỗ trợ pin siêu di động.',
     price: '~5.000.000đ',
-    icon: '💡',
+    image: 'https://images.unsplash.com/photo-1582214402652-1698e3ec8791?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -49,7 +49,7 @@ const GEAR_DB = [
     specs: ['24.2MP APS-C', '4K 30p Uncropped', 'Dual Pixel AF II', 'Gọn nhẹ'],
     desc: 'Ông vua của phân khúc nhập môn. Chụp đẹp ngay từ file JPEG nhờ Color Science trứ danh của Canon, hệ thống lấy nét Dual Pixel cực kỳ bám người.',
     price: '~17.500.000đ',
-    icon: '📷',
+    image: 'https://images.unsplash.com/photo-1502920514313-52581002a659?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
 
@@ -63,7 +63,7 @@ const GEAR_DB = [
     specs: ['12MP Full-Frame', '4K 120p 10-bit', 'Base ISO 12800', 'Active Cooling'],
     desc: 'Quái vật thiếu sáng. Cảm biến 12MP thu ánh sáng đỉnh cao, quạt tản nhiệt quay không bao giờ quá nhiệt. Tiêu chuẩn của MV thương mại.',
     price: '~98.000.000đ',
-    icon: '🎥',
+    image: 'https://images.unsplash.com/photo-1589806312595-46c050fb9e0e?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -75,7 +75,7 @@ const GEAR_DB = [
     specs: ['45MP Sensor', '8K RAW Video', 'IBIS 8-Stop', 'CFexpress Type B'],
     desc: 'Cỗ máy lai hoàn hảo nhất cho cả quay và chụp thương mại. Khả năng in ấn khổ lớn nhờ cảm biến 45MP và khả năng quay RAW 8K vô tiền khoáng hậu.',
     price: '~85.000.000đ',
-    icon: '📸',
+    image: 'https://images.unsplash.com/photo-1519638831568-d9897f54ed69?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -87,7 +87,7 @@ const GEAR_DB = [
     specs: ['Thấu kính XA', 'Nhẹ hơn 20%', 'Khẩu f/2.8', 'Focus nhanh'],
     desc: 'Ống kính đa dụng tối thượng. Nhẹ hơn phiên bản trước 20%, lấy nét cực nhanh, đủ cân mọi job từ Wedding đến Commercial.',
     price: '~58.000.000đ',
-    icon: '🔭',
+    image: 'https://images.unsplash.com/photo-1500634245200-e5245c7574ef?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -99,7 +99,7 @@ const GEAR_DB = [
     specs: ['350W Output', 'Ngàm Bowens', 'CRI 96+', 'V-Mount Battery'],
     desc: 'Nguồn sáng chính tiêu chuẩn công nghiệp. Đủ mạnh để hắt qua rèm cửa giả lập ánh sáng mặt trời tự nhiên vào ban ngày.',
     price: '~24.000.000đ',
-    icon: '☀️',
+    image: 'https://images.unsplash.com/photo-1527011045970-16acfb8f78f8?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
 
@@ -113,7 +113,7 @@ const GEAR_DB = [
     specs: ['Sensor 4.6K', '17 Stop DR', 'REVEAL Color', 'Nặng 2.9kg'],
     desc: 'Huyền thoại Hollywood. 17-stop Dynamic Range, tái tạo màu da (Skin tone) không một máy ảnh nào trên thế giới có thể sánh kịp.',
     price: '~1.900.000.000đ',
-    icon: '🎬',
+    image: 'https://images.unsplash.com/photo-1580227318047-9759d57a9e62?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -125,7 +125,7 @@ const GEAR_DB = [
     specs: ['Phủ quang học vintage', 'Lấy nét cơ học', 'Full-Frame', 'i/ Technology'],
     desc: '"Cooke Look" trứ danh. Cho ra hình ảnh ấm áp, organic và vùng chuyển nét (Roll-off) mượt mà như bơ. Lựa chọn số 1 của các D.P.',
     price: '~1.400.000.000đ (Bộ 5 lens)',
-    icon: '🔬',
+    image: 'https://images.unsplash.com/photo-1620327663249-14a5b4c107be?q=80&w=600&auto=format&fit=crop',
     link: '#'
   },
   {
@@ -137,7 +137,7 @@ const GEAR_DB = [
     specs: ['RGBW Full Color', '2800K - 10000K', 'CRI 95+', 'DMX Control'],
     desc: 'Bảng đèn Soft-light bá chủ mọi phim trường. Chỉnh mọi không gian màu, giả lập gel màu chính xác đến từng bước sóng.',
     price: '~165.000.000đ',
-    icon: '⚡',
+    image: 'https://images.unsplash.com/photo-1555543411-825585b9b870?q=80&w=600&auto=format&fit=crop',
     link: '#'
   }
 ];
@@ -177,8 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <div class="gear-card animate-on-scroll" style="animation-delay: ${index * 0.1}s; --tier-accent: ${accent};">
           <div class="gear-card-inner">
-            <div class="gear-header">
-              <div class="gear-icon">${gear.icon}</div>
+            <div class="gear-header" style="background-image: url('${gear.image}');">
               <div class="gear-type-badge">${gear.type}</div>
             </div>
             
