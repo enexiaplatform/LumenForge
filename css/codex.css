@@ -572,6 +572,7 @@
 .level-1 { border-color: rgba(0, 212, 170, 0.4); color: var(--accent-cyan); }
 .level-2 { border-color: rgba(245, 166, 35, 0.4); color: var(--accent-amber); }
 .level-3 { border-color: rgba(139, 92, 246, 0.4); color: var(--accent-purple); }
+.level-4 { border-color: rgba(232, 114, 92, 0.4); color: var(--accent-film); }
 
 /* ==========================================================================
    DUOLINGO PATH SYSTEM (Curriculum Tree)
@@ -598,6 +599,7 @@
 .duo-unit-header.level-1 { background: rgba(0, 212, 170, 0.1); border-color: rgba(0, 212, 170, 0.4); color: var(--accent-cyan); }
 .duo-unit-header.level-2 { background: rgba(245, 166, 35, 0.1); border-color: rgba(245, 166, 35, 0.4); color: var(--accent-amber); }
 .duo-unit-header.level-3 { background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.4); color: var(--accent-purple); }
+.duo-unit-header.level-4 { background: rgba(232, 114, 92, 0.1); border-color: rgba(232, 114, 92, 0.4); color: var(--accent-film); }
 
 .duo-unit-title {
   font-size: 1.5rem;

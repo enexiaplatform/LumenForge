@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const levels = [
       { num: 1, title: 'UNIT 1: Quang học & Ánh sáng', desc: 'Nắm vững nền tảng cơ học của máy ảnh và vật lý ánh sáng cơ bản.' },
       { num: 2, title: 'UNIT 2: Màu sắc & Cảm biến', desc: 'Kiểm soát ánh sáng nâng cao và hiểu ngôn ngữ của màu sắc.' },
-      { num: 3, title: 'UNIT 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc.' }
+      { num: 3, title: 'UNIT 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc.' },
+      { num: 4, title: 'UNIT 4: Kỹ thuật Thực chiến', desc: 'Áp dụng lý thuyết vào môi trường thực tế, từ đường phố đến Studio chuyên nghiệp.' }
     ];
 
     const posClasses = ['pos-center', 'pos-right', 'pos-far-right', 'pos-right', 'pos-center', 'pos-left', 'pos-far-left', 'pos-left'];
