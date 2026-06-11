@@ -6,10 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!window.ARTICLES_DB) return;
   const articles = window.ARTICLES_DB;
 
-  const gridStart = document.getElementById('grid-start');
+  const curriculumView = document.getElementById('curriculum-view');
+  const exploreView = document.getElementById('explore-view');
   const gridExplore = document.getElementById('grid-explore');
   const filterBtns = document.querySelectorAll('.filter-btn');
   const searchInput = document.getElementById('codex-search');
+  const btnBackCurriculum = document.getElementById('btn-back-curriculum');
 
   // SVG Patterns for Visual Upgrade based on Category
   const getPatternForCategory = (cat) => {
@@ -43,11 +45,15 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderCard = (article) => {
+    const levelStr = article.level === 1 ? 'Sơ cấp' : article.level === 2 ? 'Trung cấp' : 'Cao cấp';
+    const levelBadge = `<span class="codex-level-badge level-${article.level}">${levelStr}</span>`;
     return `
       <article class="codex-card animate-on-scroll">
         ${getPatternForCategory(article.category)}
-        <div class="codex-card-tag ${getTagClass(article.category)}">${article.code ? `<span class="codex-card-code">${article.code}</span> ` : ''}${article.tag}</div>
-        <span class="codex-card-date">${article.date}</span>
+        <div class="codex-card-tag ${getTagClass(article.category)}">
+          ${article.id ? `<span class="codex-card-code">[${article.id}]</span> ` : ''}${article.tag}
+        </div>
+        ${levelBadge}
         <h3>${article.title}</h3>
         <p>${article.desc}</p>
         <div class="codex-card-footer">
@@ -58,45 +64,76 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   };
 
-  // --- 1. Render "Start Here" ---
-  // Pick 3 specific foundational articles
-  const startLinks = [
-    'articles/focal-length-explained.html',
-    'articles/metering-science.html',
-    'articles/color-harmony-theory.html'
-  ];
-  const startArticles = startLinks.map(link => articles.find(a => a.link === link)).filter(Boolean);
-  
-  if (gridStart) {
-    gridStart.innerHTML = startArticles.map(renderCard).join('');
-  }
+  // --- 1. Render Curriculum View ---
+  const renderCurriculum = () => {
+    if (!curriculumView) return;
+    const levels = [
+      { num: 1, title: 'LEVEL 1: Nền tảng Quang học & Ánh sáng', desc: 'Bắt đầu từ số 0. Nắm vững nền tảng cơ học của máy ảnh và vật lý ánh sáng cơ bản.' },
+      { num: 2, title: 'LEVEL 2: Khoa học Màu sắc & Cảm biến', desc: 'Kiểm soát ánh sáng nâng cao và hiểu ngôn ngữ của màu sắc.' },
+      { num: 3, title: 'LEVEL 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc thị giác.' }
+    ];
 
-  // --- 2. Render "Explore" Grid ---
+    let html = '';
+    levels.forEach(lvl => {
+      const lvlArticles = articles.filter(a => a.level === lvl.num);
+      // Sort by ID to ensure sequence 101, 102, etc.
+      lvlArticles.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+      html += `
+        <div class="codex-path-section animate-on-scroll">
+          <div class="path-header">
+            <h2 class="path-title"><span style="color: var(--accent-amber);">#${lvl.num}</span> ${lvl.title}</h2>
+            <p class="path-desc">${lvl.desc}</p>
+          </div>
+          <div class="codex-grid">
+            ${lvlArticles.map(renderCard).join('')}
+          </div>
+        </div>
+      `;
+    });
+    curriculumView.innerHTML = html;
+  };
+
+  renderCurriculum();
+
+  // --- 2. Render "Explore/Search" Grid ---
   const renderExplore = (data) => {
-    if (gridExplore) {
-      if (data.length === 0) {
-        gridExplore.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-dim);">Không tìm thấy bài viết phù hợp.</div>`;
-      } else {
-        gridExplore.innerHTML = data.map(renderCard).join('');
-      }
+    if (!gridExplore) return;
+    if (data.length === 0) {
+      gridExplore.innerHTML = `<div class="empty-state" style="grid-column: 1/-1; text-align:center; padding: 40px; color: var(--text-dim);">Không tìm thấy bài viết phù hợp.</div>`;
+    } else {
+      gridExplore.innerHTML = data.map(renderCard).join('');
     }
   };
 
-  renderExplore(articles); // initial load
-
-  // --- 3. Filtering Logic ---
+  // --- 3. View Management & Filtering Logic ---
   let currentCategory = 'all';
   let currentSearch = '';
+
+  const showExploreView = () => {
+    curriculumView.style.display = 'none';
+    exploreView.style.display = 'block';
+  };
+
+  const showCurriculumView = () => {
+    exploreView.style.display = 'none';
+    curriculumView.style.display = 'block';
+    if(searchInput) searchInput.value = '';
+    currentSearch = '';
+    currentCategory = 'all';
+    filterBtns.forEach(b => {
+      if(b.dataset.category === 'all') b.classList.add('active');
+      else b.classList.remove('active');
+    });
+  };
 
   const filterArticles = () => {
     let filtered = articles;
     
-    // Category filter
     if (currentCategory !== 'all') {
       filtered = filtered.filter(a => a.category === currentCategory);
     }
     
-    // Search filter
     if (currentSearch.trim() !== '') {
       const q = currentSearch.toLowerCase();
       filtered = filtered.filter(a => 
@@ -107,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     renderExplore(filtered);
+    showExploreView();
   };
 
   filterBtns.forEach(btn => {
@@ -121,13 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       currentSearch = e.target.value;
-      filterArticles();
-      
-      // Auto-scroll to explore section if user is searching
-      if (currentSearch.length > 0) {
-        document.getElementById('section-explore').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (currentSearch.trim() === '' && currentCategory === 'all') {
+        showCurriculumView();
+      } else {
+        filterArticles();
       }
     });
+  }
+
+  if (btnBackCurriculum) {
+    btnBackCurriculum.addEventListener('click', showCurriculumView);
   }
 
 });
