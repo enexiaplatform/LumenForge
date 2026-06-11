@@ -64,29 +64,68 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   };
 
+  const getIconForCategory = (cat) => {
+    switch(cat) {
+      case 'optics':
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>`;
+      case 'color':
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`;
+      case 'psychology':
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+      case 'cinema':
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>`;
+      case 'sensor':
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>`;
+      case 'lens':
+      default:
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>`;
+    }
+  };
+
   // --- 1. Render Curriculum View ---
   const renderCurriculum = () => {
     if (!curriculumView) return;
     const levels = [
-      { num: 1, title: 'LEVEL 1: Nền tảng Quang học & Ánh sáng', desc: 'Bắt đầu từ số 0. Nắm vững nền tảng cơ học của máy ảnh và vật lý ánh sáng cơ bản.' },
-      { num: 2, title: 'LEVEL 2: Khoa học Màu sắc & Cảm biến', desc: 'Kiểm soát ánh sáng nâng cao và hiểu ngôn ngữ của màu sắc.' },
-      { num: 3, title: 'LEVEL 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc thị giác.' }
+      { num: 1, title: 'UNIT 1: Quang học & Ánh sáng', desc: 'Nắm vững nền tảng cơ học của máy ảnh và vật lý ánh sáng cơ bản.' },
+      { num: 2, title: 'UNIT 2: Màu sắc & Cảm biến', desc: 'Kiểm soát ánh sáng nâng cao và hiểu ngôn ngữ của màu sắc.' },
+      { num: 3, title: 'UNIT 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc.' }
     ];
+
+    const posClasses = ['pos-center', 'pos-right', 'pos-far-right', 'pos-right', 'pos-center', 'pos-left', 'pos-far-left', 'pos-left'];
 
     let html = '';
     levels.forEach(lvl => {
       const lvlArticles = articles.filter(a => a.level === lvl.num);
-      // Sort by ID to ensure sequence 101, 102, etc.
       lvlArticles.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
       html += `
-        <div class="codex-path-section animate-on-scroll">
-          <div class="path-header">
-            <h2 class="path-title"><span style="color: var(--accent-amber);">#${lvl.num}</span> ${lvl.title}</h2>
-            <p class="path-desc">${lvl.desc}</p>
+        <div class="duo-unit animate-on-scroll">
+          <div class="duo-unit-header level-${lvl.num}">
+            <h2 class="duo-unit-title">${lvl.title}</h2>
+            <p class="duo-unit-desc">${lvl.desc}</p>
           </div>
-          <div class="codex-grid">
-            ${lvlArticles.map(renderCard).join('')}
+          <div class="duo-path-container">
+            <div class="duo-path-line"></div>
+      `;
+
+      lvlArticles.forEach((article, idx) => {
+        const posClass = posClasses[idx % posClasses.length];
+        
+        html += `
+            <div class="duo-node-wrapper ${posClass}">
+              <div class="duo-node level-${lvl.num}" onclick="togglePopover(this)">
+                <div class="duo-node-icon">${getIconForCategory(article.category)}</div>
+              </div>
+              <div class="duo-popover">
+                <h4>[${article.id}] ${article.title}</h4>
+                <p>${article.desc}</p>
+                <a href="${article.link}" class="btn-start">Bắt đầu Bài học →</a>
+              </div>
+            </div>
+        `;
+      });
+
+      html += `
           </div>
         </div>
       `;
@@ -170,5 +209,25 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnBackCurriculum) {
     btnBackCurriculum.addEventListener('click', showCurriculumView);
   }
+
+  // Popover Logic for Duolingo Style
+  window.togglePopover = function(nodeElement) {
+    const wrapper = nodeElement.closest('.duo-node-wrapper');
+    const wasActive = wrapper.classList.contains('active');
+    
+    // Close all other popovers
+    document.querySelectorAll('.duo-node-wrapper').forEach(w => w.classList.remove('active'));
+    
+    if (!wasActive) {
+      wrapper.classList.add('active');
+    }
+  };
+
+  // Close popover when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.duo-node-wrapper')) {
+      document.querySelectorAll('.duo-node-wrapper').forEach(w => w.classList.remove('active'));
+    }
+  });
 
 });
