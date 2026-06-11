@@ -109,18 +109,38 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="duo-path-line"></div>
       `;
 
+      // Load read articles
+      const readFiles = JSON.parse(localStorage.getItem('lumenforge_read_articles') || '[]');
+      
+      let foundCurrent = false; // Track the first unread article
+
       lvlArticles.forEach((article, idx) => {
         const posClass = posClasses[idx % posClasses.length];
+        const filename = article.link.split('/').pop();
+        const isCompleted = readFiles.includes(filename);
         
+        let stateClass = '';
+        if (isCompleted) {
+          stateClass = 'completed';
+        } else if (!foundCurrent) {
+          stateClass = 'current';
+          foundCurrent = true;
+        } else {
+          stateClass = 'locked';
+        }
+        
+        // Locked nodes cannot be clicked, just show a message
+        const onClickAttr = stateClass === 'locked' ? 'onclick="alert(\'Hoàn thành bài học trước đó để mở khóa!\')"' : 'onclick="togglePopover(this)"';
+
         html += `
-            <div class="duo-node-wrapper ${posClass}">
-              <div class="duo-node level-${lvl.num}" onclick="togglePopover(this)">
+            <div class="duo-node-wrapper ${posClass} state-${stateClass}">
+              <div class="duo-node level-${lvl.num}" ${onClickAttr}>
                 <div class="duo-node-icon">${getIconForCategory(article.category)}</div>
               </div>
               <div class="duo-popover">
                 <h4>[${article.id}] ${article.title}</h4>
                 <p>${article.desc}</p>
-                <a href="${article.link}" class="btn-start">Bắt đầu Bài học →</a>
+                <a href="${article.link}" class="btn-start">${isCompleted ? 'Ôn tập Bài học →' : 'Bắt đầu Bài học →'}</a>
               </div>
             </div>
         `;
@@ -131,6 +151,26 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     });
+
+    // Add Mastery Exam Node at the end
+    html += `
+      <div class="duo-unit animate-on-scroll">
+        <div class="duo-unit-header" style="background: rgba(212, 175, 55, 0.1); border-color: rgba(212, 175, 55, 0.5); color: #d4af37;">
+          <h2 class="duo-unit-title">FINAL BOSS: Mastery Exam</h2>
+          <p class="duo-unit-desc">Kiểm tra toàn bộ kiến thức và phân loại Archetype (Nguyên mẫu) nhiếp ảnh của bạn.</p>
+        </div>
+        <div class="duo-path-container" style="padding-top: 0;">
+          <div class="duo-node-wrapper pos-center animate-on-scroll" style="margin-top: -20px;">
+            <a href="tools/mastery-quiz.html" class="duo-node" style="background: rgba(212, 175, 55, 0.2); border-color: #d4af37; box-shadow: 0 6px 0 rgba(150, 120, 20, 1); text-decoration: none;">
+              <div class="duo-node-icon" style="color: #d4af37;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+
     curriculumView.innerHTML = html;
   };
 

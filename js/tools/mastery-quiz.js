@@ -52,6 +52,56 @@ const quizData = [
       { text: "Do cảm biến không nhận đủ photon", correct: false }
     ],
     explanation: "Khi lỗ khẩu quá nhỏ, sóng ánh sáng bị bẻ cong (Nhiễu xạ) khi đi qua rìa lá khẩu, tạo ra các vòng Airy chồng chéo lên nhau trên cảm biến, làm giảm độ sắc nét (sharpness)."
+  },
+  {
+    question: "Bạn muốn quay video Cinematic 24fps. Theo 'Luật Góc Màn Trập' (Shutter Angle Rule), tốc độ màn trập (Shutter Speed) tối ưu nhất để có độ mờ chuyển động tự nhiên (Motion Blur) là bao nhiêu?",
+    options: [
+      { text: "1/24s", correct: false },
+      { text: "1/50s (hoặc 1/48s)", correct: true },
+      { text: "1/100s", correct: false },
+      { text: "Càng nhanh càng tốt", correct: false }
+    ],
+    explanation: "Quy tắc 180 độ (Shutter Angle 180°) yêu cầu tốc độ màn trập phải nhanh gấp đôi tốc độ khung hình (24fps x 2 = 1/48s, thường làm tròn thành 1/50s) để tái tạo Motion Blur giống như mắt người."
+  },
+  {
+    question: "Khi chụp chân dung, tiêu cự nào sau đây gây ra hiện tượng 'Biến dạng Phối cảnh' (Perspective Distortion) làm mũi to ra và mặt bị hẹp lại?",
+    options: [
+      { text: "85mm", correct: false },
+      { text: "50mm", correct: false },
+      { text: "200mm", correct: false },
+      { text: "14mm", correct: true }
+    ],
+    explanation: "Tiêu cự siêu rộng (14mm) buộc bạn phải tiến rất gần chủ thể để chụp kín khung hình. Khoảng cách gần này gây ra hiện tượng nén phối cảnh (Extension distortion), làm các phần gần ống kính (mũi) phình to ra."
+  },
+  {
+    question: "Trong Color Grading, kỹ thuật 'Teal and Orange' dựa trên quy luật hòa sắc nào?",
+    options: [
+      { text: "Màu tương đồng (Analogous)", correct: false },
+      { text: "Màu bổ túc (Complementary)", correct: true },
+      { text: "Màu tam giác (Triadic)", correct: false },
+      { text: "Màu đơn sắc (Monochromatic)", correct: false }
+    ],
+    explanation: "Cam (Màu của da người) và Lục lam (Màu của bóng tối/bầu trời) nằm đối diện nhau trên bánh xe màu (Color Wheel), tạo ra hiệu ứng Tương phản bổ túc cực kỳ mạnh mẽ cho thị giác."
+  },
+  {
+    question: "Kỹ thuật Expose To The Right (ETTR) mang lại lợi ích lớn nhất gì khi chụp RAW?",
+    options: [
+      { text: "Giảm kích thước file RAW", correct: false },
+      { text: "Tối đa hóa Tỷ lệ Tín hiệu/Nhiễu (SNR), giảm nhiễu hạt", correct: true },
+      { text: "Bảo vệ vùng Highlights không bao giờ bị cháy", correct: false },
+      { text: "Làm bức ảnh tối đi và nghệ thuật hơn", correct: false }
+    ],
+    explanation: "Sensors là thiết bị tuyến tính. Một nửa tổng số data (bits) của file RAW được dùng để lưu trữ dải sáng (Highlights). Cố tình phơi sáng lấn sang phải giúp cảm biến thu nhận tối đa tín hiệu ánh sáng thật (Signal) để áp đảo nhiễu hạt (Noise)."
+  },
+  {
+    question: "Bạn đang quay một cảnh chạy trốn trong rừng, muốn hiệu ứng giật cục, căng thẳng và hoảng loạn (như phim Saving Private Ryan hay Gladiator). Bạn nên thiết lập Màn trập như thế nào?",
+    options: [
+      { text: "Góc màn trập 180 độ (1/50s)", correct: false },
+      { text: "Góc màn trập hẹp 45 độ hoặc 90 độ (1/100s - 1/200s)", correct: true },
+      { text: "Góc màn trập rộng 360 độ (1/24s)", correct: false },
+      { text: "Mở khẩu tối đa f/1.4", correct: false }
+    ],
+    explanation: "Tốc độ màn trập cực nhanh (Góc màn trập hẹp) sẽ triệt tiêu Motion Blur, làm cho mỗi khung hình trở nên sắc lẹm, tạo ra hiệu ứng hình ảnh giật cục (staccato), thể hiện hoàn hảo sự căng thẳng và khốc liệt."
   }
 ];
 
