@@ -372,7 +372,17 @@ document.addEventListener('DOMContentLoaded', () => {
         <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;">Để hỗ trợ LumenForge, bạn có thể tham khảo mua ống kính chính hãng tại đây:</p>
         <a href="https://shopee.vn/search?keyword=${encodeURIComponent(rec.title)}" target="_blank" class="btn-primary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem; margin-right: 10px;">🛒 Tìm ống kính này trên Shopee</a>
       </div>
-      ${bodyAffiliateHtml}`;
+      ${bodyAffiliateHtml}
+      
+      <!-- Accessory Box -->
+      <div class="gearmap-affiliate-box" style="margin-top: 15px; padding: 15px; background: rgba(188, 0, 255, 0.05); border: 1px solid rgba(188, 0, 255, 0.3); border-radius: 8px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 15px;">
+        <div>
+          <h4 style="color: var(--accent-film); margin: 0 0 5px 0; font-size: 1rem;">Phụ kiện Must-have: Bao da bảo vệ máy ảnh</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Bao da ốp bảo vệ cao cấp chống trầy xước cho Canon, Sony, Fuji (XM5, XT5, XT30, R50...)</p>
+        </div>
+        <a href="https://s.shopee.vn/110TO1EwHX" target="_blank" class="btn-primary" style="background: var(--accent-film); color: #fff; padding: 8px 16px; font-size: 0.85rem; white-space: nowrap;">Xem trên Shopee</a>
+      </div>
+      `;
     }
 
     stepContainer.innerHTML = `
