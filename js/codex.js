@@ -83,95 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- 1. Render Curriculum View ---
+  // (Curriculum View has been disabled by user request to revert to traditional grid format)
   const renderCurriculum = () => {
-    if (!curriculumView) return;
-    const levels = [
-      { num: 1, title: 'UNIT 1: Quang học & Ánh sáng', desc: 'Nắm vững nền tảng cơ học của máy ảnh và vật lý ánh sáng cơ bản.' },
-      { num: 2, title: 'UNIT 2: Màu sắc & Cảm biến', desc: 'Kiểm soát ánh sáng nâng cao và hiểu ngôn ngữ của màu sắc.' },
-      { num: 3, title: 'UNIT 3: Tâm lý Thị giác & Điện ảnh', desc: 'Khai mở nhãn quan. Vượt qua kỹ thuật để chạm đến cảm xúc.' },
-      { num: 4, title: 'UNIT 4: Kỹ thuật Thực chiến', desc: 'Áp dụng lý thuyết vào môi trường thực tế, từ đường phố đến Studio chuyên nghiệp.' }
-    ];
-
-    const posClasses = ['pos-center', 'pos-right', 'pos-far-right', 'pos-right', 'pos-center', 'pos-left', 'pos-far-left', 'pos-left'];
-
-    let html = '';
-    levels.forEach(lvl => {
-      const lvlArticles = articles.filter(a => a.level === lvl.num);
-      lvlArticles.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-
-      html += `
-        <div class="duo-unit animate-on-scroll">
-          <div class="duo-unit-header level-${lvl.num}">
-            <h2 class="duo-unit-title">${lvl.title}</h2>
-            <p class="duo-unit-desc">${lvl.desc}</p>
-          </div>
-          <div class="duo-path-container">
-            <div class="duo-path-line"></div>
-      `;
-
-      // Load read articles
-      const readFiles = JSON.parse(localStorage.getItem('lumenforge_read_articles') || '[]');
-      
-      let foundCurrent = false; // Track the first unread article
-
-      lvlArticles.forEach((article, idx) => {
-        const posClass = posClasses[idx % posClasses.length];
-        const filename = article.link.split('/').pop();
-        const isCompleted = readFiles.includes(filename);
-        
-        let stateClass = '';
-        if (isCompleted) {
-          stateClass = 'completed';
-        } else if (!foundCurrent) {
-          stateClass = 'current';
-          foundCurrent = true;
-        } else {
-          stateClass = 'locked';
-        }
-        
-        // Locked nodes cannot be clicked, just show a message
-        const onClickAttr = stateClass === 'locked' ? 'onclick="alert(\'Hoàn thành bài học trước đó để mở khóa!\')"' : 'onclick="togglePopover(this)"';
-
-        html += `
-            <div class="duo-node-wrapper ${posClass} state-${stateClass}">
-              <div class="duo-node level-${lvl.num}" ${onClickAttr}>
-                <div class="duo-node-icon">${getIconForCategory(article.category)}</div>
-              </div>
-              <div class="duo-popover">
-                <h4>[${article.id}] ${article.title}</h4>
-                <p>${article.desc}</p>
-                <a href="${article.link}" class="btn-start">${isCompleted ? 'Ôn tập Bài học →' : 'Bắt đầu Bài học →'}</a>
-              </div>
-            </div>
-        `;
-      });
-
-      html += `
-          </div>
-        </div>
-      `;
-    });
-
-    // Add Mastery Exam Node at the end
-    html += `
-      <div class="duo-unit animate-on-scroll">
-        <div class="duo-unit-header" style="background: rgba(212, 175, 55, 0.1); border-color: rgba(212, 175, 55, 0.5); color: #d4af37;">
-          <h2 class="duo-unit-title">FINAL BOSS: Mastery Exam</h2>
-          <p class="duo-unit-desc">Kiểm tra toàn bộ kiến thức và phân loại Archetype (Nguyên mẫu) nhiếp ảnh của bạn.</p>
-        </div>
-        <div class="duo-path-container" style="padding-top: 0;">
-          <div class="duo-node-wrapper pos-center animate-on-scroll" style="margin-top: -20px;">
-            <a href="tools/mastery-quiz.html" class="duo-node" style="background: rgba(212, 175, 55, 0.2); border-color: #d4af37; box-shadow: 0 6px 0 rgba(150, 120, 20, 1); text-decoration: none;">
-              <div class="duo-node-icon" style="color: #d4af37;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    `;
-
-    curriculumView.innerHTML = html;
+    if (curriculumView) {
+      curriculumView.style.display = 'none';
+    }
   };
 
   renderCurriculum();
@@ -191,20 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentSearch = '';
 
   const showExploreView = () => {
-    curriculumView.style.display = 'none';
-    exploreView.style.display = 'block';
+    if (curriculumView) curriculumView.style.display = 'none';
+    if (exploreView) exploreView.style.display = 'block';
   };
 
   const showCurriculumView = () => {
-    exploreView.style.display = 'none';
-    curriculumView.style.display = 'block';
-    if(searchInput) searchInput.value = '';
-    currentSearch = '';
-    currentCategory = 'all';
-    filterBtns.forEach(b => {
-      if(b.dataset.category === 'all') b.classList.add('active');
-      else b.classList.remove('active');
-    });
+    showExploreView(); // Forced to explore view
   };
 
   const filterArticles = () => {
@@ -239,36 +147,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       currentSearch = e.target.value;
-      if (currentSearch.trim() === '' && currentCategory === 'all') {
-        showCurriculumView();
-      } else {
-        filterArticles();
-      }
-    });
-  }
-
-  if (btnBackCurriculum) {
-    btnBackCurriculum.addEventListener('click', showCurriculumView);
-  }
-
-  // Popover Logic for Duolingo Style
-  window.togglePopover = function(nodeElement) {
-    const wrapper = nodeElement.closest('.duo-node-wrapper');
-    const wasActive = wrapper.classList.contains('active');
-    
-    // Close all other popovers
-    document.querySelectorAll('.duo-node-wrapper').forEach(w => w.classList.remove('active'));
-    
-    if (!wasActive) {
-      wrapper.classList.add('active');
-    }
-  };
-
-  // Close popover when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.duo-node-wrapper')) {
-      document.querySelectorAll('.duo-node-wrapper').forEach(w => w.classList.remove('active'));
-    }
-  });
-
+  // Default render
+  filterArticles();
 });
