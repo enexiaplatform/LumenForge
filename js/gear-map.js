@@ -351,13 +351,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!rec) return;
 
     let affiliateHtml = '';
+    let bodyAffiliateHtml = '';
+    
+    // Inject Body Affiliate if the path is R50
+    if (resultId.startsWith('r50-')) {
+      bodyAffiliateHtml = `
+      <div class="gearmap-affiliate-box" style="margin-top: 15px; padding: 15px; background: rgba(0, 212, 170, 0.05); border: 1px solid rgba(0, 212, 170, 0.3); border-radius: 8px; text-align: center; display: flex; align-items: center; justify-content: space-between; gap: 15px; text-align: left;">
+        <div>
+          <h4 style="color: var(--accent-cyan); margin: 0 0 5px 0; font-size: 1rem;">Bạn chưa có Body Canon R50?</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin: 0;">Mua thân máy R50 chính hãng qua link affiliate của chúng tôi.</p>
+        </div>
+        <a href="https://s.shopee.vn/qh3BVYuxU" target="_blank" class="btn-primary" style="background: var(--accent-cyan); color: #000; padding: 8px 16px; font-size: 0.85rem; white-space: nowrap;">Mua Canon R50</a>
+      </div>
+      `;
+    }
+
     if (rec.price.includes('triệu')) {
       affiliateHtml = `
       <div class="gearmap-affiliate-box" style="margin-top: 15px; padding: 15px; background: rgba(245, 166, 35, 0.05); border: 1px solid rgba(245, 166, 35, 0.3); border-radius: 8px; text-align: center;">
-        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;">Để hỗ trợ LumenForge duy trì máy chủ, bạn có thể tham khảo giá mua thiết bị chính hãng tại đây:</p>
-        <a href="#" onclick="alert('Affiliate Link to Shopee/Lazada/Amazon'); return false;" class="btn-primary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem; margin-right: 10px;">🛒 Check giá Shopee Mall</a>
-        <a href="#" onclick="alert('Affiliate Link to B&H Photo'); return false;" class="btn-secondary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem;">📦 Check giá B&H Photo</a>
-      </div>`;
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 10px;">Để hỗ trợ LumenForge, bạn có thể tham khảo mua ống kính chính hãng tại đây:</p>
+        <a href="https://shopee.vn/search?keyword=${encodeURIComponent(rec.title)}" target="_blank" class="btn-primary" style="display: inline-block; padding: 8px 24px; font-size: 0.9rem; margin-right: 10px;">🛒 Tìm ống kính này trên Shopee</a>
+      </div>
+      ${bodyAffiliateHtml}`;
     }
 
     stepContainer.innerHTML = `
