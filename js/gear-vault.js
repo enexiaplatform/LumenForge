@@ -32,13 +32,13 @@ const GEAR_DB = [
     id: 'g-003',
     tier: 'indie',
     category: 'light',
-    title: 'Amaran 60x Bi-Color',
+    title: 'Godox SL60IID',
     type: 'LED Video Light',
-    specs: ['65W Output', '2700K - 6500K', 'Pin V-Mount', 'App Sidus Link'],
-    desc: 'Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Đủ mạnh cho không gian phòng ngủ, hỗ trợ pin siêu di động.',
-    price: '~5.000.000đ',
+    specs: ['70W Output', '5600K Daylight', 'Ngàm Bowens', 'App Control'],
+    desc: 'Đèn Key-light quốc dân cho Youtuber và Indie Filmmaker. Bóng LED COB nâng cấp cho độ sáng cực mạnh, màu sắc trung thực với giá siêu rẻ.',
+    price: '~2.500.000đ',
     image: 'https://images.unsplash.com/photo-1582214402652-1698e3ec8791?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/7Ab6jgoH1H'
   },
   {
     id: 'g-004',
@@ -50,7 +50,7 @@ const GEAR_DB = [
     desc: 'Ông vua của phân khúc nhập môn. Chụp đẹp ngay từ file JPEG nhờ Color Science trứ danh của Canon, hệ thống lấy nét Dual Pixel cực kỳ bám người.',
     price: '~17.500.000đ',
     image: 'https://images.unsplash.com/photo-1502920514313-52581002a659?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/qh3BVYuxU'
   },
 
   // --- TIER: PRO ($4000) ---
