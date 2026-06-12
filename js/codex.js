@@ -47,8 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderCard = (article) => {
     const levelStr = article.level === 1 ? 'Sơ cấp' : article.level === 2 ? 'Trung cấp' : 'Cao cấp';
     const levelBadge = `<span class="codex-level-badge level-${article.level}">${levelStr}</span>`;
+    
+    // Check if read
+    let isRead = false;
+    if (window.lfAuth && window.lfAuth.isLoggedIn()) {
+      isRead = window.lfAuth.readHistory.some(h => h.id === article.link.split('/').pop());
+    }
+    const readBadge = isRead ? `<div style="position: absolute; top: 20px; right: 20px; background: rgba(0, 212, 170, 0.2); color: var(--accent-cyan); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--accent-cyan); z-index: 2;">✓ Đã đọc</div>` : '';
+
     return `
-      <article class="codex-card animate-on-scroll">
+      <article class="codex-card animate-on-scroll" style="position: relative; ${isRead ? 'border-color: rgba(0,212,170,0.3); opacity: 0.8;' : ''}">
+        ${readBadge}
         ${getPatternForCategory(article.category)}
         <div class="codex-card-tag ${getTagClass(article.category)}">
           ${article.id ? `<span class="codex-card-code">[${article.id}]</span> ` : ''}${article.tag}
@@ -83,10 +92,39 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // --- 1. Render Curriculum View ---
-  // (Curriculum View has been disabled by user request to revert to traditional grid format)
   const renderCurriculum = () => {
-    if (curriculumView) {
-      curriculumView.style.display = 'none';
+    if (!curriculumView) return;
+    
+    const foundationArticles = articles.filter(a => a.level === 1);
+    const intermediateArticles = articles.filter(a => a.level === 2);
+    const advancedArticles = articles.filter(a => a.level === 3);
+
+    document.getElementById('grid-track-foundation').innerHTML = foundationArticles.map(renderCard).join('');
+    document.getElementById('grid-track-intermediate').innerHTML = intermediateArticles.map(renderCard).join('');
+    document.getElementById('grid-track-advanced').innerHTML = advancedArticles.map(renderCard).join('');
+
+    // Calculate progress
+    if (window.lfAuth && window.lfAuth.isLoggedIn()) {
+      const historyIds = window.lfAuth.readHistory.map(h => h.id);
+      
+      const calcProgress = (trackArticles) => {
+        if(trackArticles.length === 0) return 0;
+        const readCount = trackArticles.filter(a => historyIds.includes(a.link.split('/').pop())).length;
+        return Math.round((readCount / trackArticles.length) * 100);
+      };
+
+      const pF = calcProgress(foundationArticles);
+      const pI = calcProgress(intermediateArticles);
+      const pA = calcProgress(advancedArticles);
+
+      document.getElementById('progress-text-foundation').textContent = `${pF}%`;
+      document.getElementById('progress-bar-foundation').style.width = `${pF}%`;
+      
+      document.getElementById('progress-text-intermediate').textContent = `${pI}%`;
+      document.getElementById('progress-bar-intermediate').style.width = `${pI}%`;
+
+      document.getElementById('progress-text-advanced').textContent = `${pA}%`;
+      document.getElementById('progress-bar-advanced').style.width = `${pA}%`;
     }
   };
 
@@ -109,11 +147,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const showExploreView = () => {
     if (curriculumView) curriculumView.style.display = 'none';
     if (exploreView) exploreView.style.display = 'block';
+    
+    const btnC = document.getElementById('btn-view-curriculum');
+    const btnE = document.getElementById('btn-view-explore');
+    if(btnC && btnE) {
+      btnC.className = 'btn-secondary';
+      btnC.style.background = 'rgba(255,255,255,0.05)';
+      btnC.style.border = '1px solid var(--border-color)';
+      btnC.style.color = 'var(--text-dim)';
+      
+      btnE.className = 'btn-primary';
+      btnE.style.background = '';
+      btnE.style.border = '';
+      btnE.style.color = '';
+    }
   };
 
   const showCurriculumView = () => {
-    showExploreView(); // Forced to explore view
+    if (exploreView) exploreView.style.display = 'none';
+    if (curriculumView) curriculumView.style.display = 'block';
+    
+    const btnC = document.getElementById('btn-view-curriculum');
+    const btnE = document.getElementById('btn-view-explore');
+    if(btnC && btnE) {
+      btnE.className = 'btn-secondary';
+      btnE.style.background = 'rgba(255,255,255,0.05)';
+      btnE.style.border = '1px solid var(--border-color)';
+      btnE.style.color = 'var(--text-dim)';
+      
+      btnC.className = 'btn-primary';
+      btnC.style.background = '';
+      btnC.style.border = '';
+      btnC.style.color = '';
+    }
   };
+
+  const btnViewCurriculum = document.getElementById('btn-view-curriculum');
+  const btnViewExplore = document.getElementById('btn-view-explore');
+  if (btnViewCurriculum) btnViewCurriculum.addEventListener('click', showCurriculumView);
+  if (btnViewExplore) btnViewExplore.addEventListener('click', showExploreView);
 
   const filterArticles = () => {
     let filtered = articles;
