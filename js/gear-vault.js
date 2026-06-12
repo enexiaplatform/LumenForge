@@ -294,11 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setTimeout(() => {
       const step = QUIZ_STEPS[currentStep];
-      qProgress.style.width = \`\${((currentStep) / QUIZ_STEPS.length) * 100}%\`;
+      qProgress.style.width = `${((currentStep) / QUIZ_STEPS.length) * 100}%`;
       qQuestion.textContent = step.question;
       
-      qOptions.innerHTML = step.options.map((opt, idx) => \`
-        <button class="quiz-btn" data-val="\${opt.value}" style="
+      qOptions.innerHTML = step.options.map((opt, idx) => `
+        <button class="quiz-btn" data-val="${opt.value}" style="
           background: rgba(255,255,255,0.05); 
           border: 1px solid var(--border-color); 
           padding: 15px 20px; 
@@ -309,9 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
           transition: all 0.2s;
           text-align: left;
         " onmouseover="this.style.borderColor='var(--accent-cyan)'; this.style.background='rgba(0, 212, 255, 0.1)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='rgba(255,255,255,0.05)';">
-          \${opt.label}
+          ${opt.label}
         </button>
-      \`).join('');
+      `).join('');
 
       const btns = qOptions.querySelectorAll('.quiz-btn');
       btns.forEach(b => {
@@ -380,14 +380,16 @@ document.addEventListener('DOMContentLoaded', () => {
     resultDesc.textContent = comboDesc;
     resultTitle.style.color = accentColor;
     
-    resultItems.innerHTML = items.map(i => \`<li>\${i}</li>\`).join('');
+    resultItems.innerHTML = items.map(i => `<li>${i}</li>`).join('');
     resultLink.href = affLink;
 
     // Fade in result
     setTimeout(() => {
       qResult.style.opacity = '1';
     }, 50);
-  }
+
+  }, 300);
+}
 
   if(matchmakerBtn && matchmakerModal) {
     matchmakerBtn.addEventListener('click', startQuiz);
