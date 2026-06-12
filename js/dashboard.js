@@ -92,7 +92,33 @@ function initDashboard() {
         });
     }
 
-    // 5. Purchases & Binder
+    // 5. Purchases / Inventory
+    const inventoryList = document.getElementById('inventory-list');
+    if (inventoryList) {
+        if (lfAuth.purchases.length === 0) {
+            inventoryList.innerHTML = '<li style="color: var(--text-dim); font-style: italic;">Bạn chưa sở hữu tài liệu nào. <a href="store.html" style="color: var(--accent-amber);">Ghé thăm Store</a></li>';
+        } else {
+            inventoryList.innerHTML = '';
+            lfAuth.purchases.forEach(p => {
+                const li = document.createElement('li');
+                li.style.marginBottom = "15px";
+                li.style.padding = "10px";
+                li.style.background = "rgba(255,255,255,0.05)";
+                li.style.borderRadius = "8px";
+                li.style.borderLeft = "3px solid var(--accent-amber)";
+                
+                const date = new Date(p.timestamp).toLocaleDateString('vi-VN');
+                li.innerHTML = `
+                    <div style="font-weight: bold; font-size: 1.1rem; color: #fff;">${p.data.name}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px;">Loại: ${p.data.type} • Mở khóa ngày: ${date}</div>
+                    <button class="btn-primary" style="margin-top: 10px; padding: 5px 15px; font-size: 0.85rem;" onclick="alert('Đang mô phỏng mở/tải tài liệu...')">Tải xuống / Xem</button>
+                `;
+                inventoryList.appendChild(li);
+            });
+        }
+    }
+
+    // Binder (legacy)
     const binderBtn = document.getElementById('btn-print-binder');
     if (binderBtn) {
         if (lfAuth.hasPurchased('ebook-chiaroscuro')) {

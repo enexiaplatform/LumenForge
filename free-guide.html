@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhận Miễn Phí Bộ Sơ Đồ Ánh Sáng Điện Ảnh - LumenForge</title>
+  <meta name="description" content="Tải ngay bộ tài liệu độc quyền: 5 sơ đồ đánh sáng tạo chiều sâu 3D cho ảnh chân dung chỉ với 1 đèn.">
+  
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <link rel="stylesheet" href="css/design-system.css">
+  
+  <style>
+    /* Squeeze Page Specific Styles */
+    body {
+      background-color: #050505;
+      font-family: var(--font-sans);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    .squeeze-container {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    
+    @media (min-width: 992px) {
+      .squeeze-container {
+        flex-direction: row;
+      }
+    }
+
+    /* Left Side: The Visuals / VSL (Video Sales Letter) area */
+    .squeeze-visual {
+      flex: 1;
+      background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 50%, rgba(5,5,5,1) 100%), 
+                  url('https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      position: relative;
+    }
+    
+    .squeeze-visual::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1;
+    }
+    
+    .visual-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .visual-content h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
+    
+    .visual-content h2 span {
+      color: var(--accent-cyan);
+    }
+
+    /* Right Side: The Form Area */
+    .squeeze-form-area {
+      flex: 1;
+      max-width: 600px;
+      background: #0A0A0C;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+      box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+      z-index: 5;
+    }
+
+    .form-header {
+      margin-bottom: 40px;
+    }
+
+    .form-header .badge {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .form-header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+
+    .form-header p {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* The Form */
+    .optin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 1rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      background: rgba(0, 212, 255, 0.05);
+    }
+
+    .btn-submit {
+      background: var(--accent-cyan);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 18px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-submit.loading {
+      opacity: 0.8;
+      cursor: not-allowed;
+    }
+
+    .privacy-notice {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 20px;
+    }
+
+    /* Bullet Points */
+    .benefit-list {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+    }
+
+    .benefit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 15px;
+      color: #ccc;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .benefit-list li svg {
+      flex-shrink: 0;
+      color: var(--accent-cyan);
+      margin-top: 3px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="squeeze-container">
+    
+    <!-- Left: Visual/Emotional Appeal -->
+    <div class="squeeze-visual">
+      <div class="visual-content">
+        <h2>Đừng vứt đi bức ảnh <br><span>thiếu sáng</span>!</h2>
+        <p style="font-size: 1.2rem; color: #ddd; max-width: 500px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+          Học cách điêu khắc bóng tối để biến mọi bức ảnh chân dung phẳng lì thành tác phẩm mang đậm chất điện ảnh.
+        </p>
+      </div>
+    </div>
+
+    <!-- Right: Action Area -->
+    <div class="squeeze-form-area">
+      <div class="form-header">
+        <div class="badge">Miễn phí 100%</div>
+        <h1>Tải ngay bộ: 5 Sơ đồ Ánh sáng Điện ảnh (PDF)</h1>
+        <p>Bí quyết xếp đèn của các Đạo diễn hình ảnh hàng đầu Hollywood. Kèm theo quyền truy cập tức thì vào <strong>LumenForge Dashboard</strong> của bạn.</p>
+      </div>
+
+      <ul class="benefit-list">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Sơ đồ đặt Key Light, Fill Light rõ ràng từng centimet.
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Chỉ cần 1 cây đèn (thậm chí đèn bàn) cũng có thể tạo khối 3D.
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Nhận ngay 10 File LUT màu Cyberpunk tặng kèm.
+        </li>
+      </ul>
+
+      <form id="optin-form" class="optin-form">
+        <div class="input-group">
+          <input type="text" id="optin-name" placeholder="Tên của bạn" required>
+        </div>
+        <div class="input-group">
+          <input type="email" id="optin-email" placeholder="Email nhận tài liệu" required>
+        </div>
+        
+        <button type="submit" class="btn-submit" id="btn-submit">
+          Gửi Tài Liệu Cho Tôi &rarr;
+        </button>
+      </form>
+
+      <div class="privacy-notice">
+        🔒 Chúng tôi cam kết bảo mật thông tin của bạn. Không Spam.
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('optin-form');
+      const btnSubmit = document.getElementById('btn-submit');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById('optin-name').value;
+        const email = document.getElementById('optin-email').value;
+        
+        if(!name || !email) return;
+
+        // Visual loading state
+        btnSubmit.classList.add('loading');
+        btnSubmit.innerHTML = 'Đang thiết lập không gian... ⏳';
+
+        // Fake network request
+        setTimeout(() => {
+          // 1. Force Login / Create Account
+          if (typeof lfAuth !== 'undefined') {
+            lfAuth.login(email, 'password123'); // auto-login with dummy pass
+            
+            // 2. Add the Gift to their purchases/inventory
+            lfAuth.addPurchase('free-guide-5-lighting-setups', {
+              name: '5 Sơ đồ Ánh sáng Điện ảnh (PDF)',
+              type: 'Ebook',
+              unlockedAt: Date.now()
+            });
+          }
+
+          // 3. Redirect to dashboard
+          window.location.href = 'dashboard.html';
+          
+        }, 1500);
+      });
+    });
+  </script>
+
+</body>
+</html>
