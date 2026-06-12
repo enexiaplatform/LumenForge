@@ -222,17 +222,158 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   renderGear();
 
-  // Matchmaker functionality
+  // ==========================================
+  // MATCHMAKER QUIZ LOGIC
+  // ==========================================
   const matchmakerBtn = document.getElementById('matchmaker-btn');
   const matchmakerModal = document.getElementById('matchmaker-modal');
   const matchmakerClose = document.getElementById('matchmaker-close');
   
-  if(matchmakerBtn && matchmakerModal) {
-    matchmakerBtn.addEventListener('click', () => {
-      matchmakerModal.classList.add('active');
+  const qContainer = document.getElementById('quiz-container');
+  const qResult = document.getElementById('quiz-result');
+  const qQuestion = document.getElementById('quiz-question');
+  const qOptions = document.getElementById('quiz-options');
+  const qProgress = document.getElementById('quiz-progress');
+  const btnRestart = document.getElementById('btn-restart-quiz');
+
+  const resultTitle = document.getElementById('result-combo-name');
+  const resultDesc = document.getElementById('result-combo-desc');
+  const resultItems = document.getElementById('result-items-list');
+  const resultLink = document.getElementById('result-affiliate-link');
+
+  let currentStep = 0;
+  let userAnswers = {}; // { budget, style, genre }
+
+  const QUIZ_STEPS = [
+    {
+      id: 'budget',
+      question: 'Ngân sách đầu tư thiết bị của bạn khoảng bao nhiêu?',
+      options: [
+        { label: 'Dưới 20 triệu (Khởi đầu)', value: 'low' },
+        { label: '20 - 50 triệu (Nghiêm túc)', value: 'mid' },
+        { label: 'Không quan trọng tiền bạc', value: 'high' }
+      ]
+    },
+    {
+      id: 'genre',
+      question: 'Bạn chủ yếu chụp / quay thể loại gì?',
+      options: [
+        { label: 'Chụp Chân dung / Phong cảnh', value: 'photo' },
+        { label: 'Quay Phim / Commercial Video', value: 'video' },
+        { label: 'Nhiếp ảnh Đường phố (Street)', value: 'street' }
+      ]
+    },
+    {
+      id: 'style',
+      question: 'Gu thiết kế máy ảnh mà bạn thích nhất?',
+      options: [
+        { label: 'Gọn nhẹ, Hiện đại (Tiện lợi)', value: 'modern' },
+        { label: 'Hầm hố, Cầm đầm tay (Pro)', value: 'pro' },
+        { label: 'Hoài cổ, Vintage (Nghệ thuật)', value: 'vintage' }
+      ]
+    }
+  ];
+
+  function startQuiz() {
+    currentStep = 0;
+    userAnswers = {};
+    qContainer.style.display = 'flex';
+    qResult.style.display = 'none';
+    renderStep();
+    matchmakerModal.classList.add('active');
+  }
+
+  function renderStep() {
+    if (currentStep >= QUIZ_STEPS.length) {
+      showResult();
+      return;
+    }
+
+    const step = QUIZ_STEPS[currentStep];
+    qProgress.style.width = \`\${((currentStep) / QUIZ_STEPS.length) * 100}%\`;
+    qQuestion.textContent = step.question;
+    
+    qOptions.innerHTML = step.options.map((opt, idx) => \`
+      <button class="quiz-btn" data-val="\${opt.value}" style="
+        background: rgba(255,255,255,0.05); 
+        border: 1px solid var(--border-color); 
+        padding: 15px 20px; 
+        border-radius: 8px; 
+        color: #fff; 
+        font-size: 1.1rem; 
+        cursor: pointer; 
+        transition: all 0.2s;
+        text-align: left;
+      " onmouseover="this.style.borderColor='var(--accent-cyan)'; this.style.background='rgba(0, 212, 255, 0.1)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='rgba(255,255,255,0.05)';">
+        \${opt.label}
+      </button>
+    \`).join('');
+
+    const btns = qOptions.querySelectorAll('.quiz-btn');
+    btns.forEach(b => {
+      b.addEventListener('click', (e) => {
+        userAnswers[step.id] = e.target.getAttribute('data-val');
+        currentStep++;
+        renderStep();
+      });
     });
+  }
+
+  function showResult() {
+    qProgress.style.width = '100%';
+    qContainer.style.display = 'none';
+    qResult.style.display = 'flex';
+
+    // Simple Decision Tree Logic
+    let comboName = "";
+    let comboDesc = "";
+    let items = [];
+    let affLink = "https://s.shopee.vn/7Ab6jgoH1H"; // Default
+    let accentColor = "var(--accent-amber)";
+
+    // 1. Street + Vintage
+    if (userAnswers.genre === 'street' || userAnswers.style === 'vintage') {
+      comboName = "Fujifilm X-T30 II + XF 27mm f/2.8";
+      comboDesc = "Combo hoàn hảo cho nhiếp ảnh đường phố. Giả lập màu Film trứ danh của Fujifilm giúp bạn có ảnh đẹp ngay lập tức mà không cần hậu kỳ.";
+      items = ["Thân máy Fujifilm X-T30 II (Bạc)", "Ống kính Pancake XF 27mm f/2.8 WR", "Thẻ nhớ SanDisk Extreme Pro 64GB"];
+      affLink = "https://s.shopee.vn/8pjKj2iYzJ"; // Dummy link
+    } 
+    // 2. Video + High/Mid Budget
+    else if (userAnswers.genre === 'video' && (userAnswers.budget === 'mid' || userAnswers.budget === 'high')) {
+      comboName = "Sony FX30 + Sigma 18-50mm f/2.8";
+      comboDesc = "Lựa chọn số 1 cho các nhà làm phim tự do. Sony FX30 cung cấp chất lượng 10-bit 4:2:2 chuẩn điện ảnh trong một thân máy nhỏ gọn có quạt tản nhiệt.";
+      items = ["Máy quay phim Sony FX30 Cinema Line", "Ống kính Sigma 18-50mm f/2.8 DC DN", "Đèn Godox SL60IID (Key Light)"];
+      affLink = "https://s.shopee.vn/123456789"; 
+      accentColor = "var(--accent-pink)";
+    }
+    // 3. Photo + Mid Budget
+    else if (userAnswers.genre === 'photo' && userAnswers.budget === 'mid') {
+      comboName = "Sony A7C + Tamron 28-200mm";
+      comboDesc = "Cỗ máy Full-frame siêu gọn nhẹ. Phù hợp cho chụp chân dung, phong cảnh và du lịch nhờ hệ thống Autofocus bá đạo của Sony.";
+      items = ["Máy ảnh Sony A7C Full-frame", "Ống kính Đa dụng Tamron 28-200mm f/2.8-5.6", "Tủ chống ẩm Andbon 30L"];
+    }
+    // 4. Default: Low budget or generic
+    else {
+      comboName = "Canon EOS R50 + RF-S 18-45mm + 50mm f/1.8";
+      comboDesc = "Combo quốc dân vô địch tầm giá rẻ. Chụp chân dung xóa phông mù mịt với ống kính 50mm f/1.8, hệ thống lấy nét siêu nhanh.";
+      items = ["Máy ảnh Canon EOS R50", "Ống kính chân dung RF 50mm f/1.8 STM", "Đèn Flash Godox TT685 II"];
+      affLink = "https://s.shopee.vn/qh3BVYuxU";
+      accentColor = "var(--accent-cyan)";
+    }
+
+    resultTitle.textContent = comboName;
+    resultDesc.textContent = comboDesc;
+    resultTitle.style.color = accentColor;
+    
+    resultItems.innerHTML = items.map(i => \`<li>\${i}</li>\`).join('');
+    resultLink.href = affLink;
+  }
+
+  if(matchmakerBtn && matchmakerModal) {
+    matchmakerBtn.addEventListener('click', startQuiz);
     matchmakerClose.addEventListener('click', () => {
       matchmakerModal.classList.remove('active');
     });
+    btnRestart.addEventListener('click', startQuiz);
   }
 });
