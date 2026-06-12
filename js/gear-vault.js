@@ -289,42 +289,57 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const step = QUIZ_STEPS[currentStep];
-    qProgress.style.width = \`\${((currentStep) / QUIZ_STEPS.length) * 100}%\`;
-    qQuestion.textContent = step.question;
+    // Fade out
+    qContainer.style.opacity = '0';
     
-    qOptions.innerHTML = step.options.map((opt, idx) => \`
-      <button class="quiz-btn" data-val="\${opt.value}" style="
-        background: rgba(255,255,255,0.05); 
-        border: 1px solid var(--border-color); 
-        padding: 15px 20px; 
-        border-radius: 8px; 
-        color: #fff; 
-        font-size: 1.1rem; 
-        cursor: pointer; 
-        transition: all 0.2s;
-        text-align: left;
-      " onmouseover="this.style.borderColor='var(--accent-cyan)'; this.style.background='rgba(0, 212, 255, 0.1)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='rgba(255,255,255,0.05)';">
-        \${opt.label}
-      </button>
-    \`).join('');
+    setTimeout(() => {
+      const step = QUIZ_STEPS[currentStep];
+      qProgress.style.width = \`\${((currentStep) / QUIZ_STEPS.length) * 100}%\`;
+      qQuestion.textContent = step.question;
+      
+      qOptions.innerHTML = step.options.map((opt, idx) => \`
+        <button class="quiz-btn" data-val="\${opt.value}" style="
+          background: rgba(255,255,255,0.05); 
+          border: 1px solid var(--border-color); 
+          padding: 15px 20px; 
+          border-radius: 8px; 
+          color: #fff; 
+          font-size: 1.1rem; 
+          cursor: pointer; 
+          transition: all 0.2s;
+          text-align: left;
+        " onmouseover="this.style.borderColor='var(--accent-cyan)'; this.style.background='rgba(0, 212, 255, 0.1)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.background='rgba(255,255,255,0.05)';">
+          \${opt.label}
+        </button>
+      \`).join('');
 
-    const btns = qOptions.querySelectorAll('.quiz-btn');
-    btns.forEach(b => {
-      b.addEventListener('click', (e) => {
-        userAnswers[step.id] = e.target.getAttribute('data-val');
-        currentStep++;
-        renderStep();
+      const btns = qOptions.querySelectorAll('.quiz-btn');
+      btns.forEach(b => {
+        b.addEventListener('click', (e) => {
+          userAnswers[step.id] = e.target.getAttribute('data-val');
+          currentStep++;
+          renderStep();
+        });
       });
-    });
+
+      // Fade in
+      qContainer.style.transition = 'opacity 0.3s ease';
+      qContainer.style.opacity = '1';
+    }, 300); // Wait for fade out
   }
 
   function showResult() {
-    qProgress.style.width = '100%';
-    qContainer.style.display = 'none';
-    qResult.style.display = 'flex';
+    qContainer.style.opacity = '0';
+    
+    setTimeout(() => {
+      qProgress.style.width = '100%';
+      qContainer.style.display = 'none';
+      
+      qResult.style.opacity = '0';
+      qResult.style.display = 'flex';
+      qResult.style.transition = 'opacity 0.5s ease';
 
-    // Simple Decision Tree Logic
+      // Simple Decision Tree Logic
     let comboName = "";
     let comboDesc = "";
     let items = [];
@@ -367,6 +382,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     resultItems.innerHTML = items.map(i => \`<li>\${i}</li>\`).join('');
     resultLink.href = affLink;
+
+    // Fade in result
+    setTimeout(() => {
+      qResult.style.opacity = '1';
+    }, 50);
   }
 
   if(matchmakerBtn && matchmakerModal) {

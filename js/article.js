@@ -17,8 +17,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. Float Bookmark Button ---
     const isBookmarked = lfAuth.isBookmarked(articleId);
+    
+    const styleHTML = `
+      <style>
+        #btn-bookmark {
+          position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; 
+          background: var(--bg-card); border: 2px solid var(--border-color); color: var(--text-secondary); 
+          font-size: 1.5rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+          transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
+        }
+        #btn-bookmark.active {
+          border-color: var(--accent-amber);
+          color: var(--accent-amber);
+          box-shadow: 0 4px 15px rgba(245, 166, 35, 0.4);
+        }
+        @media (max-width: 768px) {
+          #btn-bookmark { bottom: 20px; right: 20px; opacity: 0.85; transform: scale(0.9); }
+          #btn-bookmark:hover { opacity: 1; transform: scale(1); }
+        }
+      </style>
+    `;
+    document.head.insertAdjacentHTML('beforeend', styleHTML);
+
     const bookmarkBtnHTML = `
-        <button id="btn-bookmark" style="position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: var(--bg-card); border: 2px solid ${isBookmarked ? 'var(--accent-amber)' : 'var(--border-color)'}; color: ${isBookmarked ? 'var(--accent-amber)' : 'var(--text-secondary)'}; font-size: 1.5rem; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: all 0.3s ease;">
+        <button id="btn-bookmark" class="${isBookmarked ? 'active' : ''}">
             ★
         </button>
     `;
@@ -33,8 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const res = lfAuth.toggleBookmark(articleId, articleData);
         if (res.success) {
-            btnBookmark.style.borderColor = res.isBookmarked ? 'var(--accent-amber)' : 'var(--border-color)';
-            btnBookmark.style.color = res.isBookmarked ? 'var(--accent-amber)' : 'var(--text-secondary)';
+            if (res.isBookmarked) {
+                btnBookmark.classList.add('active');
+            } else {
+                btnBookmark.classList.remove('active');
+            }
         }
     });
 

@@ -63,7 +63,13 @@ function initDashboard() {
     const bookmarkList = document.getElementById('bookmark-list');
     if (bookmarkList) {
         if (lfAuth.bookmarks.length === 0) {
-            bookmarkList.innerHTML = '<li style="color: var(--text-dim); font-style: italic;">Bạn chưa lưu bài viết nào.</li>';
+            bookmarkList.innerHTML = `
+              <div style="text-align: center; padding: 30px 10px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;">🔖</div>
+                <div style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem;">Thư viện trống. Hãy lưu lại các bài viết hữu ích để đọc lại sau.</div>
+                <a href="light-codex.html" class="btn-secondary" style="padding: 8px 16px; font-size: 0.85rem;">Khám phá Light Codex</a>
+              </div>
+            `;
         } else {
             bookmarkList.innerHTML = '';
             lfAuth.bookmarks.forEach(b => {
@@ -96,7 +102,13 @@ function initDashboard() {
     const inventoryList = document.getElementById('inventory-list');
     if (inventoryList) {
         if (lfAuth.purchases.length === 0) {
-            inventoryList.innerHTML = '<li style="color: var(--text-dim); font-style: italic;">Bạn chưa sở hữu tài liệu nào. <a href="store.html" style="color: var(--accent-amber);">Ghé thăm Store</a></li>';
+            inventoryList.innerHTML = `
+              <div style="text-align: center; padding: 40px 10px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px;">
+                <div style="font-size: 2.5rem; margin-bottom: 10px; opacity: 0.5;">📦</div>
+                <div style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">Bạn chưa sở hữu tài liệu hay preset nào.</div>
+                <a href="store.html" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Ghé thăm Store</a>
+              </div>
+            `;
         } else {
             inventoryList.innerHTML = '';
             lfAuth.purchases.forEach(p => {
