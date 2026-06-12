@@ -78,8 +78,17 @@ function openCheckoutModal(productId, priceVnd) {
             <div style="margin-top: 30px;">
               <h5 style="margin: 0 0 10px 0; font-size: 0.95rem;">Bước 2: Xác nhận Email nhận hàng</h5>
               <input type="email" id="checkout-email" placeholder="Nhập email của bạn (Ví dụ: abc@gmail.com)" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; margin-bottom: 15px;">
-              <button onclick="submitCheckout()" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 6px; font-weight: bold;">Xác nhận Đã chuyển khoản</button>
+              <button id="btn-submit-checkout" onclick="submitCheckout('${productId}')" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; position: relative;">
+                <span id="checkout-btn-text">Xác nhận Đã chuyển khoản</span>
+                <div id="checkout-spinner" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite;"></div>
+              </button>
             </div>
+
+            <style>
+              @keyframes spin { 
+                to { transform: translate(-50%, -50%) rotate(360deg); } 
+              }
+            </style>
 
           </div>
 
@@ -114,13 +123,53 @@ function switchTab(tabId) {
   document.getElementById('btn-' + tabId).style.color = 'var(--accent-amber)';
 }
 
-function submitCheckout() {
+// Product Metadata Mapper
+const PRODUCT_MAP = {
+  'ebook-chiaroscuro': { title: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', link: 'assets/pdf/Chiaroscuro_Mastery.pdf' },
+  'ebook-color': { title: 'Tâm lý học Màu sắc trong Điện ảnh', link: 'assets/pdf/Color_Psychology.pdf' },
+  'preset-film': { title: 'Analog Film Emulation Pack (10 Presets)', link: 'assets/presets/Analog_Film.zip' },
+  'preset-cyberpunk': { title: 'Cyberpunk Neon Nights (5 LUTs)', link: 'assets/presets/Cyberpunk_LUTs.zip' }
+};
+
+function submitCheckout(productId) {
   const email = document.getElementById('checkout-email').value;
   if (!email || !email.includes('@')) {
     alert('Vui lòng nhập Email hợp lệ để nhận File!');
     return;
   }
   
-  alert(`Cảm ơn bạn! Hệ thống đang xác minh giao dịch.\n\nLink tải File sẽ được tự động gửi đến [${email}] ngay sau khi tiền nổi. Vui lòng kiểm tra cả hộp thư rác (Spam).`);
-  closeCheckoutModal();
+  const btnText = document.getElementById('checkout-btn-text');
+  const spinner = document.getElementById('checkout-spinner');
+  const btn = document.getElementById('btn-submit-checkout');
+  
+  // Show Loading state
+  btn.disabled = true;
+  btn.style.opacity = '0.8';
+  btnText.style.opacity = '0';
+  spinner.style.display = 'block';
+
+  // Fake network delay (2 seconds) to simulate checking bank transaction
+  setTimeout(() => {
+    // 1. Auto-login / Create account if not logged in
+    if (!lfAuth.isLoggedIn()) {
+      lfAuth.login(email, 'auto-generated');
+    }
+
+    // 2. Add item to Inventory
+    const productMeta = PRODUCT_MAP[productId] || { title: productId, link: '#' };
+    lfAuth.addPurchase(productId, productMeta);
+
+    // 3. Success Feedback
+    spinner.style.display = 'none';
+    btnText.style.opacity = '1';
+    btnText.textContent = 'Thành công!';
+    btn.style.background = 'var(--accent-cyan)';
+    
+    setTimeout(() => {
+      alert(`Giao dịch thành công!\n\nTài liệu đã được thêm vào Dashboard của bạn (${email}).\nHệ thống sẽ tự động chuyển hướng...`);
+      closeCheckoutModal();
+      window.location.href = 'dashboard.html';
+    }, 500);
+
+  }, 2000);
 }
