@@ -55,156 +55,55 @@
     <p class="hero-subtitle">Công cụ tương tác cho nhiếp ảnh gia</p>
   </section>
 
-  <!-- Tool Categories -->
-  <section class="section">
+  <!-- App Store Interface -->
+  <section class="section" style="padding-top: 0;">
     <div class="container">
       
-      <!-- Category 1: Flagship Labs -->
-      <div class="tool-category">
-        <h2 class="category-title">01 // Flagship Labs</h2>
-        <p class="category-desc">Bộ công cụ cốt lõi làm nên sức mạnh của LumenForge.</p>
-        <div class="tool-gallery">
-          <a href="tools/lighting-builder.html" class="tool-gallery-card" data-accent="amber">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=800&auto=format&fit=crop');">
-              <div class="tool-status-badge">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Lighting Diagram Builder</h3>
-              <p>Kéo thả vật thể và đèn để tự vẽ sơ đồ ánh sáng 2D chuyên nghiệp.</p>
-            </div>
-          </a>
-          <a href="tools/frame-analyzer.html" class="tool-gallery-card" data-accent="cyan">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-cyan);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Cinematic Frame Analyzer</h3>
-              <p>Upload ảnh để AI trích xuất Color Palette và lưới Bố cục.</p>
-            </div>
-          </a>
+      <!-- Toolbar -->
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-xl); background: var(--bg-card); padding: var(--space-md); border-radius: var(--radius-lg); border: 1px solid var(--border-color); align-items: center; position: sticky; top: 80px; z-index: 50;">
+        
+        <input type="text" id="search-input" placeholder="Tìm kiếm công cụ..." style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); color: #fff; padding: 12px 20px; border-radius: 30px; font-size: 1rem;">
+        
+        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;">
+          <button class="filter-btn active" data-filter="all">Tất cả (38)</button>
+          <button class="filter-btn" data-filter="ai">AI & Flagship</button>
+          <button class="filter-btn" data-filter="light">Ánh Sáng</button>
+          <button class="filter-btn" data-filter="color">Màu Sắc</button>
+          <button class="filter-btn" data-filter="optics">Quang Học</button>
         </div>
       </div>
 
-      <!-- Category 2: Physics Simulators -->
-      <div class="tool-category">
-        <h2 class="category-title">02 // 3D Simulators</h2>
-        <p class="category-desc">Mô phỏng vật lý ánh sáng và quang học theo thời gian thực.</p>
-        <div class="tool-gallery">
-          <a href="tools/shadow-simulator.html" class="tool-gallery-card" data-accent="amber">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=800&auto=format&fit=crop');">
-              <div class="tool-status-badge">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>3D Shadow Simulator</h3>
-              <p>Giả lập hướng đổ bóng của gương mặt trong không gian 3D.</p>
-            </div>
-          </a>
-          <a href="tools/fov-simulator.html" class="tool-gallery-card" data-accent="cyan">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-cyan);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>FOV Simulator</h3>
-              <p>Mô phỏng góc nhìn và hiệu ứng nén phối cảnh theo tiêu cự.</p>
-            </div>
-          </a>
-        </div>
-      </div>
+      <style>
+        .filter-btn {
+          background: transparent;
+          border: 1px solid var(--border-color);
+          color: var(--text-secondary);
+          padding: 8px 16px;
+          border-radius: 20px;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all 0.2s ease;
+        }
+        .filter-btn:hover {
+          color: #fff;
+          border-color: rgba(255,255,255,0.3);
+        }
+        .filter-btn.active {
+          background: var(--accent-amber);
+          color: #000;
+          border-color: var(--accent-amber);
+          font-weight: bold;
+        }
+      </style>
 
-      <!-- Category 3: Physics Calculators -->
-      <div class="tool-category">
-        <h2 class="category-title">03 // Physics Calculators</h2>
-        <p class="category-desc">Máy tính kỹ thuật số phục vụ tính toán nhiếp ảnh.</p>
-        <div class="tool-gallery 3-cols">
-          <a href="tools/lens-decoder.html" class="tool-gallery-card" data-accent="blue">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Lens Decoder</h3>
-              <p>Giải mã tính cách thấu kính của bạn.</p>
-            </div>
-          </a>
-          <a href="tools/dof-calculator.html" class="tool-gallery-card" data-accent="blue">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>DOF Calculator</h3>
-              <p>Tính toán độ sâu trường ảnh và Hyperfocal.</p>
-            </div>
-          </a>
-          <a href="tools/exposure-reactor.html" class="tool-gallery-card" data-accent="blue">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-blue);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Exposure Reactor</h3>
-              <p>Playground cho tam giác phơi sáng.</p>
-            </div>
-          </a>
-        </div>
+      <!-- App Grid -->
+      <div class="tool-gallery 3-cols" id="app-grid">
+        <!-- Rendered dynamically by js/tools-app.js -->
       </div>
-
-      <!-- Category 4: Production & AI -->
-      <div class="tool-category">
-        <h2 class="category-title">04 // Production & AI</h2>
-        <p class="category-desc">Trợ lý ảo và hệ thống quản lý sản xuất tiền kỳ.</p>
-        <div class="tool-gallery 3-cols">
-          <a href="tools/shoot-planner.html" class="tool-gallery-card" data-accent="film">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-film); color: #000;">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Shoot Planner</h3>
-              <p>In Call Sheet cho Ekip sản xuất.</p>
-            </div>
-          </a>
-          <a href="tools/ai-storyboard.html" class="tool-gallery-card" data-accent="purple">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1681423851532-6a45bd4a1c53?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-purple);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>AI Prompt Builder</h3>
-              <p>Tạo Prompt Midjourney chuẩn điện ảnh.</p>
-            </div>
-          </a>
-          <a href="tools/posing-guide.html" class="tool-gallery-card" data-accent="purple">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-purple);">Hoạt động</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Posing Guide Library</h3>
-              <p>Bách khoa toàn thư tư thế tạo dáng.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <!-- Category 5: Knowledge Systems -->
-      <div class="tool-category">
-        <h2 class="category-title" style="color: var(--accent-amber);">05 // Knowledge Systems</h2>
-        <p class="category-desc">Hệ thống ôn tập và đánh giá năng lực thị giác (Spaced Repetition).</p>
-        <div class="tool-gallery 3-cols">
-          <a href="tools/flashcards.html" class="tool-gallery-card" style="border-color: var(--accent-amber);">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: var(--accent-amber); color: #000;">Mới</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>LumenCards (SRS)</h3>
-              <p>Ôn tập thẻ ghi nhớ bằng thuật toán lặp lại ngắt quãng.</p>
-            </div>
-          </a>
-          <a href="tools/mastery-quiz.html" class="tool-gallery-card" style="border-color: #d4af37;">
-            <div class="tool-gallery-img" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop');">
-              <div class="tool-status-badge" style="background: #d4af37; color: #000;">FINAL BOSS</div>
-            </div>
-            <div class="tool-gallery-content">
-              <h3>Mastery Exam</h3>
-              <p>Bài thi kiểm tra năng lực và phân loại Archetype.</p>
-            </div>
-          </a>
-        </div>
+      
+      <div id="no-results" style="display: none; text-align: center; padding: 50px 0; color: var(--text-dim);">
+        <h3>Không tìm thấy công cụ phù hợp.</h3>
+        <p>Vui lòng thử từ khóa khác.</p>
       </div>
 
     </div>
@@ -242,5 +141,7 @@
 
   <script src="js/common.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/tools-db.js"></script>
+  <script src="js/tools-app.js"></script>
 </body>
 </html>
