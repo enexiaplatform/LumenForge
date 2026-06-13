@@ -1,6 +1,6 @@
 /**
  * LUMENFORGE DASHBOARD LOGIC
- * Interacts with js/auth.js (AuthSystem)
+ * Interacts with js/auth.js (AuthSystem) & js/supabase.js
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,12 +20,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function initDashboard() {
+// Auto-reinit when Supabase goes online
+document.addEventListener('supabaseReady', () => {
+    if (lfAuth.isLoggedIn()) {
+        initDashboard();
+    }
+});
+
+async function initDashboard() {
     const user = lfAuth.currentUser;
+    if (!user) return;
     
     // Complete Day 5 when opening the dashboard with transactions
-    const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
-    if (sales.length > 0) {
+    let salesCount = 0;
+    try {
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            const mySales = await window.lfSupabase.getMySales();
+            salesCount = mySales.length;
+        } else {
+            const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+            salesCount = sales.length;
+        }
+    } catch(e) {
+        console.error(e);
+    }
+
+    if (salesCount > 0) {
         localStorage.setItem('lf_visited_dashboard', 'true');
     }
     
@@ -46,15 +66,23 @@ function initDashboard() {
         quizXP = correct * 20; // 20 XP per correct answer
     }
     
-    // 10 XP per read article, 50 XP per standard purchase, and quizXP
-    const totalXp = readCount * 10 + lfAuth.purchases.length * 50 + quizXP;
+    // Calculate total XP: 10 XP per read article, 50 XP per standard purchase, and quizXP
+    // If Supabase is online, use user's saved XP in the database, otherwise calculate dynamically
+    const totalXp = (window.lfSupabase && window.lfSupabase.isOnline) 
+        ? (user.xp || 0) 
+        : (readCount * 10 + lfAuth.purchases.length * 50 + quizXP);
+
     if (xpEl) xpEl.innerText = totalXp + ' XP';
 
     const rankEl = document.getElementById('user-rank');
     if (rankEl) {
-        if (totalXp >= 1000) rankEl.textContent = 'Rank: Director of Photography';
-        else if (totalXp >= 300) rankEl.textContent = 'Rank: Advanced Shooter';
-        else rankEl.textContent = 'Rank: Novice';
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            rankEl.textContent = `Rank: ${user.rank || 'Novice'}`;
+        } else {
+            if (totalXp >= 1000) rankEl.textContent = 'Rank: Director of Photography';
+            else if (totalXp >= 300) rankEl.textContent = 'Rank: Advanced Shooter';
+            else rankEl.textContent = 'Rank: Novice';
+        }
     }
 
     // 3. Render Progress
@@ -107,7 +135,6 @@ function initDashboard() {
             });
         }
     }
-
     
     // Render Recently Read
     const recentList = document.getElementById('recent-list');
@@ -168,8 +195,8 @@ function initDashboard() {
         }
     }
 
-    // 7. Render Creator Hub / Program Section
-    renderCreatorHub();
+    // 7. Render Creator Hub / Program Section (Asynchronous)
+    await renderCreatorHub();
 
     // 8. Handle Reset
     const resetBtn = document.getElementById('btn-reset');
@@ -208,20 +235,35 @@ function initDashboard() {
     }
 }
 
-function renderCreatorHub() {
+async function renderCreatorHub() {
     const container = document.getElementById('creator-hub-container');
     if (!container) return;
 
-    const isCreator = localStorage.getItem('lf_is_creator') === 'true';
-    const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+    const isCreator = localStorage.getItem('lf_is_creator') === 'true' || lfAuth.currentUser?.isCreator;
+    
+    let customProducts = [];
+    let creatorSales = [];
+
+    try {
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            const uid = lfAuth.currentUser?.id;
+            const allProducts = await window.lfSupabase.getAllProducts();
+            // Filter products owned by this creator
+            customProducts = allProducts.filter(p => p.creator_id === uid);
+            creatorSales = await window.lfSupabase.getMySales();
+        } else {
+            customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+            creatorSales = sales.filter(s => customProducts.some(cp => cp.id === s.productId));
+        }
+    } catch (e) {
+        console.error('[DASHBOARD] Failed loading creator hub data:', e);
+        customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+    }
 
     if (isCreator) {
-        // Calculate sales metrics based on simulated sales records
-        const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
-        const creatorSales = sales.filter(s => customProducts.some(cp => cp.id === s.productId));
-        
         const totalSales = creatorSales.length;
-        const totalRevenue = creatorSales.reduce((sum, s) => sum + s.price, 0);
+        const totalRevenue = creatorSales.reduce((sum, s) => sum + Number(s.price), 0);
         const formattedRevenue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalRevenue);
 
         container.innerHTML = `
@@ -282,8 +324,9 @@ function renderCreatorHub() {
                                     </td>
                                 </tr>
                             ` : customProducts.map(prod => {
-                                const priceStr = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price);
+                                const priceStr = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price || prod.priceVnd);
                                 const status = prod.status || 'draft';
+                                const type = prod.type || 'preset';
                                 
                                 let statusBadge = '';
                                 let actionButtons = '';
@@ -292,31 +335,31 @@ function renderCreatorHub() {
                                     statusBadge = `<span style="background: rgba(245, 158, 11, 0.15); color: #F59E0B; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(245, 158, 11, 0.3);">Nháp Cục Bộ</span>`;
                                     actionButtons = `
                                         <button onclick="downloadProductManifest('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-amber); color: #000; font-weight: bold; border-radius: 4px; margin-right: 5px;">Tải Manifest</button>
-                                        <a href="creator-onboarding.html" class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; display: inline-block;">Sửa</a>
+                                        <a href="creator-onboarding.html?edit=${prod.id}" class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; display: inline-block;">Sửa</a>
                                     `;
                                 } else if (status === 'testing') {
                                     statusBadge = `<span style="background: rgba(6, 182, 212, 0.15); color: #06B6D4; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(6, 182, 212, 0.3);">Đang Thử Nghiệm</span>`;
                                     actionButtons = `
                                         <button onclick="simulatePurchase('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-cyan); color: #000; font-weight: bold; border-radius: 4px; margin-right: 5px;">Test Mua</button>
-                                        <button onclick="submitProduct('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-purple); color: #fff; font-weight: bold; border-radius: 4px;">Gửi Duyệt</button>
+                                        <button onclick="submitProduct('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-purple, #8b5cf6); color: #fff; font-weight: bold; border-radius: 4px;">Gửi Duyệt</button>
                                     `;
                                 } else if (status === 'submitted') {
                                     statusBadge = `<span style="background: rgba(139, 92, 246, 0.15); color: #8B5CF6; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(139, 92, 246, 0.3); animation: pulse 2s infinite;">Chờ Deploy</span>`;
                                     actionButtons = `
-                                        <button onclick="approveProduct('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-green); color: #000; font-weight: bold; border-radius: 4px; margin-right: 5px;">Duyệt & Live</button>
+                                        <button onclick="approveProduct('${prod.id}')" class="btn-primary" style="padding: 4px 8px; font-size: 0.75rem; background: var(--accent-green, #10b981); color: #000; font-weight: bold; border-radius: 4px; margin-right: 5px;">Duyệt & Live</button>
                                         <button onclick="downloadProductManifest('${prod.id}')" class="btn-secondary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px;">Manifest</button>
                                     `;
                                 } else if (status === 'approved') {
                                     statusBadge = `<span style="background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; border: 1px solid rgba(16, 185, 129, 0.3);">Live CDN</span>`;
                                     actionButtons = `
-                                        <span style="font-size: 0.8rem; color: var(--accent-green); font-weight: bold; padding: 4px 8px;">✓ Sẵn sàng Kinh doanh</span>
+                                        <span style="font-size: 0.8rem; color: var(--accent-green, #10b981); font-weight: bold; padding: 4px 8px;">✓ Sẵn sàng Kinh doanh</span>
                                     `;
                                 }
 
                                 return `
                                     <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-secondary);">
                                         <td style="padding: 12px 5px; font-weight: bold; color: #fff;">${prod.name}</td>
-                                        <td style="padding: 12px 5px; text-transform: capitalize;">${prod.type === 'ebook' ? 'Ebook' : prod.type === 'preset' ? 'Presets' : 'LUTs'}</td>
+                                        <td style="padding: 12px 5px; text-transform: capitalize;">${type === 'ebook' ? 'Ebook' : type === 'preset' ? 'Presets' : 'LUTs'}</td>
                                         <td style="padding: 12px 5px; font-family: var(--font-mono);">${priceStr}</td>
                                         <td style="padding: 12px 5px;">${statusBadge}</td>
                                         <td style="padding: 12px 5px; text-align: right;">${actionButtons}</td>
@@ -373,15 +416,27 @@ function salesTableHtml(creatorSales) {
                 </thead>
                 <tbody>
                     ${creatorSales.slice().reverse().map(s => {
-                        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(s.price);
-                        const dateStr = new Date(s.timestamp).toLocaleString('vi-VN');
+                        const priceVal = s.price || s.priceVnd;
+                        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceVal);
+                        
+                        // Parse timestamp
+                        let dateStr = 'Unknown';
+                        if (s.created_at) {
+                            dateStr = new Date(s.created_at).toLocaleString('vi-VN');
+                        } else if (s.timestamp) {
+                            dateStr = new Date(s.timestamp).toLocaleString('vi-VN');
+                        }
+                        
+                        const buyerName = s.buyer_name || s.buyerName || 'Khách';
+                        const buyerEmail = s.buyer_email || s.buyerEmail || '';
+                        
                         return `
                             <tr style="border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-secondary);">
                                 <td style="padding: 10px 5px; font-family: var(--font-mono); color: var(--accent-cyan); font-weight: bold;">${s.id}</td>
-                                <td style="padding: 10px 5px; color: #fff;">${s.productName}</td>
-                                <td style="padding: 10px 5px; font-family: var(--font-mono);">${s.buyerEmail}</td>
+                                <td style="padding: 10px 5px; color: #fff;">${s.product_name || s.productName}</td>
+                                <td style="padding: 10px 5px; font-family: var(--font-mono);">${buyerEmail}</td>
                                 <td style="padding: 10px 5px; font-size: 0.8rem;">${dateStr}</td>
-                                <td style="padding: 10px 5px; text-align: right; color: var(--accent-green); font-weight: bold; font-family: var(--font-mono);">+${formattedPrice}</td>
+                                <td style="padding: 10px 5px; text-align: right; color: var(--accent-green, #10b981); font-weight: bold; font-family: var(--font-mono);">+${formattedPrice}</td>
                             </tr>
                         `;
                     }).join('')}
@@ -408,25 +463,69 @@ window.submitProduct = function(productId) {
     }
 };
 
-window.approveProduct = function(productId) {
-    const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-    const prodIndex = customProducts.findIndex(p => p.id === productId);
-    if (prodIndex > -1) {
-        customProducts[prodIndex].status = 'approved';
-        localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
-        
-        // Complete Day 7
-        localStorage.setItem('lf_manifest_submitted', 'true');
-        
-        alert('🎉 CHÚC MỪNG!\n\nSản phẩm đã được Admin Henry phê duyệt và chính thức Live trên Store LumenForge toàn cầu!');
-        
-        initDashboard();
+window.approveProduct = async function(productId) {
+    if (window.lfSupabase && window.lfSupabase.isOnline) {
+        try {
+            await window.lfSupabase.updateProductStatus(productId, 'approved');
+        } catch(e) {
+            console.error(e);
+        }
+    } else {
+        const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+        const prodIndex = customProducts.findIndex(p => p.id === productId);
+        if (prodIndex > -1) {
+            customProducts[prodIndex].status = 'approved';
+            localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+        }
     }
+    
+    // Complete Day 7
+    localStorage.setItem('lf_manifest_submitted', 'true');
+    
+    alert('🎉 CHÚC MỪNG!\n\nSản phẩm đã được Admin Henry phê duyệt và chính thức Live trên Store LumenForge toàn cầu!');
+    
+    initDashboard();
 };
 
-window.downloadProductManifest = function(productId) {
-    const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-    const prod = customProducts.find(p => p.id === productId);
+window.downloadProductManifest = async function(productId) {
+    let prod = null;
+    if (window.lfSupabase && window.lfSupabase.isOnline) {
+        try {
+            const { data } = await window.lfSupabase.client
+                .from('products')
+                .select('*')
+                .eq('id', productId)
+                .single();
+            if (data) {
+                // Map DB schema back to standard manifest format
+                prod = {
+                    id: data.id,
+                    name: data.name,
+                    creator: data.creator,
+                    creatorEmail: data.creator_email,
+                    bankName: data.bank_name,
+                    bankAccount: data.bank_account,
+                    bankOwner: data.bank_owner,
+                    momoNumber: data.momo_number,
+                    type: data.type,
+                    price: data.price,
+                    originalPrice: data.original_price,
+                    desc: data.description,
+                    coverUrl: data.cover_url,
+                    fileLink: data.file_link,
+                    status: data.status
+                };
+            }
+        } catch (e) {
+            console.error('[MANIFEST DOWNLOAD] Database error:', e);
+        }
+    }
+    
+    if (!prod) {
+        const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+        prod = customProducts.find(p => p.id === productId);
+    }
+
     if (!prod) return;
     
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(prod, null, 2));
@@ -439,7 +538,7 @@ window.downloadProductManifest = function(productId) {
 
     localStorage.setItem('lf_manifest_downloaded', 'true');
     
-    // Complete day 6
+    // Complete Day 6
     alert('✅ Manifest tải xuống thành công!\n\nBạn có thể gửi file cấu trúc này cho Henry (Admin) qua Telegram hoặc Email để deploy.');
     initDashboard();
 };

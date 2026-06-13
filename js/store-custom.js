@@ -1,62 +1,109 @@
 /**
  * LUMENFORGE CUSTOM STORE RENDERING
- * Dynamically loads creator products from localStorage and renders them in store.html
+ * Dynamically loads creator products from Supabase or localStorage fallback and renders them in store.html
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-    
-    if (customProducts.length === 0) return;
+    let hasRendered = false;
 
-    const ebooksGrid = document.getElementById('ebooks-grid');
-    const presetsGrid = document.getElementById('presets-grid');
+    async function initStore() {
+        if (hasRendered) return;
+        
+        let products = [];
+        try {
+            if (window.lfSupabase && window.lfSupabase.isOnline) {
+                products = await window.lfSupabase.getAllProducts();
+            } else {
+                products = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            }
+        } catch (e) {
+            console.error('[STORE] Failed to fetch products:', e);
+            products = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+        }
 
-    if (!ebooksGrid || !presetsGrid) {
-        console.error('Store grids not found. Make sure store.html is updated with IDs.');
-        return;
+        if (products.length === 0) return;
+        
+        // Mark as rendered to prevent double runs
+        hasRendered = true;
+
+        const ebooksGrid = document.getElementById('ebooks-grid');
+        const presetsGrid = document.getElementById('presets-grid');
+
+        if (!ebooksGrid || !presetsGrid) {
+            console.error('Store grids not found. Make sure store.html is updated with IDs.');
+            return;
+        }
+
+        // Clean out any custom cards (cards with 'creator-product' class) if we re-render
+        document.querySelectorAll('.creator-product-card').forEach(el => el.remove());
+
+        products.forEach(prod => {
+            const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price || prod.priceVnd);
+            const originalPrice = prod.originalPrice || prod.originalPriceVnd;
+            const formattedOriginal = originalPrice ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(originalPrice) : '';
+            const priceHTML = formattedOriginal ? `<span>${formattedOriginal}</span> ${formattedPrice}` : formattedPrice;
+
+            const tagMap = {
+                'ebook': 'Creator Ebook (PDF)',
+                'preset': 'Creator Presets & LUTs',
+                'lut': 'Creator Video LUTs (.CUBE)'
+            };
+            const type = prod.type || 'preset';
+            const tag = tagMap[type] || 'Creator Asset';
+
+            const status = prod.status || 'draft';
+            const isApproved = status === 'approved';
+            
+            // Only show to other users if approved. If unapproved (draft, testing, submitted), 
+            // only show to the creator who uploaded it as a test.
+            const currentUserId = lfAuth.currentUser?.id;
+            const creatorId = prod.creator_id;
+            
+            // If Supabase is online, check creator_id. If local storage is offline, check email/author.
+            const isMyProduct = (window.lfSupabase.isOnline && creatorId && currentUserId === creatorId) || 
+                                (!window.lfSupabase.isOnline && lfAuth.isLoggedIn() && prod.creatorEmail === lfAuth.currentUser.email);
+
+            if (!isApproved && !isMyProduct) {
+                // Skip rendering other creators' unapproved items
+                return;
+            }
+
+            const testModeHTML = !isApproved ? `<span style="position: absolute; bottom: 10px; left: 10px; background: rgba(245, 158, 11, 0.95); color: #000; padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.5px; border: 1px solid rgba(0,0,0,0.2);">TEST MODE</span>` : '';
+
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card creator-product-card reveal active';
+            productCard.style.borderColor = isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)';
+            productCard.innerHTML = `
+                <div style="position: relative;">
+                    <img loading="lazy" src="${prod.coverUrl || prod.cover_url || 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop'}" alt="${prod.name}" class="product-img">
+                    <span style="position: absolute; top: 10px; right: 10px; background: ${isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)'}; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Creator</span>
+                    ${testModeHTML}
+                </div>
+                <div class="product-info">
+                    <span class="product-tag" style="color: ${isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)'};">${tag}</span>
+                    <h3 class="product-title">${prod.name}</h3>
+                    <p class="product-desc">${prod.desc || prod.description}</p>
+                    <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; font-family: var(--font-mono);">Đăng bởi: ${prod.creator}</div>
+                    <div class="product-footer">
+                        <div class="product-price">${priceHTML}</div>
+                        <a href="#" class="btn-buy" style="background: ${isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)'}; color: #000;" onclick="openCheckoutModal('${prod.id}', ${prod.price}); return false;">Mua Ngay</a>
+                    </div>
+                </div>
+            `;
+
+            if (type === 'ebook') {
+                ebooksGrid.appendChild(productCard);
+            } else {
+                presetsGrid.appendChild(productCard);
+            }
+        });
     }
 
-    customProducts.forEach(prod => {
-        const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price);
-        const formattedOriginal = prod.originalPrice ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.originalPrice) : '';
-        const priceHTML = formattedOriginal ? `<span>${formattedOriginal}</span> ${formattedPrice}` : formattedPrice;
-
-        const tagMap = {
-            'ebook': 'Creator Ebook (PDF)',
-            'preset': 'Creator Lightroom Presets',
-            'lut': 'Creator Video LUTs (.CUBE)'
-        };
-        const tag = tagMap[prod.type] || 'Creator Asset';
-
-        const status = prod.status || 'draft';
-        const isApproved = status === 'approved';
-        const testModeHTML = !isApproved ? `<span style="position: absolute; bottom: 10px; left: 10px; background: rgba(245, 158, 11, 0.9); color: #000; padding: 3px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; text-transform: uppercase; font-family: var(--font-mono); letter-spacing: 0.5px; border: 1px solid rgba(0,0,0,0.2);">TEST MODE</span>` : '';
-
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card reveal active'; // Force active since scroll observer might run already
-        productCard.style.borderColor = isApproved ? 'var(--accent-green)' : 'var(--accent-cyan)';
-        productCard.innerHTML = `
-            <div style="position: relative;">
-                <img loading="lazy" src="${prod.coverUrl || 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop'}" alt="${prod.name}" class="product-img">
-                <span style="position: absolute; top: 10px; right: 10px; background: ${isApproved ? 'var(--accent-green)' : 'var(--accent-cyan)'}; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Creator</span>
-                ${testModeHTML}
-            </div>
-            <div class="product-info">
-                <span class="product-tag" style="color: ${isApproved ? 'var(--accent-green)' : 'var(--accent-cyan)'};">${tag}</span>
-                <h3 class="product-title">${prod.name}</h3>
-                <p class="product-desc">${prod.desc}</p>
-                <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; font-family: var(--font-mono);">Đăng bởi: ${prod.creator}</div>
-                <div class="product-footer">
-                    <div class="product-price">${priceHTML}</div>
-                    <a href="#" class="btn-buy" style="background: ${isApproved ? 'var(--accent-green)' : 'var(--accent-cyan)'}; color: #000;" onclick="openCheckoutModal('${prod.id}', ${prod.price}); return false;">Mua Ngay</a>
-                </div>
-            </div>
-        `;
-
-        if (prod.type === 'ebook') {
-            ebooksGrid.appendChild(productCard);
-        } else {
-            presetsGrid.appendChild(productCard);
-        }
-    });
+    // Initialize store: try immediately if Supabase is already configured, otherwise wait or set timeout fallback
+    if (window.lfSupabase && window.lfSupabase.isOnline) {
+        initStore();
+    } else {
+        document.addEventListener('supabaseReady', initStore);
+        setTimeout(initStore, 1200); // 1.2s timeout fallback
+    }
 });

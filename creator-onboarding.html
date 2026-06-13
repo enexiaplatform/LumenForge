@@ -560,40 +560,65 @@
       currentManifest = manifest;
     }
 
-    function handleOnboard(e) {
+    async function handleOnboard(e) {
       e.preventDefault();
       
+      if (window.lfAuth && !window.lfAuth.isLoggedIn()) {
+        alert('Vui lòng đăng nhập tài khoản trước khi đăng ký thương mại!');
+        if (typeof openAuthModal === 'function') openAuthModal();
+        return;
+      }
+      
+      const submitBtn = document.querySelector('button[type="submit"]');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Đang đồng bộ cơ sở dữ liệu...';
+      }
+
       const manifest = getFormValues();
       
-      // Save product to local storage
-      let customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-      // Remove any existing one with same name for editing convenience
-      customProducts = customProducts.filter(p => p.name !== manifest.name);
-      customProducts.push(manifest);
-      
-      localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
-      
-      // Mark user as Creator
-      localStorage.setItem('lf_is_creator', 'true');
-      
-      // Reset Day 3 audit when new product created
-      localStorage.removeItem('lf_audit_passed');
-      
-      // If logged in, update creator flag in profile
-      if (window.lfAuth && window.lfAuth.isLoggedIn()) {
-        window.lfAuth.user.isCreator = true;
-        localStorage.setItem('lf_user', JSON.stringify(window.lfAuth.user));
+      try {
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+          await window.lfSupabase.upsertProduct(manifest);
+        } else {
+          // Save product to local storage
+          let customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+          // Remove any existing one with same name for editing convenience
+          customProducts = customProducts.filter(p => p.name !== manifest.name);
+          customProducts.push(manifest);
+          localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+          
+          // Mark user as Creator
+          localStorage.setItem('lf_is_creator', 'true');
+          
+          // If logged in, update creator flag in profile
+          if (window.lfAuth && window.lfAuth.isLoggedIn()) {
+            window.lfAuth.currentUser.isCreator = true;
+            localStorage.setItem('lf_user', JSON.stringify(window.lfAuth.currentUser));
+          }
+        }
+        
+        // Reset Day 3 audit when new product created
+        localStorage.removeItem('lf_audit_passed');
+        
+        // Display manifest in output panel
+        updateManifestData();
+        document.getElementById('btn-download').style.display = 'inline-block';
+
+        if (window.lfOnboarding) {
+          await window.lfOnboarding.updateLaunchpadUI();
+        }
+
+        alert('Đăng ký sản phẩm thành công!\n\nSản phẩm đã được cấu hình thương mại.\nBạn có thể thử mua sản phẩm này trong Store để kiểm thử VietQR.');
+      } catch (err) {
+        console.error(err);
+        alert('Có lỗi xảy ra khi đồng bộ database: ' + err.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = 'Xác Nhận Đăng Ký Thương Mại';
+        }
       }
-
-      // Display manifest in output panel
-      updateManifestData();
-      document.getElementById('btn-download').style.display = 'inline-block';
-
-      if (window.lfOnboarding) {
-        window.lfOnboarding.updateLaunchpadUI();
-      }
-
-      alert('Đã onboard thương mại sản phẩm của bạn trên trình duyệt này!\n\nSản phẩm đã được tích hợp vào Store cục bộ.\nBạn có thể thử mua sản phẩm này trong Store để kiểm duyệt luồng VietQR đổ trực tiếp tiền về tài khoản của bạn.');
     }
 
     function downloadManifest() {

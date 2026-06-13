@@ -2,7 +2,7 @@
    LUMENFORGE — Live-ready Checkout Flow (VietQR & Creator Integration)
    ========================================================================== */
 
-// Product Metadata Mapper
+// Product Metadata Mapper for Official Products
 const PRODUCT_MAP = {
   'bundle-starter': { 
     name: 'Creator Starter Bundle', 
@@ -10,12 +10,11 @@ const PRODUCT_MAP = {
     type: 'Bundle', 
     link: 'dashboard.html' 
   },
-  
   'ebook-chiaroscuro': { 
     name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', 
     title: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối',
     type: 'Ebook (PDF)', 
-    link: 'ebooks/chiaroscuro_masterclass.md' // Points to the reading preview/file
+    link: 'ebooks/chiaroscuro_masterclass.md'
   },
   'ebook-color': { 
     name: 'Tâm lý học Màu sắc trong Điện ảnh', 
@@ -37,7 +36,71 @@ const PRODUCT_MAP = {
   }
 };
 
-function openCheckoutModal(productId, priceVnd) {
+// Async helper to get product metadata from Database (Supabase) or Local Storage fallback
+async function getProductMetadata(productId) {
+  if (PRODUCT_MAP[productId]) {
+    return { ...PRODUCT_MAP[productId], id: productId, isCustom: false };
+  }
+
+  // Check Supabase if online
+  if (window.lfSupabase && window.lfSupabase.isOnline) {
+    try {
+      const { data } = await window.lfSupabase.client
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .single();
+      
+      if (data) {
+        return {
+          id: data.id,
+          name: data.name,
+          title: data.name,
+          type: data.type === 'ebook' ? 'Ebook (PDF)' : data.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
+          link: data.file_link || '#',
+          isCustom: true,
+          creator: data.creator,
+          creatorEmail: data.creator_email,
+          bankName: data.bank_name,
+          bankAccount: data.bank_account,
+          bankOwner: data.bank_owner,
+          momoNumber: data.momo_number,
+          price: data.price
+        };
+      }
+    } catch (e) {
+      console.error('[CHECKOUT] Error loading product from Supabase:', e);
+    }
+  }
+
+  // Fallback to local storage
+  const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+  const customProduct = customProducts.find(p => p.id === productId);
+  if (customProduct) {
+    return {
+      id: customProduct.id,
+      name: customProduct.name,
+      title: customProduct.name,
+      type: customProduct.type === 'ebook' ? 'Ebook (PDF)' : customProduct.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
+      link: customProduct.fileLink || '#',
+      isCustom: true,
+      creator: customProduct.creator,
+      creatorEmail: customProduct.creatorEmail,
+      bankName: customProduct.bankName,
+      bankAccount: customProduct.bankAccount,
+      bankOwner: customProduct.bankOwner,
+      momoNumber: customProduct.momoNumber,
+      price: customProduct.price
+    };
+  }
+
+  return { id: productId, name: productId, title: productId, type: 'Digital Publication', link: '#', isCustom: false };
+}
+
+async function openCheckoutModal(productId, priceVnd) {
+  // Fetch product metadata asynchronously
+  const product = await getProductMetadata(productId);
+  
   // Check if modal already exists
   if (document.getElementById('lf-checkout-modal')) {
     document.getElementById('lf-checkout-modal').remove();
@@ -46,33 +109,60 @@ function openCheckoutModal(productId, priceVnd) {
   const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(priceVnd);
 
   // Default Central Payout Account (Henry's Bank)
-  let BANK_ID = 'MSB'; // Ngân hàng Hàng Hải
-  let ACCOUNT_NO = '04201013810536';
-  let ACCOUNT_OWNER = 'NGUYEN THE ANH';
-  let MOMO_NO = '0708450246';
+  const defaultPay = window.PLATFORM_PAYMENT || {};
+  let BANK_ID = defaultPay.bankId || 'MSB'; 
+  let ACCOUNT_NO = defaultPay.accountNo || '04201013810536';
+  let ACCOUNT_OWNER = defaultPay.accountOwner || 'NGUYEN THE ANH';
+  let MOMO_NO = defaultPay.momoNo || '0708450246';
   let ADD_INFO = `LF ${productId}`;
-  let isCreatorProduct = false;
-  let creatorName = '';
+  let isCreatorProduct = product.isCustom;
+  let creatorName = product.creator || '';
 
-  // Check if it's a custom product uploaded by a Creator
-  const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-  const customProduct = customProducts.find(p => p.id === productId);
-
-  if (customProduct) {
-    BANK_ID = customProduct.bankName || BANK_ID;
-    ACCOUNT_NO = customProduct.bankAccount || ACCOUNT_NO;
-    ACCOUNT_OWNER = (customProduct.bankOwner || ACCOUNT_OWNER).toUpperCase();
-    MOMO_NO = customProduct.momoNumber || MOMO_NO;
+  if (isCreatorProduct) {
+    BANK_ID = product.bankName || BANK_ID;
+    ACCOUNT_NO = product.bankAccount || ACCOUNT_NO;
+    ACCOUNT_OWNER = (product.bankOwner || ACCOUNT_OWNER).toUpperCase();
+    MOMO_NO = product.momoNumber || MOMO_NO;
     // Format message tag for bank transfer: e.g. "LF CREATOR123"
-    const cleanId = customProduct.id.replace('prod-', '').substring(0, 6).toUpperCase();
+    const cleanId = product.id.replace('prod-', '').substring(0, 6).toUpperCase();
     ADD_INFO = `LF ${cleanId}`;
-    isCreatorProduct = true;
-    creatorName = customProduct.creator;
   }
 
   const TEMPLATE = 'compact';
   // VietQR generation API (Free service provided by VietQR.io)
   const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-${TEMPLATE}.png?amount=${priceVnd}&addInfo=${encodeURIComponent(ADD_INFO)}`;
+
+  // Check live payment gateway configuration
+  const gateway = window.LIVE_GATEWAY || { provider: 'payos', createPaymentLinkUrl: '/api/create-payment-link' };
+  const hasGateway = true;
+  const gatewayLabel = 'Cổng Tự Động (PayOS)';
+
+  let tabsHtml = `
+    <div style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+      <button onclick="switchTab('tab-vietqr')" id="btn-tab-vietqr" style="background: none; border: none; color: var(--accent-amber); font-weight: bold; cursor: pointer; padding: 5px; font-size: 0.9rem; font-family: var(--font-mono);">Ngân hàng (VietQR)</button>
+      <button onclick="switchTab('tab-momo')" id="btn-tab-momo" style="background: none; border: none; color: var(--text-dim); font-weight: bold; cursor: pointer; padding: 5px; font-size: 0.9rem; font-family: var(--font-mono);">Ví Điện Tử</button>
+      ${hasGateway ? `
+        <button onclick="switchTab('tab-gateway')" id="btn-tab-gateway" style="background: none; border: none; color: var(--text-dim); font-weight: bold; cursor: pointer; padding: 5px; font-size: 0.9rem; font-family: var(--font-mono);">${gatewayLabel}</button>
+      ` : ''}
+    </div>
+  `;
+
+  let gatewayTabContent = '';
+  if (hasGateway) {
+    gatewayTabContent = `
+      <!-- Tab Content: Live Auto Gateway -->
+      <div id="tab-gateway" style="text-align: center; display: none; padding: 10px 0;">
+        <div style="width: 80px; height: 80px; background: rgba(0, 212, 170, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; border: 1.5px solid var(--accent-cyan);">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+          </svg>
+        </div>
+        <div style="font-size: 1rem; color: #fff; font-weight: bold; margin-bottom: 5px;">Thanh toán qua ${gateway.provider.toUpperCase() === 'STRIPE' ? 'Stripe Gateway' : 'Cổng PayOS'}</div>
+        <p style="font-size: 0.8rem; color: var(--text-secondary); max-width: 250px; margin: 0 auto 15px; line-height: 1.4;">Hệ thống sẽ tạo hóa đơn bảo mật. Xác nhận đơn hàng tự động ngay sau khi hoàn tất thanh toán.</p>
+      </div>
+    `;
+  }
 
   const modalHtml = `
     <div id="lf-checkout-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px); opacity: 0; transition: opacity 0.3s;">
@@ -92,7 +182,7 @@ function openCheckoutModal(productId, priceVnd) {
           <div style="flex: 1; padding: 30px; border-right: 1px solid var(--border-color); background: rgba(0,0,0,0.2);">
             <h4 style="color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; font-family: var(--font-mono);">Thông tin Đơn hàng</h4>
             <div style="font-size: 1.2rem; margin-bottom: 5px; font-weight: bold; color: #fff;">
-              ${customProduct ? customProduct.name : (PRODUCT_MAP[productId] ? PRODUCT_MAP[productId].name : productId)}
+              ${product.name}
             </div>
             ${isCreatorProduct ? `<div style="font-size: 0.85rem; color: var(--accent-cyan); margin-bottom: 15px;">Tác giả: ${creatorName}</div>` : ''}
             <div style="font-size: 2rem; color: var(--accent-amber); font-weight: bold; margin-bottom: 20px; font-family: var(--font-mono);">${formattedPrice}</div>
@@ -102,57 +192,51 @@ function openCheckoutModal(productId, priceVnd) {
             </p>
 
             <div style="background: rgba(245, 166, 35, 0.1); border-left: 3px solid var(--accent-amber); padding: 15px; border-radius: 0 8px 8px 0; margin-bottom: 15px;">
-              <h5 style="margin: 0 0 5px 0; font-size: 0.95rem; color: var(--accent-amber);">Bước 1: Quét mã QR</h5>
-              <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">Mở ứng dụng Ngân hàng (VietQR) hoặc ví điện tử để quét mã bên cạnh. Số tiền và nội dung chuyển khoản đã được điền tự động.</p>
+              <h5 style="margin: 0 0 5px 0; font-size: 0.95rem; color: var(--accent-amber);">Hướng dẫn thanh toán</h5>
+              <p style="margin: 0; font-size: 0.85rem; color: var(--text-secondary);">Chọn cổng phù hợp ở cột bên phải, hoàn tất chuyển khoản/thanh toán. Đơn hàng sẽ tự động duyệt.</p>
             </div>
           </div>
 
-          <!-- Right: Payment Methods -->
-          <div style="flex: 1; padding: 30px;">
+          <!-- Right: Payment Methods & Action Column -->
+          <div id="checkout-interactive-col" style="flex: 1; padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
             
-            <!-- Tabs -->
-            <div style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
-              <button onclick="switchTab('tab-vietqr')" id="btn-tab-vietqr" style="background: none; border: none; color: var(--accent-amber); font-weight: bold; cursor: pointer; padding: 5px; font-size: 0.9rem; font-family: var(--font-mono);">Ngân hàng (VietQR)</button>
-              <button onclick="switchTab('tab-momo')" id="btn-tab-momo" style="background: none; border: none; color: var(--text-dim); font-weight: bold; cursor: pointer; padding: 5px; font-size: 0.9rem; font-family: var(--font-mono);">Ví Điện Tử</button>
-            </div>
+            <div>
+              <!-- Tabs -->
+              ${tabsHtml}
 
-            <!-- Tab Content: VietQR -->
-            <div id="tab-vietqr" style="text-align: center; display: block;">
-              <img src="${qrUrl}" alt="VietQR" style="width: 200px; height: 200px; border-radius: 8px; border: 1px solid #fff; padding: 5px; background: #fff; margin-bottom: 15px; box-shadow: 0 0 15px rgba(255,255,255,0.1);">
-              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Ngân hàng: <strong>${BANK_ID}</strong></div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Số tài khoản: <strong>${ACCOUNT_NO}</strong></div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Chủ tài khoản: <strong>${ACCOUNT_OWNER}</strong></div>
-              <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px; font-family: var(--font-mono);">Nội dung chuyển khoản: <strong style="color: var(--accent-amber);">${ADD_INFO}</strong></div>
-            </div>
-
-            <!-- Tab Content: MoMo -->
-            <div id="tab-momo" style="text-align: center; display: none;">
-              <div style="width: 220px; height: 220px; background: linear-gradient(135deg, #a50064 0%, #7d004b 100%); color: #fff; border-radius: 8px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-direction: column; padding: 15px; box-shadow: 0 5px 15px rgba(165,0,100,0.3);">
-                <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Chuyển ví MoMo</div>
-                <div style="font-size: 1.8rem; margin: 20px 0; font-family: var(--font-mono);">${MOMO_NO}</div>
-                <div style="font-size: 0.8rem; font-weight: normal; opacity: 0.85;">Người nhận: ${ACCOUNT_OWNER}</div>
-                <div style="font-size: 0.8rem; font-weight: normal; margin-top: 10px;">Chuyển đúng: ${formattedPrice}</div>
+              <!-- Tab Content: VietQR -->
+              <div id="tab-vietqr" style="text-align: center; display: block;">
+                <img src="${qrUrl}" alt="VietQR" style="width: 200px; height: 200px; border-radius: 8px; border: 1px solid #fff; padding: 5px; background: #fff; margin-bottom: 15px; box-shadow: 0 0 15px rgba(255,255,255,0.1);">
+                <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Ngân hàng: <strong>${BANK_ID}</strong></div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Số tài khoản: <strong>${ACCOUNT_NO}</strong></div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px;">Chủ tài khoản: <strong>${ACCOUNT_OWNER}</strong></div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px; font-family: var(--font-mono);">Nội dung chuyển khoản: <strong style="color: var(--accent-amber);">${ADD_INFO}</strong></div>
               </div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">SĐT Ví nhận: <strong>${MOMO_NO}</strong></div>
-              <div style="font-size: 0.9rem; color: var(--text-secondary);">Nội dung CK: <strong style="color: var(--accent-amber);">${ADD_INFO}</strong></div>
+
+              <!-- Tab Content: MoMo -->
+              <div id="tab-momo" style="text-align: center; display: none;">
+                <div style="width: 200px; height: 200px; background: linear-gradient(135deg, #a50064 0%, #7d004b 100%); color: #fff; border-radius: 8px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-direction: column; padding: 15px; box-shadow: 0 5px 15px rgba(165,0,100,0.3); box-sizing: border-box;">
+                  <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Chuyển ví MoMo</div>
+                  <div style="font-size: 1.5rem; margin: 15px 0; font-family: var(--font-mono);">${MOMO_NO}</div>
+                  <div style="font-size: 0.8rem; font-weight: normal; opacity: 0.85;">Người nhận: ${ACCOUNT_OWNER}</div>
+                  <div style="font-size: 0.8rem; font-weight: normal; margin-top: 5px;">Chuyển đúng: ${formattedPrice}</div>
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">SĐT Ví nhận: <strong>${MOMO_NO}</strong></div>
+                <div style="font-size: 0.9rem; color: var(--text-secondary);">Nội dung CK: <strong style="color: var(--accent-amber);">${ADD_INFO}</strong></div>
+              </div>
+
+              ${gatewayTabContent}
             </div>
 
             <!-- Step 2: Email form -->
             <div style="margin-top: 25px; border-top: 1px dashed var(--border-color); padding-top: 20px;">
               <h5 style="margin: 0 0 10px 0; font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono);">Bước 2: Email nhận hàng</h5>
-              <input type="email" id="checkout-email" placeholder="Nhập email của bạn (Ví dụ: hello@lumenforge.com)" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; margin-bottom: 15px; font-family: inherit;">
+              <input type="email" id="checkout-email" value="${lfAuth.isLoggedIn() ? lfAuth.currentUser.email : ''}" placeholder="Nhập email của bạn (Ví dụ: name@gmail.com)" style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; margin-bottom: 15px; font-family: inherit; box-sizing: border-box;">
               
-              <button id="btn-submit-checkout" onclick="submitCheckout('${productId}', ${priceVnd})" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; position: relative; display: flex; justify-content: center; align-items: center; gap: 10px;">
-                <span id="checkout-btn-text">Xác nhận Đã chuyển khoản</span>
-                <div id="checkout-spinner" style="display: none; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite;"></div>
+              <button id="btn-submit-checkout" onclick="submitCheckout('${productId}', ${priceVnd}, '${ADD_INFO}')" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; font-size: 0.95rem;">
+                Xác nhận Đã chuyển khoản / Tiếp tục
               </button>
             </div>
-
-            <style>
-              @keyframes spin { 
-                to { transform: rotate(360deg); } 
-              }
-            </style>
 
           </div>
 
@@ -165,7 +249,8 @@ function openCheckoutModal(productId, priceVnd) {
   
   // Trigger fade in
   setTimeout(() => {
-    document.getElementById('lf-checkout-modal').style.opacity = '1';
+    const modal = document.getElementById('lf-checkout-modal');
+    if (modal) modal.style.opacity = '1';
   }, 10);
 }
 
@@ -178,37 +263,100 @@ function closeCheckoutModal() {
 }
 
 function switchTab(tabId) {
-  document.getElementById('tab-vietqr').style.display = 'none';
-  document.getElementById('tab-momo').style.display = 'none';
-  document.getElementById('btn-tab-vietqr').style.color = 'var(--text-dim)';
-  document.getElementById('btn-tab-momo').style.color = 'var(--text-dim)';
+  const tabs = ['tab-vietqr', 'tab-momo', 'tab-gateway'];
+  tabs.forEach(t => {
+    const el = document.getElementById(t);
+    const btn = document.getElementById('btn-' + t);
+    if (el) el.style.display = 'none';
+    if (btn) {
+      btn.style.color = 'var(--text-dim)';
+    }
+  });
 
-  document.getElementById(tabId).style.display = 'block';
-  document.getElementById('btn-' + tabId).style.color = 'var(--accent-amber)';
+  const activeTab = document.getElementById(tabId);
+  const activeBtn = document.getElementById('btn-' + tabId);
+  if (activeTab) activeTab.style.display = 'block';
+  if (activeBtn) {
+    activeBtn.style.color = 'var(--accent-amber)';
+  }
 }
 
-function submitCheckout(productId, priceVnd) {
-  const email = document.getElementById('checkout-email').value;
+async function initiateLiveGatewayPayment(productId, priceVnd, email, addInfo) {
+  const btn = document.getElementById('btn-submit-checkout');
+  const originalText = btn.innerText;
+  btn.disabled = true;
+  btn.innerText = 'Đang khởi tạo cổng thanh toán...';
+
+  try {
+    const gateway = window.LIVE_GATEWAY || {};
+    
+    // We auto-register the user if not logged in to make download seamless
+    if (!lfAuth.isLoggedIn()) {
+      await lfAuth.login(email, 'password123');
+    }
+
+    const productMeta = await getProductMetadata(productId);
+
+    const response = await fetch(gateway.createPaymentLinkUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        productId: productId,
+        productName: productMeta.name,
+        productType: productMeta.type,
+        productLink: productMeta.link,
+        price: priceVnd,
+        userId: lfAuth.currentUser.id,
+        returnUrl: window.location.origin + '/dashboard.html?payment=success',
+        cancelUrl: window.location.href + '?payment=cancel'
+      })
+    });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error || errData.message || `Lỗi từ server (${response.status})`);
+    }
+
+    const data = await response.json();
+    if (data.checkoutUrl) {
+      // Redirect user to Stripe or PayOS secure page
+      window.location.href = data.checkoutUrl;
+    } else {
+      throw new Error('Không nhận được link thanh toán từ cổng');
+    }
+  } catch (err) {
+    console.error('[GATEWAY CHECKOUT] Error:', err);
+    alert('Không thể kết nối cổng thanh toán tự động:\n' + err.message + '\n\nVui lòng thử phương thức chuyển khoản ngân hàng VietQR thủ công.');
+    btn.disabled = false;
+    btn.innerText = originalText;
+  }
+}
+
+function submitCheckout(productId, priceVnd, addInfo) {
+  const email = document.getElementById('checkout-email').value.trim();
   if (!email || !email.includes('@')) {
     alert('Vui lòng nhập Email hợp lệ để nhận File!');
     return;
   }
-  
-  const btnText = document.getElementById('checkout-btn-text');
-  const spinner = document.getElementById('checkout-spinner');
-  const btn = document.getElementById('btn-submit-checkout');
-  
-  // Show Loading state
-  btn.disabled = true;
-  btn.style.opacity = '0.8';
-  btnText.style.opacity = '0';
-  spinner.style.display = 'block';
 
-  // Format reference tag: e.g. "LF-123456"
+  // Check if Gateway tab is active
+  const tabGateway = document.getElementById('tab-gateway');
+  const isGatewayTab = tabGateway && tabGateway.style.display === 'block';
+
+  if (isGatewayTab) {
+    initiateLiveGatewayPayment(productId, priceVnd, email, addInfo);
+    return;
+  }
+
+  const interactiveCol = document.getElementById('checkout-interactive-col');
+  if (!interactiveCol) return;
+
   const refCode = `LF-${Math.floor(100000 + Math.random() * 900000)}`;
 
-  // --- 1. SIMULATED PRODUCTION WEBHOOK & NOTIFICATION ---
-  console.log(`%c[COMMERCIAL PAYMENT WEBHOOK] Gửi gói tin thanh toán...`, 'color: #00d4aa; font-weight: bold;');
+  // Log to console for dev visibility
+  console.log(`%c[COMMERCIAL PAYMENT WEBHOOK] Order Initiated: ${refCode}`, 'color: #00b4ff; font-weight: bold;');
   console.log({
     event: 'order.created',
     ref: refCode,
@@ -218,71 +366,156 @@ function submitCheckout(productId, priceVnd) {
     timestamp: new Date().toISOString()
   });
 
-  // Fake network delay (2 seconds) to simulate checking bank transaction
-  setTimeout(() => {
-    // 1. Auto-login / Create account if not logged in
-    if (!lfAuth.isLoggedIn()) {
-      lfAuth.login(email, 'auto-generated');
+  // Inject CSS Keyframes for pulse animation if missing
+  if (!document.getElementById('lf-checkout-anim-style')) {
+    const style = document.createElement('style');
+    style.id = 'lf-checkout-anim-style';
+    style.innerHTML = `
+      @keyframes pulse-ring {
+        0% { transform: scale(0.95); opacity: 1; }
+        100% { transform: scale(1.3); opacity: 0; }
+      }
+      @keyframes checkmark {
+        0% { stroke-dashoffset: 50; stroke-dasharray: 50; }
+        100% { stroke-dashoffset: 0; stroke-dasharray: 50; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Swap Column with Interactive Polling/Simulation UI
+  interactiveCol.innerHTML = `
+    <div style="text-align: center; padding: 20px 0; display: flex; flex-direction: column; justify-content: center; height: 100%; box-sizing: border-box;">
+      <div style="position: relative; width: 85px; height: 85px; margin: 0 auto 20px;">
+        <!-- Pulsing Ring -->
+        <div style="position: absolute; border: 4px solid var(--accent-cyan, #00d4aa); border-radius: 50%; width: 100%; height: 100%; animation: pulse-ring 1.5s infinite; box-sizing: border-box;"></div>
+        <!-- Inner Spinner Icon -->
+        <div style="position: absolute; width: 65px; height: 65px; top: 10px; left: 10px; background: rgba(0, 212, 255, 0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan, #00d4aa)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 3s linear infinite;">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+        </div>
+      </div>
+
+      <h4 style="color: #fff; margin: 0 0 10px 0; font-size: 1.15rem; font-family: var(--font-heading);">Đang kiểm tra Giao dịch...</h4>
+      <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 25px; max-width: 320px; margin-left: auto; margin-right: auto;">
+        Cổng thanh toán đang lắng nghe tín hiệu chuyển khoản ngân hàng với nội dung <strong style="color: var(--accent-amber); font-family: monospace;">${addInfo}</strong>.
+      </p>
+      
+      <div style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; box-sizing: border-box;">
+        <span style="font-size: 0.7rem; color: var(--text-dim); display: block; margin-bottom: 10px; font-family: var(--font-mono); letter-spacing: 0.5px;">⚡ MÔI TRƯỜNG THỬ NGHIỆM ONBOARD 7 NGÀY</span>
+        <button id="btn-simulate-webhook" onclick="triggerSimulatedPayment('${productId}', ${priceVnd}, '${email}', '${refCode}')" class="btn-primary" style="padding: 12px; font-size: 0.85rem; width: 100%; border-radius: 6px; font-weight: bold; background: #10b981; border: none; color: #000; cursor: pointer; transition: all 0.3s; text-transform: uppercase;">
+          Kích hoạt Webhook giả lập
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// Global scope expose for checkout trigger
+async function triggerSimulatedPayment(productId, priceVnd, email, refCode) {
+  const btn = document.getElementById('btn-simulate-webhook');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = "Đang đồng bộ cơ sở dữ liệu...";
+    btn.style.background = '#888';
+  }
+
+  // 1. Authenticate user asynchronously if not already logged in
+  if (!lfAuth.isLoggedIn()) {
+    const loginResult = await lfAuth.login(email, 'password123'); // Easy account creation
+    if (loginResult && loginResult.success === false) {
+      alert('Không thể tạo tài khoản: ' + loginResult.error);
+      if (btn) {
+        btn.disabled = false;
+        btn.innerText = "Kích hoạt Webhook giả lập";
+        btn.style.background = '#10b981';
+      }
+      return;
     }
+  }
 
-    // 2. Add item to Inventory
-    let productMeta = PRODUCT_MAP[productId];
-    if (!productMeta) {
-      // Check custom products
+  // 2. Load product metadata to get actual download links and title
+  const productMeta = await getProductMetadata(productId);
+
+  // 3. Save purchase to local state & cloud DB
+  await lfAuth.addPurchase(productId, {
+    name: productMeta.name,
+    type: productMeta.type,
+    link: productMeta.link,
+    price: priceVnd
+  });
+
+  // 4. Record sales log if it is a creator's custom product
+  if (productMeta.isCustom) {
+    // Record to database or local storage
+    if (window.lfSupabase && window.lfSupabase.isOnline) {
+      await window.lfSupabase.recordSale({
+        id: refCode,
+        productId: productId,
+        productName: productMeta.name,
+        price: priceVnd,
+        buyerName: email.split('@')[0],
+        buyerEmail: email
+      });
+      // Move status from draft/testing to testing
+      await window.lfSupabase.updateProductStatus(productId, 'testing');
+    } else {
+      // Local Storage mock sales
+      const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+      sales.push({
+        id: refCode,
+        productId: productId,
+        productName: productMeta.name,
+        price: priceVnd,
+        buyerName: email.split('@')[0],
+        buyerEmail: email,
+        timestamp: Date.now(),
+        status: 'completed'
+      });
+      localStorage.setItem('lf_creator_sales', JSON.stringify(sales));
+
+      // Local product status change
       const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-      const customProduct = customProducts.find(p => p.id === productId);
-      if (customProduct) {
-        productMeta = {
-          name: customProduct.name,
-          title: customProduct.name,
-          type: customProduct.type === 'ebook' ? 'Ebook (PDF)' : customProduct.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
-          link: customProduct.fileLink || '#',
-          isCustom: true,
-          creator: customProduct.creator
-        };
-
-        // --- Log Simulated Creator Sale ---
-        const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
-        if (!sales.some(s => s.id === refCode)) {
-          sales.push({
-            id: refCode,
-            productId: customProduct.id,
-            productName: customProduct.name,
-            price: customProduct.price,
-            buyerName: email.split('@')[0],
-            buyerEmail: email,
-            timestamp: Date.now(),
-            status: 'completed'
-          });
-          localStorage.setItem('lf_creator_sales', JSON.stringify(sales));
-        }
-
-        // Update product status from draft to testing
-        const prodIndex = customProducts.findIndex(p => p.id === productId);
-        if (prodIndex > -1 && (!customProducts[prodIndex].status || customProducts[prodIndex].status === 'draft')) {
-          customProducts[prodIndex].status = 'testing';
-          localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
-        }
-      } else {
-        productMeta = { name: productId, title: productId, type: 'Digital Publication', link: '#' };
+      const idx = customProducts.findIndex(p => p.id === productId);
+      if (idx > -1 && (!customProducts[idx].status || customProducts[idx].status === 'draft')) {
+        customProducts[idx].status = 'testing';
+        localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
       }
     }
+  }
 
-    lfAuth.addPurchase(productId, productMeta);
+  // 5. Show Success Screen
+  const interactiveCol = document.getElementById('checkout-interactive-col');
+  if (interactiveCol) {
+    interactiveCol.innerHTML = `
+      <div style="text-align: center; padding: 30px 0; display: flex; flex-direction: column; justify-content: center; height: 100%; box-sizing: border-box;">
+        <div style="background: rgba(16, 185, 129, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid #10b981; box-sizing: border-box;">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray: 50; stroke-dashoffset: 50; animation: checkmark 0.6s ease-in-out forwards;">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 style="color: #10b981; margin: 0 0 10px 0; font-size: 1.4rem; font-family: var(--font-heading);">Thành công!</h3>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; max-width: 280px; margin-left: auto; margin-right: auto;">
+          Giao dịch <strong>${refCode}</strong> đã được thanh toán. File đã được kích hoạt trong Dashboard của bạn.
+        </p>
+        <span style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono); display: block;">Chuyển hướng sau 2 giây... ⏳</span>
+      </div>
+    `;
+  }
 
-    // 3. Success Feedback
-    spinner.style.display = 'none';
-    btnText.style.opacity = '1';
-    btnText.textContent = 'Thành công!';
-    btn.style.background = 'var(--accent-cyan)';
-    
-    console.log(`%c[COMMERCIAL PAYMENT SUCCESS] Giao dịch được phê duyệt cho ${email}`, 'color: #00d4aa; font-weight: bold;');
+  console.log(`%c[COMMERCIAL PAYMENT SUCCESS] Approved for: ${email}`, 'color: #10b981; font-weight: bold;');
 
-    setTimeout(() => {
-      alert(`Giao dịch thành công!\n\nTài liệu đã được thêm vào Dashboard của bạn (${email}).\nHệ thống sẽ chuyển hướng sang Dashboard...`);
-      closeCheckoutModal();
-      window.location.href = 'dashboard.html';
-    }, 500);
-
+  // Redirect
+  setTimeout(() => {
+    closeCheckoutModal();
+    window.location.href = 'dashboard.html';
   }, 2000);
 }
+
+// Expose functions globally for layout execution
+window.openCheckoutModal = openCheckoutModal;
+window.closeCheckoutModal = closeCheckoutModal;
+window.switchTab = switchTab;
+window.submitCheckout = submitCheckout;
+window.triggerSimulatedPayment = triggerSimulatedPayment;

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LUMENFORGE — Onboarding Flow Engine & Commercial Launchpad
+   LUMENFORGE — Onboarding Flow Engine & Commercial Launchpad (DB Integrated)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   // Auto-init checklist if elements exist
+  if (window.lfOnboarding && document.getElementById('launchpad-checklist')) {
+    window.lfOnboarding.updateLaunchpadUI();
+  }
+});
+
+// Auto-reinit when Supabase goes online
+document.addEventListener('supabaseReady', () => {
   if (window.lfOnboarding && document.getElementById('launchpad-checklist')) {
     window.lfOnboarding.updateLaunchpadUI();
   }
@@ -62,11 +69,28 @@ function initOnboarding() {
 
 // Global Onboarding Namespace for Commercial 7-Day Launchpad
 window.lfOnboarding = {
-    // Current statuses
-    getStatus() {
-        const isCreator = localStorage.getItem('lf_is_creator') === 'true';
-        const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-        const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+    // Current statuses (Asynchronous to support Supabase loading)
+    async getStatus() {
+        let isCreator = localStorage.getItem('lf_is_creator') === 'true';
+        let customProducts = [];
+        let sales = [];
+
+        if (window.lfSupabase && window.lfSupabase.isOnline && lfAuth.isLoggedIn()) {
+            try {
+                isCreator = lfAuth.currentUser?.isCreator || isCreator;
+                const allProds = await window.lfSupabase.getAllProducts();
+                customProducts = allProds.filter(p => p.creator_id === lfAuth.currentUser.id);
+                sales = await window.lfSupabase.getMySales();
+            } catch (e) {
+                console.error('[ONBOARDING] Failed to query Supabase status:', e);
+                customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+                sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+            }
+        } else {
+            customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+        }
+
         const auditPassed = localStorage.getItem('lf_audit_passed') === 'true';
         const manifestDownloaded = localStorage.getItem('lf_manifest_downloaded') === 'true';
         const manifestSubmitted = localStorage.getItem('lf_manifest_submitted') === 'true';
@@ -148,9 +172,34 @@ window.lfOnboarding = {
     },
 
     // Simulate Customer Purchase
-    simulateCustomerPurchase(productId, callback) {
-        const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-        const prod = customProducts.find(p => p.id === productId);
+    async simulateCustomerPurchase(productId, callback) {
+        let prod = null;
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            try {
+                const { data } = await window.lfSupabase.client
+                    .from('products')
+                    .select('*')
+                    .eq('id', productId)
+                    .single();
+                if (data) {
+                    prod = {
+                        id: data.id,
+                        name: data.name,
+                        price: data.price,
+                        creator: data.creator,
+                        type: data.type,
+                        fileLink: data.file_link
+                    };
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        }
+        
+        if (!prod) {
+            const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            prod = customProducts.find(p => p.id === productId);
+        }
         if (!prod) return;
 
         const firstNames = ['Minh', 'Hoàng', 'Tuấn', 'Duy', 'Sơn', 'Quang', 'Linh', 'Thảo', 'Trang', 'Hương'];
@@ -162,73 +211,104 @@ window.lfOnboarding = {
         
         const txId = 'TX-' + Math.floor(100000 + Math.random() * 900000);
         
-        const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
-        const newSale = {
-            id: txId,
-            productId: prod.id,
-            productName: prod.name,
-            price: prod.price,
-            buyerName: randomName,
-            buyerEmail: randomEmail,
-            timestamp: Date.now(),
-            status: 'completed'
-        };
-        sales.push(newSale);
-        localStorage.setItem('lf_creator_sales', JSON.stringify(sales));
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            try {
+                // Record sale in Supabase
+                await window.lfSupabase.recordSale({
+                    id: txId,
+                    productId: prod.id,
+                    productName: prod.name,
+                    price: prod.price,
+                    buyerName: randomName,
+                    buyerEmail: randomEmail
+                });
+                
+                // Add to purchases for current creator/user for testing review
+                await lfAuth.addPurchase(prod.id, {
+                    name: prod.name,
+                    type: prod.type === 'ebook' ? 'Ebook (PDF)' : prod.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
+                    link: prod.fileLink || '#',
+                    isCustom: true,
+                    creator: prod.creator
+                });
 
-        // Add to global purchases as well so they show in inventory for review
-        let purchases = JSON.parse(localStorage.getItem('lf_purchases') || '[]');
-        purchases.push({
-            id: prod.id,
-            data: {
-                name: prod.name,
-                title: prod.name,
-                type: prod.type === 'ebook' ? 'Ebook (PDF)' : prod.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
-                link: prod.fileLink || '#',
-                isCustom: true,
-                creator: prod.creator
-            },
-            timestamp: Date.now()
-        });
-        localStorage.setItem('lf_purchases', JSON.stringify(purchases));
+                // Update product status to testing
+                await window.lfSupabase.updateProductStatus(prod.id, 'testing');
+            } catch (e) {
+                console.error('[SIMULATE SALE] Database write error:', e);
+            }
+        } else {
+            const sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+            const newSale = {
+                id: txId,
+                productId: prod.id,
+                productName: prod.name,
+                price: prod.price,
+                buyerName: randomName,
+                buyerEmail: randomEmail,
+                timestamp: Date.now(),
+                status: 'completed'
+            };
+            sales.push(newSale);
+            localStorage.setItem('lf_creator_sales', JSON.stringify(sales));
 
-        // Update product status
-        const prodIndex = customProducts.findIndex(p => p.id === productId);
-        if (prodIndex > -1 && (!customProducts[prodIndex].status || customProducts[prodIndex].status === 'draft')) {
-            customProducts[prodIndex].status = 'testing';
-            localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+            let purchases = JSON.parse(localStorage.getItem('lf_purchases') || '[]');
+            purchases.push({
+                id: prod.id,
+                data: {
+                    name: prod.name,
+                    title: prod.name,
+                    type: prod.type === 'ebook' ? 'Ebook (PDF)' : prod.type === 'preset' ? 'Presets & LUTs' : 'Video LUTs (.CUBE)',
+                    link: prod.fileLink || '#',
+                    isCustom: true,
+                    creator: prod.creator
+                },
+                timestamp: Date.now()
+            });
+            localStorage.setItem('lf_purchases', JSON.stringify(purchases));
+
+            const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            const prodIndex = customProducts.findIndex(p => p.id === productId);
+            if (prodIndex > -1 && (!customProducts[prodIndex].status || customProducts[prodIndex].status === 'draft')) {
+                customProducts[prodIndex].status = 'testing';
+                localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+            }
         }
 
         // Trigger dynamic toast
         this.showToast(`Giao dịch mới! Khách hàng ${randomName} (${randomEmail}) đã mua "${prod.name}" (+${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price)})`);
 
         // Refresh UI
-        this.updateLaunchpadUI();
+        await this.updateLaunchpadUI();
 
         if (callback) callback();
     },
 
     // Submit manifest to Admin
-    submitToAdmin(productId, callback) {
+    async submitToAdmin(productId, callback) {
         localStorage.setItem('lf_manifest_submitted', 'true');
-        
-        // Show success alert/modal
         alert('🚀 GỬI DUYỆT THÀNH CÔNG!\n\nGói tin Manifest của bạn đã được chuyển đến Henry (Admin).\nHệ thống đang xếp hàng để phân phối sản phẩm này lên Store toàn cầu trong vòng 24 giờ tới.');
 
-        // Update product status
-        const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-        const prodIndex = customProducts.findIndex(p => p.id === productId);
-        if (prodIndex > -1) {
-            customProducts[prodIndex].status = 'submitted';
-            localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+        if (window.lfSupabase && window.lfSupabase.isOnline) {
+            try {
+                await window.lfSupabase.updateProductStatus(productId, 'submitted');
+            } catch(e) {
+                console.error(e);
+            }
+        } else {
+            const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            const prodIndex = customProducts.findIndex(p => p.id === productId);
+            if (prodIndex > -1) {
+                customProducts[prodIndex].status = 'submitted';
+                localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
+            }
         }
 
-        this.updateLaunchpadUI();
+        await this.updateLaunchpadUI();
         if (callback) callback();
     },
 
     showToast(message) {
-        // Remove existing toast if any
         const existing = document.getElementById('lf-payout-toast');
         if (existing) existing.remove();
 
@@ -268,14 +348,14 @@ window.lfOnboarding = {
     },
 
     // Render stepper in UI
-    updateLaunchpadUI() {
+    async updateLaunchpadUI() {
         const progressPctEl = document.getElementById('launchpad-progress-pct');
         const progressBarEl = document.getElementById('launchpad-progress-bar');
         const checklistEl = document.getElementById('launchpad-checklist');
 
         if (!checklistEl) return;
 
-        const status = this.getStatus();
+        const status = await this.getStatus();
         if (progressPctEl) progressPctEl.innerText = `${status.progressPercent}%`;
         if (progressBarEl) progressBarEl.style.width = `${status.progressPercent}%`;
 
@@ -321,6 +401,42 @@ window.lfOnboarding = {
             `;
         });
 
-        checklistEl.innerHTML = html;
+        checklistEl.innerHTML = html + `
+            <div style="text-align: center; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+                <button type="button" onclick="window.lfOnboarding.resetProgress()" style="background: none; border: none; color: var(--text-dim); font-size: 0.75rem; cursor: pointer; text-decoration: underline; font-family: var(--font-mono); transition: color 0.2s;" onmouseover="this.style.color='#ff6b6b'" onmouseout="this.style.color='var(--text-dim)'">
+                    ↺ Đặt lại lộ trình onboarding (Reset)
+                </button>
+            </div>
+        `;
+    },
+
+    // Reset all onboarding progress for testing
+    resetProgress() {
+        if (!confirm('⚠️ BẠN CÓ CHẮC CHẮN MUỐN ĐẶT LẠI TIẾN TRÌNH ONBOARDING?\n\nToàn bộ dữ liệu kiểm thử (sản phẩm custom, lịch sử giao dịch mua hàng, chứng nhận kiểm duyệt) trong localStorage sẽ bị xóa để bạn bắt đầu lại từ Ngày 1.')) {
+            return;
+        }
+
+        // Remove local storage items
+        localStorage.removeItem('lf_is_creator');
+        localStorage.removeItem('lf_custom_products');
+        localStorage.removeItem('lf_audit_passed');
+        localStorage.removeItem('lf_creator_sales');
+        localStorage.removeItem('lf_manifest_downloaded');
+        localStorage.removeItem('lf_manifest_submitted');
+        localStorage.removeItem('lf_visited_dashboard');
+        
+        // Remove purchase files linked to local custom products
+        const purchases = JSON.parse(localStorage.getItem('lf_purchases') || '[]');
+        const filteredPurchases = purchases.filter(p => !p.data || !p.data.isCustom);
+        localStorage.setItem('lf_purchases', JSON.stringify(filteredPurchases));
+
+        // If logged in under mock auth, revert creator status in session
+        if (window.lfAuth && window.lfAuth.isLoggedIn()) {
+            window.lfAuth.currentUser.isCreator = false;
+            localStorage.setItem('lf_user', JSON.stringify(window.lfAuth.currentUser));
+        }
+
+        alert('🔄 Tiến trình Onboard 7 ngày đã được reset về ban đầu!');
+        window.location.reload();
     }
 };

@@ -162,7 +162,7 @@ function closeAuthModal() {
     document.getElementById('auth-modal').classList.remove('active');
 }
 
-function handleLogin() {
+async function handleLogin() {
     const email = document.getElementById('auth-email').value;
     const pass = document.getElementById('auth-password').value;
     
@@ -173,9 +173,36 @@ function handleLogin() {
         return;
     }
     
-    lfAuth.login(email, pass);
-    closeAuthModal();
-    window.location.reload(); // Reload to update UI across the app
+    const submitBtn = document.querySelector('#auth-modal .btn-primary');
+    const originalText = submitBtn ? submitBtn.innerText : "Tiếp tục";
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Đang xử lý...";
+    }
+    
+    try {
+        const result = await lfAuth.login(email, pass);
+        if (result && result.success === false) {
+            const err = document.getElementById('auth-error');
+            err.innerText = result.error || "Lỗi đăng nhập";
+            err.style.display = "block";
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            }
+            return;
+        }
+        closeAuthModal();
+        window.location.reload(); // Reload to update UI across the app
+    } catch (e) {
+        const err = document.getElementById('auth-error');
+        err.innerText = e.message || "Lỗi kết nối";
+        err.style.display = "block";
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = originalText;
+        }
+    }
 }
 
 function handleLogout() {
@@ -209,3 +236,25 @@ function updateNavigation() {
         }
     }
 }
+
+// Load Supabase modules dynamically
+(function() {
+    const authScript = document.querySelector('script[src*="auth.js"]');
+    if (authScript) {
+        const basePath = authScript.src.replace('auth.js', '');
+        
+        // 1. Load supabase-config.js
+        const configScript = document.createElement('script');
+        configScript.src = basePath + 'supabase-config.js';
+        
+        // 2. Once config is loaded, load supabase.js
+        configScript.onload = () => {
+            const dbScript = document.createElement('script');
+            dbScript.src = basePath + 'supabase.js';
+            document.head.appendChild(dbScript);
+        };
+        
+        document.head.appendChild(configScript);
+    }
+})();
+
