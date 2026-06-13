@@ -202,6 +202,23 @@
     }
 
   </style>
+
+  <link rel="canonical" href="https://lumenforge.studio/free-guide.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Nhận Miễn Phí Bộ Sơ Đồ Ánh Sáng Điện Ảnh - LumenForge",
+    "headline": "Nhận Miễn Phí Bộ Sơ Đồ Ánh Sáng Điện Ảnh - LumenForge",
+    "description": "Tải ngay bộ tài liệu độc quyền: 5 sơ đồ đánh sáng tạo chiều sâu 3D cho ảnh chân dung chỉ với 1 đèn.",
+    "url": "https://lumenforge.studio/free-guide.html",
+    "author": {
+      "@type": "Organization",
+      "name": "LumenForge"
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -292,8 +309,19 @@
             });
           }
 
-          // 3. Redirect to dashboard
-          window.location.href = 'dashboard.html';
+          // 3. Update UI to show success and download link
+          const formArea = document.querySelector('.squeeze-form-area');
+          formArea.innerHTML = `
+            <div style="text-align: center; color: #fff;">
+              <div style="background: rgba(0, 212, 255, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <h2 style="color: var(--accent-cyan); margin-bottom: 20px; font-size: 2rem;">Thành công!</h2>
+              <p style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6; color: #ddd;">Tài liệu đã được kích hoạt. Bạn có thể tải xuống ngay hoặc xem lại trong Dashboard bất cứ lúc nào.</p>
+              <a href="javascript:void(0)" onclick="alert('Bắt đầu tải xuống file: 5-cinematic-lighting-setups.pdf');" style="display: block; background: var(--accent-cyan); color: #000; padding: 18px 30px; border-radius: 8px; font-weight: 800; text-decoration: none; text-transform: uppercase; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);">⬇ Tải Xuống PDF Ngay</a>
+              <a href="dashboard.html" style="display: block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 18px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">Chuyển đến Dashboard &rarr;</a>
+            </div>
+          `;
           
         }, 1500);
       });

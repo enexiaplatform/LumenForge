@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Light Mastery Challenge — LumenForge</title>
+  <meta name="description" content="Kiểm tra kiến thức chuyên sâu về ánh sáng, thấu kính, cảm biến và màu sắc điện ảnh tại LumenForge Mastery Quiz.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    .quiz-hero {
+      padding: 100px 0 40px;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(30, 24, 15, 0.4) 0%, rgba(10,10,12,1) 100%);
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+    }
+    .quiz-hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-amber), transparent);
+    }
+    .quiz-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #fff, var(--accent-amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: var(--font-heading);
+    }
+    
+    .quiz-container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+    
+    .quiz-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-amber);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .q-step {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-amber);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .q-timer {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+    
+    .q-title {
+      font-size: 1.35rem;
+      line-height: 1.5;
+      color: #fff;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .option-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      padding: 16px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    .option-card:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(245, 166, 35, 0.4);
+      color: #fff;
+      transform: translateX(5px);
+    }
+    .option-card.selected {
+      border-color: var(--accent-amber);
+      background: rgba(245, 166, 35, 0.08);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(245, 166, 35, 0.1);
+    }
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      font-size: 0.8rem;
+      background: rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    .option-card.selected .option-letter {
+      border-color: var(--accent-amber);
+      background: var(--accent-amber);
+      color: #000;
+    }
+    
+    .quiz-progress-outer {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 2px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .quiz-progress-inner {
+      height: 100%;
+      background: var(--accent-amber);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .welcome-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px rgba(245,166,35,0.3);
+    }
+    .welcome-text {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 30px;
+      font-size: 1rem;
+    }
+
+    .result-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .badge-novice {
+      background: rgba(255,255,255,0.05);
+      color: var(--text-dim);
+      border: 1px solid var(--border-color);
+    }
+    .badge-advanced {
+      background: rgba(0, 212, 170, 0.1);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+    }
+    .badge-dop {
+      background: rgba(245, 166, 35, 0.1);
+      color: var(--accent-amber);
+      border: 1px solid var(--accent-amber);
+      box-shadow: 0 0 10px rgba(245, 166, 35, 0.2);
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--accent-amber);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      background: rgba(245,166,35,0.02);
+      box-shadow: 0 0 30px rgba(245,166,35,0.1);
+    }
+    .score-num {
+      font-size: 3rem;
+      font-family: var(--font-heading);
+      font-weight: bold;
+      color: #fff;
+      line-height: 1;
+    }
+    .score-lbl {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      margin-top: 5px;
+    }
+  </style>
+
+  <link rel="canonical" href="https://lumenforge.studio/quiz.html">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Light Mastery Challenge — LumenForge",
+    "headline": "Light Mastery Challenge — LumenForge",
+    "description": "Kiểm tra kiến thức chuyên sâu về ánh sáng, thấu kính, cảm biến và màu sắc điện ảnh tại LumenForge Mastery Quiz.",
+    "url": "https://lumenforge.studio/quiz.html",
+    "author": {
+      "@type": "Organization",
+      "name": "LumenForge"
+    }
+  }
+  </script>
+</head>
+<body>
+
+      <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="light-codex.html" class="nav-link">Light Codex</a>
+        <a href="tool-lab.html" class="nav-link">Xưởng Công cụ</a>
+        <a href="shot-recipes.html" class="nav-link">Công thức</a>
+        <a href="lighting-gallery.html" class="nav-link">Thư viện</a>
+        <a href="gear-vault.html" class="nav-link">Thiết Bị</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="quiz-hero animate-on-scroll">
+    <div class="container">
+      <h1>Mastery Quiz Challenge</h1>
+      <p>Kiểm tra tư duy khoa học và thẩm mỹ ánh sáng của bạn để nâng cấp học vị trong phòng nghiên cứu LumenForge.</p>
+    </div>
+  </header>
+
+  <!-- Quiz Arena -->
+  <div class="quiz-container">
+    
+    <!-- Welcome Screen -->
+    <div id="quiz-welcome" class="quiz-card animate-on-scroll" style="text-align: center;">
+      <div class="welcome-icon">🎯</div>
+      <h3 style="margin-top: 0; color: #fff; font-family: var(--font-heading); font-size: 1.6rem;">Bạn đã sẵn sàng chứng minh năng lực?</h3>
+      <p class="welcome-text">
+        Bài kiểm tra gồm <strong>10 câu hỏi trắc nghiệm khách quan</strong> bao quát 4 trụ cột cốt lõi: Quang học (Optics), Cảm biến vật lý (Sensors), Ánh sáng tạo hình (Lighting setups), và Khoa học màu sắc (Color Science).<br><br>
+        Mỗi câu trả lời đúng mang lại <strong>20 XP</strong>.<br>
+        Hoàn thành bài thi xuất sắc để vinh danh danh hiệu của bạn trên bảng điều khiển cá nhân (Dashboard).
+      </p>
+      
+      <button onclick="startQuiz()" class="btn-primary" style="padding: 12px 30px; font-weight: bold; border-radius: 8px;">Bắt đầu làm bài</button>
+    </div>
+
+    <!-- Active Question Screen (Hidden initially) -->
+    <div id="quiz-active" class="quiz-card" style="display: none;">
+      
+      <div class="question-header">
+        <span class="q-step" id="q-step-text">Câu hỏi 1 / 10</span>
+        <span class="q-timer" id="q-category-text">[Quang học]</span>
+      </div>
+
+      <div class="quiz-progress-outer">
+        <div class="quiz-progress-inner" id="quiz-progress-bar"></div>
+      </div>
+
+      <div class="q-title" id="question-title-text">
+        Đang tải câu hỏi...
+      </div>
+
+      <div class="options-grid" id="options-container">
+        <!-- Generated dynamically by JS -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button id="btn-next-question" onclick="nextQuestion()" class="btn-primary" style="padding: 10px 25px; border-radius: 6px; font-weight: bold;" disabled>
+          Tiếp theo &rarr;
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Results Screen (Hidden initially) -->
+    <div id="quiz-results" class="quiz-card" style="display: none; text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 15px;">🏆</div>
+      <h3 style="margin-top: 0; color: #fff; font-family: var(--font-heading); font-size: 1.6rem;">Kết quả bài thi</h3>
+      
+      <div class="score-circle">
+        <div class="score-num" id="res-score">8/10</div>
+        <div class="score-lbl">Chính xác</div>
+      </div>
+
+      <div class="result-badge badge-novice" id="res-badge">Rank: Novice</div>
+      
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 30px; line-height: 1.6;" id="res-desc">
+        Chúc mừng bạn đã hoàn thành bài thi! Cố gắng ôn tập thêm tài liệu ở Light Codex để đạt danh hiệu cao hơn.
+      </p>
+
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; max-width: 300px; margin: 0 auto 30px;">
+        <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono);">Tổng XP Nhận được</div>
+        <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent-amber); font-family: var(--font-mono); margin-top: 5px;" id="res-xp">+160 XP</div>
+      </div>
+
+      <div style="display: flex; gap: 15px; justify-content: center;">
+        <button onclick="restartQuiz()" class="btn-secondary" style="padding: 10px 20px; font-weight: bold; border-radius: 6px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);">Làm lại bài</button>
+        <a href="dashboard.html" class="btn-primary" style="padding: 10px 20px; font-weight: bold; border-radius: 6px; text-decoration: none;">Vào Dashboard</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="margin-top: 80px;">
+    <div class="container" style="text-align: center; color: var(--text-dim); font-size: 0.9rem;">
+      &copy; 2026 LumenForge Lab. Thiết kế và nội dung khoa học xây dựng bởi Henry.
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/quiz.js"></script>
+</body>
+</html>

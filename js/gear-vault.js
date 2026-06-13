@@ -6,7 +6,7 @@ const GEAR_DB = [
   // --- TIER: INDIE ($1000) ---
   {
     id: 'g-001',
-    tier: 'indie',
+    tier: 'run',
     category: 'camera',
     title: 'Sony A6700',
     type: 'Hybrid Camera (APS-C)',
@@ -18,7 +18,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-002',
-    tier: 'indie',
+    tier: 'beginner',
     category: 'lens',
     title: 'Sigma 30mm f/1.4 DC DN',
     type: 'Prime Lens',
@@ -30,7 +30,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-003',
-    tier: 'indie',
+    tier: 'beginner',
     category: 'light',
     title: 'Godox SL60IID',
     type: 'LED Video Light',
@@ -42,7 +42,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-004',
-    tier: 'indie',
+    tier: 'beginner',
     category: 'camera',
     title: 'Canon EOS R50',
     type: 'Entry-level Camera (APS-C)',
@@ -56,7 +56,7 @@ const GEAR_DB = [
   // --- TIER: PRO ($4000) ---
   {
     id: 'g-005',
-    tier: 'pro',
+    tier: 'run',
     category: 'camera',
     title: 'Sony FX3 / A7S III',
     type: 'Cinema Camera (Full-frame)',
@@ -68,7 +68,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-006',
-    tier: 'pro',
+    tier: 'studio',
     category: 'camera',
     title: 'Canon EOS R5',
     type: 'Hybrid Pro (Full-frame)',
@@ -80,7 +80,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-007',
-    tier: 'pro',
+    tier: 'studio',
     category: 'lens',
     title: 'Sony 24-70mm f/2.8 GM II',
     type: 'Zoom Lens',
@@ -92,7 +92,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-008',
-    tier: 'pro',
+    tier: 'studio',
     category: 'light',
     title: 'Aputure 300D Mark II',
     type: 'COB LED Light',
@@ -106,7 +106,7 @@ const GEAR_DB = [
   // --- TIER: DREAM (No Limit) ---
   {
     id: 'g-009',
-    tier: 'dream',
+    tier: 'studio',
     category: 'camera',
     title: 'ARRI Alexa 35',
     type: 'Cinema Camera (Super 35)',
@@ -118,7 +118,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-010',
-    tier: 'dream',
+    tier: 'studio',
     category: 'lens',
     title: 'Cooke Panchro/i Classic FF',
     type: 'Cine Prime Set',
@@ -130,7 +130,7 @@ const GEAR_DB = [
   },
   {
     id: 'g-011',
-    tier: 'dream',
+    tier: 'studio',
     category: 'light',
     title: 'ARRI SkyPanel S60-C',
     type: 'LED Soft Light',
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tierTabs = document.querySelectorAll('.tier-tab');
   const categoryFilters = document.querySelectorAll('.cat-filter');
   
-  let currentTier = 'indie';
+  let currentTier = 'beginner';
   let currentCategory = 'all';
 
   function renderGear() {
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Determine accent color based on tier
       let accent = 'var(--accent-cyan)';
-      if(gear.tier === 'pro') accent = 'var(--accent-amber)';
-      if(gear.tier === 'dream') accent = 'var(--accent-pink)';
+      if(gear.tier === 'studio') accent = 'var(--accent-amber)';
+      if(gear.tier === 'run') accent = 'var(--accent-pink)';
 
       return `
         <div class="gear-card animate-on-scroll" style="animation-delay: ${index * 0.1}s; --tier-accent: ${accent};">

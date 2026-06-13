@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderCard = (article) => {
-    const levelStr = article.level === 1 ? 'Sơ cấp' : article.level === 2 ? 'Trung cấp' : 'Cao cấp';
+    const levelMap = {1: 'Sơ cấp', 2: 'Cơ bản', 3: 'Trung cấp', 4: 'Cao cấp', 5: 'Chuyên sâu'}; const levelStr = levelMap[article.level] || 'Khác';
     const levelBadge = `<span class="codex-level-badge level-${article.level}">${levelStr}</span>`;
     
     // Check if read
@@ -95,13 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderCurriculum = () => {
     if (!curriculumView) return;
     
-    const foundationArticles = articles.filter(a => a.level === 1);
-    const intermediateArticles = articles.filter(a => a.level === 2);
-    const advancedArticles = articles.filter(a => a.level === 3);
-
-    document.getElementById('grid-track-foundation').innerHTML = foundationArticles.map(renderCard).join('');
-    document.getElementById('grid-track-intermediate').innerHTML = intermediateArticles.map(renderCard).join('');
-    document.getElementById('grid-track-advanced').innerHTML = advancedArticles.map(renderCard).join('');
+    for (let i = 1; i <= 5; i++) {
+      const trackArticles = articles.filter(a => a.level === i);
+      const grid = document.getElementById('grid-track-level-' + i);
+      if (grid) {
+        grid.innerHTML = trackArticles.map(renderCard).join('');
+      }
+    }
 
     // Calculate progress
     if (window.lfAuth && window.lfAuth.isLoggedIn()) {
@@ -113,18 +113,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return Math.round((readCount / trackArticles.length) * 100);
       };
 
-      const pF = calcProgress(foundationArticles);
-      const pI = calcProgress(intermediateArticles);
-      const pA = calcProgress(advancedArticles);
-
-      document.getElementById('progress-text-foundation').textContent = `${pF}%`;
-      document.getElementById('progress-bar-foundation').style.width = `${pF}%`;
-      
-      document.getElementById('progress-text-intermediate').textContent = `${pI}%`;
-      document.getElementById('progress-bar-intermediate').style.width = `${pI}%`;
-
-      document.getElementById('progress-text-advanced').textContent = `${pA}%`;
-      document.getElementById('progress-bar-advanced').style.width = `${pA}%`;
+      for (let i = 1; i <= 5; i++) {
+        const trackArticles = articles.filter(a => a.level === i);
+        const prog = calcProgress(trackArticles);
+        const textEl = document.getElementById('progress-text-level-' + i);
+        const barEl = document.getElementById('progress-bar-level-' + i);
+        if (textEl) textEl.textContent = `${prog}%`;
+        if (barEl) barEl.style.width = `${prog}%`;
+      }
     }
   };
 

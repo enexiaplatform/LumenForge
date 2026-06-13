@@ -3,7 +3,7 @@ window.TOOLS_DB = [
     "id": "ai-storyboard",
     "title": "AI Storyboard Prompt Builder",
     "desc": "Trình tạo lệnh (Prompt) siêu chuẩn xác dành cho Midjourney & Stable Diffusion để thiết kế Storyboard điện ảnh.",
-    "category": "ai",
+    "category": "composition",
     "link": "tools/ai-storyboard.html",
     "accent": "purple",
     "status": "Active"
@@ -12,7 +12,7 @@ window.TOOLS_DB = [
     "id": "anamorphic-simulator",
     "title": "Anamorphic Lens Simulator",
     "desc": "Khám phá chuyên sâu về Anamorphic Simulator tại LumenForge - Nền tảng kiến thức nhiếp ảnh và điện ảnh.",
-    "category": "general",
+    "category": "lens",
     "link": "tools/anamorphic-simulator.html",
     "accent": "cyan",
     "status": "Active"
@@ -21,7 +21,7 @@ window.TOOLS_DB = [
     "id": "aspect-ratio",
     "title": "Cinematic Aspect Ratio Crop",
     "desc": "Công cụ giả lập crop ảnh theo các tỷ lệ khung hình chuẩn Hollywood (2.35:1, 1.85:1, IMAX).",
-    "category": "general",
+    "category": "composition",
     "link": "tools/aspect-ratio.html",
     "accent": "cyan",
     "status": "Active"
@@ -30,7 +30,7 @@ window.TOOLS_DB = [
     "id": "cheat-sheet",
     "title": "Cinematographer Cheat Sheet",
     "desc": "Bảng tra cứu vạn năng tại hiện trường dành cho nhà làm phim và nhiếp ảnh gia.",
-    "category": "general",
+    "category": "gear",
     "link": "tools/cheat-sheet.html",
     "accent": "cyan",
     "status": "Active"
@@ -84,7 +84,7 @@ window.TOOLS_DB = [
     "id": "composition-analyzer",
     "title": "Composition & Grid Analyzer",
     "desc": "Phòng Lab Bố cục Không gian. Áp dụng Tỷ lệ vàng, Xoắn ốc Fibonacci và Đối xứng động lên khung hình.",
-    "category": "ai",
+    "category": "composition",
     "link": "tools/composition-analyzer.html",
     "accent": "purple",
     "status": "Active"
@@ -93,7 +93,7 @@ window.TOOLS_DB = [
     "id": "dof-calculator",
     "title": "Depth of Field (DoF) Calculator",
     "desc": "Công cụ tính toán Khoảng ảnh rõ (Depth of Field), Hyperfocal Distance và điểm lấy nét tối ưu dựa trên vật lý quang học.",
-    "category": "optics",
+    "category": "exposure",
     "link": "tools/dof-calculator.html",
     "accent": "blue",
     "status": "Active"
@@ -102,7 +102,7 @@ window.TOOLS_DB = [
     "id": "dolly-zoom",
     "title": "Dolly Zoom Simulator",
     "desc": "Trực quan hóa hiện tượng nén không gian (Perspective Compression) và hiệu ứng Vertigo kinh điển trong điện ảnh.",
-    "category": "general",
+    "category": "lens",
     "link": "tools/dolly-zoom.html",
     "accent": "cyan",
     "status": "Active"
@@ -111,7 +111,7 @@ window.TOOLS_DB = [
     "id": "exposure-reactor",
     "title": "Mô phỏng Phơi sáng",
     "desc": "Interactive exposure triangle playground. Kéo thanh, xem ảnh thay đổi — học ISO, Shutter Speed, Aperture bằng trực giác.",
-    "category": "light",
+    "category": "exposure",
     "link": "tools/exposure-reactor.html",
     "accent": "amber",
     "status": "Active"
@@ -129,7 +129,7 @@ window.TOOLS_DB = [
     "id": "flash-simulator",
     "title": "Flash Sync & Ambient Simulator",
     "desc": "Phòng Lab mô phỏng sự tương tác giữa Màn trập và Đèn chớp. Trực quan hóa X-Sync và High-Speed Sync (HSS).",
-    "category": "light",
+    "category": "exposure",
     "link": "tools/flash-simulator.html",
     "accent": "amber",
     "status": "Active"
@@ -138,7 +138,7 @@ window.TOOLS_DB = [
     "id": "flashcards",
     "title": "Flashcards: Ôn tập Kiến thức",
     "desc": "Hệ thống Flashcards ôn tập kiến thức nhiếp ảnh và điện ảnh theo phương pháp lặp lại ngắt quãng.",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/flashcards.html",
     "accent": "amber",
     "status": "Active"
@@ -147,7 +147,7 @@ window.TOOLS_DB = [
     "id": "fov-simulator",
     "title": "Trình giả lập Tiêu cự & FOV",
     "desc": "",
-    "category": "optics",
+    "category": "lens",
     "link": "tools/fov-simulator.html",
     "accent": "blue",
     "status": "Active"
@@ -156,7 +156,7 @@ window.TOOLS_DB = [
     "id": "frame-analyzer",
     "title": "Cinematic Frame Analyzer",
     "desc": "Công cụ phân tích khung hình điện ảnh. Trích xuất màu sắc chủ đạo và phủ lưới bố cục lên mọi bức ảnh.",
-    "category": "ai",
+    "category": "composition",
     "link": "tools/frame-analyzer.html",
     "accent": "purple",
     "status": "Active"
@@ -165,7 +165,7 @@ window.TOOLS_DB = [
     "id": "lens-decoder",
     "title": "Tính cách Lens Decoder",
     "desc": "Giải mã tính cách lens của bạn — Discover your lens personality based on camera body, focal length, shooting purpose, and visual style.",
-    "category": "optics",
+    "category": "lens",
     "link": "tools/lens-decoder.html",
     "accent": "blue",
     "status": "Active"
@@ -174,7 +174,7 @@ window.TOOLS_DB = [
     "id": "lighting-builder",
     "title": "Lighting Diagram Builder",
     "desc": "Tự tay thiết kế sơ đồ ánh sáng nhiếp ảnh chuyên nghiệp. Kéo thả các loại đèn, máy ảnh và xuất ra file PNG.",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/lighting-builder.html",
     "accent": "amber",
     "status": "Active"
@@ -183,7 +183,7 @@ window.TOOLS_DB = [
     "id": "lighting-gels",
     "title": "Lighting Gels Physics",
     "desc": "Trải nghiệm Vật lý Hòa trộn Màu trừ (Subtractive Mixing) với kính lọc màu điện ảnh (CTB, CTO).",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/lighting-gels.html",
     "accent": "amber",
     "status": "Active"
@@ -192,7 +192,7 @@ window.TOOLS_DB = [
     "id": "lighting-simulator",
     "title": "3-Point Lighting Simulator",
     "desc": "Sa bàn mô phỏng ánh sáng 3 điểm (3-Point Lighting) giúp bạn rèn luyện kỹ năng đặt đèn Studio chuyên nghiệp.",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/lighting-simulator.html",
     "accent": "amber",
     "status": "Active"
@@ -201,7 +201,7 @@ window.TOOLS_DB = [
     "id": "lighting-studio",
     "title": "Phòng chụp Ánh sáng 3 Điểm",
     "desc": "",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/lighting-studio.html",
     "accent": "amber",
     "status": "Active"
@@ -210,7 +210,7 @@ window.TOOLS_DB = [
     "id": "lightroom-generator",
     "title": "Lightroom Preset Generator",
     "desc": "Chỉnh màu trực tiếp trên web và xuất thẳng ra file XMP Preset cho Adobe Lightroom. Hoàn toàn miễn phí và không dùng API.",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/lightroom-generator.html",
     "accent": "amber",
     "status": "Active"
@@ -219,7 +219,7 @@ window.TOOLS_DB = [
     "id": "mastery-quiz",
     "title": "LumenForge Mastery Exam",
     "desc": "Bài thi đánh giá năng lực thị giác và kiến thức quang học. Kiểm tra xem bạn thuộc Archetype nào trong thế giới hình ảnh.",
-    "category": "general",
+    "category": "gear",
     "link": "tools/mastery-quiz.html",
     "accent": "cyan",
     "status": "Active"
@@ -228,7 +228,7 @@ window.TOOLS_DB = [
     "id": "posing-guide",
     "title": "Posing Guide Library",
     "desc": "Bách khoa toàn thư tư thế tạo dáng tĩnh, phân loại theo tâm lý học và mục đích chụp.",
-    "category": "general",
+    "category": "gear",
     "link": "tools/posing-guide.html",
     "accent": "cyan",
     "status": "Active"
@@ -237,7 +237,7 @@ window.TOOLS_DB = [
     "id": "shadow-simulator",
     "title": "3D Shadow Simulator",
     "desc": "Giả lập khối ánh sáng 3D. Di chuyển nguồn sáng để hiểu cách bóng đổ định hình gương mặt (Rembrandt, Split, Butterfly).",
-    "category": "light",
+    "category": "lighting",
     "link": "tools/shadow-simulator.html",
     "accent": "amber",
     "status": "Active"
@@ -246,7 +246,7 @@ window.TOOLS_DB = [
     "id": "shoot-planner",
     "title": "Shoot Planner & Call Sheet",
     "desc": "Lên kế hoạch tiền kỳ (Pre-production) cho buổi chụp ảnh hoặc quay phim. Xuất Call Sheet để gửi cho Ekip.",
-    "category": "ai",
+    "category": "gear",
     "link": "tools/shoot-planner.html",
     "accent": "purple",
     "status": "Active"
@@ -255,7 +255,7 @@ window.TOOLS_DB = [
     "id": "shutter-angle-simulator",
     "title": "Shutter Angle Simulator",
     "desc": "Khám phá chuyên sâu về Shutter Angle Simulator tại LumenForge - Nền tảng kiến thức nhiếp ảnh và điện ảnh.",
-    "category": "optics",
+    "category": "exposure",
     "link": "tools/shutter-angle-simulator.html",
     "accent": "blue",
     "status": "Active"
@@ -264,7 +264,7 @@ window.TOOLS_DB = [
     "id": "soundscape",
     "title": "Cinematic Soundscape",
     "desc": "Mixer hòa âm điện ảnh. Tạo cảm hứng viết kịch bản với các dải âm trường thanh (Ambient) như Mưa, Cyberpunk, Rumble.",
-    "category": "general",
+    "category": "gear",
     "link": "tools/soundscape.html",
     "accent": "cyan",
     "status": "Active"
@@ -273,7 +273,7 @@ window.TOOLS_DB = [
     "id": "storyboard-drawer",
     "title": "Interactive Storyboard Drawer",
     "desc": "Phác thảo kịch bản phân cảnh chuyên nghiệp trực tiếp trên trình duyệt.",
-    "category": "ai",
+    "category": "composition",
     "link": "tools/storyboard-drawer.html",
     "accent": "purple",
     "status": "Active"
@@ -282,7 +282,7 @@ window.TOOLS_DB = [
     "id": "sync-simulator",
     "title": "Audio Sync Simulator",
     "desc": "Minigame giả lập màn hình dựng phim (NLE). Dùng chuột kéo dải sóng âm (Waveform) để khớp chính xác với tiếng gập của bảng Clapperboard.",
-    "category": "general",
+    "category": "exposure",
     "link": "tools/sync-simulator.html",
     "accent": "cyan",
     "status": "Active"
@@ -291,7 +291,7 @@ window.TOOLS_DB = [
     "id": "timelapse-calculator",
     "title": "Máy tính Timelapse & Giả lập Shutter Angle",
     "desc": "Công cụ tính toán số lượng ảnh, khoảng thời gian chụp (interval) và độ dài video cho các project Timelapse/Hyperlapse chuyên nghiệp.",
-    "category": "general",
+    "category": "exposure",
     "link": "tools/timelapse-calculator.html",
     "accent": "cyan",
     "status": "Active"
@@ -300,7 +300,7 @@ window.TOOLS_DB = [
     "id": "title-generator",
     "title": "Cinematic Title Generator",
     "desc": "Tự động tạo Poster phim điện ảnh từ ảnh của bạn với Typography chuẩn Hollywood.",
-    "category": "general",
+    "category": "composition",
     "link": "tools/title-generator.html",
     "accent": "cyan",
     "status": "Active"
@@ -309,7 +309,7 @@ window.TOOLS_DB = [
     "id": "tone-curve",
     "title": "Biểu đồ & Đường cong Tông màu",
     "desc": "Phòng thí nghiệm đường cong tông màu và biểu đồ tần suất ánh sáng. Học cách điều chỉnh Blacks, Shadows, Midtones, Highlights.",
-    "category": "color",
+    "category": "lighting",
     "link": "tools/tone-curve.html",
     "accent": "film",
     "status": "Active"
@@ -318,17 +318,17 @@ window.TOOLS_DB = [
     "id": "viewfinder",
     "title": "Director's Viewfinder",
     "desc": "Biến điện thoại của bạn thành ống ngắm đạo diễn (Director's Viewfinder) để dò tìm góc máy và bố cục với tỷ lệ khung hình điện ảnh.",
-    "category": "optics",
+    "category": "lens",
     "link": "tools/viewfinder.html",
     "accent": "blue",
     "status": "Active"
   },
   {
-    "id": "visual-identity",
-    "title": "Khảo sát Bản sắc Thị giác",
-    "desc": "Khám phá cá tính hình ảnh cá nhân. Trả lời trắc nghiệm trực quan để định hình phong cách chụp, setup màu và thiết bị phù hợp nhất.",
-    "category": "general",
-    "link": "tools/visual-identity.html",
+    "id": "gear-matchmaker",
+    "title": "Gear Matchmaker Quiz",
+    "desc": "Khảo sát nhu cầu để tìm ra bộ thiết bị (máy ảnh, ống kính, đèn) phù hợp nhất với ngân sách và phong cách của bạn.",
+    "category": "gear",
+    "link": "tools/gear-matchmaker.html",
     "accent": "cyan",
     "status": "Active"
   },

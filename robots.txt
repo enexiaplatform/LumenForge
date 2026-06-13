@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lumenforge.com/sitemap.xml
+Sitemap: https://lumenforge.studio/sitemap.xml

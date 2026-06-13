@@ -45,17 +45,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if(tool.category === 'color') imgUrl = "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=600&auto=format&fit=crop";
         if(tool.category === 'ai') imgUrl = "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop";
 
+        
+        const top5 = ['shoot-planner', 'lens-decoder', 'exposure-reactor', 'film-look', 'gear-matchmaker'];
+        const isTop = top5.includes(tool.id);
+        
+        let extraHTML = '';
+        if (isTop) {
+            extraHTML = `
+              <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="font-size: 0.8rem; color: var(--accent-cyan); font-weight: bold; margin-bottom: 5px;">MỤC ĐÍCH:</div>
+                <div style="font-size: 0.85rem; color: #ccc; margin-bottom: 15px;">Giải quyết nhanh vấn đề của bạn trong tích tắc.</div>
+                <div style="display: flex; gap: 10px;">
+                    <span style="display: inline-block; background: var(--accent-cyan); color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">Dùng thử ngay</span>
+                    <a href="../store.html" style="display: inline-block; background: rgba(255,255,255,0.1); color: #fff; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; text-decoration: none;">Đến Store</a>
+                </div>
+              </div>
+            `;
+        }
+
         const cardHTML = `
-          <a href="${tool.link}" class="tool-gallery-card" style="border-color: rgba(255,255,255,0.1); transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent-${tool.accent})'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)'">
+          <a href="${tool.link}" class="tool-gallery-card ${isTop ? 'featured-tool' : ''}" style="border-color: ${isTop ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.1)'}; transition: border-color 0.3s;" onmouseover="this.style.borderColor='var(--accent-${tool.accent})'" onmouseout="this.style.borderColor='${isTop ? 'var(--accent-cyan)' : 'rgba(255,255,255,0.1)'}'">
             <div class="tool-gallery-img" style="background-image: url('${imgUrl}');">
               <div class="tool-status-badge" style="${badgeStyle}">${badgeText}</div>
+              ${isTop ? '<div style="position: absolute; top: 10px; left: 10px; background: var(--accent-amber); color: #000; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">⭐ Core Tool</div>' : ''}
             </div>
             <div class="tool-gallery-content">
               <h3 style="font-size: 1.1rem;">${tool.title}</h3>
               <p style="font-size: 0.85rem;">${tool.desc}</p>
+              ${extraHTML}
             </div>
           </a>
         `;
+
         appGrid.innerHTML += cardHTML;
       });
     }

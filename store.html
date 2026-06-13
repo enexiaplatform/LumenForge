@@ -133,7 +133,7 @@
     }
   </style>
 
-  <link rel="canonical" href="https://lumenforge.com/store.html">
+  <link rel="canonical" href="https://lumenforge.studio/store.html">
 
   <script type="application/ld+json">
   {
@@ -142,7 +142,7 @@
     "name": "LumenForge Store — Premium Ebooks & Presets",
     "headline": "LumenForge Store — Premium Ebooks & Presets",
     "description": "Nâng cấp kỹ năng với các ấn phẩm Ebook chuyên sâu và bộ Preset độc quyền từ các chuyên gia LumenForge.",
-    "url": "https://lumenforge.com/store.html",
+    "url": "https://lumenforge.studio/store.html",
     "author": {
       "@type": "Organization",
       "name": "LumenForge"
@@ -152,7 +152,7 @@
 </head>
 <body>
 
-    <!-- Navigation -->
+        <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
@@ -186,7 +186,7 @@
       
       <!-- Premium Ebooks -->
       <h3 class="section-title-store">01 // PREMIUM EBOOKS</h3>
-      <div class="products-grid">
+      <div class="products-grid" id="ebooks-grid">
         
         <!-- Product 1 -->
         <div class="product-card">
@@ -220,7 +220,7 @@
 
       <!-- Pro Presets -->
       <h3 class="section-title-store" style="margin-top: 60px;">02 // CUBE LUTS & PRESETS</h3>
-      <div class="products-grid">
+      <div class="products-grid" id="presets-grid">
         
         <!-- Product 3 -->
         <div class="product-card">
@@ -250,6 +250,37 @@
           </div>
         </div>
 
+      </div>
+
+      
+      <!-- Bundles -->
+      <h3 class="section-title-store" style="margin-top: 60px;">03 // BUNDLES</h3>
+      <div class="products-grid" id="bundles-grid">
+        
+        <!-- Creator Starter Bundle -->
+        <div class="product-card" style="border-color: var(--accent-cyan); background: rgba(0, 212, 170, 0.05);">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop" alt="Creator Starter Bundle" class="product-img">
+          <div class="product-info">
+            <span class="product-tag" style="color: var(--accent-cyan);">ULTIMATE BUNDLE</span>
+            <h3 class="product-title">Creator Starter Bundle</h3>
+            <p class="product-desc">Trọn bộ vũ khí cho Creator: Ebook Chiaroscuro + 15 Cinematic LUTs + Template Call Sheet. Tiết kiệm 40% so với mua lẻ từng sản phẩm.</p>
+            <div class="product-footer">
+              <div class="product-price"><span>850.000đ</span> 499.000đ</div>
+              <a href="#" class="btn-buy" style="background: var(--accent-cyan);" onclick="openCheckoutModal('bundle-starter', 499000); return false;">Mua Combo</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Creator Banner -->
+      <div style="margin-top: 60px; padding: 40px; background: radial-gradient(circle at center, rgba(0, 212, 170, 0.05) 0%, rgba(10,10,12,1) 100%); border: 1px dashed rgba(0, 212, 170, 0.2); border-radius: 16px; text-align: center; backdrop-filter: blur(10px);">
+        <div style="font-size: 2rem; margin-bottom: 15px;">✨</div>
+        <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 10px; font-family: var(--font-heading);">Bạn là Nhà Sáng Tạo Nội Dung?</h3>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 25px; font-size: 0.95rem; line-height: 1.6;">
+          Tham gia hệ thống phân phối LumenForge. Đăng bán tài liệu Ebook, Presets và LUTs màu của riêng bạn. Nhận 90% lợi nhuận, tiền đổ trực tiếp về tài khoản ngân hàng của bạn qua VietQR.
+        </p>
+        <a href="creator-onboarding.html" class="btn-primary" style="display: inline-block; padding: 12px 30px; font-size: 0.9rem; font-weight: bold; background: var(--accent-cyan); color: #000; text-decoration: none; border-radius: 6px;">Bắt đầu Onboarding</a>
       </div>
 
     </div>
@@ -282,5 +313,6 @@
   <script src="js/common.js"></script>
   <script src="js/checkout.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/store-custom.js"></script>
 </body>
 </html>

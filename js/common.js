@@ -288,3 +288,34 @@
   document.addEventListener('DOMContentLoaded', () => {
     setActiveNav();
   });
+
+
+/* ==========================================================================
+   LUMENFORGE ANALYTICS (SIMULATED)
+   ========================================================================== */
+function trackEvent(eventName, eventData = {}) {
+    console.log(`%c[LFA ANALYTICS] Event Logged: ${eventName}`, 'color: #00b4ff; font-weight: bold;');
+    if (Object.keys(eventData).length > 0) {
+        console.log(eventData);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Track page views
+    trackEvent('page_view', { path: window.location.pathname });
+
+    // Track button clicks (download, buy, play tool)
+    document.body.addEventListener('click', (e) => {
+        const target = e.target.closest('a, button');
+        if (!target) return;
+        
+        const text = (target.textContent || '').trim().toLowerCase();
+        if (text.includes('tải') || text.includes('download')) {
+            trackEvent('file_download_click', { url: target.href });
+        } else if (text.includes('mua') || text.includes('buy')) {
+            trackEvent('checkout_initiated', { text: text });
+        } else if (target.classList.contains('tool-gallery-card')) {
+            trackEvent('tool_opened', { url: target.href });
+        }
+    });
+});

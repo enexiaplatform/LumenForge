@@ -138,7 +138,7 @@
     }
   </style>
 
-  <link rel="canonical" href="https://lumenforge.com/dashboard.html">
+  <link rel="canonical" href="https://lumenforge.studio/dashboard.html">
 
   <script type="application/ld+json">
   {
@@ -147,7 +147,7 @@
     "name": "Your Dashboard — LumenForge",
     "headline": "Your Dashboard — LumenForge",
     "description": "Trang cá nhân của bạn trên LumenForge. Theo dõi tiến độ học tập và các bài đã lưu.",
-    "url": "https://lumenforge.com/dashboard.html",
+    "url": "https://lumenforge.studio/dashboard.html",
     "author": {
       "@type": "Organization",
       "name": "LumenForge"
@@ -157,7 +157,7 @@
 </head>
 <body>
 
-    <!-- Navigation -->
+        <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
@@ -246,6 +246,18 @@
           <a href="quiz.html" style="display: block; margin-top: 20px; color: var(--accent-amber); text-decoration: none;">&rarr; Làm lại bài test</a>
         </div>
 
+        
+        <!-- Recently Read -->
+        <div class="dash-card">
+          <h3>🕒 Đọc gần đây</h3>
+          <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Tiếp tục việc học tập của bạn.</p>
+          
+          <ul class="bookmark-list" id="recent-list">
+            <!-- Rendered by JS -->
+            <li style="color: var(--text-dim); font-style: italic;">Chưa có bài nào.</li>
+          </ul>
+        </div>
+
         <!-- Bookmarks (Dummy for now, could be dynamic) -->
         <div class="dash-card">
           <h3>🔖 Đã lưu (Bookmarks)</h3>
@@ -262,7 +274,7 @@
       <div class="dashboard-grid" style="margin-top: var(--space-xl);">
         <!-- Inventory / Purchases -->
         <div class="dash-card" style="grid-column: 1 / -1; background: rgba(245, 166, 35, 0.05); border-color: var(--accent-amber);">
-          <h3 style="color: var(--accent-amber);">🎁 Tủ Đồ Của Bạn (Inventory)</h3>
+          <h3 style="color: var(--accent-amber);">🎁 My Downloads (Tủ Đồ)</h3>
           <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Tài liệu và Khóa học bạn đã mở khóa.</p>
           
           <ul class="bookmark-list" id="inventory-list">
@@ -272,7 +284,10 @@
         </div>
       </div>
 
-      <div style="text-align: right;">
+      <!-- Creator Hub Section -->
+      <div id="creator-hub-container" style="margin-top: var(--space-xl);"></div>
+
+      <div style="text-align: right; margin-top: var(--space-xl);">
         <button class="btn-reset" id="btn-reset">Cài đặt lại toàn bộ Dữ liệu</button>
       </div>
 
@@ -285,6 +300,7 @@
     </div>
   </footer>
 
+  <script src="js/onboarding.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/auth.js"></script>
 </body>
