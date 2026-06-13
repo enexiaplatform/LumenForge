@@ -264,7 +264,9 @@ async function renderCreatorHub() {
     if (isCreator) {
         const totalSales = creatorSales.length;
         const totalRevenue = creatorSales.reduce((sum, s) => sum + Number(s.price), 0);
-        const formattedRevenue = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalRevenue);
+        const creatorRevenue = totalRevenue * 0.7; // 70% revshare
+        const formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalRevenue);
+        const formattedCreator = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(creatorRevenue);
 
         container.innerHTML = `
             <div class="dash-card" style="border-color: var(--accent-cyan); background: rgba(0, 212, 170, 0.02);">
@@ -297,9 +299,11 @@ async function renderCreatorHub() {
                         <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); margin-bottom: 5px;">Số lượt mua thử nghiệm</div>
                         <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent-amber); font-family: var(--font-mono);">${totalSales}</div>
                     </div>
-                    <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
-                        <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); margin-bottom: 5px;">Doanh thu ước tính</div>
-                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-cyan); font-family: var(--font-mono);">${formattedRevenue}</div>
+                    <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono); margin-bottom: 5px;">Thu nhập của bạn (70%)</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 5px;">${formattedCreator}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 10px;">Tổng thu: ${formattedTotal}</div>
+                        <button onclick="requestPayout()" class="btn-primary" style="padding: 6px 12px; font-size: 0.8rem; border-radius: 4px; border: none; font-weight: bold; cursor: pointer; width: 100%;">Yêu cầu rút tiền</button>
                     </div>
                 </div>
 
@@ -453,6 +457,10 @@ window.simulatePurchase = function(productId) {
             initDashboard();
         });
     }
+};
+
+window.requestPayout = function() {
+    alert('Yêu cầu rút tiền đã được gửi tới hệ thống!\n\nSố tiền sẽ được chuyển qua VietQR / MoMo của bạn (đã đăng ký trong Onboarding) vào ngày mùng 5 tháng tới.');
 };
 
 window.submitProduct = function(productId) {
