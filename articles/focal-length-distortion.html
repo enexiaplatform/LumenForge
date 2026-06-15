@@ -30,20 +30,27 @@
 </head>
 <body>
           <!-- Navigation -->
-  <nav class="nav" id="main-nav">
+    <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="../index.html" class="nav-link">Trang chủ</a>
-        <a href="../light-codex.html" class="nav-link">Light Codex</a>
-        <a href="../tool-lab.html" class="nav-link">Xưởng Công cụ</a>
-        <a href="../shot-recipes.html" class="nav-link">Công thức</a>
-        <a href="../lighting-gallery.html" class="nav-link">Thư viện</a>
-        <a href="../gear-vault.html" class="nav-link">Thiết Bị</a>
-        <a href="../dashboard.html" class="nav-link">Dashboard</a>
+        <a href="../light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="../before-after.html" class="nav-link">Before / After</a>
+        <a href="../free-guide.html" class="nav-link">Starter Kit</a>
+        <div class="nav-link" style="position: relative; cursor: pointer;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
+          Khám phá ▾
+          <div class="nav-dropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(15,15,20,0.95); border:1px solid var(--border-color); border-radius:8px; padding:10px 0; min-width:200px; z-index:100; backdrop-filter:blur(20px);">
+            <a href="../tool-lab.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition: color 0.2s;">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Công thức Chụp</a>
+            <a href="../lighting-gallery.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Thư viện Ánh sáng</a>
+            <a href="../gear-vault.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Kho Thiết Bị</a>
+            <a href="../studio-planner.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Studio Planner</a>
+            <a href="../dashboard.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Dashboard</a>
+          </div>
+        </div>
         <a href="../store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
       </div>
     </div>
@@ -186,27 +193,35 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>LumenForge</h3>
-                    <p>Xưởng nghiên cứu ánh sáng và nghệ thuật thị giác, kết nối nhiếp ảnh thực nghiệm với khoa học quang học.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Khám Phá</h4>
-                    <ul>
-                        <li><a href="../light-codex.html">Light Codex (Codex)</a></li>
-                        <li><a href="../shot-recipes.html">Công thức Chụp</a></li>
-                        <li><a href="../tool-lab.html">Xưởng Công cụ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 LumenForge — Light Intelligence Lab. Mọi quyền được bảo lưu.</p>
-            </div>
+      <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Từ ảnh bình thường đến cinematic — bằng ánh sáng, màu sắc và workflow.</p>
         </div>
-    </footer>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Bắt đầu</h4>
+            <a href="../before-after.html">Before / After</a>
+            <a href="../free-guide.html">Starter Kit Miễn Phí</a>
+            <a href="../light-codex.html">Học Ánh Sáng</a>
+            <a href="../store.html">Store</a>
+          </div>
+          <div class="footer-col">
+            <h4>Khám phá thêm</h4>
+            <a href="../tool-lab.html">Xưởng Công cụ</a>
+            <a href="../shot-recipes.html">Công thức Chụp</a>
+            <a href="../gear-vault.html">Kho Thiết Bị</a>
+            <a href="../glossary.html">Thuật ngữ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025–2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
+    </div>
+  </footer>
 
     <script src="../js/common.js"></script>
   <script src="../js/auth.js"></script>
