@@ -133,9 +133,9 @@ async function openCheckoutModal(productId, priceVnd) {
   const qrUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-${TEMPLATE}.png?amount=${priceVnd}&addInfo=${encodeURIComponent(ADD_INFO)}`;
 
   // Check live payment gateway configuration
-  const gateway = window.LIVE_GATEWAY || { provider: 'payos', createPaymentLinkUrl: '/api/create-payment-link' };
-  const hasGateway = true;
-  const gatewayLabel = 'Cổng Tự Động (PayOS)';
+  const gateway = window.LIVE_GATEWAY || {};
+  const hasGateway = !!(gateway.provider && gateway.createPaymentLinkUrl);
+  const gatewayLabel = (gateway.provider || '').toLowerCase() === 'stripe' ? 'Thẻ Quốc Tế (Stripe)' : 'Cổng Tự Động (PayOS)';
 
   let tabsHtml = `
     <div style="display: flex; gap: 15px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
@@ -158,7 +158,7 @@ async function openCheckoutModal(productId, priceVnd) {
             <line x1="2" y1="10" x2="22" y2="10"></line>
           </svg>
         </div>
-        <div style="font-size: 1rem; color: #fff; font-weight: bold; margin-bottom: 5px;">Thanh toán qua ${gateway.provider.toUpperCase() === 'STRIPE' ? 'Stripe Gateway' : 'Cổng PayOS'}</div>
+        <div style="font-size: 1rem; color: #fff; font-weight: bold; margin-bottom: 5px;">Thanh toán qua ${(gateway.provider || '').toUpperCase() === 'STRIPE' ? 'Stripe Gateway' : 'Cổng PayOS'}</div>
         <p style="font-size: 0.8rem; color: var(--text-secondary); max-width: 250px; margin: 0 auto 15px; line-height: 1.4;">Hệ thống sẽ tạo hóa đơn bảo mật. Xác nhận đơn hàng tự động ngay sau khi hoàn tất thanh toán.</p>
       </div>
     `;

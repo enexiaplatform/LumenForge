@@ -532,11 +532,15 @@
       updateManifestData();
     });
 
+    let productId = null;
     let currentManifest = null;
 
     function getFormValues() {
+      if (!productId) {
+        productId = 'prod-' + Math.floor(100000 + Math.random() * 900000);
+      }
       return {
-        id: 'prod-' + Math.floor(100000 + Math.random() * 900000),
+        id: productId,
         name: document.getElementById('p-name').value,
         creator: document.getElementById('c-name').value,
         creatorEmail: document.getElementById('c-email').value,
@@ -560,6 +564,87 @@
       currentManifest = manifest;
     }
 
+    async function loadProductForEditing() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const editId = urlParams.get('edit');
+      if (!editId) return;
+
+      productId = editId;
+      let prod = null;
+
+      try {
+        if (window.lfSupabase && window.lfSupabase.isOnline && window.lfAuth && window.lfAuth.isLoggedIn()) {
+          const { data } = await window.lfSupabase.client
+            .from('products')
+            .select('*')
+            .eq('id', editId)
+            .single();
+          if (data) {
+            prod = {
+              id: data.id,
+              name: data.name,
+              creator: data.creator,
+              creatorEmail: data.creator_email,
+              bankName: data.bank_name,
+              bankAccount: data.bank_account,
+              bankOwner: data.bank_owner,
+              momoNumber: data.momo_number,
+              type: data.type,
+              price: data.price,
+              originalPrice: data.original_price,
+              desc: data.description,
+              coverUrl: data.cover_url,
+              fileLink: data.file_link
+            };
+          }
+        } else {
+          const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+          prod = customProducts.find(p => p.id === editId);
+        }
+
+        if (prod) {
+          document.getElementById('p-name').value = prod.name || '';
+          document.getElementById('c-name').value = prod.creator || '';
+          document.getElementById('c-email').value = prod.creatorEmail || '';
+          document.getElementById('c-bank').value = prod.bankName || 'VCB';
+          document.getElementById('c-acc-no').value = prod.bankAccount || '';
+          document.getElementById('c-acc-owner').value = prod.bankOwner || '';
+          document.getElementById('c-momo').value = prod.momoNumber || '';
+          document.getElementById('p-type').value = prod.type || 'preset';
+          document.getElementById('p-price').value = prod.price || 0;
+          document.getElementById('p-original-price').value = prod.originalPrice || '';
+          document.getElementById('p-desc').value = prod.desc || '';
+          document.getElementById('p-cover').value = prod.coverUrl || '';
+          document.getElementById('p-file').value = prod.fileLink || '';
+
+          // Trigger previews
+          document.getElementById('prev-title').innerText = prod.name || '';
+          document.getElementById('prev-desc').innerText = prod.desc || '';
+          document.getElementById('prev-creator').innerText = prod.creator || '';
+          document.getElementById('prev-img').src = prod.coverUrl || '';
+
+          updatePricePreview();
+          updateTag();
+          updateManifestData();
+
+          // Update header
+          const header = document.querySelector('.onboard-card h3');
+          if (header) {
+            header.innerHTML = `1 // CHỈNH SỬA SẢN PHẨM [${editId}]`;
+          }
+          const submitBtn = document.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.innerText = 'Cập Nhật Cấu Hình Thương Mại';
+          }
+          
+          // Show manifest download button since product exists
+          document.getElementById('btn-download').style.display = 'inline-block';
+        }
+      } catch (err) {
+        console.error('Lỗi khi tải thông tin sản phẩm cần sửa:', err);
+      }
+    }
+
     async function handleOnboard(e) {
       e.preventDefault();
       
@@ -570,6 +655,7 @@
       }
       
       const submitBtn = document.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.innerText : 'Xác Nhận Đăng Ký Thương Mại';
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.innerText = 'Đang đồng bộ cơ sở dữ liệu...';
@@ -583,8 +669,8 @@
         } else {
           // Save product to local storage
           let customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-          // Remove any existing one with same name for editing convenience
-          customProducts = customProducts.filter(p => p.name !== manifest.name);
+          // Remove any existing one with same ID for editing
+          customProducts = customProducts.filter(p => p.id !== manifest.id);
           customProducts.push(manifest);
           localStorage.setItem('lf_custom_products', JSON.stringify(customProducts));
           
@@ -598,7 +684,7 @@
           }
         }
         
-        // Reset Day 3 audit when new product created
+        // Reset Day 3 audit when product modified
         localStorage.removeItem('lf_audit_passed');
         
         // Display manifest in output panel
@@ -609,14 +695,14 @@
           await window.lfOnboarding.updateLaunchpadUI();
         }
 
-        alert('Đăng ký sản phẩm thành công!\n\nSản phẩm đã được cấu hình thương mại.\nBạn có thể thử mua sản phẩm này trong Store để kiểm thử VietQR.');
+        alert('Đăng ký/Cập nhật sản phẩm thành công!\n\nSản phẩm đã được cấu hình thương mại.\nBạn có thể thử mua sản phẩm này trong Store để kiểm thử VietQR.');
       } catch (err) {
         console.error(err);
         alert('Có lỗi xảy ra khi đồng bộ database: ' + err.message);
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerText = 'Xác Nhận Đăng Ký Thương Mại';
+          submitBtn.innerText = originalBtnText;
         }
       }
     }
@@ -641,9 +727,13 @@
 
     // Init manifest display on load
     updateManifestData();
-    if (window.lfOnboarding) {
-      window.lfOnboarding.updateLaunchpadUI();
-    }
+    
+    // Check if we need to load product for editing
+    loadProductForEditing().then(() => {
+      if (window.lfOnboarding) {
+        window.lfOnboarding.updateLaunchpadUI();
+      }
+    });
   </script>
 </body>
 </html>

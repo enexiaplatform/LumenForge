@@ -10,6 +10,7 @@ create extension if not exists "uuid-ossp";
 create table if not exists public.profiles (
     id uuid references auth.users on delete cascade primary key,
     name text not null,
+    email text,
     avatar text,
     is_creator boolean default false,
     xp integer default 0,
@@ -33,10 +34,11 @@ using (auth.uid() = id);
 create or replace function public.handle_new_user()
 returns trigger as $$
 begin
-    insert into public.profiles (id, name, avatar, xp, rank, is_creator)
+    insert into public.profiles (id, name, email, avatar, xp, rank, is_creator)
     values (
         new.id,
         coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
+        new.email,
         upper(substring(coalesce(new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)) from 1 for 1)),
         0,
         'Novice',
@@ -45,6 +47,7 @@ begin
     return new;
 end;
 $$ language plpgsql security definer;
+
 
 create or replace trigger on_auth_user_created
     after insert on auth.users
@@ -202,3 +205,33 @@ with check (auth.uid() = user_id);
 create policy "Users can delete their own read history"
 on public.read_history for delete
 using (auth.uid() = user_id);
+
+
+-- 7. PENDING ORDERS TABLE (for automatic payment gateway checkout)
+create table if not exists public.pending_orders (
+    order_code bigint primary key,
+    user_id uuid references public.profiles(id) on delete cascade not null,
+    product_id text not null,
+    product_name text not null,
+    product_type text not null,
+    product_link text not null,
+    price numeric not null,
+    status text not null default 'pending', -- 'pending', 'completed'
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS for pending_orders
+alter table public.pending_orders enable row level security;
+
+create policy "Users can view their own pending orders"
+on public.pending_orders for select
+using (auth.uid() = user_id);
+
+create policy "Users can insert their own pending orders"
+on public.pending_orders for insert
+with check (auth.uid() = user_id);
+
+create policy "Service role bypasses RLS for updates"
+on public.pending_orders for update
+using (true);
+

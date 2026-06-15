@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 15px; font-family: var(--font-mono);">Đăng bởi: ${prod.creator}</div>
                     <div class="product-footer">
                         <div class="product-price">${priceHTML}</div>
-                        <a href="#" class="btn-buy" style="background: ${isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)'}; color: #000;" onclick="openCheckoutModal('${prod.id}', ${prod.price}); return false;">Mua Ngay</a>
+                        <a href="#" class="btn-buy" style="background: ${isApproved ? 'var(--accent-green, #10b981)' : 'var(--accent-cyan, #00d4aa)'}; color: #000;" onclick="openCheckoutModal('${prod.id}', ${prod.price || prod.priceVnd}); return false;">Mua Ngay</a>
                     </div>
                 </div>
             `;

@@ -64,13 +64,13 @@ module.exports = async function handler(req, res) {
       // Add XP to user
       const { data: profile } = await supabase
         .from('profiles')
-        .select('xp, rank')
+        .select('xp, rank, name, email')
         .eq('id', pendingOrder.user_id)
         .single();
 
       if (profile) {
-        const newXp = profile.xp + 50;
-        let newRank = profile.rank;
+        const newXp = (profile.xp || 0) + 50;
+        let newRank = profile.rank || 'Novice';
         if (newXp >= 1000) newRank = 'Director of Photography';
         else if (newXp >= 300) newRank = 'Advanced Shooter';
 
@@ -78,6 +78,47 @@ module.exports = async function handler(req, res) {
           .from('profiles')
           .update({ xp: newXp, rank: newRank })
           .eq('id', pendingOrder.user_id);
+      }
+
+      // Record sale if it is a creator's product
+      const { data: productData } = await supabase
+        .from('products')
+        .select('creator, creator_email, creator_id')
+        .eq('id', pendingOrder.product_id)
+        .single();
+
+      if (productData && productData.creator_email) {
+        const { data: sellerProfile } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('email', productData.creator_email)
+          .single();
+
+        if (sellerProfile) {
+          const { error: saleError } = await supabase
+            .from('sales')
+            .insert({
+              id: `TX-${orderCode}`,
+              product_id: pendingOrder.product_id,
+              product_name: pendingOrder.product_name,
+              price: pendingOrder.price,
+              buyer_name: profile ? (profile.name || 'Khách') : 'Khách',
+              buyer_email: profile ? (profile.email || 'guest@lumenforge.com') : 'guest@lumenforge.com',
+              seller_id: sellerProfile.id,
+              status: 'completed'
+            });
+          
+          if (saleError) {
+            console.error('[PAYOS WEBHOOK] Error inserting sale log:', saleError);
+          }
+
+          // Move product status to testing/testing if not already approved/submitted
+          await supabase
+            .from('products')
+            .update({ status: 'testing' })
+            .eq('id', pendingOrder.product_id)
+            .in('status', ['draft']);
+        }
       }
 
       // Mark pending order as completed

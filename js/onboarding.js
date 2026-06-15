@@ -173,6 +173,20 @@ window.lfOnboarding = {
 
     // Simulate Customer Purchase
     async simulateCustomerPurchase(productId, callback) {
+        if (!productId || productId === 'test') {
+            if (window.lfSupabase && window.lfSupabase.isOnline && lfAuth.isLoggedIn()) {
+                try {
+                    const allProds = await window.lfSupabase.getAllProducts();
+                    const mine = allProds.filter(p => p.creator_id === lfAuth.currentUser.id);
+                    if (mine.length > 0) productId = mine[0].id;
+                } catch(e) {}
+            }
+            if (!productId || productId === 'test') {
+                const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+                if (customProducts.length > 0) productId = customProducts[0].id;
+            }
+        }
+
         let prod = null;
         if (window.lfSupabase && window.lfSupabase.isOnline) {
             try {
@@ -200,7 +214,10 @@ window.lfOnboarding = {
             const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
             prod = customProducts.find(p => p.id === productId);
         }
-        if (!prod) return;
+        if (!prod) {
+            alert('Vui lòng tạo sản phẩm mẫu ở Bước 2 trước khi thực hiện mua giả lập!');
+            return;
+        }
 
         const firstNames = ['Minh', 'Hoàng', 'Tuấn', 'Duy', 'Sơn', 'Quang', 'Linh', 'Thảo', 'Trang', 'Hương'];
         const lastNames = ['Nguyễn', 'Trần', 'Lê', 'Phạm', 'Vũ', 'Đặng', 'Bùi', 'Đỗ', 'Hồ', 'Ngô'];
@@ -286,6 +303,20 @@ window.lfOnboarding = {
 
     // Submit manifest to Admin
     async submitToAdmin(productId, callback) {
+        if (!productId || productId === 'test') {
+            if (window.lfSupabase && window.lfSupabase.isOnline && lfAuth.isLoggedIn()) {
+                try {
+                    const allProds = await window.lfSupabase.getAllProducts();
+                    const mine = allProds.filter(p => p.creator_id === lfAuth.currentUser.id);
+                    if (mine.length > 0) productId = mine[0].id;
+                } catch(e) {}
+            }
+            if (!productId || productId === 'test') {
+                const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+                if (customProducts.length > 0) productId = customProducts[0].id;
+            }
+        }
+
         localStorage.setItem('lf_manifest_submitted', 'true');
         alert('🚀 GỬI DUYỆT THÀNH CÔNG!\n\nGói tin Manifest của bạn đã được chuyển đến Henry (Admin).\nHệ thống đang xếp hàng để phân phối sản phẩm này lên Store toàn cầu trong vòng 24 giờ tới.');
 
@@ -318,33 +349,17 @@ window.lfOnboarding = {
         toast.style.bottom = '30px';
         toast.style.right = '30px';
         toast.style.background = 'rgba(10, 10, 12, 0.95)';
-        toast.style.border = '1px solid var(--accent-cyan)';
-        toast.style.borderRadius = '8px';
-        toast.style.padding = '15px 20px';
         toast.style.color = '#fff';
-        toast.style.fontSize = '0.9rem';
-        toast.style.boxShadow = '0 10px 25px rgba(0, 212, 170, 0.2)';
+        toast.style.padding = '15px 20px';
+        toast.style.borderRadius = '8px';
+        toast.style.border = '1px solid var(--accent-green)';
+        toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5)';
         toast.style.zIndex = '99999';
-        toast.style.display = 'flex';
-        toast.style.alignItems = 'center';
-        toast.style.gap = '12px';
-        toast.style.transition = 'all 0.3s ease';
-        toast.style.transform = 'translateY(50px)';
-        toast.style.opacity = '0';
-        
-        toast.innerHTML = `<span style="font-size: 1.5rem; animation: pulse 1s infinite;">💰</span> <div><strong>VietQR Webhook Event</strong><br>${message}</div>`;
+        toast.style.fontFamily = 'var(--font-sans)';
+        toast.style.fontSize = '0.9rem';
+        toast.innerHTML = `<span style="color:var(--accent-green);font-weight:bold;">🔔 NỔ ĐƠN HÀNG:</span> ${message}`;
         document.body.appendChild(toast);
-        
-        setTimeout(() => {
-            toast.style.transform = 'translateY(0)';
-            toast.style.opacity = '1';
-        }, 100);
-
-        setTimeout(() => {
-            toast.style.transform = 'translateY(50px)';
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 6000);
+        setTimeout(() => toast.remove(), 6000);
     },
 
     // Render stepper in UI
@@ -377,14 +392,54 @@ window.lfOnboarding = {
             let icon = step.done ? '✓' : `0${step.day}`;
             
             let actionHtml = '';
-            if (step.day === 3 && !step.done) {
+            if (step.day === 1 && !step.done) {
+                actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Vui lòng đăng nhập & điền thông tin Creator trong trang Onboarding bên dưới)</div>`;
+            } else if (step.day === 2 && !step.done) {
+                if (status.day1) {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Điền thông tin sản phẩm mẫu & nhấn "Kích hoạt" trong trang Onboarding bên dưới)</div>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Kết nối Payout ở Bước 1)</div>`;
+                }
+            } else if (step.day === 3 && !step.done) {
                 if (status.day2) {
                     actionHtml = `<button type="button" id="btn-run-audit" onclick="window.lfOnboarding.runContentAudit()" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-cyan); color: #000; font-weight: bold; border-radius: 4px; display: inline-block;">🛡️ Chạy Kiểm Duyệt SEO & Copyright</button>`;
                 } else {
-                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Đăng ký sản phẩm ở Bước 2)</div>`;
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Tạo sản phẩm mẫu ở Bước 2)</div>`;
                 }
             } else if (step.day === 3 && step.done) {
                 actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã thông qua kiểm duyệt (SEO, Tỉ lệ ảnh, Liên kết tải)</div>`;
+            } else if (step.day === 4 && !step.done) {
+                if (status.day3) {
+                    actionHtml = `<button type="button" id="btn-simulate-webhook-step" onclick="window.lfOnboarding.simulateCustomerPurchase('test', () => { window.location.reload(); })" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-green); color: #000; font-weight: bold; border-radius: 4px; display: inline-block;">💰 Giả Lập Mua & Test Webhook</button>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Kiểm duyệt ở Bước 3)</div>`;
+                }
+            } else if (step.day === 4 && step.done) {
+                actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã test thanh toán thành công</div>`;
+            } else if (step.day === 5 && !step.done) {
+                if (status.day4) {
+                    actionHtml = `<a href="dashboard.html" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-cyan); color: #000; font-weight: bold; border-radius: 4px; display: inline-block; text-decoration: none; text-align: center; width: auto; max-width: max-content;">📊 Xem Dashboard Doanh Thu</a>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Test thanh toán ở Bước 4)</div>`;
+                }
+            } else if (step.day === 5 && step.done) {
+                actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã kiểm tra dashboard doanh thu</div>`;
+            } else if (step.day === 6 && !step.done) {
+                if (status.day5) {
+                    actionHtml = `<button type="button" onclick="if (window.downloadManifest) { window.downloadManifest(); } else if (window.downloadProductManifest) { window.downloadProductManifest('test'); } else { alert('Vui lòng tạo sản phẩm trước!'); }" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-amber); color: #000; font-weight: bold; border-radius: 4px; display: inline-block;">📥 Tải Manifest JSON</button>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Xem dashboard ở Bước 5)</div>`;
+                }
+            } else if (step.day === 6 && step.done) {
+                actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã tải manifest cấu hình</div>`;
+            } else if (step.day === 7 && !step.done) {
+                if (status.day6) {
+                    actionHtml = `<button type="button" id="btn-submit-manifest" onclick="window.lfOnboarding.submitToAdmin('test', () => { window.location.reload(); })" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-purple); color: #fff; font-weight: bold; border-radius: 4px; display: inline-block;">🚀 Gửi Duyệt Manifest Lên Store</button>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Tải file Manifest ở Bước 6)</div>`;
+                }
+            } else if (step.day === 7 && step.done) {
+                actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã được duyệt lên Store toàn cầu</div>`;
             }
             
             html += `

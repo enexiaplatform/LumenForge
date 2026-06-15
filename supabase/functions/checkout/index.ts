@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@12.4.0?target=deno";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.21.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -34,15 +35,75 @@ serve(async (req) => {
   }
 
   try {
-    const { productId, priceVnd, email, addInfo, redirectUrl } = await req.json();
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
-    if (!productId || !priceVnd || !email) {
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error("Missing server database configuration environment variables.");
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const body = await req.json();
+
+    const productId = body.productId;
+    const priceVnd = body.price || body.priceVnd;
+    const email = body.email || "";
+    const userId = body.userId || "";
+    const productName = body.productName || `LumenForge - ${productId?.toUpperCase()}`;
+    const productType = body.productType || "Tài liệu số";
+    const productLink = body.productLink || "#";
+
+    if (!productId || !priceVnd) {
       return new Response(
-        JSON.stringify({ error: "Missing required fields: productId, priceVnd, email" }),
+        JSON.stringify({ error: "Missing required fields: productId, price" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
+    // Resolve user email / user ID
+    let userEmail = email;
+    let resolvedUserId = userId;
+
+    if (userId && !userEmail) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("email")
+        .eq("id", userId)
+        .single();
+      if (profile?.email) {
+        userEmail = profile.email;
+      }
+    }
+
+    if (userEmail && !resolvedUserId) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("email", userEmail)
+        .single();
+      if (profile?.id) {
+        resolvedUserId = profile.id;
+      }
+    }
+
+    // If still no user ID, check if we can list or create a placeholder user for tracking
+    if (!resolvedUserId && userEmail) {
+      const { data: newAuthUser } = await supabase.auth.admin.createUser({
+        email: userEmail,
+        email_confirm: true,
+        user_metadata: { source: "edge-checkout" }
+      });
+      if (newAuthUser?.user) {
+        resolvedUserId = newAuthUser.user.id;
+      }
+    }
+
+    if (!resolvedUserId) {
+      throw new Error("Could not resolve or create user profile for checkout.");
+    }
+
+    const returnUrl = body.returnUrl || body.redirectUrl || "https://lumenforge.studio/dashboard.html?payment=success";
+    const cancelUrl = body.cancelUrl || body.redirectUrl || "https://lumenforge.studio/store.html?payment=cancel";
     const provider = Deno.env.get("LIVE_GATEWAY_PROVIDER")?.toLowerCase() || "stripe";
 
     if (provider === "stripe") {
@@ -64,8 +125,8 @@ serve(async (req) => {
             price_data: {
               currency: "vnd",
               product_data: {
-                name: `LumenForge - ${productId.toUpperCase()}`,
-                description: `Tài liệu/Presets số của LumenForge: ${addInfo}`,
+                name: productName,
+                description: `Tài liệu/Presets số của LumenForge: ${productName}`,
               },
               unit_amount: priceVnd,
             },
@@ -73,14 +134,14 @@ serve(async (req) => {
           },
         ],
         mode: "payment",
-        customer_email: email,
+        customer_email: userEmail || undefined,
         metadata: {
           productId,
-          email,
-          addInfo,
+          email: userEmail,
+          addInfo: productName,
         },
-        success_url: `${redirectUrl}?session_id={CHECKOUT_SESSION_ID}&status=success`,
-        cancel_url: redirectUrl,
+        success_url: `${returnUrl}?session_id={CHECKOUT_SESSION_ID}&status=success`,
+        cancel_url: cancelUrl,
       });
 
       return new Response(
@@ -97,20 +158,38 @@ serve(async (req) => {
       }
 
       // PayOS requires a unique numeric orderCode
-      const orderCode = Math.floor(Date.now() / 1000) + Math.floor(Math.random() * 10000);
+      const orderCode = Number(String(Date.now()).slice(-9)) + Math.floor(Math.random() * 100);
       const description = `LF ${productId.substring(0, 10)}`;
+
+      // Store pending order in Supabase
+      const { error: dbError } = await supabase
+        .from("pending_orders")
+        .insert({
+          order_code: orderCode,
+          user_id: resolvedUserId,
+          product_id: productId,
+          product_name: productName,
+          product_type: productType,
+          product_link: productLink,
+          price: priceVnd,
+          status: "pending"
+        });
+
+      if (dbError) {
+        console.error("Supabase pending_orders error:", dbError);
+        throw new Error(`Failed to create pending order: ${dbError.message}`);
+      }
 
       // PayOS Request Object
       const paymentData = {
         orderCode,
         amount: priceVnd,
         description: description,
-        cancelUrl: redirectUrl,
-        returnUrl: `${redirectUrl}?order_code=${orderCode}&status=success`,
+        cancelUrl: cancelUrl,
+        returnUrl: `${returnUrl}?order_code=${orderCode}&status=success`,
       };
 
       // Sign the request
-      // PayOS signing string format: amount=xxx&cancelUrl=xxx&description=xxx&orderCode=xxx&returnUrl=xxx
       const signString = `amount=${paymentData.amount}&cancelUrl=${paymentData.cancelUrl}&description=${paymentData.description}&orderCode=${paymentData.orderCode}&returnUrl=${paymentData.returnUrl}`;
       const signature = await signHmacSha256(signString, payosChecksumKey);
 

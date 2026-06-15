@@ -63,48 +63,111 @@ serve(async (req) => {
     }
 
     // Process PayOS webhook success event
-    // PayOS sends status in data object
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     if (data.desc === "success" || data.status === "PAID") {
       const orderCode = data.orderCode;
       const amountPaid = data.amount;
-      const description = data.description || "";
 
       console.log(`[PAYOS WEBHOOK] Confirmed paid orderCode: ${orderCode}, amount: ${amountPaid}`);
 
-      // Since PayOS has limited description length (no email metadata passed back usually),
-      // we can match the payment description (e.g. "LF ebook-color") to find the product ID,
-      // and update the purchase status.
-      // Standard flow: We look up the pending transaction or profile using description keywords.
-      // Here, we find the product from the description (which starts with "LF ")
-      const cleanDesc = description.replace("LF ", "").trim();
-      
-      // Let's search if there is a product containing this ID
-      // To be safe, we also check if there is an active user registered with the order Code or similar.
-      // In production, we write a record to a `payment_intents` table on checkout generation, and update here.
-      // Let's fetch matching payment intents or update purchases table:
-      
-      // Look up if we have a match in purchases
-      const { data: purchaseRecord, error: fetchErr } = await supabase
-        .from("purchases")
+      // 1. Find the pending order in Supabase
+      const { data: pendingOrder, error: fetchError } = await supabase
+        .from("pending_orders")
         .select("*")
-        .eq("reference_code", orderCode.toString())
+        .eq("order_code", orderCode)
         .single();
 
-      if (purchaseRecord) {
-        // Update purchase to completed
-        await supabase
-          .from("purchases")
-          .update({ status: "completed" })
-          .eq("id", purchaseRecord.id);
-
-        console.log(`[PAYOS WEBHOOK] Updated purchase record ${purchaseRecord.id} to completed.`);
-      } else {
-        // If purchase record not pre-created, create a general purchase record for admin
-        // Find if any user matches or create for administrator/guest
-        console.log(`[PAYOS WEBHOOK] No pre-existing purchase found for code: ${orderCode}. Syncing dynamically.`);
+      if (fetchError || !pendingOrder) {
+        console.error(`[PAYOS WEBHOOK] Pending order not found for orderCode: ${orderCode}`, fetchError);
+        return new Response(JSON.stringify({ error: "Pending order not found" }), { status: 404 });
       }
+
+      // Check if already processed
+      if (pendingOrder.status === "completed") {
+        return new Response(JSON.stringify({ success: true, message: "Order already processed" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        });
+      }
+
+      // 2. Insert into purchases table
+      const { error: insertError } = await supabase
+        .from("purchases")
+        .insert({
+          user_id: pendingOrder.user_id,
+          product_id: pendingOrder.product_id,
+          product_name: pendingOrder.product_name,
+          product_type: pendingOrder.product_type,
+          product_link: pendingOrder.product_link,
+          price: pendingOrder.price
+        });
+
+      if (insertError) {
+        console.error("[PAYOS WEBHOOK] Error inserting purchase:", insertError);
+        return new Response(JSON.stringify({ error: "Failed to record purchase" }), { status: 500 });
+      }
+
+      // 3. Add XP and rank update to user
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("name, email, xp, rank")
+        .eq("id", pendingOrder.user_id)
+        .single();
+
+      if (profile) {
+        const newXp = (profile.xp || 0) + 50;
+        let newRank = profile.rank || "Novice";
+        if (newXp >= 1000) newRank = "Director of Photography";
+        else if (newXp >= 300) newRank = "Advanced Shooter";
+
+        await supabase
+          .from("profiles")
+          .update({ xp: newXp, rank: newRank })
+          .eq("id", pendingOrder.user_id);
+      }
+
+      // 4. Record sale if it is a creator's product
+      const { data: productData } = await supabase
+        .from("products")
+        .select("creator, creator_email")
+        .eq("id", pendingOrder.product_id)
+        .single();
+
+      if (productData && productData.creator_email) {
+        const { data: sellerProfile } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("email", productData.creator_email)
+          .single();
+
+        if (sellerProfile) {
+          const { error: saleError } = await supabase
+            .from("sales")
+            .insert({
+              id: `TX-${orderCode}`,
+              product_id: pendingOrder.product_id,
+              product_name: pendingOrder.product_name,
+              price: pendingOrder.price,
+              buyer_name: profile ? profile.name : "Khách",
+              buyer_email: profile ? (profile.email || "guest@lumenforge.com") : "guest@lumenforge.com",
+              seller_id: sellerProfile.id,
+              status: "completed"
+            });
+          
+          if (saleError) {
+            console.error("[PAYOS WEBHOOK] Error inserting sale log:", saleError);
+          }
+        }
+      }
+
+      // 5. Mark pending order as completed
+      await supabase
+        .from("pending_orders")
+        .update({ status: "completed" })
+        .eq("order_code", orderCode);
+
+      console.log(`[PAYOS WEBHOOK] Successfully synced orderCode: ${orderCode}`);
     }
 
     return new Response(JSON.stringify({ success: true }), {

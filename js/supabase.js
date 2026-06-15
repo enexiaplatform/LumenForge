@@ -237,6 +237,7 @@ class SupabaseIntegration {
                         .upsert({
                             id: user.id,
                             name: email.split('@')[0],
+                            email: email,
                             avatar: email.charAt(0).toUpperCase(),
                             xp: 0,
                             rank: 'Novice',
