@@ -734,15 +734,48 @@
       }
     }
 
+    // Prefill logged in user details if available
+    function prefillUserDetails() {
+      if (window.lfAuth && window.lfAuth.isLoggedIn()) {
+        const user = window.lfAuth.currentUser;
+        const cName = document.getElementById('c-name');
+        const cEmail = document.getElementById('c-email');
+        if (cName && !cName.value) {
+          cName.value = user.name || '';
+          const prevCreator = document.getElementById('prev-creator');
+          if (prevCreator) prevCreator.innerText = user.name || '';
+        }
+        if (cEmail && !cEmail.value) {
+          cEmail.value = user.email || '';
+        }
+        updateManifestData();
+      }
+    }
+
     // Init manifest display on load
     updateManifestData();
     
     // Check if we need to load product for editing
     loadProductForEditing().then(() => {
+      prefillUserDetails();
       if (window.lfOnboarding) {
         window.lfOnboarding.updateLaunchpadUI();
       }
     });
+
+    // Re-run prefill and load if Supabase/Auth system completes initialization later
+    document.addEventListener('supabaseReady', () => {
+      loadProductForEditing().then(() => {
+        prefillUserDetails();
+        if (window.lfOnboarding) {
+          window.lfOnboarding.updateLaunchpadUI();
+        }
+      });
+    });
+
+    // Short-delay fallbacks in case script parsing or session recovery is slightly delayed
+    setTimeout(prefillUserDetails, 500);
+    setTimeout(prefillUserDetails, 1500);
   </script>
 </body>
 </html>

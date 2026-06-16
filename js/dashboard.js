@@ -496,6 +496,20 @@ window.approveProduct = async function(productId) {
 };
 
 window.downloadProductManifest = async function(productId) {
+    if (!productId || productId === 'test') {
+        if (window.lfSupabase && window.lfSupabase.isOnline && lfAuth.isLoggedIn()) {
+            try {
+                const allProds = await window.lfSupabase.getAllProducts();
+                const mine = allProds.filter(p => p.creator_id === lfAuth.currentUser.id);
+                if (mine.length > 0) productId = mine[0].id;
+            } catch(e) {}
+        }
+        if (!productId || productId === 'test') {
+            const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+            if (customProducts.length > 0) productId = customProducts[0].id;
+        }
+    }
+
     let prod = null;
     if (window.lfSupabase && window.lfSupabase.isOnline) {
         try {
@@ -534,7 +548,10 @@ window.downloadProductManifest = async function(productId) {
         prod = customProducts.find(p => p.id === productId);
     }
 
-    if (!prod) return;
+    if (!prod) {
+        alert('Không tìm thấy thông tin sản phẩm! Vui lòng đăng ký sản phẩm mẫu ở Bước 2 trước khi tải manifest.');
+        return;
+    }
     
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(prod, null, 2));
     const downloadAnchor = document.createElement('a');

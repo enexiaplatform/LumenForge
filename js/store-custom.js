@@ -60,8 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const creatorId = prod.creator_id;
             
             // If Supabase is online, check creator_id. If local storage is offline, check email/author.
-            const isMyProduct = (window.lfSupabase.isOnline && creatorId && currentUserId === creatorId) || 
-                                (!window.lfSupabase.isOnline && lfAuth.isLoggedIn() && prod.creatorEmail === lfAuth.currentUser.email);
+            const isOnline = !!(window.lfSupabase && window.lfSupabase.isOnline);
+            const isMyProduct = (isOnline && creatorId && currentUserId === creatorId) || 
+                                (!isOnline && lfAuth.isLoggedIn() && prod.creatorEmail === lfAuth.currentUser.email);
 
             if (!isApproved && !isMyProduct) {
                 // Skip rendering other creators' unapproved items

@@ -120,14 +120,37 @@ window.lfOnboarding = {
     },
 
     // Perform Day 3 Asset Audit
-    runContentAudit() {
-        const pName = document.getElementById('p-name')?.value;
-        const pDesc = document.getElementById('p-desc')?.value;
-        const pCover = document.getElementById('p-cover')?.value;
-        const pFile = document.getElementById('p-file')?.value;
+    async runContentAudit() {
+        let pName = document.getElementById('p-name')?.value;
+        let pDesc = document.getElementById('p-desc')?.value;
+        let pCover = document.getElementById('p-cover')?.value;
+        let pFile = document.getElementById('p-file')?.value;
 
         if (!pName || !pDesc || !pCover || !pFile) {
-            alert('Vui lòng điền đầy đủ thông tin sản phẩm trước khi chạy kiểm duyệt!');
+            // Try loading from database or localStorage
+            let prod = null;
+            if (window.lfSupabase && window.lfSupabase.isOnline && lfAuth.isLoggedIn()) {
+                try {
+                    const allProds = await window.lfSupabase.getAllProducts();
+                    const mine = allProds.filter(p => p.creator_id === lfAuth.currentUser.id);
+                    if (mine.length > 0) prod = mine[0];
+                } catch(e) {}
+            }
+            if (!prod) {
+                const customProducts = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+                if (customProducts.length > 0) prod = customProducts[0];
+            }
+
+            if (prod) {
+                pName = prod.name;
+                pDesc = prod.desc || prod.description;
+                pCover = prod.coverUrl || prod.cover_url;
+                pFile = prod.fileLink || prod.file_link;
+            }
+        }
+
+        if (!pName || !pDesc || !pCover || !pFile) {
+            alert('Vui lòng điền đầy đủ thông tin sản phẩm mẫu trước khi chạy kiểm duyệt!');
             return;
         }
 
