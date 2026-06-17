@@ -170,6 +170,47 @@ class SupabaseIntegration {
                     }));
                     localStorage.setItem('lf_read_history', JSON.stringify(this.readHistory));
                 }
+
+                // 4. Sync local offline products to Supabase
+                const localProds = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
+                if (localProds.length > 0) {
+                    console.log('[LUMENFORGE DB] Syncing offline products to Supabase...');
+                    for (const prod of localProds) {
+                        try {
+                            prod.creator_id = uid;
+                            await self.upsertProduct(prod);
+                        } catch (prodErr) {
+                            console.error('[LUMENFORGE DB] Failed to sync product:', prod.id, prodErr);
+                        }
+                    }
+                    // Fetch all products from DB to refresh local cache
+                    const allProds = await self.getAllProducts();
+                    const mine = allProds.filter(p => p.creator_id === uid);
+                    localStorage.setItem('lf_custom_products', JSON.stringify(mine));
+                }
+
+                // 5. Sync local offline sales to Supabase
+                const localSales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
+                const unsyncedSales = localSales.filter(s => s.id && s.id.startsWith('TX-') && !s.synced);
+                if (unsyncedSales.length > 0) {
+                    console.log('[LUMENFORGE DB] Syncing offline sales to Supabase...');
+                    for (const sale of unsyncedSales) {
+                        try {
+                            await self.recordSale({
+                                id: sale.id,
+                                productId: sale.productId || sale.product_id,
+                                productName: sale.productName || sale.product_name,
+                                price: sale.price,
+                                buyerName: sale.buyerName || sale.buyer_name,
+                                buyerEmail: sale.buyerEmail || sale.buyer_email
+                            });
+                            sale.synced = true;
+                        } catch (saleErr) {
+                            console.error('[LUMENFORGE DB] Failed to sync sale:', sale.id, saleErr);
+                        }
+                    }
+                    localStorage.setItem('lf_creator_sales', JSON.stringify(localSales));
+                }
             } catch (err) {
                 console.error('[LUMENFORGE DB] Sync error:', err);
             }
@@ -445,7 +486,7 @@ class SupabaseIntegration {
     async upsertProduct(product) {
         if (!this.isOnline) {
             let products = JSON.parse(localStorage.getItem('lf_custom_products') || '[]');
-            products = products.filter(p => p.name !== product.name);
+            products = products.filter(p => p.id !== product.id);
             products.push(product);
             localStorage.setItem('lf_custom_products', JSON.stringify(products));
             return product;
@@ -500,10 +541,11 @@ class SupabaseIntegration {
             return;
         }
 
-        await this.client
+        const { error } = await this.client
             .from('products')
             .update({ status: status })
             .eq('id', productId);
+        if (error) throw error;
     }
 
     async getMySales() {
@@ -536,7 +578,7 @@ class SupabaseIntegration {
 
         if (!prod) return;
 
-        await this.client
+        const { error } = await this.client
             .from('sales')
             .insert({
                 id: sale.id,
@@ -548,6 +590,13 @@ class SupabaseIntegration {
                 seller_id: prod.creator_id,
                 status: 'completed'
             });
+        
+        if (error) {
+            if (error.code === '23505') {
+                return; // Unique violation, sale already recorded
+            }
+            throw error;
+        }
     }
 
     // --- Indicator & Connection Modal UI ---

@@ -24,11 +24,16 @@ function getStripe() {
   return stripeInstance;
 }
 
-// Initialize Supabase Admin (Needs Service Role Key to insert into DB securely)
-const supabase = createClient(
-  process.env.SUPABASE_URL || '',
-  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
-);
+let supabaseInstance = null;
+function getSupabase() {
+  if (!supabaseInstance) {
+    supabaseInstance = createClient(
+      process.env.SUPABASE_URL || '',
+      process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    );
+  }
+  return supabaseInstance;
+}
 
 module.exports = async function handler(req, res) {
   // CORS configuration
@@ -65,7 +70,7 @@ module.exports = async function handler(req, res) {
       let customerEmail = undefined;
       if (userId) {
         try {
-          const { data: profile } = await supabase
+          const { data: profile } = await getSupabase()
             .from('profiles')
             .select('email')
             .eq('id', userId)
@@ -113,7 +118,7 @@ module.exports = async function handler(req, res) {
       const orderCode = Number(String(Date.now()).slice(-9)) + Math.floor(Math.random() * 100);
 
       // Store pending order in Supabase
-      const { error: dbError } = await supabase
+      const { error: dbError } = await getSupabase()
         .from('pending_orders')
         .insert({
           order_code: orderCode,

@@ -167,14 +167,18 @@ module.exports = async function handler(req, res) {
             .eq('id', userId);
 
           // 4. Record sale if it is a creator's product
-          if (productData && productData.creator_email) {
-            const { data: sellerProfile } = await supabase
-              .from('profiles')
-              .select('id')
-              .eq('email', productData.creator_email)
-              .single();
+          if (productData) {
+            let sellerId = productData.creator_id;
+            if (!sellerId && productData.creator_email) {
+              const { data: sellerProfile } = await supabase
+                .from('profiles')
+                .select('id')
+                .eq('email', productData.creator_email)
+                .single();
+              if (sellerProfile) sellerId = sellerProfile.id;
+            }
 
-            if (sellerProfile) {
+            if (sellerId) {
               const txId = `TX-STRIPE-${session.id.substring(12, 22)}`;
               const { error: saleError } = await supabase
                 .from('sales')
@@ -185,7 +189,7 @@ module.exports = async function handler(req, res) {
                   price: amountVnd,
                   buyer_name: profile.name || customerEmail.split('@')[0],
                   buyer_email: customerEmail,
-                  seller_id: sellerProfile.id,
+                  seller_id: sellerId,
                   status: 'completed'
                 });
               
