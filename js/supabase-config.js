@@ -21,7 +21,7 @@ window.PLATFORM_PAYMENT = {
 
 // Cấu hình cổng thanh toán tự động (Stripe / PayOS) qua Edge Functions
 window.LIVE_GATEWAY = {
-    provider: "",               // "payos" hoặc "stripe" hoặc "" (để dùng VietQR thủ công mặc định)
-    createPaymentLinkUrl: ""    // URL của Supabase Edge Function (ví dụ: https://xxxx.supabase.co/functions/v1/checkout)
+    provider: localStorage.getItem('lf_gateway_provider') || "",               // "payos" hoặc "stripe" hoặc "" (để dùng VietQR thủ công mặc định)
+    createPaymentLinkUrl: localStorage.getItem('lf_gateway_url') || (window.location.origin + "/api/create-payment-link")    // URL của Supabase Edge Function hoặc Vercel Serverless Function
 };
 

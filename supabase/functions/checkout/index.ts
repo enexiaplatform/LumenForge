@@ -137,6 +137,7 @@ serve(async (req) => {
         customer_email: userEmail || undefined,
         metadata: {
           productId,
+          userId: resolvedUserId,
           email: userEmail,
           addInfo: productName,
         },

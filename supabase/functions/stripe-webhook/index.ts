@@ -47,31 +47,43 @@ serve(async (req) => {
       const session = event.data.object as Stripe.Checkout.Session;
       const metadata = session.metadata;
 
-      if (metadata && metadata.productId && metadata.email) {
+      if (metadata && metadata.productId) {
         const productId = metadata.productId;
-        const customerEmail = metadata.email;
+        let userId = metadata.userId || null;
+        const customerEmail = metadata.email || session.customer_details?.email || session.customer_email || "";
         const addInfo = metadata.addInfo || "";
         const amountVnd = session.amount_total || 0;
 
-        console.log(`[STRIPE WEBHOOK] Payment succeeded for ${customerEmail}, product: ${productId}`);
+        console.log(`[STRIPE WEBHOOK] Payment succeeded for ${customerEmail || userId}, product: ${productId}`);
 
-        // 1. Find or create user profile in Supabase auth / profiles
-        // We look up user by email
-        const { data: userData, error: userError } = await supabase
-          .from("profiles")
-          .select("id")
-          .eq("email", customerEmail)
-          .single();
+        // 1. Resolve user profile in Supabase profiles
+        let userData = null;
+        if (userId) {
+          const { data } = await supabase
+            .from("profiles")
+            .select("id")
+            .eq("id", userId)
+            .single();
+          userData = data;
+        }
 
-        let userId = null;
+        if (!userData && customerEmail) {
+          const { data } = await supabase
+            .from("profiles")
+            .select("id")
+            .eq("email", customerEmail)
+            .single();
+          userData = data;
+        }
+
         if (userData) {
           userId = userData.id;
-        } else {
+        } else if (customerEmail) {
           // If user does not exist in profiles, we can create a placeholder user in auth
-          const { data: newAuthUser, error: createError } = await supabase.auth.admin.createUser({
+          const { data: newAuthUser } = await supabase.auth.admin.createUser({
             email: customerEmail,
             email_confirm: true,
-            user_metadata: { source: "stripe-checkout" }
+            user_metadata: { source: "stripe-checkout-edge" }
           });
           if (newAuthUser?.user) {
             userId = newAuthUser.user.id;
@@ -79,17 +91,27 @@ serve(async (req) => {
         }
 
         if (userId) {
+          // Get product info
+          const { data: productData } = await supabase
+            .from("products")
+            .select("*")
+            .eq("id", productId)
+            .single();
+
+          const pName = productData ? productData.name : `LumenForge - ${productId.toUpperCase()}`;
+          const pType = productData ? productData.type : "Tài liệu số";
+          const pLink = productData ? productData.file_link : "#";
+
           // 2. Insert to purchases table
           const { error: purchaseError } = await supabase
             .from("purchases")
             .insert({
               user_id: userId,
               product_id: productId,
-              product_name: `LumenForge - ${productId.toUpperCase()}`,
-              price_paid: amountVnd,
-              email: customerEmail,
-              status: "completed",
-              reference_code: session.id.substring(0, 15)
+              product_name: pName,
+              product_type: pType,
+              product_link: pLink,
+              price: amountVnd
             });
 
           if (purchaseError) {
@@ -97,28 +119,58 @@ serve(async (req) => {
             throw purchaseError;
           }
 
-          // 3. Record sale if it is a creator's product
-          const { data: productData } = await supabase
-            .from("products")
-            .select("creator, creator_email")
-            .eq("id", productId)
+          // 3. Add XP and rank update to user
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("xp, rank")
+            .eq("id", userId)
             .single();
 
+          if (profile) {
+            const newXp = (profile.xp || 0) + 50;
+            let newRank = profile.rank || "Novice";
+            if (newXp >= 1000) newRank = "Director of Photography";
+            else if (newXp >= 300) newRank = "Advanced Shooter";
+
+            await supabase
+              .from("profiles")
+              .update({ xp: newXp, rank: newRank })
+              .eq("id", userId);
+          }
+
+          // 3. Record sale if it is a creator's product
           if (productData && productData.creator_email) {
-            const { error: saleError } = await supabase
-              .from("sales")
-              .insert({
-                product_id: productId,
-                product_name: `LumenForge - ${productId.toUpperCase()}`,
-                price: amountVnd,
-                buyer_name: customerEmail.split("@")[0],
-                buyer_email: customerEmail,
-                creator_email: productData.creator_email,
-                status: "completed"
-              });
-            
-            if (saleError) {
-              console.error("[STRIPE WEBHOOK] Error inserting sale log:", saleError);
+            const { data: sellerProfile } = await supabase
+              .from("profiles")
+              .select("id")
+              .eq("email", productData.creator_email)
+              .single();
+
+            if (sellerProfile) {
+              const txId = `TX-STRIPE-${session.id.substring(12, 22)}`;
+              const { error: saleError } = await supabase
+                .from("sales")
+                .insert({
+                  id: txId,
+                  product_id: productId,
+                  product_name: pName,
+                  price: amountVnd,
+                  buyer_name: customerEmail.split("@")[0],
+                  buyer_email: customerEmail,
+                  seller_id: sellerProfile.id,
+                  status: "completed"
+                });
+              
+              if (saleError) {
+                console.error("[STRIPE WEBHOOK] Error inserting sale log:", saleError);
+              }
+
+              // Move product status to testing if it's currently draft
+              await supabase
+                .from("products")
+                .update({ status: "testing" })
+                .eq("id", productId)
+                .in("status", ["draft"]);
             }
           }
 

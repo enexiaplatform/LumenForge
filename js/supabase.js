@@ -610,6 +610,8 @@ class SupabaseIntegration {
 
     openConfigModal(errorMsg = '') {
         const credentials = this.getCredentials();
+        const savedProvider = localStorage.getItem('lf_gateway_provider') || '';
+        const savedUrl = localStorage.getItem('lf_gateway_url') || '';
         
         // Remove existing if any
         const existing = document.getElementById('lf-db-config-modal');
@@ -638,11 +640,11 @@ class SupabaseIntegration {
         ` : '';
 
         modal.innerHTML = `
-            <div style="background: #111115; border: 1px solid #222228; width: 90%; max-width: 500px; border-radius: 16px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative;">
+            <div style="background: #111115; border: 1px solid #222228; width: 90%; max-width: 500px; border-radius: 16px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); position: relative; max-height: 90vh; overflow-y: auto; box-sizing: border-box;">
                 <button id="lf-db-close" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #888; font-size: 1.5rem; cursor: pointer;">&times;</button>
-                <h3 style="margin: 0 0 10px 0; font-size: 1.4rem; color: #fff; font-family: var(--font-heading, sans-serif);">Cấu hình Database Cloud (Supabase)</h3>
+                <h3 style="margin: 0 0 10px 0; font-size: 1.4rem; color: #fff; font-family: var(--font-heading, sans-serif);">Cấu hình Database & Gateway</h3>
                 <p style="color: #888; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
-                    Đồng bộ hóa người dùng, bài học đã đọc, bookmarks và sản phẩm của Creator lên Cloud. Hỗ trợ chạy Onboard thương mại đa thiết bị thực tế.
+                    Thiết lập kết nối Supabase Cloud Database để đồng bộ hóa và cấu hình cổng thanh toán tự động (PayOS/Stripe) cho Onboarding thương mại thực tế.
                 </p>
                 
                 ${errorHtml}
@@ -652,9 +654,25 @@ class SupabaseIntegration {
                     <input type="text" id="lf-db-url" value="${credentials.url}" placeholder="https://xxxx.supabase.co" style="width:100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 0.9rem; box-sizing: border-box;">
                 </div>
 
-                <div style="margin-bottom: 25px;">
+                <div style="margin-bottom: 20px;">
                     <label style="display: block; color: #aaa; font-size: 0.8rem; font-family: monospace; text-transform: uppercase; margin-bottom: 5px;">Supabase Anon Key</label>
                     <input type="password" id="lf-db-key" value="${credentials.key}" placeholder="eyJhbGciOi..." style="width:100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 0.9rem; box-sizing: border-box;">
+                </div>
+
+                <h3 style="margin: 25px 0 10px 0; font-size: 1.15rem; color: #fff; font-family: var(--font-heading, sans-serif); border-top: 1px solid #222228; padding-top: 15px;">Cổng Thanh Toán Tự Động (API Gateway)</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #aaa; font-size: 0.8rem; font-family: monospace; text-transform: uppercase; margin-bottom: 5px;">Chọn Cổng Thanh Toán</label>
+                    <select id="lf-gateway-provider" style="width:100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 0.9rem; box-sizing: border-box;">
+                        <option value="" ${savedProvider === '' ? 'selected' : ''}>VietQR Thủ Công & Ví MoMo (Mặc định)</option>
+                        <option value="payos" ${savedProvider === 'payos' ? 'selected' : ''}>PayOS (Cổng tự động quét VietQR)</option>
+                        <option value="stripe" ${savedProvider === 'stripe' ? 'selected' : ''}>Stripe (Cổng tự động thẻ quốc tế)</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; color: #aaa; font-size: 0.8rem; font-family: monospace; text-transform: uppercase; margin-bottom: 5px;">Endpoint API Checkout</label>
+                    <input type="text" id="lf-gateway-url" value="${savedUrl}" placeholder="Để trống nếu deploy Vercel (/api/create-payment-link)" style="width:100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 0.9rem; box-sizing: border-box;">
                 </div>
 
                 <div style="display: flex; gap: 15px; justify-content: flex-end;">
@@ -682,12 +700,16 @@ class SupabaseIntegration {
         document.getElementById('lf-db-save').addEventListener('click', () => {
             const url = document.getElementById('lf-db-url').value;
             const key = document.getElementById('lf-db-key').value;
+            const provider = document.getElementById('lf-gateway-provider').value;
+            const gatewayUrl = document.getElementById('lf-gateway-url').value;
             
             if (!url || !key) {
                 alert('Vui lòng điền đầy đủ URL và Anon Key!');
                 return;
             }
             
+            localStorage.setItem('lf_gateway_provider', provider);
+            localStorage.setItem('lf_gateway_url', gatewayUrl);
             this.setCredentials(url, key);
             modal.style.opacity = '0';
             setTimeout(() => {
@@ -700,6 +722,8 @@ class SupabaseIntegration {
         if (dis) {
             dis.addEventListener('click', () => {
                 if (confirm('Bạn có chắc chắn muốn ngắt kết nối và quay trở về chế độ Local Storage không?')) {
+                    localStorage.removeItem('lf_gateway_provider');
+                    localStorage.removeItem('lf_gateway_url');
                     this.clearCredentials();
                     modal.style.opacity = '0';
                     setTimeout(() => {

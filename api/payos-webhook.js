@@ -1,4 +1,4 @@
-const PayOS = require('@payos/node');
+const { PayOS } = require('@payos/node');
 const { createClient } = require('@supabase/supabase-js');
 
 const payos = new PayOS(
@@ -19,6 +19,12 @@ module.exports = async function handler(req, res) {
 
   try {
     const body = req.body;
+
+    // Handle PayOS test / confirmation ping
+    if (!body || body.desc === 'confirm' || body.desc === 'confirm-webhook' || !body.data || !body.signature) {
+      console.log('[PAYOS WEBHOOK] Received confirmation or test ping:', body);
+      return res.status(200).json({ success: true, message: 'Webhook confirmed' });
+    }
 
     // Verify Webhook Data
     const webhookData = payos.verifyPaymentWebhookData(body);

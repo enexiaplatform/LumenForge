@@ -91,16 +91,19 @@ window.lfOnboarding = {
             sales = JSON.parse(localStorage.getItem('lf_creator_sales') || '[]');
         }
 
-        const auditPassed = localStorage.getItem('lf_audit_passed') === 'true';
-        const manifestDownloaded = localStorage.getItem('lf_manifest_downloaded') === 'true';
-        const manifestSubmitted = localStorage.getItem('lf_manifest_submitted') === 'true';
-        const visitedDashboard = localStorage.getItem('lf_visited_dashboard') === 'true';
+        const dbHasTestingOrHigher = customProducts.some(p => ['testing', 'submitted', 'approved'].includes(p.status));
+        const dbHasSubmittedOrHigher = customProducts.some(p => ['submitted', 'approved'].includes(p.status));
+
+        const auditPassed = localStorage.getItem('lf_audit_passed') === 'true' || dbHasTestingOrHigher;
+        const manifestDownloaded = localStorage.getItem('lf_manifest_downloaded') === 'true' || dbHasSubmittedOrHigher;
+        const manifestSubmitted = localStorage.getItem('lf_manifest_submitted') === 'true' || dbHasSubmittedOrHigher;
+        const visitedDashboard = localStorage.getItem('lf_visited_dashboard') === 'true' || sales.length > 0;
 
         // Calculate statuses
         const day1 = isCreator; // Connected profile & bank
         const day2 = customProducts.length > 0; // Created product
         const day3 = day2 && auditPassed; // Copyright & asset check passed
-        const day4 = day2 && sales.length > 0; // Local purchase simulation tested
+        const day4 = day2 && (sales.length > 0 || dbHasTestingOrHigher); // Local purchase simulation tested
         const day5 = day4 && visitedDashboard; // Earnings dashboard reviewed
         const day6 = day2 && manifestDownloaded; // Manifest exported
         const day7 = day6 && manifestSubmitted; // Manifest submitted to admin
@@ -433,7 +436,16 @@ window.lfOnboarding = {
                 actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã thông qua kiểm duyệt (SEO, Tỉ lệ ảnh, Liên kết tải)</div>`;
             } else if (step.day === 4 && !step.done) {
                 if (status.day3) {
-                    actionHtml = `<button type="button" id="btn-simulate-webhook-step" onclick="window.lfOnboarding.simulateCustomerPurchase('test', () => { window.location.reload(); })" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-green); color: #000; font-weight: bold; border-radius: 4px; display: inline-block;">💰 Giả Lập Mua & Test Webhook</button>`;
+                    const hasLiveGateway = window.LIVE_GATEWAY && window.LIVE_GATEWAY.provider;
+                    const gatewayHint = hasLiveGateway ? `
+                        <div style="font-size: 0.75rem; color: var(--accent-cyan); margin-top: 5px; line-height: 1.4;">
+                            💡 Phát hiện cổng tự động <strong>${window.LIVE_GATEWAY.provider.toUpperCase()}</strong>. Bạn có thể sang trang <a href="store.html" style="color:var(--accent-amber);text-decoration:underline;">Store</a> để thực hiện thanh toán QR thực tế!
+                        </div>
+                    ` : '';
+                    actionHtml = `
+                        <button type="button" id="btn-simulate-webhook-step" onclick="window.lfOnboarding.simulateCustomerPurchase('test', () => { window.location.reload(); })" class="btn-primary" style="margin-top: 8px; padding: 6px 12px; font-size: 0.75rem; background: var(--accent-green); color: #000; font-weight: bold; border-radius: 4px; display: inline-block;">💰 Giả Lập Mua & Test Webhook</button>
+                        ${gatewayHint}
+                    `;
                 } else {
                     actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Kiểm duyệt ở Bước 3)</div>`;
                 }

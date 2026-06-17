@@ -1,6 +1,12 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.21.0";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
 const supabaseUrl = Deno.env.get("SUPABASE_URL");
 const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 const payosChecksumKey = Deno.env.get("PAYOS_CHECKSUM_KEY");
@@ -26,6 +32,11 @@ async function signHmacSha256(message: string, secret: string): Promise<string> 
 }
 
 serve(async (req) => {
+  // Handle CORS preflight
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
   try {
     if (req.method !== "POST") {
       return new Response("Method Not Allowed", { status: 405 });
@@ -36,11 +47,17 @@ serve(async (req) => {
     }
 
     const payload = await req.json();
-    const { data, signature } = payload;
 
-    if (!data || !signature) {
-      return new Response("Missing data or signature", { status: 400 });
+    // Handle PayOS test / confirmation ping
+    if (payload.desc === "confirm" || payload.desc === "confirm-webhook" || !payload.data || !payload.signature) {
+      console.log("[PAYOS WEBHOOK] Received confirmation or test ping:", payload);
+      return new Response(JSON.stringify({ success: true, message: "Webhook confirmed" }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      });
     }
+
+    const { data, signature } = payload;
 
     // Verify PayOS signature
     // PayOS signature formula: Sort data keys alphabetically, join key=value with & and sign with checksum key
@@ -158,6 +175,13 @@ serve(async (req) => {
           if (saleError) {
             console.error("[PAYOS WEBHOOK] Error inserting sale log:", saleError);
           }
+
+          // Move product status to testing if it's currently draft
+          await supabase
+            .from("products")
+            .update({ status: "testing" })
+            .eq("id", pendingOrder.product_id)
+            .in("status", ["draft"]);
         }
       }
 
