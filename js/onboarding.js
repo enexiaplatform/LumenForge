@@ -492,7 +492,7 @@ window.lfOnboarding = {
         });
 
         checklistEl.innerHTML = html + `
-            <div style="text-align: center; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
+            <div style="grid-column: 1 / -1; text-align: center; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px;">
                 <button type="button" onclick="window.lfOnboarding.resetProgress()" style="background: none; border: none; color: var(--text-dim); font-size: 0.75rem; cursor: pointer; text-decoration: underline; font-family: var(--font-mono); transition: color 0.2s;" onmouseover="this.style.color='#ff6b6b'" onmouseout="this.style.color='var(--text-dim)'">
                     ↺ Đặt lại lộ trình onboarding (Reset)
                 </button>
