@@ -99,6 +99,8 @@ class AuthSystem {
 }
 
 const lfAuth = new AuthSystem();
+window.lfAuth = lfAuth;
+
 
 // -- UI Integration --
 document.addEventListener('DOMContentLoaded', () => {
