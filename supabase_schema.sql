@@ -98,10 +98,27 @@ create policy "Creators can delete their own products"
 on public.products for delete
 using (auth.uid() = creator_id);
 
--- Policy for Admin approval ( Henry )
-create policy "Allow creators to self-update for testing"
+-- Policies for Admin ( Henry )
+create policy "Admin can view all products"
+on public.products for select
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
+
+create policy "Admin can update all products"
 on public.products for update
-using (auth.uid() = creator_id);
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
+
+create policy "Admin can delete all products"
+on public.products for delete
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
 
 
 -- 3. PURCHASES TABLE
@@ -127,6 +144,20 @@ create policy "Users can insert their own purchases"
 on public.purchases for insert
 with check (auth.uid() = user_id);
 
+create policy "Admin can view all purchases"
+on public.purchases for select
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
+
+create policy "Admin can insert purchases for users"
+on public.purchases for insert
+with check (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
+
 
 -- 4. SALES TABLE (Creator Earnings Log)
 create table if not exists public.sales (
@@ -151,6 +182,13 @@ using (auth.uid() = seller_id);
 create policy "Allow insert of sales logs"
 on public.sales for insert
 with check (true); -- Anyone can create a sales record when buying
+
+create policy "Admin can view all sales"
+on public.sales for select
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
 
 
 -- 5. BOOKMARKS TABLE
@@ -234,4 +272,19 @@ with check (auth.uid() = user_id);
 create policy "Service role bypasses RLS for updates"
 on public.pending_orders for update
 using (true);
+
+-- Admin policies
+create policy "Admin can view all pending orders"
+on public.pending_orders for select
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
+
+create policy "Admin can update all pending orders"
+on public.pending_orders for update
+using (
+    auth.jwt() ->> 'email' = 'admin@lumenforge.studio' or 
+    auth.jwt() ->> 'email' = 'henry@lumenforge.studio'
+);
 

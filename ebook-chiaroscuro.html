@@ -207,30 +207,25 @@
 <body>
 
         <!-- Navigation -->
-      <nav class="nav" id="main-nav">
+          <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="index.html" class="nav-link">Bắt đầu</a>
         <a href="before-after.html" class="nav-link">Before / After</a>
-        <a href="free-guide.html" class="nav-link">Starter Kit</a>
-        <div class="nav-link" style="position: relative; cursor: pointer;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
-          Khám phá ▾
-          <div class="nav-dropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(15,15,20,0.95); border:1px solid var(--border-color); border-radius:8px; padding:10px 0; min-width:200px; z-index:100; backdrop-filter:blur(20px);">
-            <a href="tool-lab.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition: color 0.2s;">Xưởng Công cụ</a>
-            <a href="shot-recipes.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Công thức Chụp</a>
-            <a href="lighting-gallery.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Thư viện Ánh sáng</a>
-            <a href="gear-vault.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Kho Thiết Bị</a>
-            <a href="studio-planner.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Studio Planner</a>
-            <a href="dashboard.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Dashboard</a>
-          </div>
-        </div>
-        <a href="store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="sales-hero">
   </nav>
 
   <!-- Hero Section -->
@@ -240,14 +235,11 @@
       <h1>Bậc thầy Chiaroscuro:<br>Nghệ thuật điêu khắc bóng tối</h1>
       <p>Cuốn sách kỹ thuật duy nhất bạn cần để thoát khỏi những bức ảnh phẳng lì tẻ nhạt. Học cách kiểm soát hướng sáng, Negative Fill và Inverse Square Law để tạo ra những tác phẩm chân dung điện ảnh đầy kịch tính.</p>
       
-      <div class="sales-cta-box">
-        <div class="price-block">
-          <div class="price-old">Giá gốc: 499.000đ</div>
-          <div class="price-new">299.000đ</div>
-        </div>
-        <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); return false;">Tải xuống PDF Ngay</a>
+      <div class="sales-cta-box" style="flex-direction: column; gap: 15px;">
+        <span class="btn-checkout" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; text-align: center;">Sắp ra mắt (Coming Soon)</span>
+        <a href="starter-kit-pro.html" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;">Xem Starter Kit Pro thay thế &rarr;</a>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ Tải ngay sau khi thanh toán &nbsp; ✓ PDF Chất lượng cao &nbsp; ✓ Đọc trên mọi thiết bị</p>
+      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ PDF Chất lượng cao &nbsp; • &nbsp; Đăng ký nhận thông tin khi có bản chính thức</p>
     </div>
   </header>
 
@@ -286,7 +278,7 @@
   <section class="section">
     <div class="container">
       <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 10px;">Chương trình đào tạo trong Ebook</h2>
-      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px;">Hơn 120 trang phân tích chuyên sâu, sơ đồ đánh sáng và công thức thực chiến.</p>
+      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px;">Ấn phẩm phân tích chuyên sâu, sơ đồ đánh sáng và công thức thực chiến sắp ra mắt.</p>
 
       <div class="module-grid">
         <div class="module-card">
@@ -324,15 +316,14 @@
   <section class="section">
     <div class="container" style="max-width: 800px;">
       <div class="guarantee">
-        <h2 style="font-size: 2rem; color: var(--accent-amber); margin-bottom: 15px;">Cam kết Hoàn tiền 100% trong 30 ngày</h2>
-        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Nếu cuốn sách này không thay đổi hoàn toàn cách bạn nhìn nhận về ánh sáng và giúp bạn chụp những bức ảnh đẹp hơn, hãy gửi email cho chúng tôi. Bạn sẽ được hoàn lại toàn bộ số tiền mà không cần giải thích lý do.</p>
-        <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); return false;">Sở hữu Ebook ngay hôm nay — 299.000đ</a>
+        <h2 style="font-size: 2rem; color: var(--accent-amber); margin-bottom: 15px;">Cam kết Chất lượng</h2>
+        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Chúng tôi cam kết mang lại nội dung chuyên sâu nhất về nghệ thuật ánh sáng và bóng tối trong nhiếp ảnh và điện ảnh.</p>
+        <span class="btn-checkout" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; display: inline-block;">Sắp ra mắt (Coming Soon)</span>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-      <footer class="footer">
+  <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
@@ -365,10 +356,9 @@
   <!-- Sticky CTA for Mobile -->
   <div class="sticky-cta">
     <div>
-      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through;">499.000đ</div>
-      <div style="color: var(--accent-amber); font-weight: bold; font-size: 1.2rem;">299.000đ</div>
+      <div style="color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem;">Sắp ra mắt</div>
     </div>
-    <a href="#" class="sticky-cta-btn" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); return false;">MUA NGAY</a>
+    <a href="starter-kit-pro.html" class="sticky-cta-btn" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;">XEM STARTER KIT</a>
   </div>
 
   <script src="js/common.js"></script>

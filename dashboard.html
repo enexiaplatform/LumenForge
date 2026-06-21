@@ -157,7 +157,7 @@
 </head>
 <body>
 
-        <!-- Navigation -->
+  <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
@@ -165,21 +165,12 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="index.html" class="nav-link">Bắt đầu</a>
         <a href="before-after.html" class="nav-link">Before / After</a>
-        <a href="free-guide.html" class="nav-link">Starter Kit</a>
-        <div class="nav-link" style="position: relative; cursor: pointer;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
-          Khám phá ▾
-          <div class="nav-dropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(15,15,20,0.95); border:1px solid var(--border-color); border-radius:8px; padding:10px 0; min-width:200px; z-index:100; backdrop-filter:blur(20px);">
-            <a href="tool-lab.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition: color 0.2s;">Xưởng Công cụ</a>
-            <a href="shot-recipes.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Công thức Chụp</a>
-            <a href="lighting-gallery.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Thư viện Ánh sáng</a>
-            <a href="gear-vault.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Kho Thiết Bị</a>
-            <a href="studio-planner.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Studio Planner</a>
-            <a href="dashboard.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Dashboard</a>
-          </div>
-        </div>
-        <a href="store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
   </nav>
@@ -197,19 +188,8 @@
           </div>
         </div>
         <div class="stat-card reveal delay-200">
-          <div class="stat-value">5</div>
-          <div class="stat-label">Công cụ mới mở khóa</div>
-        </div>
-      </div>
-
-      <!-- THE DIRECTOR'S BINDER -->
-      <div class="dashboard-card reveal delay-300" style="margin-top: var(--space-xl); border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05);">
-        <h3>The Director's Binder <span class="badge" style="background: var(--accent-cyan); color: #000; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; vertical-align: middle;">PRO</span></h3>
-        <p style="color: var(--text-secondary); margin-bottom: 20px;">Gói toàn bộ thiết lập Call Sheet, Storyboard, và Exposure thành một File Dự án thống nhất.</p>
-        
-        <div style="display: flex; gap: 15px;">
-          <button class="btn btn-primary magnetic" id="btn-export-json">Xuất File JSON Dự án</button>
-          <button class="btn btn-secondary magnetic" id="btn-print-binder">In Báo cáo (PDF)</button>
+          <div class="stat-value" id="unlocked-tools-count">0</div>
+          <div class="stat-label">Tài nguyên đã mở khóa</div>
         </div>
       </div>
     </div>
@@ -218,6 +198,33 @@
   <!-- Content -->
   <section class="section">
     <div class="container">
+
+      <!-- Dev Sandbox Warning Banner -->
+      <div id="dev-sandbox-banner" style="display: none; background: rgba(245, 158, 11, 0.08); border: 1px solid #F59E0B; border-radius: 8px; padding: 15px; margin-bottom: 30px; color: #fff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <span style="font-weight: bold; color: #F59E0B; font-family: var(--font-mono);">🛠️ DEVELOPER SANDBOX ACTIVE</span>
+            <p style="margin: 3px 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Bạn đang ở môi trường thử nghiệm. Bạn có thể duyệt nhanh giao dịch chuyển khoản thủ công để tải file tức thì.</p>
+          </div>
+          <button onclick="localStorage.removeItem('lf_dev_mode'); window.location.reload();" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 5px 12px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-family: var(--font-mono);">Tắt Dev Mode</button>
+        </div>
+      </div>
+
+      <!-- Inventory / Purchases (My Downloads Section - Moved to Top) -->
+      <div class="dashboard-grid" style="margin-bottom: var(--space-xl);">
+        <div class="dash-card" style="grid-column: 1 / -1; background: rgba(0, 212, 255, 0.02); border-color: var(--accent-cyan);">
+          <h3 style="color: var(--accent-cyan); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span>🎁 My Downloads (Tủ Đồ)</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-dim); font-family: var(--font-mono);">PRODUCT FULFILLMENT</span>
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 25px;">Truy cập và tải xuống toàn bộ Presets, sách hướng dẫn PDF, và bài tập thực hành thuộc quyền sở hữu của bạn.</p>
+          
+          <div id="downloads-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            <!-- Rendered dynamically by js/dashboard.js -->
+            <div style="text-align: center; padding: 40px; color: var(--text-dim); font-style: italic; grid-column: 1/-1;">Đang tải tủ đồ tài liệu...</div>
+          </div>
+        </div>
+      </div>
 
       <div class="dashboard-grid">
         
@@ -265,7 +272,7 @@
           </ul>
         </div>
 
-        <!-- Bookmarks (Dummy for now, could be dynamic) -->
+        <!-- Bookmarks -->
         <div class="dash-card">
           <h3>🔖 Đã lưu (Bookmarks)</h3>
           <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Các công thức Shot Recipes yêu thích của bạn.</p>
@@ -276,19 +283,6 @@
           </ul>
         </div>
 
-      </div>
-
-      <div class="dashboard-grid" style="margin-top: var(--space-xl);">
-        <!-- Inventory / Purchases -->
-        <div class="dash-card" style="grid-column: 1 / -1; background: rgba(245, 166, 35, 0.05); border-color: var(--accent-amber);">
-          <h3 style="color: var(--accent-amber);">🎁 My Downloads (Tủ Đồ)</h3>
-          <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 20px;">Tài liệu và Khóa học bạn đã mở khóa.</p>
-          
-          <ul class="bookmark-list" id="inventory-list">
-            <!-- Rendered by JS -->
-            <li style="color: var(--text-dim); font-style: italic;">Bạn chưa sở hữu tài liệu nào. <a href="store.html" style="color: var(--accent-amber);">Ghé thăm Store</a></li>
-          </ul>
-        </div>
       </div>
 
       <!-- Creator Hub Section -->

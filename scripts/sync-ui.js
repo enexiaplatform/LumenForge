@@ -13,21 +13,12 @@ const NAV_TEMPLATE = (depthPrefix) => `  <nav class="nav" id="main-nav">
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="${depthPrefix}light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="${depthPrefix}index.html" class="nav-link">Bắt đầu</a>
         <a href="${depthPrefix}before-after.html" class="nav-link">Before / After</a>
-        <a href="${depthPrefix}free-guide.html" class="nav-link">Starter Kit</a>
-        <div class="nav-link" style="position: relative; cursor: pointer;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
-          Khám phá ▾
-          <div class="nav-dropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(15,15,20,0.95); border:1px solid var(--border-color); border-radius:8px; padding:10px 0; min-width:200px; z-index:100; backdrop-filter:blur(20px);">
-            <a href="${depthPrefix}tool-lab.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition: color 0.2s;">Xưởng Công cụ</a>
-            <a href="${depthPrefix}shot-recipes.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Công thức Chụp</a>
-            <a href="${depthPrefix}lighting-gallery.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Thư viện Ánh sáng</a>
-            <a href="${depthPrefix}gear-vault.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Kho Thiết Bị</a>
-            <a href="${depthPrefix}studio-planner.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Studio Planner</a>
-            <a href="${depthPrefix}dashboard.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Dashboard</a>
-          </div>
-        </div>
-        <a href="${depthPrefix}store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
+        <a href="${depthPrefix}light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="${depthPrefix}tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="${depthPrefix}store.html" class="nav-link">Cửa hàng</a>
+        <a href="${depthPrefix}dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
   </nav>`;

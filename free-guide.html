@@ -310,11 +310,11 @@
             lfAuth.login(email, 'password123'); // auto-login with dummy pass
             
             // 2. Add the Gift to their purchases/inventory
-            lfAuth.addPurchase('free-guide-5-lighting-setups', {
-              name: '5 Sơ đồ Ánh sáng Điện ảnh (PDF)',
-              type: 'Ebook',
+            lfAuth.addPurchase('free-kit', {
+              name: 'LumenForge Starter Kit (Free Edition)',
+              type: 'Presets & Guides (ZIP)',
               unlockedAt: Date.now()
-            });
+            }, 'free');
           }
 
           // 3. Update UI to show success and download link
@@ -326,7 +326,7 @@
               </div>
               <h2 style="color: var(--accent-cyan); margin-bottom: 20px; font-size: 2rem;">Thành công!</h2>
               <p style="margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6; color: #ddd;">Tài liệu đã được kích hoạt. Bạn có thể tải xuống ngay hoặc xem lại trong Dashboard bất cứ lúc nào.</p>
-              <a href="javascript:void(0)" onclick="alert('Bắt đầu tải xuống file: 5-cinematic-lighting-setups.pdf');" style="display: block; background: var(--accent-cyan); color: #000; padding: 18px 30px; border-radius: 8px; font-weight: 800; text-decoration: none; text-transform: uppercase; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);">⬇ Tải Xuống PDF Ngay</a>
+              <a href="downloads/lumenforge-starter-kit-free.zip" download style="display: block; background: var(--accent-cyan); color: #000; padding: 18px 30px; border-radius: 8px; font-weight: 800; text-decoration: none; text-transform: uppercase; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);">⬇ Tải Xuống Starter Kit Ngay</a>
               <a href="dashboard.html" style="display: block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 18px 30px; border-radius: 8px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">Chuyển đến Dashboard &rarr;</a>
             </div>
           `;

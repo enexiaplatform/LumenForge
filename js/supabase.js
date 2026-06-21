@@ -147,14 +147,42 @@ class SupabaseIntegration {
                     .select('*')
                     .eq('user_id', uid);
 
+                let dbPurchases = [];
                 if (purchases) {
-                    this.purchases = purchases.map(p => ({
+                    dbPurchases = purchases.map(p => ({
                         id: p.product_id,
                         data: { name: p.product_name, type: p.product_type, link: p.product_link, price: p.price },
+                        status: 'purchased',
                         timestamp: new Date(p.created_at).getTime()
                     }));
-                    localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
                 }
+
+                // Also check pending orders in Supabase for user
+                try {
+                    const { data: pendingOrders } = await self.client
+                        .from('pending_orders')
+                        .select('*')
+                        .eq('user_id', uid)
+                        .eq('status', 'pending');
+                    
+                    if (pendingOrders) {
+                        pendingOrders.forEach(p => {
+                            if (!dbPurchases.some(x => x.id === p.product_id)) {
+                                dbPurchases.push({
+                                    id: p.product_id,
+                                    data: { name: p.product_name, type: p.product_type, link: p.product_link, price: p.price },
+                                    status: 'pending',
+                                    timestamp: new Date(p.created_at).getTime()
+                                });
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.warn('[SUPABASE] pending_orders table not available or error querying:', e.message);
+                }
+
+                this.purchases = dbPurchases;
+                localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
 
                 // 3. Sync Read History
                 const { data: readHist } = await self.client
@@ -411,13 +439,42 @@ class SupabaseIntegration {
         };
 
         // --- OVERRIDE: addPurchase ---
-        lfAuth.addPurchase = async function(productId, productData) {
+        lfAuth.addPurchase = async function(productId, productData, status = 'purchased') {
             if (!this.isLoggedIn()) return { error: 'not_logged_in' };
             const uid = this.currentUser.id;
 
-            if (this.purchases.some(p => p.id === productId)) return { success: true };
+            if (this.purchases.some(p => p.id === productId && p.status === 'purchased')) return { success: true };
 
             try {
+                if (status === 'pending') {
+                    // Generate order code
+                    const orderCode = Number(String(Date.now()).slice(-9)) + Math.floor(Math.random() * 100);
+                    await self.client
+                        .from('pending_orders')
+                        .insert({
+                            order_code: orderCode,
+                            user_id: uid,
+                            product_id: productId,
+                            product_name: productData.name || productId,
+                            product_type: productData.type || 'Tài liệu số',
+                            product_link: productData.link || '#',
+                            price: productData.price || 0,
+                            status: 'pending'
+                        });
+
+                    // Add to local state
+                    const existingIdx = this.purchases.findIndex(p => p.id === productId);
+                    if (existingIdx > -1) {
+                        this.purchases[existingIdx].status = 'pending';
+                        this.purchases[existingIdx].data = { ...this.purchases[existingIdx].data, ...productData };
+                    } else {
+                        this.purchases.push({ id: productId, data: productData, status: 'pending', timestamp: Date.now() });
+                    }
+                    localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
+                    return { success: true };
+                }
+
+                // Normal immediate purchased state (e.g. for free tools or simulated success)
                 await self.client
                     .from('purchases')
                     .insert({
@@ -429,7 +486,13 @@ class SupabaseIntegration {
                         price: productData.price || 0
                     });
 
-                this.purchases.push({ id: productId, data: productData, timestamp: Date.now() });
+                const existingIdx = this.purchases.findIndex(p => p.id === productId);
+                if (existingIdx > -1) {
+                    this.purchases[existingIdx].status = 'purchased';
+                    this.purchases[existingIdx].data = { ...this.purchases[existingIdx].data, ...productData };
+                } else {
+                    this.purchases.push({ id: productId, data: productData, status: 'purchased', timestamp: Date.now() });
+                }
                 localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
 
                 // Add 50 XP
@@ -448,6 +511,60 @@ class SupabaseIntegration {
                 return { success: true };
             } catch (err) {
                 console.error(err);
+                return { error: err.message };
+            }
+        };
+
+        // --- OVERRIDE: updatePurchaseStatus ---
+        lfAuth.updatePurchaseStatus = async function(productId, status) {
+            if (!this.isLoggedIn()) return { error: 'not_logged_in' };
+            const uid = this.currentUser.id;
+
+            const purchase = this.purchases.find(p => p.id === productId);
+            if (purchase) {
+                purchase.status = status;
+                localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
+            }
+
+            if (!self.isOnline) {
+                return { success: true };
+            }
+
+            try {
+                if (status === 'purchased') {
+                    // Update pending order to completed
+                    await self.client
+                        .from('pending_orders')
+                        .update({ status: 'completed' })
+                        .eq('user_id', uid)
+                        .eq('product_id', productId);
+
+                    // Get metadata from pending order
+                    const { data: pending } = await self.client
+                        .from('pending_orders')
+                        .select('*')
+                        .eq('user_id', uid)
+                        .eq('product_id', productId)
+                        .order('created_at', { ascending: false })
+                        .limit(1);
+
+                    const pMeta = pending && pending.length > 0 ? pending[0] : null;
+
+                    // Insert to purchases
+                    await self.client
+                        .from('purchases')
+                        .insert({
+                            user_id: uid,
+                            product_id: productId,
+                            product_name: pMeta ? pMeta.product_name : productId,
+                            product_type: pMeta ? pMeta.product_type : 'Tài liệu số',
+                            product_link: pMeta ? pMeta.product_link : '#',
+                            price: pMeta ? pMeta.price : 0
+                        });
+                }
+                return { success: true };
+            } catch (err) {
+                console.error('[SUPABASE UPDATE PURCHASE] Error:', err);
                 return { error: err.message };
             }
         };

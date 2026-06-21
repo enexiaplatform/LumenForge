@@ -25,25 +25,57 @@ class AuthSystem {
     login(email, password) {
         // Mock validation
         if (AuthConfig.MOCK_USERS[email] && AuthConfig.MOCK_USERS[email].password === password) {
-            this.currentUser = { email, name: AuthConfig.MOCK_USERS[email].name, avatar: AuthConfig.MOCK_USERS[email].avatar };
+            const name = AuthConfig.MOCK_USERS[email].name;
+            const isAdmin = email.toLowerCase() === 'admin@lumenforge.studio' || email.toLowerCase() === 'henry@lumenforge.studio';
+            this.currentUser = { 
+                email, 
+                name, 
+                avatar: AuthConfig.MOCK_USERS[email].avatar,
+                isCreator: isAdmin || name.toLowerCase().includes('creator'),
+                isAdmin: isAdmin
+            };
             localStorage.setItem('lf_user', JSON.stringify(this.currentUser));
+            if (isAdmin) {
+                localStorage.setItem('lf_user_is_admin', 'true');
+            }
             return { success: true };
         }
         
         // For demonstration, allow ANY email/password to create an account if it doesn't exist
-        this.currentUser = { email, name: email.split('@')[0], avatar: email.charAt(0).toUpperCase() };
+        const name = email.split('@')[0];
+        const isAdmin = email.toLowerCase() === 'admin@lumenforge.studio' || email.toLowerCase() === 'henry@lumenforge.studio';
+        this.currentUser = { 
+            email, 
+            name: name.charAt(0).toUpperCase() + name.slice(1), 
+            avatar: email.charAt(0).toUpperCase(),
+            isCreator: isAdmin || email.toLowerCase().includes('creator'),
+            isAdmin: isAdmin
+        };
         localStorage.setItem('lf_user', JSON.stringify(this.currentUser));
+        if (isAdmin) {
+            localStorage.setItem('lf_user_is_admin', 'true');
+        }
         return { success: true };
     }
 
     logout() {
         this.currentUser = null;
         localStorage.removeItem('lf_user');
+        localStorage.removeItem('lf_user_is_admin');
         window.location.reload();
     }
 
     isLoggedIn() {
         return this.currentUser !== null;
+    }
+
+    isAdmin() {
+        if (!this.isLoggedIn()) return false;
+        const email = this.currentUser.email.toLowerCase();
+        return email === 'admin@lumenforge.studio' || 
+               email === 'henry@lumenforge.studio' || 
+               this.currentUser.isAdmin === true || 
+               localStorage.getItem('lf_user_is_admin') === 'true';
     }
 
     // -- Bookmarks --
@@ -83,18 +115,39 @@ class AuthSystem {
     }
 
     // -- Purchases --
-    addPurchase(productId, productData) {
+    addPurchase(productId, productData, status = 'purchased') {
         if (!this.isLoggedIn()) return { error: 'not_logged_in' };
         
-        if (!this.purchases.some(p => p.id === productId)) {
-            this.purchases.push({ id: productId, data: productData, timestamp: Date.now() });
-            localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
+        const existingIndex = this.purchases.findIndex(p => p.id === productId);
+        if (existingIndex > -1) {
+            this.purchases[existingIndex].status = status;
+            this.purchases[existingIndex].data = { ...this.purchases[existingIndex].data, ...productData };
+            this.purchases[existingIndex].timestamp = Date.now();
+        } else {
+            this.purchases.push({ id: productId, data: productData, status: status, timestamp: Date.now() });
         }
+        localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
         return { success: true };
     }
 
+    updatePurchaseStatus(productId, status) {
+        if (!this.isLoggedIn()) return { error: 'not_logged_in' };
+        const purchase = this.purchases.find(p => p.id === productId);
+        if (purchase) {
+            purchase.status = status;
+            localStorage.setItem('lf_purchases', JSON.stringify(this.purchases));
+            return { success: true };
+        }
+        return { error: 'not_found' };
+    }
+
+    getPurchase(productId) {
+        return this.purchases.find(p => p.id === productId) || null;
+    }
+
     hasPurchased(productId) {
-        return this.purchases.some(p => p.id === productId);
+        const purchase = this.purchases.find(p => p.id === productId);
+        return purchase && (purchase.status === 'purchased' || purchase.status === 'free');
     }
 }
 
@@ -222,9 +275,15 @@ function updateNavigation() {
     });
     
     if (lfAuth.isLoggedIn()) {
+        let adminLink = '';
+        if (lfAuth.isAdmin && lfAuth.isAdmin()) {
+            adminLink = `<a href="admin.html" class="nav-link admin-nav-link" style="color: var(--accent-amber); font-weight: bold; border: 1px solid var(--accent-amber); border-radius: 4px; padding: 4px 8px; font-size: 0.8rem; margin-right: 15px; display: inline-flex; align-items: center; gap: 4px;">👑 ADMIN</a>`;
+        }
         if (dashLink) {
+            const dest = dashLink.getAttribute('href') || 'dashboard.html';
             dashLink.outerHTML = `
-                <div class="nav-user-profile" onclick="window.location.href='dashboard.html'" title="Vào Dashboard">
+                ${adminLink}
+                <div class="nav-user-profile" onclick="window.location.href='${dest}'" title="Vào Dashboard">
                     <div class="nav-avatar">${lfAuth.currentUser.avatar}</div>
                     <span style="font-size: 0.9rem; color: #fff;">${lfAuth.currentUser.name}</span>
                 </div>

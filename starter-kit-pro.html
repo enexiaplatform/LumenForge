@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumenForge Starter Kit Pro — Quy trình & Preset Lightroom Cinematic</title>
+  <meta name="description" content="Nâng cấp ảnh của bạn từ bình thường lên cinematic. Bộ sản phẩm gồm 10 presets chuyên sâu, quy trình Lightroom PDF, case study và bài tập thực hành.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lumenforge.studio/starter-kit-pro.html">
+  <meta property="og:title" content="LumenForge Starter Kit Pro — Quy trình & Preset Lightroom Cinematic">
+  <meta property="og:description" content="Quy trình thực chiến giúp người mới và creators biến ảnh RAW bình thường thành tác phẩm cinematic bằng Lightroom.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?q=80&w=1200&auto=format&fit=crop">
+
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/before-after.css">
+  
+  <style>
+    /* Product Landing Page Custom Styles */
+    .pro-hero {
+      padding: 140px 0 80px;
+      background: radial-gradient(circle at center, rgba(15, 23, 42, 0.4) 0%, rgba(10, 10, 12, 1) 100%), 
+                  url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+    }
+    
+    .pro-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent-cyan);
+      border: 1px solid var(--accent-cyan);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+    
+    .pro-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 30%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: var(--font-heading);
+    }
+    
+    .pro-hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .pro-cta-box {
+      background: rgba(15, 15, 20, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 30px;
+      display: inline-flex;
+      align-items: center;
+      gap: 30px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .price-block {
+      text-align: left;
+    }
+
+    .price-old {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+
+    .price-new {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      line-height: 1;
+    }
+
+    .btn-checkout-pro {
+      background: var(--accent-cyan);
+      color: #000;
+      padding: 16px 40px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-checkout-pro:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+    }
+
+    /* Before/After proof styling */
+    .proof-section {
+      padding: 80px 0;
+      background: #0A0A0C;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .proof-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .proof-title {
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* What's included */
+    .included-section {
+      padding: 80px 0;
+      background: radial-gradient(circle at top, rgba(0, 212, 255, 0.05) 0%, rgba(10, 10, 12, 1) 100%);
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .included-card {
+      background: rgba(255,255,255,0.01);
+      border: 1px solid var(--border-color);
+      padding: 25px;
+      border-radius: 10px;
+      transition: border-color 0.3s;
+    }
+
+    .included-card:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    .included-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--accent-cyan);
+    }
+
+    .included-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .included-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Who this is for table */
+    .comparison-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .comp-box {
+      padding: 35px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .comp-box.for {
+      border-left: 4px solid var(--accent-cyan);
+      background: rgba(0, 212, 255, 0.01);
+    }
+
+    .comp-box.not-for {
+      border-left: 4px solid #ff4757;
+      background: rgba(255, 71, 87, 0.01);
+    }
+
+    .comp-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+
+    .comp-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .comp-list li {
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      display: flex;
+      gap: 10px;
+      color: var(--text-secondary);
+    }
+
+    .comp-list li svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 80px 0;
+      background: rgba(255,255,255,0.01);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 25px;
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    .faq-item h4 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .faq-item p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Sticky Footer CTA */
+    .sticky-bar-pro {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(10, 10, 12, 0.95);
+      backdrop-filter: blur(15px);
+      padding: 15px 20px;
+      border-top: 1px solid var(--border-color);
+      z-index: 99;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    }
+
+    .sticky-info {
+      text-align: left;
+    }
+
+    .sticky-price {
+      color: var(--accent-cyan);
+      font-weight: bold;
+      font-size: 1.3rem;
+      font-family: var(--font-mono);
+    }
+
+    @media (min-width: 768px) {
+      .sticky-bar-pro {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+      <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Bắt đầu</a>
+        <a href="before-after.html" class="nav-link">Before / After</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="pro-hero">
+    <div class="container">
+      <span class="pro-badge">LumenForge Starter Kit Pro</span>
+      <h1>Biến ảnh bình thường thành<br>tác phẩm màu điện ảnh.</h1>
+      <p>Thoát khỏi việc mò mẫm chỉnh thanh trượt Lightroom. Làm chủ ánh sáng, màu sắc và áp dụng quy trình chỉnh sửa cinematic có chủ đích của chuyên gia nhiếp ảnh.</p>
+      
+      <div class="pro-cta-box">
+        <div class="price-block">
+          <div class="price-old">Giá gốc: 199.000đ</div>
+          <div class="price-new">99.000đ</div>
+        </div>
+        <button class="btn-checkout-pro" onclick="openCheckoutModal('starter-kit-pro', 99000); return false;">Sở hữu Starter Kit Pro</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 15px;">✓ File tải sạch 100% &nbsp; • &nbsp; ✓ Hỗ trợ file XMP/DNG &nbsp; • &nbsp; Cam kết hoàn tiền trong 30 ngày</p>
+    </div>
+  </header>
+
+  <!-- Section: Before/After Proof -->
+  <section class="proof-section" id="before-after">
+    <div class="container">
+      <p class="section-label" style="text-align: center;">MINH CHỨNG THỰC TẾ</p>
+      <h2 class="section-title" style="text-align: center;">Từ Ảnh RAW Gốc Đến Edit Hoàn Thiện</h2>
+      <p style="text-align: center; color: var(--text-secondary); max-width: 600px; margin: -10px auto 40px; font-size: 1.05rem;">
+        Kéo thanh trượt để xem cách chúng tôi tái định hình ánh sáng và màu sắc để kể chuyện bằng ảnh trong Lightroom.
+      </p>
+
+      <div class="proof-grid">
+        <!-- Slider 1 -->
+        <div class="proof-card">
+          <div class="proof-title">
+            <span>Golden Hanoi Streets</span>
+            <span style="color: var(--accent-cyan); font-size: 0.8rem; font-family: monospace;">KODAK WARM</span>
+          </div>
+          <div class="ba-slider-wrapper" data-id="hanoi">
+            <img class="ba-img-before" src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=900&h=563&fit=crop&auto=format&q=75&sat=-50&con=-15" alt="Hanoi Before" draggable="false">
+            <img class="ba-img-after" src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=900&h=563&fit=crop&auto=format&q=82" alt="Hanoi After" draggable="false">
+            <span class="ba-label ba-label-before">RAW</span>
+            <span class="ba-label ba-label-after">EDIT</span>
+            <div class="ba-slider-divider"></div>
+            <div class="ba-slider-handle">
+              <div class="ba-handle-diamond">
+                <div class="ba-handle-arrows">◀ ▶</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider 2 -->
+        <div class="proof-card">
+          <div class="proof-title">
+            <span>Rainy Neon District</span>
+            <span style="color: var(--accent-cyan); font-size: 0.8rem; font-family: monospace;">MOODY NIGHT</span>
+          </div>
+          <div class="ba-slider-wrapper" data-id="neon">
+            <img class="ba-img-before" src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=900&h=563&fit=crop&auto=format&q=75&sat=-40&con=-10" alt="Neon Before" draggable="false">
+            <img class="ba-img-after" src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=900&h=563&fit=crop&auto=format&q=82" alt="Neon After" draggable="false">
+            <span class="ba-label ba-label-before">RAW</span>
+            <span class="ba-label ba-label-after">EDIT</span>
+            <div class="ba-slider-divider"></div>
+            <div class="ba-slider-handle">
+              <div class="ba-handle-diamond">
+                <div class="ba-handle-arrows">◀ ▶</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slider 3 -->
+        <div class="proof-card">
+          <div class="proof-title">
+            <span>Teal & Orange Harbor</span>
+            <span style="color: var(--accent-cyan); font-size: 0.8rem; font-family: monospace;">TEAL & ORANGE</span>
+          </div>
+          <div class="ba-slider-wrapper" data-id="harbor">
+            <img class="ba-img-before" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=563&fit=crop&auto=format&q=75&sat=-35&con=-10" alt="Harbor Before" draggable="false">
+            <img class="ba-img-after" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&h=563&fit=crop&auto=format&q=82" alt="Harbor After" draggable="false">
+            <span class="ba-label ba-label-before">RAW</span>
+            <span class="ba-label ba-label-after">EDIT</span>
+            <div class="ba-slider-divider"></div>
+            <div class="ba-slider-handle">
+              <div class="ba-handle-diamond">
+                <div class="ba-handle-arrows">◀ ▶</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: What's Included -->
+  <section class="included-section">
+    <div class="container">
+      <p class="section-label" style="text-align: center;">BÊN TRONG BỘ SẢN PHẨM</p>
+      <h2 class="section-title" style="text-align: center;">Tài Nguyên Bạn Sẽ Nhận Được</h2>
+      
+      <div class="included-grid">
+        <div class="included-card">
+          <div class="included-icon">🎨</div>
+          <h3>10 Presets Cinematic (.XMP / .DNG)</h3>
+          <p>Mô phỏng màu phim ấm áp hoài cổ, tương phản cao, và các mood màu Hollywood độc quyền. Dùng được cả trên Lightroom Desktop lẫn Mobile.</p>
+        </div>
+
+        <div class="included-card">
+          <div class="included-icon">📖</div>
+          <h3>Lightroom Workflow PDF</h3>
+          <p>Quy trình 5 bước hậu kỳ có hệ thống: từ sửa méo lens, cân bằng độ phơi sáng, hiệu chuẩn màu da (Skin tone), đến tách dải tương phản vùng sáng tối.</p>
+        </div>
+
+        <div class="included-card">
+          <div class="included-icon">🔍</div>
+          <h3>5 Bài Phân Tích Case Study</h3>
+          <p>Sơ đồ ánh sáng, các thông số chi tiết của từng thanh trượt (HSL, Color Grading, Tone Curve) trên 5 bức ảnh cụ thể làm mẫu.</p>
+        </div>
+
+        <div class="included-card">
+          <div class="included-icon">⚡</div>
+          <h3>Cấu Hình Xuất Ảnh Chuẩn</h3>
+          <p>Bảng thiết lập thông số DPI, tỷ lệ crop, chất lượng (quality) xuất ảnh tối ưu nhất cho thuật toán hiển thị của Facebook, Instagram, TikTok.</p>
+        </div>
+
+        <div class="included-card">
+          <div class="included-icon">📋</div>
+          <h3>Checklist Quay Chụp & Hậu Kỳ</h3>
+          <p>Checklist hành trang máy ảnh, quy tắc bố cục ánh sáng tại thực địa, và các bước tự kiểm tra (QA) trước khi xuất file gửi khách hàng.</p>
+        </div>
+
+        <div class="included-card">
+          <div class="included-icon">📷</div>
+          <h3>File RAW Thực Hành Thực Tế</h3>
+          <p>Liên kết tải xuống 5 file ảnh RAW định dạng gốc (Sony ARW, Fuji RAF, Canon CR3) chất lượng cao để bạn thực hành kéo màu cùng tài liệu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Who this is for & What it is not -->
+  <section class="comparison-section">
+    <div class="container">
+      <p class="section-label" style="text-align: center;">ĐỐI TƯỢNG SỬ DỤNG</p>
+      <h2 class="section-title" style="text-align: center;">Sản Phẩm Này Dành Cho Ai?</h2>
+      
+      <div class="comparison-grid">
+        <!-- For -->
+        <div class="comp-box for">
+          <h3 style="color: var(--accent-cyan);">Phù hợp với:</h3>
+          <ul class="comp-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Người mới tập chụp ảnh muốn edit ảnh có gu nhanh chóng.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Người dùng máy ảnh Canon, Sony, Fujifilm, Nikon đang học cách làm chủ phần mềm Lightroom.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Creators/Photographers muốn xây dựng tone màu đồng nhất trên Feed mạng xã hội.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Những ai đang tìm kiếm một quy trình làm việc (workflow) lặp lại nhanh gọn, bài bản.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Not For -->
+        <div class="comp-box not-for">
+          <h3 style="color: #ff4757;">Không phù hợp với:</h3>
+          <ul class="comp-list">
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <span>Người tìm kiếm nút bấm thần kỳ "một chạm ăn ngay" mà không cần quan tâm đến ánh sáng gốc.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <span>Những ai nghĩ preset có thể thay thế hoàn toàn cho việc hiểu hướng sáng và bố cục chụp.</span>
+            </li>
+            <li>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff4757" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <span>Những ai mong muốn một khóa học chỉnh sửa ảnh cưới hay ghép da chuyên nghiệp chuyên sâu.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <p class="section-label" style="text-align: center;">CÂU HỎI THƯỜNG GẶP</p>
+      <h2 class="section-title" style="text-align: center;">Giải Đáp Thắc Mắc</h2>
+      
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>1. Bộ preset này có sử dụng được trên điện thoại không?</h4>
+          <p>Có. Bộ preset đi kèm cả định dạng .XMP cho Lightroom Classic/CC trên máy tính và file mẫu ảnh .DNG để bạn dễ dàng đồng bộ vào ứng dụng Lightroom Mobile miễn phí trên điện thoại iOS/Android.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>2. Tôi sẽ nhận file như thế nào sau khi thanh toán?</h4>
+          <p>LumenForge áp dụng thanh toán chuyển khoản thủ công trung thực. Sau khi bạn chuyển khoản, hệ thống sẽ đối soát thủ công và duyệt đơn (trong vòng 1-4 giờ). Khi duyệt xong, trạng thái đơn sẽ chuyển sang "Purchased" trong Dashboard, cho phép bạn nhấn nút tải trực tiếp file ZIP. Bạn cũng nhận được email thông báo đính kèm.</p>
+        </div>
+
+        <div class="faq-item">
+          <h4>3. Chính sách hoàn tiền được áp dụng ra sao?</h4>
+          <p>Chúng tôi tự tin vào chất lượng tài liệu và bộ preset. Nếu sau khi mua và áp dụng quy trình, bạn không thấy hình ảnh của mình được cải thiện, hãy gửi email kèm hóa đơn mua hàng trong vòng 30 ngày để nhận lại 100% số tiền mà không cần giải thích gì thêm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section" style="text-align: center; padding: 80px 0; border-top: 1px solid var(--border-color); background: radial-gradient(circle at center, rgba(0, 212, 255, 0.03) 0%, rgba(10, 10, 12, 1) 100%);">
+    <div class="container" style="max-width: 600px;">
+      <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-family: var(--font-heading);">Bắt đầu kéo màu điện ảnh ngay hôm nay</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 40px; line-height: 1.6;">Nhận 10 Presets, Sách quy trình PDF, 5 bài phân tích Before/After, checklist chụp ảnh và 5 file RAW thực hành chất lượng cao.</p>
+      
+      <div style="background: rgba(15, 15, 20, 0.9); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; display: inline-flex; align-items: center; gap: 25px; margin-bottom: 20px; width: 100%; justify-content: center; flex-wrap: wrap;">
+        <div style="text-align: left;">
+          <div style="color: var(--text-dim); text-decoration: line-through; font-size: 0.9rem;">Giá gốc: 199.000đ</div>
+          <div style="color: var(--accent-cyan); font-weight: bold; font-size: 2.2rem; font-family: var(--font-mono);">99.000đ</div>
+        </div>
+        <button class="btn-checkout-pro" style="padding: 14px 35px;" onclick="openCheckoutModal('starter-kit-pro', 99000); return false;">MUA STARTER KIT PRO</button>
+      </div>
+      <p style="font-size: 0.8rem; color: var(--text-dim);">Chuyển khoản thủ công VietQR hoặc ví điện tử. Hỗ trợ tận tâm tại support@lumenforge.studio</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+      <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Từ ảnh bình thường đến cinematic — bằng ánh sáng, màu sắc và workflow.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Bắt đầu</h4>
+            <a href="before-after.html">Before / After</a>
+            <a href="free-guide.html">Starter Kit Miễn Phí</a>
+            <a href="light-codex.html">Học Ánh Sáng</a>
+            <a href="store.html">Store</a>
+          </div>
+          <div class="footer-col">
+            <h4>Khám phá thêm</h4>
+            <a href="tool-lab.html">Xưởng Công cụ</a>
+            <a href="shot-recipes.html">Công thức Chụp</a>
+            <a href="gear-vault.html">Kho Thiết Bị</a>
+            <a href="glossary.html">Thuật ngữ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025–2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Bar for Mobile -->
+  <div class="sticky-bar-pro">
+    <div class="sticky-info">
+      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through;">199.000đ</div>
+      <div class="sticky-price">99.000đ</div>
+    </div>
+    <button class="sticky-cta-btn" style="background: var(--accent-cyan); color: #000; border: none; cursor: pointer; border-radius: 6px; padding: 12px 20px; font-weight: bold;" onclick="openCheckoutModal('starter-kit-pro', 99000); return false;">MUA NGAY</button>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/auth.js"></script>
+  
+  <script>
+    // Self-contained before/after slider initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrappers = document.querySelectorAll('.ba-slider-wrapper');
+      
+      wrappers.forEach(slider => {
+        let isDragging = false;
+        
+        function getPos(e) {
+          const rect = slider.getBoundingClientRect();
+          let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          return Math.max(0, Math.min((clientX - rect.left) / rect.width, 1));
+        }
+        
+        function update(position) {
+          const pct = position * 100;
+          const beforeImg = slider.querySelector('.ba-img-before');
+          const divider = slider.querySelector('.ba-slider-divider');
+          const handle = slider.querySelector('.ba-slider-handle');
+          
+          if (beforeImg) beforeImg.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+          if (divider) divider.style.left = `${pct}%`;
+          if (handle) handle.style.left = `${pct}%`;
+        }
+        
+        function onMove(e) {
+          if (!isDragging) return;
+          update(getPos(e));
+        }
+        
+        slider.addEventListener('mousedown', (e) => { isDragging = true; update(getPos(e)); });
+        slider.addEventListener('touchstart', (e) => { isDragging = true; update(getPos(e)); });
+        
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('touchmove', onMove);
+        
+        document.addEventListener('mouseup', () => isDragging = false);
+        document.addEventListener('touchend', () => isDragging = false);
+        
+        // Init at 50%
+        update(0.5);
+      });
+    });
+  </script>
+
+</body>
+</html>

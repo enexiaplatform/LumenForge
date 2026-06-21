@@ -152,7 +152,7 @@
 </head>
 <body>
 
-        <!-- Navigation -->
+  <!-- Navigation -->
   <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
@@ -160,21 +160,12 @@
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="index.html" class="nav-link">Bắt đầu</a>
         <a href="before-after.html" class="nav-link">Before / After</a>
-        <a href="free-guide.html" class="nav-link">Starter Kit</a>
-        <div class="nav-link" style="position: relative; cursor: pointer;" onmouseenter="this.querySelector('.nav-dropdown').style.display='block'" onmouseleave="this.querySelector('.nav-dropdown').style.display='none'">
-          Khám phá ▾
-          <div class="nav-dropdown" style="display:none; position:absolute; top:100%; left:0; background:rgba(15,15,20,0.95); border:1px solid var(--border-color); border-radius:8px; padding:10px 0; min-width:200px; z-index:100; backdrop-filter:blur(20px);">
-            <a href="tool-lab.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem; transition: color 0.2s;">Xưởng Công cụ</a>
-            <a href="shot-recipes.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Công thức Chụp</a>
-            <a href="lighting-gallery.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Thư viện Ánh sáng</a>
-            <a href="gear-vault.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Kho Thiết Bị</a>
-            <a href="studio-planner.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Studio Planner</a>
-            <a href="dashboard.html" style="display:block; padding:8px 20px; color:var(--text-secondary); text-decoration:none; font-size:0.9rem;">Dashboard</a>
-          </div>
-        </div>
-        <a href="store.html" class="nav-link" style="color: #d4af37; border: 1px solid #d4af37; border-radius: 20px; padding: 5px 15px; margin-left: 10px;">STORE</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link" style="color: var(--accent-cyan);">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
   </nav>
@@ -183,7 +174,7 @@
   <header class="store-hero">
     <div class="container">
       <h1>LumenForge Pro Store</h1>
-      <p>Nâng cấp quy trình làm việc của bạn với các ấn phẩm học thuật chuyên sâu và các bộ giả lập màu điện ảnh độc quyền từ LumenForge.</p>
+      <p>Nâng cấp quy trình làm việc nhiếp ảnh của bạn với presets chuyên sâu, quy trình Lightroom thực chiến và tài liệu hướng dẫn chất lượng.</p>
     </div>
   </header>
 
@@ -191,115 +182,143 @@
   <section class="section" style="padding-top: 40px;">
     <div class="container">
       
-      <!-- Premium Ebooks -->
-      <h3 class="section-title-store">01 // PREMIUM EBOOKS</h3>
-      <div class="products-grid" id="ebooks-grid">
+      <!-- Featured Offer -->
+      <h3 class="section-title-store">01 // FEATURED PRODUCT</h3>
+      <div class="products-grid">
         
-        <!-- Product 1 -->
-        <div class="product-card">
+        <!-- LumenForge Starter Kit Pro -->
+        <div class="product-card" style="border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.03); grid-column: 1 / -1; display: flex; flex-direction: row; flex-wrap: wrap;">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=800&auto=format&fit=crop" alt="LumenForge Starter Kit Pro Edition" class="product-img" style="width: 100%; max-width: 350px; height: auto; min-height: 250px;">
+          <div class="product-info" style="padding: 30px;">
+            <span class="product-tag" style="color: var(--accent-cyan);">BÁN CHẠY NHẤT • KHUYÊN DÙNG</span>
+            <h3 class="product-title" style="font-size: 1.6rem; margin-bottom: 15px;">LumenForge Starter Kit (Pro Edition)</h3>
+            <p class="product-desc" style="font-size: 1rem; margin-bottom: 25px;">
+              Quy trình làm việc chuyên nghiệp chuẩn hóa cùng Lightroom. Bộ công cụ bao gồm 10 Preset Cinematic chuyên sâu, sách hướng dẫn Lightroom Workflow PDF, 5 Case Study phân tích chi tiết, thiết lập thông số xuất ảnh tối ưu và file RAW thực hành.
+            </p>
+            <div class="product-footer" style="margin-top: auto; padding-top: 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+              <div class="product-price"><span style="font-size: 1rem; text-decoration: line-through; color: var(--text-dim); margin-right: 10px;">199.000đ</span> 99.000đ</div>
+              <div style="display: flex; gap: 15px;">
+                <a href="starter-kit-pro.html" class="btn-buy" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border-color); padding: 10px 20px;">Xem Chi Tiết</a>
+                <a href="#" class="btn-buy" style="background: var(--accent-cyan); color: #000; padding: 10px 25px;" onclick="openCheckoutModal('starter-kit-pro', 99000); return false;">Mua Ngay</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Creator Ebooks Section -->
+      <div id="creator-ebooks-section" style="display: none; margin-top: 60px;">
+        <h3 class="section-title-store">02 // TÀI LIỆU & EBOOKS CỘNG ĐỒNG</h3>
+        <div id="ebooks-grid" class="products-grid"></div>
+      </div>
+
+      <!-- Creator Presets & LUTs Section -->
+      <div id="creator-presets-section" style="display: none; margin-top: 60px;">
+        <h3 class="section-title-store">03 // PRESETS & LUTS CỘNG ĐỒNG</h3>
+        <div id="presets-grid" class="products-grid"></div>
+      </div>
+
+      <!-- Free Resource -->
+      <h3 class="section-title-store" style="margin-top: 60px;">04 // FREE RESOURCES</h3>
+      <div class="products-grid">
+        
+        <!-- LumenForge Starter Kit Free -->
+        <div class="product-card" style="border-color: var(--text-dim); background: rgba(255,255,255,0.01);">
+          <img loading="lazy" src="https://images.unsplash.com/photo-1599839619722-39751411ea63?q=80&w=600&auto=format&fit=crop" alt="LumenForge Starter Kit Free Edition" class="product-img">
+          <div class="product-info">
+            <span class="product-tag" style="color: var(--text-dim);">Tặng Miễn Phí</span>
+            <h3 class="product-title">LumenForge Starter Kit (Free Edition)</h3>
+            <p class="product-desc">Nhận 3 Presets Cinematic (Kodak Warm, Teal & Orange, Soft Portrait) cùng hướng dẫn Lightroom Workflow PDF cơ bản.</p>
+            <div class="product-footer">
+              <div class="product-price">0đ</div>
+              <a href="free-guide.html" class="btn-buy" style="background: var(--text-dim); color: #000;">Tải Miễn Phí</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Coming Soon / Unfinished Products -->
+      <h3 class="section-title-store" style="margin-top: 60px;">05 // SẮP RA MẮT (COMING SOON)</h3>
+      <div class="products-grid">
+        
+        <!-- Product 1: Chiaroscuro -->
+        <div class="product-card" style="opacity: 0.6;">
           <img loading="lazy" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop" alt="The Chiaroscuro Mastery Ebook" class="product-img">
           <div class="product-info">
             <span class="product-tag">Masterclass Ebook (PDF)</span>
             <h3 class="product-title">Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối</h3>
-            <p class="product-desc">Khám phá toàn bộ bí mật của Caravaggio và cách áp dụng nó vào nhiếp ảnh chân dung hiện đại. Hơn 120 trang phân tích sơ đồ ánh sáng với ví dụ minh họa thực tế.</p>
+            <p class="product-desc">Khám phá toàn bộ bí mật của Caravaggio và cách áp dụng nó vào nhiếp ảnh chân dung hiện đại. Hơn 120 trang phân tích sơ đồ ánh sáng chân thực.</p>
             <div class="product-footer">
-              <div class="product-price"><span>499.000đ</span> 299.000đ</div>
-              <a href="ebook-chiaroscuro.html" class="btn-buy">Xem Chi Tiết & Mua</a>
+              <div class="product-price">299.000đ</div>
+              <span class="btn-buy" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed;">Sắp ra mắt</span>
             </div>
           </div>
         </div>
 
-        <!-- Product 2 -->
-        <div class="product-card">
+        <!-- Product 2: Color Grading Psychology -->
+        <div class="product-card" style="opacity: 0.6;">
           <img loading="lazy" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Color Grading Psychology" class="product-img">
           <div class="product-info">
             <span class="product-tag">Masterclass Ebook (PDF)</span>
             <h3 class="product-title">Tâm lý học Màu sắc trong Điện ảnh</h3>
-            <p class="product-desc">Tài liệu chuyên sâu nhất về cách Hollywood thao túng cảm xúc khán giả thông qua bảng màu. Đi kèm phân tích Palette của 50 bộ phim kinh điển.</p>
+            <p class="product-desc">Tài liệu chuyên sâu nhất về cách Hollywood thao túng cảm xúc khán giả thông qua bảng màu phim nhựa 50 tác phẩm kinh điển.</p>
             <div class="product-footer">
-              <div class="product-price"><span>350.000đ</span> 249.000đ</div>
-              <a href="#" class="btn-buy" onclick="openCheckoutModal('ebook-color', 249000); return false;">Mua Ngay</a>
+              <div class="product-price">249.000đ</div>
+              <span class="btn-buy" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed;">Sắp ra mắt</span>
             </div>
           </div>
         </div>
 
-      </div>
-
-      <!-- Pro Presets -->
-      <h3 class="section-title-store" style="margin-top: 60px;">02 // CUBE LUTS & PRESETS</h3>
-      <div class="products-grid" id="presets-grid">
-        
-        <!-- Product 3 -->
-        <div class="product-card">
+        <!-- Product 3: Film Emulation -->
+        <div class="product-card" style="opacity: 0.6;">
           <img loading="lazy" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop" alt="Cinematic Film Emulation" class="product-img">
           <div class="product-info">
             <span class="product-tag">Lightroom Presets & LUTs</span>
             <h3 class="product-title">Cinematic Film Emulation Pack</h3>
-            <p class="product-desc">Bộ 15 presets đỉnh cao mô phỏng chính xác màu phim nhựa Kodak Vision3 500T và Fuji Eterna. Dùng cho cả ảnh RAW (Lightroom) và Video (Premiere/DaVinci).</p>
+            <p class="product-desc">Bộ 15 presets đỉnh cao mô phỏng màu phim nhựa Kodak Vision3 500T và Fuji Eterna. Dùng cho cả ảnh RAW và Video.</p>
             <div class="product-footer">
-              <div class="product-price"><span>399.000đ</span> 199.000đ</div>
-              <a href="#" class="btn-buy" onclick="openCheckoutModal('preset-film', 199000); return false;">Mua Ngay</a>
+              <div class="product-price">199.000đ</div>
+              <span class="btn-buy" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed;">Sắp ra mắt</span>
             </div>
           </div>
         </div>
 
-        <!-- Product 4 -->
-        <div class="product-card">
+        <!-- Product 4: Cyberpunk -->
+        <div class="product-card" style="opacity: 0.6;">
           <img loading="lazy" src="https://images.unsplash.com/photo-1573455494060-c5595004fb6c?q=80&w=600&auto=format&fit=crop" alt="Cyberpunk Neon Luts" class="product-img">
           <div class="product-info">
             <span class="product-tag">Video LUTs (.CUBE)</span>
             <h3 class="product-title">Cyberpunk Neon Nightlife</h3>
-            <p class="product-desc">Được thiết kế riêng cho các bối cảnh thiếu sáng với ánh đèn Neon. Tối ưu cho Log Profile của Sony (S-Log3) và Canon (C-Log).</p>
+            <p class="product-desc">Được thiết kế riêng cho các bối cảnh thiếu sáng với ánh đèn Neon, tối ưu hóa cho Log profile Sony S-Log3 / Canon C-Log.</p>
             <div class="product-footer">
-              <div class="product-price"><span>299.000đ</span> 149.000đ</div>
-              <a href="#" class="btn-buy" onclick="openCheckoutModal('preset-cyberpunk', 149000); return false;">Mua Ngay</a>
+              <div class="product-price">149.000đ</div>
+              <span class="btn-buy" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed;">Sắp ra mắt</span>
             </div>
           </div>
         </div>
 
-      </div>
-
-      
-      <!-- Bundles -->
-      <h3 class="section-title-store" style="margin-top: 60px;">03 // BUNDLES & KITS</h3>
-      <div class="products-grid" id="bundles-grid">
-
-        <!-- LumenForge Starter Kit -->
-        <div class="product-card" style="border-color: var(--accent-amber); background: rgba(245, 166, 35, 0.05);">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop" alt="LumenForge Starter Kit Pro Edition" class="product-img">
-          <div class="product-info">
-            <span class="product-tag" style="color: var(--accent-amber);">PRO STARTER KIT</span>
-            <h3 class="product-title">LumenForge Starter Kit (Pro Edition)</h3>
-            <p class="product-desc">10 Cinematic Presets + Lightroom Workflow PDF + 10 Before/After Case Study + Shooting Checklist. Mọi thứ bạn cần để bắt đầu.</p>
-            <div class="product-footer">
-              <div class="product-price"><span>299.000đ</span> 149.000đ</div>
-              <a href="#" class="btn-buy" style="background: var(--accent-amber);" onclick="openCheckoutModal('starter-kit-pro', 149000); return false;">Mua Ngay</a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Creator Starter Bundle -->
-        <div class="product-card" style="border-color: var(--accent-cyan); background: rgba(0, 212, 170, 0.05);">
+        <!-- Product 5: Combo Bundle -->
+        <div class="product-card" style="opacity: 0.6;">
           <img loading="lazy" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop" alt="Creator Starter Bundle" class="product-img">
           <div class="product-info">
-            <span class="product-tag" style="color: var(--accent-cyan);">ULTIMATE BUNDLE</span>
+            <span class="product-tag">Combo Bundle</span>
             <h3 class="product-title">Creator Starter Bundle</h3>
-            <p class="product-desc">Trọn bộ vũ khí cho Creator: Ebook Chiaroscuro + 15 Cinematic LUTs + Template Call Sheet. Tiết kiệm 40% so với mua lẻ từng sản phẩm.</p>
+            <p class="product-desc">Trọn bộ Ebook Chiaroscuro + 15 Cinematic LUTs + Template Call Sheet. Tiết kiệm 40% so với mua lẻ từng sản phẩm.</p>
             <div class="product-footer">
-              <div class="product-price"><span>850.000đ</span> 499.000đ</div>
-              <a href="#" class="btn-buy" style="background: var(--accent-cyan);" onclick="openCheckoutModal('bundle-starter', 499000); return false;">Mua Combo</a>
+              <div class="product-price">499.000đ</div>
+              <span class="btn-buy" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed;">Sắp ra mắt</span>
             </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Creator Banner -->
-      <div style="margin-top: 60px; padding: 40px; background: radial-gradient(circle at center, rgba(0, 212, 170, 0.05) 0%, rgba(10,10,12,1) 100%); border: 1px dashed rgba(0, 212, 170, 0.2); border-radius: 16px; text-align: center; backdrop-filter: blur(10px);">
+      <!-- Creator Banner (Hidden to focus on active product funnel) -->
+      <div style="display: none; margin-top: 60px; padding: 40px; background: radial-gradient(circle at center, rgba(0, 212, 170, 0.05) 0%, rgba(10,10,12,1) 100%); border: 1px dashed rgba(0, 212, 170, 0.2); border-radius: 16px; text-align: center; backdrop-filter: blur(10px);">
         <div style="font-size: 2rem; margin-bottom: 15px;">✨</div>
         <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 10px; font-family: var(--font-heading);">Bạn là Nhà Sáng Tạo Nội Dung?</h3>
         <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 25px; font-size: 0.95rem; line-height: 1.6;">
-          Tham gia hệ thống phân phối LumenForge. Đăng bán tài liệu Ebook, Presets và LUTs màu của riêng bạn. Nhận 90% lợi nhuận, tiền đổ trực tiếp về tài khoản ngân hàng của bạn qua VietQR.
+          Tham gia hệ thống phân phối LumenForge. Đăng bán tài liệu Ebook, Presets và LUTs màu của riêng bạn. Nhận lợi nhuận trực tiếp qua VietQR của bạn.
         </p>
         <a href="creator-onboarding.html" class="btn-primary" style="display: inline-block; padding: 12px 30px; font-size: 0.9rem; font-weight: bold; background: var(--accent-cyan); color: #000; text-decoration: none; border-radius: 6px;">Bắt đầu Onboarding</a>
       </div>

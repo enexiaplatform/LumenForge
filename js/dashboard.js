@@ -31,6 +31,33 @@ async function initDashboard() {
     const user = lfAuth.currentUser;
     if (!user) return;
     
+    // Handle live payment gateway return success redirection
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('payment') === 'success') {
+        const prodId = urlParams.get('product_id') || 'starter-kit-pro';
+        const coreProducts = [
+            { id: 'free-kit', name: 'LumenForge Starter Kit (Free Edition)', type: 'Presets & Guides (ZIP)', link: 'downloads/lumenforge-starter-kit-free.zip' },
+            { id: 'starter-kit-pro', name: 'LumenForge Starter Kit (Pro Edition)', type: 'Presets & Guides (ZIP)', link: 'downloads/lumenforge-starter-kit-pro.zip' },
+            { id: 'ebook-chiaroscuro', name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', type: 'Ebook (PDF)', link: 'ebooks/chiaroscuro_masterclass.md' },
+            { id: 'ebook-color', name: 'Tâm lý học Màu sắc trong Điện ảnh', type: 'Ebook (PDF)', link: 'ebook-preview.html' }
+        ];
+        const prodMeta = coreProducts.find(p => p.id === prodId);
+        
+        if (lfAuth.isLoggedIn()) {
+            lfAuth.addPurchase(prodId, {
+                name: prodMeta ? prodMeta.name : prodId,
+                type: prodMeta ? prodMeta.type : 'Digital Product',
+                link: prodMeta ? prodMeta.link : '#'
+            }, 'purchased');
+            
+            // Clean up the URL parameters to prevent re-triggering on refresh
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            // Show alert to user
+            alert(`🎉 Cảm ơn bạn! Thanh toán qua cổng tự động thành công.\nSản phẩm "${prodMeta ? prodMeta.name : prodId}" đã được mở khóa.`);
+        }
+    }
+    
     // Complete Day 5 when opening the dashboard with transactions
     let salesCount = 0;
     try {
@@ -152,48 +179,199 @@ async function initDashboard() {
         }
     }
     
-    // 6. Purchases / Inventory Rendering
-    const inventoryList = document.getElementById('inventory-list');
-    if (inventoryList) {
-        if (lfAuth.purchases.length === 0) {
-            inventoryList.innerHTML = `
-              <div style="text-align: center; padding: 40px 10px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 8px;">
-                <div style="font-size: 2.5rem; margin-bottom: 10px; opacity: 0.5;">📦</div>
-                <div style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">Bạn chưa sở hữu tài liệu hay preset nào.</div>
-                <a href="store.html" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">Ghé thăm Store</a>
-              </div>
-            `;
-        } else {
-            inventoryList.innerHTML = '';
-            lfAuth.purchases.forEach(p => {
-                const li = document.createElement('li');
-                li.style.marginBottom = "15px";
-                li.style.padding = "15px";
-                li.style.background = "rgba(255,255,255,0.03)";
-                li.style.borderRadius = "8px";
-                li.style.border = "1px solid var(--border-color)";
-                li.style.borderLeft = "4px solid var(--accent-amber)";
-                
-                const date = new Date(p.timestamp).toLocaleDateString('vi-VN');
-                const pName = p.data.name || p.data.title || p.id;
-                const pType = p.data.type || 'Tài liệu số';
-                const pLink = p.data.link || '#';
-
-                li.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px;">
-                        <div>
-                            <div style="font-weight: bold; font-size: 1.1rem; color: #fff;">${pName}</div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px;">Loại: ${pType} • Mở khóa ngày: ${date}</div>
-                        </div>
-                        <a href="${pLink}" class="btn-primary" style="padding: 6px 16px; font-size: 0.85rem; text-decoration: none;" target="_blank">
-                            ${pType.includes('Ebook') ? 'Đọc Ngay' : 'Tải xuống File'}
-                        </a>
-                    </div>
-                `;
-                inventoryList.appendChild(li);
-            });
-        }
+    // Ensure Free Kit is auto-unlocked for the logged-in user
+    if (lfAuth.isLoggedIn() && !lfAuth.purchases.some(p => p.id === 'free-kit')) {
+        lfAuth.addPurchase('free-kit', {
+            name: 'LumenForge Starter Kit (Free Edition)',
+            type: 'Presets & Guides (ZIP)',
+            link: 'downloads/lumenforge-starter-kit-free.zip'
+        }, 'free');
     }
+
+    // 6. Purchases / Inventory Rendering
+    const downloadsContainer = document.getElementById('downloads-container');
+    if (downloadsContainer) {
+        downloadsContainer.innerHTML = '';
+        
+        // Check developer sandbox mode
+        const adminConfig = window.LUMENFORGE_ADMIN_CONFIG || { devModeAllowed: true };
+        let isDevMode = adminConfig.devModeAllowed && (localStorage.getItem('lf_dev_mode') === 'true' || window.location.search.includes('dev=true'));
+        if (adminConfig.devModeAllowed && window.location.search.includes('dev=true')) {
+            localStorage.setItem('lf_dev_mode', 'true');
+            isDevMode = true;
+        } else if (!adminConfig.devModeAllowed) {
+            localStorage.removeItem('lf_dev_mode');
+            isDevMode = false;
+        }
+        
+        const devBanner = document.getElementById('dev-sandbox-banner');
+        if (devBanner) {
+            devBanner.style.display = isDevMode ? 'block' : 'none';
+        }
+
+        // Core products definitions
+        const coreProducts = [
+            {
+                id: 'free-kit',
+                name: 'LumenForge Starter Kit (Free Edition)',
+                type: 'Presets & Guides (ZIP)',
+                desc: '3 Presets Cinematic + Lightroom Workflow PDF cơ bản.',
+                link: 'downloads/lumenforge-starter-kit-free.zip',
+                price: 0
+            },
+            {
+                id: 'starter-kit-pro',
+                name: 'LumenForge Starter Kit (Pro Edition)',
+                type: 'Presets & Guides (ZIP)',
+                desc: '10 Presets + Lightroom Workflow PDF + 5 Case Studies + Checklist & RAW.',
+                link: 'downloads/lumenforge-starter-kit-pro.zip',
+                price: 99000
+            },
+            {
+                id: 'ebook-chiaroscuro',
+                name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối',
+                type: 'Ebook (PDF)',
+                desc: 'Nghệ thuật kiểm soát hướng sáng và tương phản sâu sắc Caravaggio.',
+                link: '#',
+                price: 299000,
+                comingSoon: true
+            },
+            {
+                id: 'ebook-color',
+                name: 'Tâm lý học Màu sắc trong Điện ảnh',
+                type: 'Ebook (PDF)',
+                desc: 'Cách Hollywood thao túng cảm xúc người xem thông qua bảng màu phim nhựa.',
+                link: '#',
+                price: 249000,
+                comingSoon: true
+            }
+        ];
+
+        // Load custom creator products
+        let customProducts = [];
+        try {
+            const customList = localStorage.getItem('lf_custom_products');
+            customProducts = customList ? JSON.parse(customList) : [];
+        } catch(e) {}
+
+        const allDisplayProducts = [...coreProducts];
+        
+        // Add custom creator products that have been approved or belong to creator
+        customProducts.forEach(prod => {
+            const status = prod.status || 'draft';
+            const isApproved = status === 'approved';
+            const isMyProduct = lfAuth.isLoggedIn() && prod.creatorEmail === lfAuth.currentUser.email;
+            if (isApproved || isMyProduct) {
+                allDisplayProducts.push({
+                    id: prod.id,
+                    name: prod.name,
+                    type: prod.type === 'ebook' ? 'Ebook (PDF)' : 'Presets & LUTs',
+                    desc: prod.desc || prod.description,
+                    link: prod.fileLink || '#',
+                    price: prod.price,
+                    isCustom: true,
+                    status: prod.status
+                });
+            }
+        });
+
+        let unlockedCount = 0;
+
+        allDisplayProducts.forEach(prod => {
+            let status = 'locked';
+            let dateUnlocked = null;
+            
+            const purchase = lfAuth.getPurchase(prod.id);
+            if (purchase) {
+                status = purchase.status || 'purchased';
+                dateUnlocked = new Date(purchase.timestamp).toLocaleDateString('vi-VN');
+            } else if (prod.comingSoon) {
+                status = 'coming_soon';
+            }
+
+            if (status === 'purchased' || status === 'free') {
+                unlockedCount++;
+            }
+
+            const card = document.createElement('div');
+            card.style.background = 'rgba(255,255,255,0.02)';
+            card.style.border = '1px solid var(--border-color)';
+            card.style.borderRadius = '10px';
+            card.style.padding = '24px';
+            card.style.display = 'flex';
+            card.style.flexDirection = 'column';
+            card.style.justifyContent = 'space-between';
+            card.style.transition = 'transform 0.3s, border-color 0.3s';
+            card.style.minHeight = '230px';
+
+            let statusBadgeHTML = '';
+            let actionButtonHTML = '';
+            let devButtonHTML = '';
+
+            if (status === 'free') {
+                card.style.borderLeft = '4px solid var(--text-dim)';
+                statusBadgeHTML = `<span style="background: rgba(255,255,255,0.05); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Free</span>`;
+                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: #fff; display: block;" target="_blank">⬇ Tải xuống Free Kit</a>`;
+            } else if (status === 'purchased') {
+                card.style.borderLeft = '4px solid var(--accent-green, #10b981)';
+                statusBadgeHTML = `<span style="background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Purchased</span>`;
+                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;" target="_blank">⬇ Tải xuống (ZIP)</a>`;
+            } else if (status === 'pending') {
+                card.style.borderLeft = '4px solid var(--accent-amber)';
+                statusBadgeHTML = `<span style="background: rgba(245, 166, 35, 0.15); color: var(--accent-amber); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Chờ xác minh</span>`;
+                actionButtonHTML = `<button disabled class="btn-secondary" style="padding: 8px 15px; font-size: 0.85rem; opacity: 0.6; cursor: not-allowed; width: 100%; display: block; border: 1px solid var(--border-color); background: none; color: var(--text-dim);">⏳ Đang xác thực bill...</button>`;
+                
+                if (isDevMode) {
+                    devButtonHTML = `
+                        <button onclick="forceApprovePurchase('${prod.id}')" style="margin-top: 10px; background: #10b981; color: #000; border: none; padding: 8px 12px; font-size: 0.82rem; font-weight: bold; border-radius: 4px; cursor: pointer; font-family: monospace; width: 100%;">
+                            🛠️ Duyệt nhanh (Dev Approve)
+                        </button>
+                    `;
+                }
+            } else if (status === 'coming_soon') {
+                statusBadgeHTML = `<span style="background: rgba(255,255,255,0.05); color: var(--text-dim); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Sắp ra mắt</span>`;
+                actionButtonHTML = `<button disabled class="btn-secondary" style="padding: 8px 15px; font-size: 0.85rem; opacity: 0.4; cursor: not-allowed; width: 100%; display: block; border: 1px solid var(--border-color); background: none; color: var(--text-dim);">Sắp ra mắt</button>`;
+            } else {
+                card.style.opacity = '0.85';
+                statusBadgeHTML = `<span style="background: rgba(239, 68, 68, 0.15); color: #EF4444; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Locked</span>`;
+                
+                if (prod.id === 'starter-kit-pro') {
+                    actionButtonHTML = `<a href="starter-kit-pro.html" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;">Nâng cấp Pro - 99K</a>`;
+                } else {
+                    actionButtonHTML = `<button disabled class="btn-secondary" style="padding: 8px 15px; font-size: 0.85rem; opacity: 0.5; width: 100%; display: block; border: 1px solid var(--border-color); background: none; color: var(--text-dim);">Khóa</button>`;
+                }
+            }
+
+            card.innerHTML = `
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; gap: 10px;">
+                        <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-dim); text-transform: uppercase;">${prod.type}</span>
+                        ${statusBadgeHTML}
+                    </div>
+                    <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 8px; font-weight: bold; line-height: 1.3;">${prod.name}</h4>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 20px;">${prod.desc}</p>
+                </div>
+                <div style="margin-top: auto;">
+                    ${dateUnlocked ? `<div style="font-size: 0.75rem; color: var(--text-dim); margin-bottom: 10px; font-family: var(--font-mono);">Mở khóa ngày: ${dateUnlocked}</div>` : ''}
+                    ${actionButtonHTML}
+                    ${devButtonHTML}
+                </div>
+            `;
+            downloadsContainer.appendChild(card);
+        });
+
+        const countEl = document.getElementById('unlocked-tools-count');
+        if (countEl) countEl.innerText = unlockedCount;
+    }
+
+    // Expose forceApprovePurchase to global window
+    window.forceApprovePurchase = async function(productId) {
+        if (typeof lfAuth !== 'undefined') {
+            await lfAuth.updatePurchaseStatus(productId, 'purchased');
+            alert('🎉 Sandbox Alert:\n\nGiao dịch đã được xác nhận thành công! Sản phẩm hiện đã được mở khóa tải xuống.');
+            await initDashboard();
+        }
+    };
 
     // 7. Render Creator Hub / Program Section (Asynchronous)
     await renderCreatorHub();
@@ -386,17 +564,9 @@ async function renderCreatorHub() {
             }
         }, 50);
     } else {
-        // Render Creator program teaser
-        container.innerHTML = `
-            <div class="dash-card" style="border: 1px dashed var(--border-color); text-align: center; padding: 40px 20px;">
-                <div style="font-size: 2.5rem; margin-bottom: 15px;">✨</div>
-                <h3 style="margin: 0 0 10px 0; color: #fff;">Tham gia LumenForge Creator Program</h3>
-                <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 20px; font-size: 0.95rem; line-height: 1.5;">
-                    Bạn là Nhiếp ảnh gia, Colorist hay Nhà làm phim? Hãy chia sẻ các tài liệu nghiên cứu, công thức màu (LUTs) hoặc Presets Lightroom của bạn để tạo doanh thu thụ động ngay hôm nay.
-                </p>
-                <a href="creator-onboarding.html" class="btn-primary" style="display: inline-block; padding: 10px 25px; text-decoration: none; font-size: 0.9rem; font-weight: bold; border-radius: 6px;">Bắt đầu Onboarding</a>
-            </div>
-        `;
+        // Hide Creator Program teaser to focus on buyer downloads
+        container.innerHTML = '';
+        container.style.display = 'none';
     }
 }
 

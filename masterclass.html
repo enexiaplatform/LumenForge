@@ -231,8 +231,8 @@
 </head>
 <body>
 
-  <!-- Urgency Banner -->
-  <div class="urgency-banner">
+  <!-- Urgency Banner (Hidden for honesty) -->
+  <div class="urgency-banner" style="display: none;">
     🔥 Ưu đãi Flash Sale giảm 40% chỉ dành riêng cho người dùng Facebook. Kết thúc trong <span id="countdown">23:59:59</span>
   </div>
 
@@ -243,11 +243,8 @@
     <p>Khám phá bí mật 400 năm tuổi của danh họa Caravaggio để tạo ra những tác phẩm chân dung điện ảnh có chiều sâu 3D đầy kịch tính chỉ với 1 cây đèn.</p>
     
     <div class="lp-cta-group">
-      <a href="#" class="lp-btn-primary" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">Nhận Ebook Ngay (299K)</a>
-      <div class="lp-guarantee">
-        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        Thanh toán an toàn. File PDF gửi thẳng về Email.
-      </div>
+      <span class="lp-btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; text-align: center; box-shadow: none;">Sắp ra mắt (Coming Soon)</span>
+      <a href="starter-kit-pro.html" class="lp-btn-primary" style="background: var(--accent-cyan); color: #000; box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2); margin-top: 10px; display: inline-block; text-align: center; text-decoration: none;">Xem Starter Kit Pro thay thế &rarr;</a>
     </div>
   </section>
 
@@ -281,7 +278,7 @@
   <section class="lp-solution">
     <div class="container">
       <h2 style="font-size: 3rem; color: #fff; margin-bottom: 20px;">Giới thiệu Ebook Bậc Thầy <span style="color: var(--accent-amber);">Chiaroscuro</span></h2>
-      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">Cuốn sách kỹ thuật (PDF - 120 trang) duy nhất dạy bạn cách KHÔNG chiếu sáng chủ thể, mà điêu khắc bóng tối xung quanh họ.</p>
+      <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">Cuốn sách kỹ thuật (PDF - Sắp ra mắt) dạy bạn cách KHÔNG chiếu sáng chủ thể, mà điêu khắc bóng tối xung quanh họ.</p>
       
       <div class="mockup-container">
         <img loading="lazy" src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Ebook Mockup" class="mockup-img">
@@ -294,12 +291,15 @@
         <li style="margin-bottom: 15px;">✅ <strong>Phân tích tâm lý:</strong> Tại sao bóng tối lại kích thích tiềm thức con người?</li>
       </ul>
 
-      <a href="#" class="lp-btn-primary" style="display: inline-block; max-width: 400px;" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">MỞ KHÓA EBOOK NGAY (299K)</a>
+      <div class="lp-cta-group" style="margin: 0 auto;">
+        <span class="lp-btn-primary" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; text-align: center; box-shadow: none;">Sắp ra mắt (Coming Soon)</span>
+        <a href="starter-kit-pro.html" class="lp-btn-primary" style="background: var(--accent-cyan); color: #000; box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2); margin-top: 10px; display: inline-block; text-align: center; text-decoration: none;">Xem Starter Kit Pro thay thế &rarr;</a>
+      </div>
     </div>
   </section>
 
-  <!-- Social Proof -->
-  <section style="padding: 80px 20px; background: #0A0A0C; text-align: center;">
+  <!-- Social Proof (Hidden to avoid fake reviews) -->
+  <section style="padding: 80px 20px; background: #0A0A0C; text-align: center; display: none;">
     <div class="container">
       <h2 style="color: #fff; margin-bottom: 40px;">Đã giúp 1,200+ Nhiếp ảnh gia thay đổi tư duy</h2>
       <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
@@ -318,16 +318,15 @@
   </section>
 
   <footer style="padding: 40px 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-    <p style="color: var(--text-dim); font-size: 0.85rem;">&copy; 2026 LumenForge. This site is not a part of the Facebook website or Facebook Inc. Additionally, This site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+    <p style="color: var(--text-dim); font-size: 0.85rem;">&copy; 2026 LumenForge. Cinematic photography, forged through light and color.</p>
   </footer>
 
   <!-- Sticky CTA for Mobile -->
   <div class="sticky-cta">
     <div>
-      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through;">499.000đ</div>
-      <div style="color: var(--accent-amber); font-weight: bold; font-size: 1.2rem;">299.000đ</div>
+      <div style="color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem;">Sắp ra mắt</div>
     </div>
-    <a href="#" class="lp-btn-primary" style="padding: 12px 24px; font-size: 1rem; margin: 0; width: auto;" onclick="openCheckoutModal('ebook-chiaroscuro', 299000); fbq('track', 'InitiateCheckout'); return false;">MUA NGAY</a>
+    <a href="starter-kit-pro.html" class="lp-btn-primary" style="padding: 12px 24px; font-size: 1rem; margin: 0; width: auto; text-align: center; text-decoration: none; display: inline-block;">XEM STARTER KIT</a>
   </div>
 
   <script src="js/checkout.js"></script>
@@ -344,7 +343,7 @@
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        display.textContent = hours + ":" + minutes + ":" + seconds;
+        if (display) display.textContent = hours + ":" + minutes + ":" + seconds;
 
         if (--timer < 0) {
           timer = duration;
@@ -355,7 +354,7 @@
     window.onload = function () {
       let time = 23 * 3600 + 45 * 60 + 12; // 23h 45m 12s
       let display = document.querySelector('#countdown');
-      startTimer(time, display);
+      if (display) startTimer(time, display);
     };
   </script>
   <script src="js/auth.js"></script>

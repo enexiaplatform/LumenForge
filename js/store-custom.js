@@ -37,6 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clean out any custom cards (cards with 'creator-product' class) if we re-render
         document.querySelectorAll('.creator-product-card').forEach(el => el.remove());
 
+        let hasEbooks = false;
+        let hasPresets = false;
+
         products.forEach(prod => {
             const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(prod.price || prod.priceVnd);
             const originalPrice = prod.originalPrice || prod.originalPriceVnd;
@@ -54,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const status = prod.status || 'draft';
             const isApproved = status === 'approved';
             
-            // Only show to other users if approved. If unapproved (draft, testing, submitted), 
-            // only show to the creator who uploaded it as a test.
+            // Only show to other users if approved AND the marketplace is explicitly enabled.
+            // If unapproved or marketplace is disabled, only show to the creator who uploaded it as a test.
             const currentUserId = lfAuth.currentUser?.id;
             const creatorId = prod.creator_id;
             
@@ -64,8 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const isMyProduct = (isOnline && creatorId && currentUserId === creatorId) || 
                                 (!isOnline && lfAuth.isLoggedIn() && prod.creatorEmail === lfAuth.currentUser.email);
 
-            if (!isApproved && !isMyProduct) {
-                // Skip rendering other creators' unapproved items
+            const adminConfig = window.LUMENFORGE_ADMIN_CONFIG || { allowCreatorMarketplace: false };
+            const isAllowedToRender = isMyProduct || (isApproved && adminConfig.allowCreatorMarketplace);
+
+            if (!isAllowedToRender) {
+                // Skip rendering
                 return;
             }
 
@@ -94,10 +100,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (type === 'ebook') {
                 ebooksGrid.appendChild(productCard);
+                hasEbooks = true;
             } else {
                 presetsGrid.appendChild(productCard);
+                hasPresets = true;
             }
         });
+
+        const ebooksSection = document.getElementById('creator-ebooks-section');
+        const presetsSection = document.getElementById('creator-presets-section');
+        if (ebooksSection && hasEbooks) ebooksSection.style.display = 'block';
+        if (presetsSection && hasPresets) presetsSection.style.display = 'block';
     }
 
     // Initialize store: try immediately if Supabase is already configured, otherwise wait or set timeout fallback

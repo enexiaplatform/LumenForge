@@ -25,3 +25,10 @@ window.LIVE_GATEWAY = {
     createPaymentLinkUrl: localStorage.getItem('lf_gateway_url') || (window.location.origin + "/api/create-payment-link")    // URL của Supabase Edge Function hoặc Vercel Serverless Function
 };
 
+// Cấu hình kiểm soát phân phối và tính năng Admin
+window.LUMENFORGE_ADMIN_CONFIG = {
+    allowCreatorMarketplace: localStorage.getItem('lf_allow_creator_marketplace') === 'true',  // Cấu hình lưu trữ động qua localStorage
+    devModeAllowed: localStorage.getItem('lf_dev_mode_allowed') !== 'false'             // Cho phép Sandbox/Dev Mode mặc định true
+};
+
+

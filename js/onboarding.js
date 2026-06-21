@@ -93,10 +93,12 @@ window.lfOnboarding = {
 
         const dbHasTestingOrHigher = customProducts.some(p => ['testing', 'submitted', 'approved'].includes(p.status));
         const dbHasSubmittedOrHigher = customProducts.some(p => ['submitted', 'approved'].includes(p.status));
+        const isApproved = customProducts.some(p => p.status === 'approved');
+        const isSubmitted = customProducts.some(p => p.status === 'submitted') || localStorage.getItem('lf_manifest_submitted') === 'true';
 
         const auditPassed = localStorage.getItem('lf_audit_passed') === 'true' || dbHasTestingOrHigher;
         const manifestDownloaded = localStorage.getItem('lf_manifest_downloaded') === 'true' || dbHasSubmittedOrHigher;
-        const manifestSubmitted = localStorage.getItem('lf_manifest_submitted') === 'true' || dbHasSubmittedOrHigher;
+        const manifestSubmitted = isSubmitted || isApproved;
         const visitedDashboard = localStorage.getItem('lf_visited_dashboard') === 'true' || sales.length > 0;
 
         // Calculate statuses
@@ -119,7 +121,7 @@ window.lfOnboarding = {
 
         const progressPercent = Math.round((completedDays / 7) * 100);
 
-        return { day1, day2, day3, day4, day5, day6, day7, completedDays, progressPercent };
+        return { day1, day2, day3, day4, day5, day6, day7, completedDays, progressPercent, isApproved, isSubmitted };
     },
 
     // Perform Day 3 Asset Audit
@@ -474,7 +476,11 @@ window.lfOnboarding = {
                     actionHtml = `<div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px; font-style: italic;">(Yêu cầu: Tải file Manifest ở Bước 6)</div>`;
                 }
             } else if (step.day === 7 && step.done) {
-                actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">✓ Đã được duyệt lên Store toàn cầu</div>`;
+                if (status.isApproved) {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px; font-weight: bold;">🟢 LIVE CDN: Sản phẩm của bạn đã được duyệt và đăng bán trên Store toàn cầu!</div>`;
+                } else {
+                    actionHtml = `<div style="font-size: 0.75rem; color: var(--accent-amber); margin-top: 5px; font-weight: bold;">⏳ Đang chờ Admin Henry duyệt & kích hoạt CDN (nộp thành công)</div>`;
+                }
             }
             
             html += `
