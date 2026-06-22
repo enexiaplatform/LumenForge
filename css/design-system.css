@@ -40,6 +40,11 @@ input, button, textarea, select {
   color: inherit;
 }
 
+select option {
+  background-color: #121214;
+  color: #ffffff;
+}
+
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }

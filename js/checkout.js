@@ -124,7 +124,7 @@ async function openCheckoutModal(productId, priceVnd) {
   const defaultPay = window.PLATFORM_PAYMENT || {};
   let BANK_ID = defaultPay.bankId || 'MSB'; 
   let ACCOUNT_NO = defaultPay.accountNo || '04201013810536';
-  let ACCOUNT_OWNER = defaultPay.accountOwner || 'NGUYEN THE ANH';
+  let ACCOUNT_OWNER = defaultPay.accountOwner || 'TRAN TIEN THONG';
   let MOMO_NO = defaultPay.momoNo || '0708450246';
   let ADD_INFO = `LF ${productId}`;
   let isCreatorProduct = product.isCustom;

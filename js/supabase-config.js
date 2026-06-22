@@ -15,7 +15,7 @@ window.SUPABASE_KEY = "";
 window.PLATFORM_PAYMENT = {
     bankId: 'MSB',                  // Tên viết tắt ngân hàng (ví dụ: MSB, VCB, MB, ACB...)
     accountNo: '04201013810536',    // Số tài khoản ngân hàng nhận tiền
-    accountOwner: 'NGUYEN THE ANH',  // Tên chủ tài khoản viết hoa không dấu
+    accountOwner: 'TRAN TIEN THONG',  // Tên chủ tài khoản viết hoa không dấu
     momoNo: '0708450246'            // Số điện thoại nhận ví MoMo
 };
 

@@ -136,7 +136,7 @@ function loadOfflineMockData(productsOut, pendingPaymentsOut, creatorsOut, sales
             creatorEmail: 'henry@lumenforge.studio',
             bankName: 'MSB',
             bankAccount: '04201013810536',
-            bankOwner: 'NGUYEN THE ANH',
+            bankOwner: 'TRAN TIEN THONG',
             momoNumber: '0708450246',
             type: 'preset',
             price: 79000,
@@ -216,7 +216,7 @@ function loadOfflineMockData(productsOut, pendingPaymentsOut, creatorsOut, sales
         rank: 'Director of Photography',
         bank_name: 'MSB',
         bank_account: '04201013810536',
-        bank_owner: 'NGUYEN THE ANH',
+        bank_owner: 'TRAN TIEN THONG',
         momo_number: '0708450246',
         type: 'system'
     });
