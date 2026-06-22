@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analog Film Emulation Pack — 15 Lightroom Presets | LumenForge</title>
+  <meta name="description" content="Bo 15 Lightroom Presets mo phong phim nhua analog chuyen nghiep. Kodak Vision3, Fuji Eterna, Portra 400, Ilford Delta va nhieu hon nua. Chi 99,000d.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://lumenforge.studio/analog-film-pack.html">
+  <meta property="og:title" content="Analog Film Emulation Pack — 15 Lightroom Presets | LumenForge">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=1200&auto=format&fit=crop">
+  <meta property="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    /* ===================================================
+       ANALOG FILM PACK — Page Styles
+    =================================================== */
+
+    /* Animated film grain texture */
+    .film-grain {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999; opacity: 0.035;
+      background-image:
+        repeating-radial-gradient(circle at 17% 34%, #fff 0.3px, transparent 1px),
+        repeating-radial-gradient(circle at 83% 67%, #c8a060 0.2px, transparent 1px),
+        repeating-radial-gradient(circle at 51% 12%, #fff 0.15px, transparent 1px);
+      background-size: 180px 180px, 120px 120px, 80px 80px;
+      animation: grainShift 0.5s steps(2) infinite;
+    }
+
+    @keyframes grainShift {
+      0%   { background-position: 0 0, 0 0, 0 0; }
+      25%  { background-position: 20px 15px, -10px 25px, 5px -8px; }
+      50%  { background-position: -15px 30px, 20px -5px, -12px 18px; }
+      75%  { background-position: 10px -20px, -5px 15px, 22px 7px; }
+      100% { background-position: 0 0, 0 0, 0 0; }
+    }
+
+    /* ---- HERO ---- */
+    .film-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      overflow: hidden;
+      padding: 120px 24px 100px;
+    }
+
+    .film-hero__bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(10,10,12,0.72) 0%, rgba(10,10,12,0.9) 65%, #0A0A0C 100%),
+        url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+      z-index: 0;
+    }
+
+    .film-hero__bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 40%, rgba(245,166,35,0.07) 0%, transparent 68%);
+    }
+
+    /* Film strip decoration */
+    .film-strip {
+      position: absolute; left: 0; right: 0;
+      height: 42px; z-index: 1; overflow: hidden;
+      background: rgba(0,0,0,0.55);
+    }
+    .film-strip--top { top: 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .film-strip--bottom { bottom: 0; border-top: 1px solid rgba(255,255,255,0.05); }
+    .film-strip::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0px, transparent 18px,
+        rgba(255,255,255,0.07) 18px, rgba(255,255,255,0.07) 32px,
+        transparent 32px, transparent 50px
+      );
+    }
+
+    .film-hero__content {
+      position: relative; z-index: 2;
+      max-width: 860px; margin: 0 auto;
+    }
+
+    .film-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px;
+      background: rgba(245,166,35,0.09); border: 1px solid rgba(245,166,35,0.32);
+      border-radius: 999px;
+      font-size: 0.73rem; font-weight: 700; letter-spacing: 2.5px;
+      color: #F5A623; text-transform: uppercase;
+      margin-bottom: 28px; backdrop-filter: blur(10px);
+    }
+
+    .film-badge__dot {
+      width: 7px; height: 7px;
+      background: #F5A623; border-radius: 50%;
+      box-shadow: 0 0 10px #F5A623;
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.6); }
+    }
+
+    .film-hero__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 800; line-height: 1.06; letter-spacing: -0.025em;
+      background: linear-gradient(150deg, #fff 25%, #F5A623 65%, #E8725C 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 18px;
+    }
+
+    .film-hero__tagline {
+      font-size: clamp(1rem, 2.3vw, 1.3rem);
+      font-style: italic; color: rgba(245,166,35,0.92);
+      margin-bottom: 16px; font-family: var(--font-heading); letter-spacing: 0.01em;
+    }
+
+    .film-hero__sub {
+      font-size: clamp(0.93rem, 1.9vw, 1.12rem);
+      color: #9A9AAA; max-width: 620px; margin: 0 auto 46px; line-height: 1.65;
+    }
+
+    .film-hero__cta-box {
+      display: inline-flex; align-items: center; gap: 28px;
+      background: rgba(12,12,16,0.76); border: 1px solid rgba(245,166,35,0.2);
+      border-radius: 16px; padding: 24px 36px;
+      backdrop-filter: blur(24px); flex-wrap: wrap; justify-content: center;
+    }
+
+    .film-hero__price .price-old {
+      color: #5A5A6A; text-decoration: line-through;
+      font-size: 0.9rem; font-family: var(--font-mono); display: block; margin-bottom: 3px;
+    }
+
+    .film-hero__price .price-new {
+      font-family: var(--font-mono); font-size: 2.8rem; font-weight: 900;
+      color: #F5A623; line-height: 1; text-shadow: 0 0 35px rgba(245,166,35,0.45);
+    }
+
+    .btn-film-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #F5A623 0%, #E8725C 100%);
+      color: #000; font-weight: 900; font-size: 1rem;
+      padding: 17px 38px; border-radius: 10px; border: none; cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+      letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--font-heading); white-space: nowrap;
+    }
+    .btn-film-cta:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 18px 48px rgba(245,166,35,0.42), 0 6px 16px rgba(0,0,0,0.4);
+    }
+
+    .film-hero__trust {
+      margin-top: 22px; display: flex; gap: 20px;
+      justify-content: center; flex-wrap: wrap;
+      color: #5A5A6A; font-size: 0.8rem;
+    }
+    .film-hero__trust span { display: flex; align-items: center; gap: 5px; }
+
+    .scroll-indicator { position: absolute; bottom: 56px; left: 50%; transform: translateX(-50%); z-index: 2; }
+    .scroll-indicator__line {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, rgba(245,166,35,0.8), transparent);
+      margin: 0 auto;
+      animation: scrollLine 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+      49%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      51%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    /* ---- SHARED ---- */
+    .section { padding: 100px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label {
+      display: inline-block; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; color: #F5A623; margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; line-height: 1.15; color: var(--text-primary); margin-bottom: 14px;
+    }
+    .section-sub { color: var(--text-secondary); font-size: 1rem; max-width: 580px; line-height: 1.7; }
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, #F5A623, #E8725C);
+      border-radius: 999px; margin: 14px 0 24px;
+    }
+
+    /* ---- PRESETS GRID ---- */
+    .presets-section {
+      background: #0D0D10;
+      border-top: 1px solid rgba(245,166,35,0.07);
+      border-bottom: 1px solid rgba(245,166,35,0.07);
+    }
+
+    .presets-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 52px; flex-wrap: wrap; gap: 20px;
+    }
+
+    .preset-count-badge {
+      font-family: var(--font-mono); font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 900; color: rgba(245,166,35,0.07); line-height: 1; user-select: none; flex-shrink: 0;
+    }
+
+    .presets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .preset-card {
+      position: relative;
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 22px 24px; overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .preset-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(245,166,35,0.06), rgba(232,114,92,0.03));
+      opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+    }
+    .preset-card:hover {
+      border-color: rgba(245,166,35,0.28);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(245,166,35,0.1), 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .preset-card:hover::before { opacity: 1; }
+
+    .preset-card__header {
+      display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px;
+    }
+    .preset-card__num { font-family: var(--font-mono); font-size: 0.68rem; color: rgba(245,166,35,0.38); font-weight: 500; }
+    .preset-card__tag {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; padding: 3px 9px; border-radius: 999px;
+    }
+
+    .tag-cinema  { background: rgba(234,179,8,0.1);  color: #EAB308; border: 1px solid rgba(234,179,8,0.22); }
+    .tag-portrait{ background: rgba(245,166,35,0.1); color: #F5A623; border: 1px solid rgba(245,166,35,0.22); }
+    .tag-bw      { background: rgba(255,255,255,0.05); color: #aaa;  border: 1px solid rgba(255,255,255,0.1); }
+    .tag-lofi    { background: rgba(232,114,92,0.1); color: #E8725C; border: 1px solid rgba(232,114,92,0.22); }
+    .tag-vivid   { background: rgba(74,158,255,0.1); color: #4A9EFF; border: 1px solid rgba(74,158,255,0.22); }
+    .tag-night   { background: rgba(139,92,246,0.1); color: #8B5CF6; border: 1px solid rgba(139,92,246,0.22); }
+    .tag-vintage { background: rgba(200,160,96,0.1); color: #C8A060; border: 1px solid rgba(200,160,96,0.22); }
+
+    .preset-card__name {
+      font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 7px;
+    }
+    .preset-card__desc { font-size: 0.87rem; color: var(--text-secondary); line-height: 1.55; }
+    .preset-card__swatch { display: flex; gap: 5px; margin-top: 14px; }
+    .swatch-dot {
+      width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 26px; margin-top: 58px;
+    }
+    .step-card {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 36px 30px; text-align: center;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .step-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, #F5A623, #E8725C);
+      transform: scaleX(0); transition: transform 0.4s ease;
+    }
+    .step-card:hover::after { transform: scaleX(1); }
+    .step-card:hover {
+      border-color: rgba(245,166,35,0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 22px 55px rgba(0,0,0,0.3);
+    }
+    .step-num {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, rgba(245,166,35,0.14), rgba(232,114,92,0.07));
+      border: 1px solid rgba(245,166,35,0.24); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px;
+      font-family: var(--font-mono); font-size: 1.4rem; font-weight: 700; color: #F5A623;
+    }
+    .step-card h3 {
+      font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 12px; color: var(--text-primary);
+    }
+    .step-card p { color: var(--text-secondary); font-size: 0.93rem; line-height: 1.65; }
+
+    /* ---- COMPATIBILITY ---- */
+    .compat-section {
+      background: linear-gradient(180deg, #0D0D10 0%, #0A0A0C 100%);
+      border-top: 1px solid rgba(255,255,255,0.03);
+    }
+    .compat-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px; margin-top: 50px;
+    }
+    .compat-card {
+      background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 28px 22px; text-align: center; transition: all 0.3s ease;
+    }
+    .compat-card:hover {
+      border-color: rgba(245,166,35,0.22); background: rgba(245,166,35,0.04);
+      transform: translateY(-3px);
+    }
+    .compat-card__icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+    .compat-card__name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); margin-bottom: 5px; }
+    .compat-card__note { font-size: 0.79rem; color: var(--text-secondary); line-height: 1.4; }
+    .compat-also { margin-top: 28px; text-align: center; color: var(--text-secondary); font-size: 0.88rem; }
+    .compat-also strong { color: var(--text-primary); }
+
+    /* ---- BEFORE / AFTER ---- */
+    .ba-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 22px; margin-top: 56px;
+    }
+    .ba-card {
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02); transition: all 0.35s ease;
+    }
+    .ba-card:hover {
+      border-color: rgba(245,166,35,0.24); transform: translateY(-5px);
+      box-shadow: 0 22px 64px rgba(0,0,0,0.45);
+    }
+    .ba-images { display: grid; grid-template-columns: 1fr 1fr; position: relative; }
+    .ba-images::after {
+      content: 'BEFORE \00B7 AFTER';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(10,10,12,0.88); border: 1px solid rgba(245,166,35,0.4); color: #F5A623;
+      font-size: 0.57rem; font-weight: 700; letter-spacing: 2px;
+      padding: 5px 10px; border-radius: 999px; backdrop-filter: blur(8px);
+      z-index: 2; white-space: nowrap;
+    }
+    .ba-img { width: 100%; height: 215px; object-fit: cover; display: block; }
+    .ba-card__info { padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; }
+    .ba-card__preset { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+    .ba-card__preset span { display: block; font-size: 0.78rem; font-weight: 400; color: var(--text-secondary); margin-top: 2px; }
+    .ba-card__tag {
+      font-size: 0.69rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      color: #F5A623; background: rgba(245,166,35,0.09); border: 1px solid rgba(245,166,35,0.2);
+      padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+    }
+
+    /* ---- PRICING ---- */
+    .pricing-section {
+      background: linear-gradient(135deg, rgba(245,166,35,0.04) 0%, rgba(232,114,92,0.025) 100%);
+      border-top: 1px solid rgba(245,166,35,0.1); border-bottom: 1px solid rgba(245,166,35,0.1);
+    }
+    .pricing-card {
+      max-width: 680px; margin: 56px auto 0;
+      background: rgba(10,10,12,0.72); border: 1px solid rgba(245,166,35,0.22);
+      border-radius: 24px; overflow: hidden; backdrop-filter: blur(30px);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    }
+    .pricing-card__top {
+      padding: 40px 48px 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative; overflow: hidden;
+    }
+    .pricing-card__top::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(245,166,35,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pricing-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #F5A623; margin-bottom: 10px; }
+    .pricing-name { font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+    .pricing-items { color: var(--text-secondary); font-size: 0.88rem; }
+
+    .pricing-card__price { padding: 30px 48px; }
+    .pricing-old { font-family: var(--font-mono); font-size: 0.95rem; color: #5A5A6A; text-decoration: line-through; }
+    .pricing-new { font-family: var(--font-mono); font-size: 3.2rem; font-weight: 900; color: #F5A623; line-height: 1; text-shadow: 0 0 40px rgba(245,166,35,0.32); }
+    .pricing-save {
+      display: inline-flex; align-items: center; gap: 5px; margin-top: 8px;
+      background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.28);
+      color: #10B981; font-size: 0.78rem; font-weight: 700; padding: 5px 13px; border-radius: 999px;
+    }
+    .pricing-card__includes { padding: 0 48px 28px; }
+    .includes-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .includes-item { display: flex; align-items: center; gap: 9px; font-size: 0.87rem; color: var(--text-secondary); }
+    .includes-item::before { content: '\2713'; color: #F5A623; font-weight: 700; flex-shrink: 0; }
+
+    .pricing-card__action { padding: 0 48px 40px; }
+    .btn-buy-now {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: linear-gradient(135deg, #F5A623 0%, #E8725C 100%);
+      color: #000; font-weight: 900; font-size: 1.1rem; padding: 20px 36px; border-radius: 12px;
+      border: none; cursor: pointer;
+      transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease;
+      letter-spacing: 0.06em; text-transform: uppercase; font-family: var(--font-heading);
+    }
+    .btn-buy-now:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 20px 55px rgba(245,166,35,0.42), 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .btn-buy-now:active { transform: translateY(0) scale(0.99); }
+
+    .pricing-guarantee {
+      margin-top: 14px; text-align: center; color: var(--text-dim); font-size: 0.8rem;
+      display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;
+    }
+
+    /* ---- FAQ ---- */
+    .faq-list { max-width: 760px; margin: 56px auto 0; display: flex; flex-direction: column; gap: 11px; }
+    .faq-item {
+      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; overflow: hidden; transition: border-color 0.3s ease;
+    }
+    .faq-item.open { border-color: rgba(245,166,35,0.24); }
+    .faq-question {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 26px; font-weight: 600; font-size: 0.97rem; color: var(--text-primary);
+      text-align: left; cursor: pointer; gap: 16px;
+      background: none; border: none; font-family: var(--font-body); transition: color 0.3s ease;
+    }
+    .faq-question:hover { color: #F5A623; }
+    .faq-item.open .faq-question { color: #F5A623; }
+    .faq-chevron {
+      width: 26px; height: 26px;
+      border: 1px solid rgba(245,166,35,0.28); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: transform 0.35s ease, background 0.3s ease;
+      color: #F5A623; font-size: 0.9rem; line-height: 1;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(245,166,35,0.12); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .faq-item.open .faq-answer { max-height: 280px; }
+    .faq-answer-inner { padding: 0 26px 24px; color: var(--text-secondary); font-size: 0.93rem; line-height: 1.7; }
+
+    /* ---- FOOTER ---- */
+    .footer { background: #08080A; border-top: 1px solid rgba(255,255,255,0.04); padding: 60px 0 28px; }
+    .footer-content { display: grid; grid-template-columns: 1fr auto; gap: 60px; margin-bottom: 44px; }
+    .footer-brand .nav-logo { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; letter-spacing: 2px; color: var(--text-primary); }
+    .nav-logo-accent { color: #F5A623; }
+    .footer-tagline { margin-top: 12px; color: var(--text-secondary); font-size: 0.88rem; max-width: 290px; line-height: 1.6; }
+    .footer-links { display: flex; gap: 56px; }
+    .footer-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 18px; }
+    .footer-col a { display: block; color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 12px; transition: color 0.2s; }
+    .footer-col a:hover { color: #F5A623; }
+    .footer-bottom { padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); font-size: 0.8rem; text-align: center; }
+
+    /* ---- STICKY CTA ---- */
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background: rgba(10,10,12,0.97); backdrop-filter: blur(18px);
+      padding: 14px 20px; border-top: 1px solid rgba(245,166,35,0.15);
+      z-index: 500; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+    }
+    .sticky-cta__price .price-old-s { color: #5A5A6A; font-size: 0.72rem; text-decoration: line-through; line-height: 1; }
+    .sticky-cta__price .price-new-s { color: #F5A623; font-weight: 800; font-size: 1.3rem; font-family: var(--font-mono); line-height: 1; }
+    .sticky-cta__btn {
+      background: linear-gradient(135deg, #F5A623, #E8725C); color: #000;
+      font-weight: 800; font-size: 0.88rem; padding: 12px 22px; border-radius: 8px;
+      border: none; cursor: pointer; white-space: nowrap; letter-spacing: 0.05em;
+      text-transform: uppercase; transition: transform 0.2s ease;
+    }
+    .sticky-cta__btn:hover { transform: scale(1.03); }
+    @media (min-width: 768px) { .sticky-cta { display: none; } }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .presets-grid { grid-template-columns: 1fr; }
+      .pricing-card__top, .pricing-card__price, .pricing-card__includes, .pricing-card__action { padding-left: 22px; padding-right: 22px; }
+      .includes-list { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 32px; }
+      .footer-links { flex-direction: column; gap: 28px; }
+      .ba-grid { grid-template-columns: 1fr; }
+      .film-hero__cta-box { flex-direction: column; align-items: stretch; text-align: center; }
+      .film-hero__price { text-align: center; }
+      .presets-header { flex-direction: column; }
+    }
+
+    /* ---- REVEAL ---- */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+  </style>
+  <link rel="canonical" href="https://lumenforge.studio/analog-film-pack.html">
+</head>
+<body>
+
+  <!-- Film grain overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Bat dau</a>
+        <a href="before-after.html" class="nav-link">Before / After</a>
+        <a href="light-codex.html" class="nav-link">Hoc Anh Sang</a>
+        <a href="gear-vault.html" class="nav-link">Kho Thiet Bi</a>
+        <a href="tool-lab.html" class="nav-link">Cong cu</a>
+        <a href="store.html" class="nav-link" style="color: var(--accent-cyan);">Cua hang</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="film-hero">
+    <div class="film-hero__bg"></div>
+    <div class="film-strip film-strip--top" aria-hidden="true"></div>
+    <div class="film-strip film-strip--bottom" aria-hidden="true"></div>
+
+    <div class="film-hero__content">
+      <div class="film-badge">
+        <span class="film-badge__dot"></span>
+        LIGHTROOM PRESET PACK &nbsp;&middot;&nbsp; 15 PRESETS
+      </div>
+
+      <h1 class="film-hero__title">Analog Film<br>Emulation Pack</h1>
+
+      <p class="film-hero__tagline">
+        &ldquo;Kh&ocirc;ng ph&#7843;i Filter. &#272;&#226;y l&agrave; DNA c&#7911;a ph&#7847;m nh&#7921;a.&rdquo;
+      </p>
+
+      <p class="film-hero__sub">
+        15 preset cao c&#7845;p m&ocirc; ph&#7887;ng ch&iacute;nh x&aacute;c &#273;&#7863;c t&iacute;nh m&agrave;u s&#7855;c, h&#7841;t ph&#7847;m v&agrave; t&ocirc;ng nhi&#7879;t c&#7911;a nh&#7919;ng cu&#7897;n ph&#7847;m analog huy&#7873;n tho&#7841;i &mdash; t&#7915; Kodak Vision3 &#273;&#7871;n Fuji Eterna, t&#7915; Ilford Delta &#273;&#7871;n Portra 400.
+      </p>
+
+      <div class="film-hero__cta-box">
+        <div class="film-hero__price">
+          <span class="price-old">199.000&#273;</span>
+          <span class="price-new">99.000&#273;</span>
+        </div>
+        <button class="btn-film-cta" onclick="openCheckoutModal('preset-film', 99000)">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          MUA NGAY
+        </button>
+      </div>
+
+      <div class="film-hero__trust">
+        <span>&#x2B07; T&#7843;i ngay sau thanh to&aacute;n</span>
+        <span>&#10003; T&#432;&#417;ng th&iacute;ch Lightroom Classic &amp; CC</span>
+        <span>&#10003; C&#7853;p nh&#7853;t tr&#7885;n &#273;&#7901;i mi&#7877;n ph&iacute;</span>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-indicator__line"></div>
+    </div>
+  </header>
+
+  <!-- PRESETS GRID -->
+  <section class="section presets-section">
+    <div class="container">
+      <div class="presets-header">
+        <div>
+          <span class="section-label reveal">B&#7897; s&#432;u t&#7853;p &#273;&#7847;y &#273;&#7911;</span>
+          <h2 class="section-title reveal delay-1">15 Preset Ph&#7847;m Nh&#7921;a<br>Trong M&#7897;t G&oacute;i Duy Nh&#7845;t</h2>
+          <div class="divider reveal delay-2"></div>
+          <p class="section-sub reveal delay-3">M&#7895;i preset &#273;&#432;&#7907;c nghi&ecirc;n c&#7913;u k&#7929; l&#432;&#7905;ng t&#7915; &#273;&#7863;c t&iacute;nh quang h&#7885;c th&#7921;c t&#7871; c&#7911;a t&#7915;ng lo&#7841;i ph&#7847;m &mdash; kh&ocirc;ng ph&#7843;i ch&#7881; l&agrave; b&#7897; l&#7885;c m&agrave;u &#273;&#417;n gi&#7843;n.</p>
+        </div>
+        <div class="preset-count-badge reveal delay-4" aria-hidden="true">15</div>
+      </div>
+
+      <div class="presets-grid">
+
+        <div class="preset-card reveal">
+          <div class="preset-card__header"><span class="preset-card__num">01</span><span class="preset-card__tag tag-cinema">Cinema</span></div>
+          <div class="preset-card__name">Kodak Vision3 500T</div>
+          <div class="preset-card__desc">Cinematic neutral &mdash; T&ocirc;ng m&agrave;u trung t&iacute;nh &#273;i&#7879;n &#7843;nh c&#7911;a ph&#7847;m Tungsten 500T huy&#7873;n tho&#7841;i. Highlight gi&#7919; chi ti&#7871;t, b&oacute;ng t&#7889;i s&acirc;u v&agrave; t&#7921; nhi&ecirc;n.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#d4c4a0;"></span><span class="swatch-dot" style="background:#8a7a60;"></span><span class="swatch-dot" style="background:#4a4030;"></span><span class="swatch-dot" style="background:#1e1812;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-1">
+          <div class="preset-card__header"><span class="preset-card__num">02</span><span class="preset-card__tag tag-cinema">Cinema</span></div>
+          <div class="preset-card__name">Fuji Eterna 500</div>
+          <div class="preset-card__desc">Soft greens, warm mids &mdash; M&agrave;u xanh l&aacute; m&#7873;m m&#7841;i &#273;&#7863;c tr&#432;ng Fuji Eterna, midtones &#7845;m &aacute;p v&agrave; natural skin tone nh&#7865; nh&agrave;ng.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#c8d4b0;"></span><span class="swatch-dot" style="background:#90a070;"></span><span class="swatch-dot" style="background:#c4a860;"></span><span class="swatch-dot" style="background:#2a2010;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-2">
+          <div class="preset-card__header"><span class="preset-card__num">03</span><span class="preset-card__tag tag-portrait">Portrait</span></div>
+          <div class="preset-card__name">Kodak Portra 400</div>
+          <div class="preset-card__desc">Skin-flattering warm &mdash; Chu&#7849;n v&agrave;ng nhi&#7871;p &#7843;nh ch&acirc;n dung. T&ocirc;ng &#7845;m flattering, skin tone &#273;&#7865;p t&#7921; nhi&ecirc;n, highlight creamy kh&ocirc;ng blown out.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#f0d0a8;"></span><span class="swatch-dot" style="background:#d4a070;"></span><span class="swatch-dot" style="background:#c87840;"></span><span class="swatch-dot" style="background:#3c2010;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-3">
+          <div class="preset-card__header"><span class="preset-card__num">04</span><span class="preset-card__tag tag-portrait">Portrait</span></div>
+          <div class="preset-card__name">Fuji Pro 400H</div>
+          <div class="preset-card__desc">Cool feminine &mdash; T&ocirc;ng l&#7841;nh tinh t&#7871;, nhi&#7871;p &#7843;nh c&#432;&#7899;i v&agrave; fashion. Highlights tr&#7855;ng trong, shadows t&iacute;m nh&#7841;t, pastel delicate.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#d8e4f0;"></span><span class="swatch-dot" style="background:#a0b8cc;"></span><span class="swatch-dot" style="background:#c4b0d0;"></span><span class="swatch-dot" style="background:#1a1828;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-4">
+          <div class="preset-card__header"><span class="preset-card__num">05</span><span class="preset-card__tag tag-vintage">Vintage</span></div>
+          <div class="preset-card__name">Kodak Gold 200</div>
+          <div class="preset-card__desc">Summer warmth &mdash; S&#7855;c v&agrave;ng &#7845;m &#273;&#7863;c tr&#432;ng m&ugrave;a h&#232;. T&ocirc;ng ph&#7847;m nh&#7921;a d&agrave;y &#273;&#7863;c, highlights golden v&agrave; shadows amber t&#432;&#417;i s&aacute;ng r&#7921;c r&#7905;.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#f8e080;"></span><span class="swatch-dot" style="background:#e8b040;"></span><span class="swatch-dot" style="background:#c87820;"></span><span class="swatch-dot" style="background:#402000;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-5">
+          <div class="preset-card__header"><span class="preset-card__num">06</span><span class="preset-card__tag tag-cinema">Hollywood</span></div>
+          <div class="preset-card__name">CineScope Teal &amp; Orange</div>
+          <div class="preset-card__desc">Hollywood blockbuster &mdash; C&ocirc;ng th&#7913;c teal-and-orange kinh &#273;i&#7875;n &#273;i&#7879;n &#7843;nh bom t&#7845;n. Skin tones orange n&#7893;i b&#7853;t tr&ecirc;n n&#7873;n teal l&#7841;nh &#273;&#7889;i l&#7853;p.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#004060;"></span><span class="swatch-dot" style="background:#008090;"></span><span class="swatch-dot" style="background:#e87820;"></span><span class="swatch-dot" style="background:#f0a840;"></span></div>
+        </div>
+
+        <div class="preset-card reveal">
+          <div class="preset-card__header"><span class="preset-card__num">07</span><span class="preset-card__tag tag-lofi">Lo-Fi</span></div>
+          <div class="preset-card__name">Bleach Bypass</div>
+          <div class="preset-card__desc">Desaturated high-contrast &mdash; K&#7929; thu&#7853;t h&oacute;a h&#7885;c b&#7887; b&#432;&#7899;c t&#7849;y ph&#7847;m. T&#432;&#417;ng ph&#7843;n cao, m&agrave;u s&#7855;c gi&#7843;m nh&#7841;t, shadows &#273;en c&#7913;ng &mdash; raw v&agrave; brutal.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#e0dcd0;"></span><span class="swatch-dot" style="background:#888070;"></span><span class="swatch-dot" style="background:#3a3830;"></span><span class="swatch-dot" style="background:#080808;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-1">
+          <div class="preset-card__header"><span class="preset-card__num">08</span><span class="preset-card__tag tag-lofi">Lo-Fi</span></div>
+          <div class="preset-card__name">Push Process +2</div>
+          <div class="preset-card__desc">Grain-heavy lo-fi &mdash; M&ocirc; ph&#7887;ng k&#7929; thu&#7853;t &#273;&#7849;y ISO 2 stop. H&#7841;t ph&#7847;m th&ocirc; nhi&#7873;u, highlights burnt, shadows blocked &mdash; authentic lo-fi vibe.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#d0c090;"></span><span class="swatch-dot" style="background:#907840;"></span><span class="swatch-dot" style="background:#504020;"></span><span class="swatch-dot" style="background:#100800;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-2">
+          <div class="preset-card__header"><span class="preset-card__num">09</span><span class="preset-card__tag tag-vintage">Vintage</span></div>
+          <div class="preset-card__name">Faded Matte</div>
+          <div class="preset-card__desc">Instagram film look &mdash; Lifted blacks t&#7841;o c&#7843;m gi&aacute;c ph&#7847;m nh&#7921;a faded. M&agrave;u s&#7855;c muted, matte finish hi&#7879;n &#273;&#7841;i &mdash; c&#7921;c k&#7923; ph&#7893; bi&#7871;n tr&ecirc;n m&#7841;ng x&atilde; h&#7897;i.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#e8d8c0;"></span><span class="swatch-dot" style="background:#c0a888;"></span><span class="swatch-dot" style="background:#706050;"></span><span class="swatch-dot" style="background:#282018;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-3">
+          <div class="preset-card__header"><span class="preset-card__num">10</span><span class="preset-card__tag tag-bw">B&amp;W</span></div>
+          <div class="preset-card__name">Double X Monochrome</div>
+          <div class="preset-card__desc">Cinematic B&amp;W &mdash; D&#7921;a tr&ecirc;n Kodak Double-X (Schindler&rsquo;s List). T&#432;&#417;ng ph&#7843;n s&acirc;u, midtones rich v&agrave; grain &#273;&#7863;c tr&#432;ng &#273;i&#7879;n &#7843;nh kinh &#273;i&#7875;n.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#f0f0f0;"></span><span class="swatch-dot" style="background:#909090;"></span><span class="swatch-dot" style="background:#404040;"></span><span class="swatch-dot" style="background:#080808;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-4">
+          <div class="preset-card__header"><span class="preset-card__num">11</span><span class="preset-card__tag tag-bw">B&amp;W</span></div>
+          <div class="preset-card__name">Ilford Delta 3200</div>
+          <div class="preset-card__desc">Moody high-ISO B&amp;W &mdash; Ilford Delta 3200 t&#7889;c &#273;&#7897; cao. H&#7841;t ph&#7847;m th&ocirc; l&#7899;n, t&ocirc;ng &#273;en s&acirc;u, atmosphere t&#7889;i t&#259;m &#273;&#7847;y c&#7843;m x&uacute;c cho street photography.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#d8d8d8;"></span><span class="swatch-dot" style="background:#787878;"></span><span class="swatch-dot" style="background:#282828;"></span><span class="swatch-dot" style="background:#000000;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-5">
+          <div class="preset-card__header"><span class="preset-card__num">12</span><span class="preset-card__tag tag-vivid">Vivid</span></div>
+          <div class="preset-card__name">Slide Film Chrome</div>
+          <div class="preset-card__desc">Vivid chrome &mdash; M&ocirc; ph&#7887;ng ph&#7847;m slide reversal (Velvia/Provia). M&agrave;u s&#7855;c r&#7921;c r&#7905;, b&atilde;o h&ograve;a cao, t&#432;&#417;ng ph&#7843;n m&#7841;nh &mdash; phong c&#7843;nh v&agrave; thi&ecirc;n nhi&ecirc;n.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#f02020;"></span><span class="swatch-dot" style="background:#20b020;"></span><span class="swatch-dot" style="background:#2040f0;"></span><span class="swatch-dot" style="background:#e0c000;"></span></div>
+        </div>
+
+        <div class="preset-card reveal">
+          <div class="preset-card__header"><span class="preset-card__num">13</span><span class="preset-card__tag tag-vivid">Experimental</span></div>
+          <div class="preset-card__name">Cross Process</div>
+          <div class="preset-card__desc">Experimental vivid &mdash; R&#7917;a ph&#7847;m sai quy tr&igrave;nh (E-6 trong C-41). M&agrave;u s&#7855;c b&#7845;t th&#432;&#7901;ng, cyan n&#7863;ng highlights, &#273;&#7887;/v&agrave;ng shadows &mdash; ngh&#7879; thu&#7853;t.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#80f0d0;"></span><span class="swatch-dot" style="background:#40c080;"></span><span class="swatch-dot" style="background:#e08020;"></span><span class="swatch-dot" style="background:#600800;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-1">
+          <div class="preset-card__header"><span class="preset-card__num">14</span><span class="preset-card__tag tag-vintage">Super 8</span></div>
+          <div class="preset-card__name">Vintage Super8</div>
+          <div class="preset-card__desc">8mm warmth &mdash; K&yacute; &#7913;c gia &#273;&igrave;nh th&#7853;p ni&ecirc;n 60&ndash;70. Sepia &#7845;m &aacute;p, vignette nh&#7865;, m&agrave;u faded v&agrave; halation effect &#273;&#7863;c tr&#432;ng ph&#7847;m 8mm.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#e8c080;"></span><span class="swatch-dot" style="background:#c09040;"></span><span class="swatch-dot" style="background:#906020;"></span><span class="swatch-dot" style="background:#301800;"></span></div>
+        </div>
+
+        <div class="preset-card reveal delay-2">
+          <div class="preset-card__header"><span class="preset-card__num">15</span><span class="preset-card__tag tag-night">Night</span></div>
+          <div class="preset-card__name">Cyberpunk Neon</div>
+          <div class="preset-card__desc">Magenta/cyan night &mdash; Nhi&#7871;p &#7843;nh &#273;&ecirc;m v&agrave; streetlight. Neon magenta v&agrave; cyan n&#7893;i b&#7853;t trong b&oacute;ng t&#7889;i, skin tone v&#7851;n &#273;&#7865;p &mdash; perfect cho cityscape.</div>
+          <div class="preset-card__swatch"><span class="swatch-dot" style="background:#f040b0;"></span><span class="swatch-dot" style="background:#00e0f0;"></span><span class="swatch-dot" style="background:#8020a0;"></span><span class="swatch-dot" style="background:#080018;"></span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" style="background:#0A0A0C;">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label reveal">C&#7921;c k&#7923; &#273;&#417;n gi&#7843;n</span>
+        <h2 class="section-title reveal delay-1" style="text-align:center;">Ba b&#432;&#7899;c. K&#7871;t qu&#7843; ngay l&#7853;p t&#7913;c.</h2>
+        <div class="divider reveal delay-2" style="margin:14px auto 0;"></div>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">01</div>
+          <h3>T&#7843;i xu&#7889;ng</h3>
+          <p>Sau khi thanh to&aacute;n, b&#7841;n nh&#7853;n ngay link t&#7843;i file <strong style="color:var(--text-primary);">.zip</strong> ch&#7913;a 15 preset. L&#432;u tr&#7919; v&#297;nh vi&#7877;n tr&ecirc;n cloud &mdash; t&#7843;i l&#7841;i b&#7845;t c&#7913; l&uacute;c n&agrave;o.</p>
+        </div>
+        <div class="step-card reveal delay-2">
+          <div class="step-num">02</div>
+          <h3>Import v&agrave;o Lightroom</h3>
+          <p>M&#7903; Lightroom &rarr; Develop Module &rarr; Import Presets &rarr; Ch&#7885;n file <strong style="color:var(--text-primary);">.lrtemplate</strong> ho&#7863;c <strong style="color:var(--text-primary);">.xmp</strong>. Preset xu&#7845;t hi&#7879;n ngay trong panel b&ecirc;n tr&aacute;i.</p>
+        </div>
+        <div class="step-card reveal delay-4">
+          <div class="step-num">03</div>
+          <h3>&Aacute;p d&#7909;ng &amp; Tinh ch&#7881;nh</h3>
+          <p>Click m&#7897;t preset &#273;&#7875; &aacute;p d&#7909;ng t&#7913;c th&igrave;. D&ugrave;ng thanh tr&#432;&#7907;t &#273;&#7875; &#273;i&#7873;u ch&#7881;nh intensity. M&#7895;i &#7843;nh c&oacute; m&#7897;t phong c&aacute;ch ho&agrave;n to&agrave;n kh&aacute;c nhau trong v&agrave;i gi&acirc;y.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPATIBILITY -->
+  <section class="section compat-section">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label reveal">T&#432;&#417;ng th&iacute;ch r&#7897;ng r&atilde;i</span>
+        <h2 class="section-title reveal delay-1" style="text-align:center;">Ho&#7841;t &#273;&#7897;ng v&#7899;i m&#7885;i n&#7873;n t&#7843;ng Adobe</h2>
+      </div>
+      <div class="compat-grid">
+        <div class="compat-card reveal">
+          <span class="compat-card__icon">&#128421;&#65039;</span>
+          <div class="compat-card__name">Lightroom Classic</div>
+          <div class="compat-card__note">CC 2018 tr&#7903; l&ecirc;n &middot; Windows &amp; macOS &middot; .lrtemplate &amp; .xmp</div>
+        </div>
+        <div class="compat-card reveal delay-1">
+          <span class="compat-card__icon">&#9729;&#65039;</span>
+          <div class="compat-card__name">Lightroom CC</div>
+          <div class="compat-card__note">Ph&acirc;n b&#7843;n &#273;&aacute;m m&acirc;y &middot; Sync Creative Cloud &middot; .xmp</div>
+        </div>
+        <div class="compat-card reveal delay-2">
+          <span class="compat-card__icon">&#127912;</span>
+          <div class="compat-card__name">Adobe Camera RAW</div>
+          <div class="compat-card__note">Trong Photoshop CC &middot; RAW v&agrave; JPEG &#273;&#7873;u &#273;&#432;&#7907;c h&#7895; tr&#7907;</div>
+        </div>
+        <div class="compat-card reveal delay-3">
+          <span class="compat-card__icon">&#128241;</span>
+          <div class="compat-card__name">Lightroom Mobile</div>
+          <div class="compat-card__note">iPhone &amp; Android &middot; Sync t&#7921; &#273;&#7897;ng qua Creative Cloud</div>
+        </div>
+      </div>
+      <p class="compat-also reveal">C&#361;ng ho&#7841;t &#273;&#7897;ng v&#7899;i <strong>Capture One</strong> (xu&#7845;t qua Lightroom) &nbsp;&middot;&nbsp; H&#7895; tr&#7907; <strong>RAW, JPEG, TIFF</strong></p>
+    </div>
+  </section>
+
+  <!-- BEFORE / AFTER -->
+  <section class="section" style="background:#0A0A0C;">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label reveal">K&#7871;t qu&#7843; th&#7921;c t&#7871;</span>
+        <h2 class="section-title reveal delay-1" style="text-align:center;">Kh&ocirc;ng ph&#7843;i Filter,<br>L&agrave; S&#7921; Chuy&#7875;n H&oacute;a Th&#7921;c S&#7921;</h2>
+        <div class="divider reveal delay-2" style="margin:14px auto 0;"></div>
+        <p class="section-sub reveal delay-3" style="text-align:center; margin:14px auto 0;">Hi&#7879;u qu&#7843; th&#7921;c t&#7871; tr&#432;&#7899;c/sau khi &aacute;p d&#7909;ng preset &mdash; &#7843;nh ch&#7909;p RAW g&#7889;c, kh&ocirc;ng qua ch&#7881;nh s&#7917;a th&ecirc;m.</p>
+      </div>
+      <div class="ba-grid">
+        <div class="ba-card reveal">
+          <div class="ba-images">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=50&w=480&auto=format&fit=crop&sat=-80" alt="Portrait before Kodak Portra 400" loading="lazy">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=480&auto=format&fit=crop" alt="Portrait after Kodak Portra 400" loading="lazy" style="filter:sepia(0.2) saturate(1.15) contrast(1.05) hue-rotate(-8deg) brightness(1.02);">
+          </div>
+          <div class="ba-card__info">
+            <div class="ba-card__preset">Kodak Portra 400 <span>Portrait &middot; Skin-flattering warm</span></div>
+            <span class="ba-card__tag">PRESET #03</span>
+          </div>
+        </div>
+        <div class="ba-card reveal delay-2">
+          <div class="ba-images">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=50&w=480&auto=format&fit=crop&sat=-60" alt="City before CineScope" loading="lazy">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=480&auto=format&fit=crop" alt="City after CineScope Teal Orange" loading="lazy" style="filter:saturate(1.3) contrast(1.1) hue-rotate(175deg) brightness(0.92);">
+          </div>
+          <div class="ba-card__info">
+            <div class="ba-card__preset">CineScope Teal &amp; Orange <span>Cinema &middot; Hollywood blockbuster</span></div>
+            <span class="ba-card__tag">PRESET #06</span>
+          </div>
+        </div>
+        <div class="ba-card reveal delay-4">
+          <div class="ba-images">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=50&w=480&auto=format&fit=crop" alt="Street before Ilford" loading="lazy">
+            <img class="ba-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=480&auto=format&fit=crop" alt="Street after Ilford Delta 3200" loading="lazy" style="filter:grayscale(1) contrast(1.35) brightness(0.82);">
+          </div>
+          <div class="ba-card__info">
+            <div class="ba-card__preset">Ilford Delta 3200 <span>B&amp;W &middot; Moody high-ISO grain</span></div>
+            <span class="ba-card__tag">PRESET #11</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section pricing-section" id="pricing">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label reveal">S&#7903; h&#7919;u ngay h&ocirc;m nay</span>
+        <h2 class="section-title reveal delay-1" style="text-align:center;">M&#7897;t l&#7847;n &#273;&#7847;u t&#432;.<br>Tr&#7885;n &#273;&#7901;i s&aacute;ng t&#7841;o.</h2>
+      </div>
+      <div class="pricing-card reveal delay-2">
+        <div class="pricing-card__top">
+          <div class="pricing-label">Analog Film Emulation Pack</div>
+          <div class="pricing-name">15 Preset Ph&#7847;m Nh&#7921;a Cao C&#7845;p</div>
+          <div class="pricing-items">15 presets &middot; .xmp &amp; .lrtemplate &middot; PDF h&#432;&#7899;ng d&#7851;n &middot; C&#7853;p nh&#7853;t mi&#7877;n ph&iacute; m&atilde;i m&atilde;i</div>
+        </div>
+        <div class="pricing-card__price">
+          <div class="pricing-main">
+            <div class="pricing-old">Gi&aacute; g&#7889;c: 199.000&#273;</div>
+            <div class="pricing-new">99.000&#273;</div>
+            <div class="pricing-save">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              Ti&#7871;t ki&#7879;m 100.000&#273; &mdash; Gi&#7843;m 50%
+            </div>
+          </div>
+        </div>
+        <div class="pricing-card__includes">
+          <ul class="includes-list">
+            <li class="includes-item">15 Lightroom Preset cao c&#7845;p</li>
+            <li class="includes-item">&#272;&#7883;nh d&#7841;ng .xmp &amp; .lrtemplate</li>
+            <li class="includes-item">T&#432;&#417;ng th&iacute;ch Lightroom Classic</li>
+            <li class="includes-item">T&#432;&#417;ng th&iacute;ch Lightroom CC &amp; Mobile</li>
+            <li class="includes-item">Ho&#7841;t &#273;&#7897;ng v&#7899;i Camera RAW</li>
+            <li class="includes-item">PDF h&#432;&#7899;ng d&#7851;n c&agrave;i &#273;&#7863;t chi ti&#7871;t</li>
+            <li class="includes-item">C&#7853;p nh&#7853;t v&#297;nh vi&#7877;n mi&#7877;n ph&iacute;</li>
+            <li class="includes-item">T&#7843;i xu&#7889;ng ngay sau thanh to&aacute;n</li>
+          </ul>
+        </div>
+        <div class="pricing-card__action">
+          <button class="btn-buy-now" onclick="openCheckoutModal('preset-film', 99000)">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            MUA NGAY &mdash; 99.000&#273;
+          </button>
+          <div class="pricing-guarantee">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+            Thanh to&aacute;n b&#7843;o m&#7853;t SSL &nbsp;&middot;&nbsp; Link t&#7843;i g&#7917;i ngay qua email &nbsp;&middot;&nbsp; H&#7895; tr&#7907; 24/7
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="background:#0D0D10;">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="section-label reveal">Gi&#7843;i &#273;&aacute;p th&#7855;c m&#7855;c</span>
+        <h2 class="section-title reveal delay-1" style="text-align:center;">C&acirc;u h&#7887;i th&#432;&#7901;ng g&#7863;p</h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Preset n&agrave;y t&#432;&#417;ng th&iacute;ch v&#7899;i nh&#7919;ng phi&ecirc;n b&#7843;n Lightroom n&agrave;o?
+            <span class="faq-chevron" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">B&#7897; preset ho&agrave;n to&agrave;n t&#432;&#417;ng th&iacute;ch v&#7899;i <strong>Lightroom Classic CC 2018 tr&#7903; l&ecirc;n</strong> (Windows &amp; macOS), <strong>Lightroom CC</strong> (phi&ecirc;n b&#7843;n &#273;&aacute;m m&acirc;y), <strong>Lightroom Mobile</strong> (iOS &amp; Android qua Creative Cloud), v&agrave; <strong>Adobe Camera RAW</strong> trong Photoshop CC. Bao g&#7891;m c&#7843; <strong>.xmp</strong> (universal) v&agrave; <strong>.lrtemplate</strong> (classic) &#273;&#7875; t&#432;&#417;ng th&iacute;ch t&#7889;i &#273;a.</div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal delay-1">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            L&agrave;m th&#7871; n&agrave;o &#273;&#7875; c&agrave;i &#273;&#7863;t preset v&agrave;o Lightroom?
+            <span class="faq-chevron" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Gi&#7843;i n&eacute;n file <strong>.zip</strong>, m&#7903; Lightroom v&agrave;o <strong>Edit &rarr; Preferences &rarr; Presets &rarr; Show All Other Lightroom Presets</strong> (Windows) ho&#7863;c <strong>Lightroom &rarr; Preferences &rarr; Presets</strong> (Mac). Copy c&aacute;c file v&agrave;o th&#432; m&#7909;c <strong>Develop Presets</strong>. Kh&#7903;i &#273;&#7897;ng l&#7841;i Lightroom &mdash; preset xu&#7845;t hi&#7879;n ngay. Ch&uacute;ng t&ocirc;i g&#7917;i k&#232;m <strong>PDF h&#432;&#7899;ng d&#7851;n chi ti&#7871;t</strong> t&#7915;ng b&#432;&#7899;c.</div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal delay-2">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            T&ocirc;i c&oacute; th&#7875; d&ugrave;ng preset n&agrave;y cho m&#7909;c &#273;&iacute;ch th&#432;&#417;ng m&#7841;i kh&ocirc;ng?
+            <span class="faq-chevron" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><strong>C&oacute;</strong>, b&#7841;n &#273;&#432;&#7907;c ph&eacute;p s&#7917; d&#7909;ng preset cho m&#7885;i m&#7909;c &#273;&iacute;ch th&#432;&#417;ng m&#7841;i &mdash; ch&#7909;p &#7843;nh cho kh&aacute;ch h&agrave;ng, in &#7845;n, &#273;&#259;ng m&#7841;ng x&atilde; h&#7897;i, qu&#7843;ng c&aacute;o. Tuy nhi&ecirc;n b&#7841;n <strong>kh&ocirc;ng &#273;&#432;&#7907;c</strong> chia s&#7867;, ph&acirc;n ph&#7889;i l&#7841;i ho&#7863;c b&aacute;n l&#7841;i preset g&#7889;c. M&#7895;i gi&#7845;y ph&eacute;p c&#7845;p cho <strong>m&#7897;t ng&#432;&#7901;i d&ugrave;ng duy nh&#7845;t</strong>.</div>
+          </div>
+        </div>
+
+        <div class="faq-item reveal delay-3">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Preset c&oacute; ho&#7841;t &#273;&#7897;ng v&#7899;i &#7843;nh JPEG kh&ocirc;ng, ch&#7881; RAW th&ocirc;i?
+            <span class="faq-chevron" aria-hidden="true">&#9660;</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Preset ho&#7841;t &#273;&#7897;ng v&#7899;i <strong>c&#7843; RAW l&#7851;n JPEG</strong>. Hi&#7879;u qu&#7843; t&#7889;t nh&#7845;t khi d&ugrave;ng RAW v&igrave; c&oacute; nhi&#7873;u th&ocirc;ng tin m&agrave;u s&#7855;c v&agrave; d&#7843;i &#273;&#7897;ng h&#417;n. V&#7899;i JPEG, preset v&#7851;n t&#7841;o k&#7871;t qu&#7843; &#273;&#7865;p nh&#432;ng highlight/shadow b&#7883; c&#7855;t c&oacute; th&#7875; m&#7845;t chi ti&#7871;t. Khuy&#7871;n kh&iacute;ch ch&#7909;p RAW &#273;&#7875; t&#7853;n d&#7909;ng t&#7889;i &#273;a b&#7897; preset.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">T&#7915; &#7843;nh b&igrave;nh th&#432;&#7901;ng &#273;&#7871;n cinematic &mdash; b&#7857;ng &aacute;nh s&aacute;ng, m&agrave;u s&#7855;c v&agrave; workflow.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>B&#7855;t &#273;&#7847;u</h4>
+            <a href="before-after.html">Before / After</a>
+            <a href="free-guide.html">Starter Kit Mi&#7877;n Ph&iacute;</a>
+            <a href="light-codex.html">H&#7885;c &Aacute;nh S&aacute;ng</a>
+            <a href="store.html">C&#7917;a h&agrave;ng</a>
+          </div>
+          <div class="footer-col">
+            <h4>Kh&aacute;m ph&aacute; th&ecirc;m</h4>
+            <a href="tool-lab.html">X&#432;&#7903;ng C&ocirc;ng c&#7909;</a>
+            <a href="shot-recipes.html">C&ocirc;ng th&#7913;c Ch&#7909;p</a>
+            <a href="gear-vault.html">Kho Thi&#7871;t B&#7883;</a>
+            <a href="glossary.html">Thu&#7853;t ng&#7919;</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025&ndash;2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY CTA (mobile) -->
+  <div class="sticky-cta">
+    <div class="sticky-cta__price">
+      <div class="price-old-s">199.000&#273;</div>
+      <div class="price-new-s">99.000&#273;</div>
+    </div>
+    <button class="sticky-cta__btn" onclick="openCheckoutModal('preset-film', 99000)">MUA NGAY</button>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+  <script>
+    // Scroll reveal
+    (function () {
+      var reveals = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        reveals.forEach(function(el){ el.classList.add('active'); });
+        return;
+      }
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) { e.target.classList.add('active'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(function(el){ io.observe(el); });
+    })();
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(f){ f.classList.remove('open'); });
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Nav scroll
+    (function () {
+      var nav = document.getElementById('main-nav');
+      if (!nav) return;
+      function onScroll() {
+        nav.style.background = window.scrollY > 60 ? 'rgba(10,10,12,0.97)' : 'rgba(10,10,12,0.82)';
+        nav.style.backdropFilter = 'blur(20px)';
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      var toggle = document.getElementById('nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+          menu.classList.toggle('open');
+          toggle.classList.toggle('open');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

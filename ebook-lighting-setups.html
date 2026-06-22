@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lighting Setups Bible: Kinh Thánh Bố Trí Ánh Sáng — LumenForge</title>
+  <meta name="description" content="Ebook Masterclass chuyên sâu nhất về bố trí ánh sáng nhiếp ảnh và điện ảnh. 140+ trang, 6 case study thực tế, từ one-light đến Hollywood advanced setups.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lumenforge.studio/ebook-lighting-setups.html">
+  <meta property="og:title" content="Lighting Setups Bible — LumenForge Masterclass Ebook">
+  <meta property="og:description" content="140+ trang phân tích chuyên sâu về bố trí ánh sáng: One-Light mastery, Two-Light, Three-Point, Advanced Hollywood Setups, Natural Light, 6 Case Studies thực tế.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1200&auto=format&fit=crop">
+
+  <link rel="canonical" href="https://lumenforge.studio/ebook-lighting-setups.html">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    /* ===== LIGHTING EBOOK SALES PAGE ===== */
+    .sales-hero {
+      padding: 140px 0 80px;
+      background: 
+        linear-gradient(180deg, rgba(10,10,12,0.75) 0%, rgba(10,10,12,1) 100%),
+        url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=2000&auto=format&fit=crop') center/cover;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dramatic light beam effect */
+    .sales-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(0,212,255,0.3), transparent);
+      animation: lightBeam 3s ease-in-out infinite;
+    }
+    @keyframes lightBeam {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
+    }
+
+    .sales-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      background: rgba(0,212,255,0.08);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0,212,255,0.3);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+
+    .sales-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #00D4FF 60%, #fff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .sales-hero .subtitle {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .sales-cta-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 32px 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 40px;
+      backdrop-filter: blur(15px);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .price-old { font-size: 1rem; color: var(--text-dim); text-decoration: line-through; margin-bottom: 4px; }
+    .price-new { font-size: 2.8rem; font-weight: 900; color: #fff; line-height: 1; }
+    .price-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+
+    .btn-checkout {
+      background: linear-gradient(135deg, #00D4FF, #0099cc);
+      color: #000;
+      padding: 18px 48px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .btn-checkout:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0,212,255,0.35);
+    }
+
+    .btn-preview {
+      background: transparent;
+      color: var(--accent-cyan);
+      padding: 18px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      border: 1px solid rgba(0,212,255,0.3);
+      transition: all 0.2s;
+    }
+    .btn-preview:hover {
+      background: rgba(0,212,255,0.08);
+      border-color: var(--accent-cyan);
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-size: 3rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--accent-cyan), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label { color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px; }
+
+    /* Chapter breakdown */
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .chapter-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      transition: border-color 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .chapter-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent-cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .chapter-card:hover {
+      border-color: rgba(0,212,255,0.3);
+      transform: translateY(-4px);
+    }
+    .chapter-card:hover::before { opacity: 1; }
+
+    .chapter-num {
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .chapter-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .chapter-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .chapter-items {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .chapter-tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      background: rgba(0,212,255,0.07);
+      color: var(--accent-cyan);
+      border-radius: 20px;
+      border: 1px solid rgba(0,212,255,0.15);
+    }
+
+    /* What's inside */
+    .inside-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .inside-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+    .inside-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .inside-text h4 { font-size: 0.95rem; color: #fff; margin-bottom: 4px; }
+    .inside-text p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Testimonial */
+    .testimonial-block {
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(0,0,0,0));
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 16px;
+      padding: 40px;
+      margin-top: 60px;
+      text-align: center;
+    }
+    .testimonial-block blockquote {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+    .testimonial-block cite { color: var(--text-secondary); font-size: 0.9rem; }
+
+    /* Section title */
+    .section-title-sales {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .section-heading {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .section-subheading {
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    /* FAQ */
+    .faq-list { margin-top: 30px; }
+    .faq-item { border-bottom: 1px solid var(--border-color); }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--accent-cyan); }
+    .faq-icon { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.3s; }
+    .faq-answer { display: none; padding: 0 0 20px; color: var(--text-secondary); line-height: 1.7; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* Sticky CTA bar */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(10,10,12,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(0,212,255,0.2);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .sticky-cta.visible { transform: translateY(0); }
+    .sticky-cta-text { color: #fff; font-weight: 700; font-size: 1rem; }
+    .sticky-cta-text span { color: var(--accent-cyan); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Bắt đầu</a>
+        <a href="before-after.html" class="nav-link">Before / After</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="gear-vault.html" class="nav-link">Kho Thiết Bị</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link" style="color: var(--accent-cyan);">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="sales-hero" id="hero">
+    <div class="container" style="position:relative;z-index:2;">
+      <div class="sales-badge">✦ MASTERCLASS EBOOK • MỚI PHÁT HÀNH</div>
+      <h1>Lighting Setups Bible</h1>
+      <p class="subtitle" style="font-size:1.1rem;color:var(--accent-cyan);font-family:var(--font-mono);margin-bottom:8px;letter-spacing:1px;">KINH THÁNH VỀ BỐ TRÍ ÁNH SÁNG</p>
+      <p class="subtitle">
+        140+ trang phân tích chuyên sâu nhất về ánh sáng nhiếp ảnh &amp; điện ảnh bằng tiếng Việt.<br>
+        Từ one-light mastery đến Hollywood advanced setups — và 6 case study thực tế.
+      </p>
+
+      <div class="sales-cta-box">
+        <div class="price-block">
+          <div class="price-old">299.000đ</div>
+          <div class="price-new">149.000đ</div>
+          <div class="price-label">Giá ra mắt — Tiết kiệm 50%</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-lighting', 149000); return false;">
+            Mua Ngay — 149.000đ
+          </a>
+          <a href="ebook-reader.html?book=lighting" class="btn-preview">
+            Đọc thử miễn phí →
+          </a>
+        </div>
+      </div>
+
+      <p style="margin-top:20px;font-size:0.85rem;color:var(--text-dim);">
+        🔒 Tải xuống ngay sau thanh toán · Lifetime access · Cập nhật miễn phí
+      </p>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <section class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">140+</div>
+      <div class="stat-label">Trang nội dung chuyên sâu</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Chương masterclass</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Case study thực tế</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24+</div>
+      <div class="stat-label">Setup ánh sáng được phân tích</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Lần tải xuống</div>
+    </div>
+  </section>
+
+  <!-- CHAPTERS -->
+  <section class="section" style="padding: 80px 0;">
+    <div class="container">
+      <p class="section-title-sales">// NỘI DUNG CHI TIẾT</p>
+      <h2 class="section-heading">6 Chương — Hành trình từ 1 đèn đến Hollywood</h2>
+      <p class="section-subheading">Mỗi chương xây dựng nền tảng cho chương tiếp theo. Không có khái niệm "cần đọc trước". Chỉ cần bắt đầu.</p>
+
+      <div class="chapters-grid">
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 01</div>
+          <div class="chapter-title">One-Light Mastery — Một Đèn, Vô Hạn Khả Năng</div>
+          <div class="chapter-desc">Vật lý bóng đổ, 4 pattern kinh điển (Rembrandt, Split, Butterfly, Loop), kiểm soát tỷ lệ sáng tối.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Rembrandt Triangle</span>
+            <span class="chapter-tag">Split Lighting</span>
+            <span class="chapter-tag">Butterfly/Paramount</span>
+            <span class="chapter-tag">Loop Lighting</span>
+            <span class="chapter-tag">Lighting Ratio</span>
+          </div>
+        </div>
+
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 02</div>
+          <div class="chapter-title">Two-Light Mastery — Chiều sâu không gian</div>
+          <div class="chapter-desc">Key+Fill, Key+Hair Light, Key+Background. Nghệ thuật không để fill light tạo bóng của riêng nó.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Key + Fill System</span>
+            <span class="chapter-tag">Hair Light (Kicker)</span>
+            <span class="chapter-tag">Background Light</span>
+            <span class="chapter-tag">Color Contrast</span>
+          </div>
+        </div>
+
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 03</div>
+          <div class="chapter-title">Three-Point — Ngôn ngữ của Phim Ảnh</div>
+          <div class="chapter-desc">Hollywood lighting ratio, 10 lỗi phổ biến nhất, cách đọc ánh sáng trong phim điện ảnh.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Hollywood Ratio</span>
+            <span class="chapter-tag">Rim Light</span>
+            <span class="chapter-tag">10 Common Mistakes</span>
+            <span class="chapter-tag">Skin Tone Adjustment</span>
+          </div>
+        </div>
+
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 04</div>
+          <div class="chapter-title">Advanced Hollywood Setups — Đỉnh cao kỹ thuật</div>
+          <div class="chapter-desc">Clamshell, Copper Top, Window Light Simulation, Motivated Lighting. Các setup của các nhiếp ảnh gia hàng đầu thế giới.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Clamshell Beauty</span>
+            <span class="chapter-tag">Copper Top Drama</span>
+            <span class="chapter-tag">Window Simulation</span>
+            <span class="chapter-tag">Motivated Lighting</span>
+          </div>
+        </div>
+
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 05</div>
+          <div class="chapter-title">Natural Light as Key — Ánh Sáng Tự Nhiên Làm Chủ</div>
+          <div class="chapter-desc">Cửa sổ, Golden Hour, Open Shade, Overcast. Cách kiểm soát ánh sáng tự nhiên như một đạo diễn ánh sáng thực sự.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Window Light</span>
+            <span class="chapter-tag">Golden Hour</span>
+            <span class="chapter-tag">Open Shade</span>
+            <span class="chapter-tag">Overcast Techniques</span>
+          </div>
+        </div>
+
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 06</div>
+          <div class="chapter-title">6 Case Studies Thực Tế — Quyết định từng setup</div>
+          <div class="chapter-desc">6 buổi chụp thực tế được phân tích chi tiết: Fashion Editorial, Environmental Portrait, Beauty Commercial, và nhiều hơn.</div>
+          <div class="chapter-items">
+            <span class="chapter-tag">Fashion Editorial</span>
+            <span class="chapter-tag">Beauty Commercial</span>
+            <span class="chapter-tag">Environmental</span>
+            <span class="chapter-tag">Group Portrait</span>
+            <span class="chapter-tag">Film Noir</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="section" style="padding: 0 0 80px; border-top: 1px solid var(--border-color); padding-top: 80px;">
+    <div class="container">
+      <p class="section-title-sales">// BẠN NHẬN ĐƯỢC GÌ</p>
+      <h2 class="section-heading">Không chỉ là Ebook. Đây là System</h2>
+
+      <div class="inside-grid">
+        <div class="inside-item">
+          <div class="inside-icon">📘</div>
+          <div class="inside-text">
+            <h4>140+ Trang Chuyên Sâu</h4>
+            <p>Phân tích từng khía cạnh của ánh sáng — từ vật lý cơ bản đến kỹ thuật Hollywood</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">🎬</div>
+          <div class="inside-text">
+            <h4>24+ Lighting Diagrams</h4>
+            <p>Sơ đồ bố trí ánh sáng chi tiết cho từng setup, có thể tái tạo ngay lập tức</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">📸</div>
+          <div class="inside-text">
+            <h4>6 Real-World Case Studies</h4>
+            <p>Phân tích từng quyết định: tại sao đặt đèn ở đó, modifier nào, ratio bao nhiêu</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">⚙️</div>
+          <div class="inside-text">
+            <h4>Camera Settings Sheets</h4>
+            <p>Thông số máy ảnh được recommend cho từng loại setup ánh sáng</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">💡</div>
+          <div class="inside-text">
+            <h4>Budget Alternative Setups</h4>
+            <p>Cho mỗi setup chuyên nghiệp đều có phiên bản budget-friendly tương đương</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">🔄</div>
+          <div class="inside-text">
+            <h4>Cập nhật Miễn Phí Trọn Đời</h4>
+            <p>Nội dung mới được thêm vào theo từng quý — bạn nhận miễn phí mãi mãi</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">🌙</div>
+          <div class="inside-text">
+            <h4>Natural Light Cheat Sheet</h4>
+            <p>Bảng tra nhanh: giờ nào, vị trí nào, cách xử lý ánh sáng tự nhiên từng loại</p>
+          </div>
+        </div>
+        <div class="inside-item">
+          <div class="inside-icon">📱</div>
+          <div class="inside-text">
+            <h4>Đọc trên mọi thiết bị</h4>
+            <p>PDF tối ưu cho màn hình máy tính và đọc online qua LumenForge Reader</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section class="section" style="padding: 0 0 80px;">
+    <div class="container">
+      <div class="testimonial-block">
+        <blockquote>
+          "Đây là tài liệu tiếng Việt duy nhất tôi từng đọc mà giải thích được <em>tại sao</em> ánh sáng đẹp — không chỉ là cách đặt đèn ở đâu. Sau 2 tuần áp dụng, ảnh của tôi thay đổi hoàn toàn."
+        </blockquote>
+        <cite>— Nguyễn Quang Huy, Nhiếp ảnh gia Portrait, TP.HCM</cite>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:30px;">
+        <div class="testimonial-block" style="margin-top:0;padding:28px;">
+          <blockquote style="font-size:1rem;">"Tôi đã mua nhiều ebook nhiếp ảnh nhưng cái này là lần đầu tôi thực sự hiểu Rembrandt triangle là gì và cách tái tạo nó một cách chắc chắn."</blockquote>
+          <cite>— Minh Châu, Fashion Photographer, Hà Nội</cite>
+        </div>
+        <div class="testimonial-block" style="margin-top:0;padding:28px;">
+          <blockquote style="font-size:1rem;">"Chapter 4 về Advanced Hollywood Setups là gold. Lần đầu tiên ai đó giải thích Clamshell setup bằng tiếng Việt một cách chi tiết và có thể áp dụng ngay."</blockquote>
+          <cite>— Trần Bảo Toàn, Commercial Director, Đà Nẵng</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" style="padding: 0 0 80px;">
+    <div class="container" style="max-width: 800px;">
+      <p class="section-title-sales">// CÂU HỎI THƯỜNG GẶP</p>
+      <h2 class="section-heading">Bạn cần biết gì trước khi mua?</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Ebook này phù hợp với trình độ nào?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+          <div class="faq-answer">
+            <p>Từ người mới hoàn toàn đến nhiếp ảnh gia có 3-5 năm kinh nghiệm. Chương 1 bắt đầu từ vật lý cơ bản (không cần kiến thức trước). Chương 4-6 đủ nặng để thách thức cả những người đã chụp lâu năm.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi cần thiết bị gì để áp dụng những setup này?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+          <div class="faq-answer">
+            <p>Nhiều setup trong ebook có thể thực hiện với ánh sáng tự nhiên và một reflector giá 200k. Mỗi setup chuyên nghiệp đều có phiên bản "budget alternative" sử dụng LED rẻ hoặc ánh sáng phòng. Bạn không cần mua gear đắt tiền ngay để học.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Ebook này có sơ đồ ánh sáng (lighting diagram) không?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+          <div class="faq-answer">
+            <p>Có. 24+ sơ đồ chi tiết với góc nhìn từ trên xuống (bird's eye view) và từ bên cạnh, hiển thị chính xác vị trí đèn, khoảng cách, góc, và modifier cho từng setup.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi sẽ nhận file ở đâu sau khi mua?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </div>
+          <div class="faq-answer">
+            <p>Ngay sau khi thanh toán xác nhận, file PDF sẽ xuất hiện trong <a href="dashboard.html" style="color:var(--accent-cyan)">Dashboard</a> của bạn. Bạn cũng có thể đọc online qua LumenForge Reader mà không cần tải xuống.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section" style="padding: 0 0 120px;">
+    <div class="container">
+      <div style="text-align:center;background:linear-gradient(135deg,rgba(0,212,255,0.05),rgba(0,0,0,0));border:1px solid rgba(0,212,255,0.2);border-radius:20px;padding:60px 40px;">
+        <p class="section-title-sales">// SẴN SÀNG CHƯA?</p>
+        <h2 class="section-heading">Bắt đầu nhìn bằng mắt của một nghệ sĩ ánh sáng</h2>
+        <p style="color:var(--text-secondary);max-width:560px;margin:0 auto 40px;line-height:1.7;">
+          140+ trang. 6 chương. 24+ lighting diagrams. 6 case studies thực tế.<br>
+          Một lần mua — học mãi mãi.
+        </p>
+        <div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;">
+          <a href="#" class="btn-checkout" onclick="openCheckoutModal('ebook-lighting', 149000); return false;">
+            Mua Ngay — 149.000đ
+          </a>
+          <a href="ebook-reader.html?book=lighting" class="btn-preview">
+            Đọc thử miễn phí
+          </a>
+        </div>
+        <p style="margin-top:20px;font-size:0.82rem;color:var(--text-dim);">
+          <span style="color:var(--accent-cyan)">⟡</span> Tải xuống ngay · Không cần tài khoản · Cập nhật miễn phí trọn đời
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Từ ảnh bình thường đến cinematic — bằng ánh sáng, màu sắc và workflow.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Ebooks</h4>
+            <a href="ebook-chiaroscuro.html">Bậc Thầy Chiaroscuro</a>
+            <a href="ebook-lighting-setups.html">Lighting Setups Bible</a>
+            <a href="store.html">Xem tất cả</a>
+          </div>
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="light-codex.html">Học Ánh Sáng</a>
+            <a href="gear-vault.html">Kho Thiết Bị</a>
+            <a href="blog.html">Blog</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025–2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA -->
+  <div class="sticky-cta" id="sticky-cta">
+    <div class="sticky-cta-text">
+      Lighting Setups Bible — <span>149.000đ</span>
+      <span style="color:var(--text-dim);text-decoration:line-through;font-size:0.85rem;margin-left:8px;">299.000đ</span>
+    </div>
+    <a href="#" class="btn-checkout" style="padding:12px 28px;font-size:1rem;" onclick="openCheckoutModal('ebook-lighting', 149000); return false;">
+      Mua Ngay
+    </a>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+  <script>
+    // FAQ Accordion
+    function toggleFaq(questionEl) {
+      const item = questionEl.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Sticky CTA appear after scroll
+    const stickyCta = document.getElementById('sticky-cta');
+    const hero = document.getElementById('hero');
+    window.addEventListener('scroll', () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      if (heroBottom < 0) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
