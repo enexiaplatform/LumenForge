@@ -21,7 +21,30 @@
         'Giảm <strong>Highlights −70</strong>, tăng <strong>Shadows +40</strong> để cân bằng tonal range và khôi phục chi tiết vùng sáng.',
         'Thêm <strong>Split Toning</strong>: Highlight → Amber (#D4A056), Shadow → Deep Teal nhẹ để tạo cảm giác Kodak Gold 200.',
         'Tăng <strong>Grain +25</strong>, giảm <strong>Clarity −10</strong> để mô phỏng texture phim analog và skin tone mềm hơn.'
-      ]
+      ],
+      lrSettings: {
+        temp: 5800, tempMin: 2000, tempMax: 10000,
+        tint: 10, tintMin: -50, tintMax: 50,
+        exposure: 0.15,
+        contrast: -15,
+        highlights: -70,
+        shadows: 40,
+        whites: 10,
+        blacks: -25,
+        texture: -10,
+        clarity: -10,
+        dehaze: -5,
+        vibrance: 20,
+        hsl: [
+          { color: 'Orange', hue: '+5', sat: '-15', lum: '+10' },
+          { color: 'Yellow', hue: '-5', sat: '+10', lum: '+5' }
+        ],
+        colorGrading: {
+          shadows: { hue: 215, sat: 12 },
+          midtones: { hue: 0, sat: 0 },
+          highlights: { hue: 42, sat: 15 }
+        }
+      }
     },
     {
       id: 'moody-night',
@@ -33,7 +56,31 @@
         'Hạ <strong>Exposure −0.5 EV</strong>, đẩy <strong>Blacks −30</strong> để tạo deep shadow và tăng contrast tổng thể cho mood tối.',
         'Dùng <strong>HSL</strong>: đẩy Aqua Luminance +30, giảm Orange Saturation −20 để neon xanh phát sáng nổi bật trên nền tối.',
         'Áp dụng <strong>Radial Filter</strong> với Exposure +0.3 vào vùng đèn neon, tạo hiệu ứng glow lan tỏa tự nhiên.'
-      ]
+      ],
+      lrSettings: {
+        temp: 4200, tempMin: 2000, tempMax: 10000,
+        tint: 15, tintMin: -50, tintMax: 50,
+        exposure: -0.50,
+        contrast: 25,
+        highlights: -30,
+        shadows: 15,
+        whites: 10,
+        blacks: -30,
+        texture: 15,
+        clarity: 10,
+        dehaze: 10,
+        vibrance: 15,
+        hsl: [
+          { color: 'Aqua', hue: '+10', sat: '+30', lum: '+20' },
+          { color: 'Blue', hue: '0', sat: '+25', lum: '-10' },
+          { color: 'Orange', hue: '0', sat: '-20', lum: '0' }
+        ],
+        colorGrading: {
+          shadows: { hue: 225, sat: 25 },
+          midtones: { hue: 0, sat: 0 },
+          highlights: { hue: 310, sat: 18 }
+        }
+      }
     },
     {
       id: 'soft-portrait',
@@ -45,7 +92,30 @@
         'Tăng <strong>Exposure +0.3</strong>, <strong>Whites +20</strong> để da sáng hơn. Giảm <strong>Contrast −15</strong> cho tông mềm mại, dreamy.',
         'Điều chỉnh <strong>HSL Orange</strong>: Hue +5, Saturation −15, Luminance +10 để skin tone ấm và đều màu hơn.',
         'Thêm <strong>Vignette −20</strong> nhẹ và <strong>Dehaze −8</strong> để tạo soft haze quanh viền, giữ focus vào mắt subject.'
-      ]
+      ],
+      lrSettings: {
+        temp: 5300, tempMin: 2000, tempMax: 10000,
+        tint: 5, tintMin: -50, tintMax: 50,
+        exposure: 0.30,
+        contrast: -15,
+        highlights: -45,
+        shadows: 30,
+        whites: 20,
+        blacks: -15,
+        texture: -15,
+        clarity: -10,
+        dehaze: -8,
+        vibrance: 10,
+        hsl: [
+          { color: 'Orange', hue: '+5', sat: '-15', lum: '+10' },
+          { color: 'Red', hue: '0', sat: '+5', lum: '+5' }
+        ],
+        colorGrading: {
+          shadows: { hue: 210, sat: 8 },
+          midtones: { hue: 35, sat: 5 },
+          highlights: { hue: 45, sat: 10 }
+        }
+      }
     },
     {
       id: 'teal-orange',
@@ -57,7 +127,31 @@
         'Đẩy <strong>White Balance</strong> về 5800K, Tint +12 để tạo base ấm. Tăng <strong>Vibrance +25</strong> cho màu bão hòa nhưng tự nhiên.',
         'Trong <strong>Color Grading</strong>: Midtones → Teal (#1A8B7A), Highlights → Orange (#D4823A) — công thức kinh điển Hollywood.',
         'Dùng <strong>Tone Curve</strong>: nâng Shadows lên, tạo faded look. Thêm S-curve nhẹ ở midtones để tăng micro-contrast.'
-      ]
+      ],
+      lrSettings: {
+        temp: 5800, tempMin: 2000, tempMax: 10000,
+        tint: 12, tintMin: -50, tintMax: 50,
+        exposure: 0.05,
+        contrast: 10,
+        highlights: -50,
+        shadows: 35,
+        whites: 15,
+        blacks: -20,
+        texture: 0,
+        clarity: -5,
+        dehaze: 5,
+        vibrance: 25,
+        hsl: [
+          { color: 'Blue', hue: '-10', sat: '+15', lum: '0' },
+          { color: 'Orange', hue: '-5', sat: '+20', lum: '0' },
+          { color: 'Yellow', hue: '-10', sat: '0', lum: '0' }
+        ],
+        colorGrading: {
+          shadows: { hue: 210, sat: 20 },
+          midtones: { hue: 180, sat: 10 },
+          highlights: { hue: 35, sat: 22 }
+        }
+      }
     },
     {
       id: 'film-noir',
@@ -69,7 +163,31 @@
         'Chuyển <strong>B&W Mix</strong>: giảm Red −20, tăng Yellow +15, Green −30. Đẩy <strong>Contrast +40</strong> cho high-contrast mono.',
         'Dùng <strong>Tone Curve</strong>: kéo Blacks lên 15% (lifted blacks kiểu film), tạo S-curve mạnh để shadow sâu hơn.',
         'Thêm <strong>Grain +35</strong> (Size 30, Roughness 60) mô phỏng Tri-X 400 push-processed. <strong>Clarity +20</strong> cho texture.'
-      ]
+      ],
+      lrSettings: {
+        temp: 5000, tempMin: 2000, tempMax: 10000,
+        tint: 0, tintMin: -50, tintMax: 50,
+        exposure: 0.10,
+        contrast: 40,
+        highlights: -20,
+        shadows: 25,
+        whites: 30,
+        blacks: -40,
+        texture: 0,
+        clarity: 20,
+        dehaze: 12,
+        vibrance: 0,
+        hsl: [
+          { color: 'B&W Red', hue: '0', sat: '0', lum: '-20' },
+          { color: 'B&W Yellow', hue: '0', sat: '0', lum: '+15' },
+          { color: 'B&W Green', hue: '0', sat: '0', lum: '-30' }
+        ],
+        colorGrading: {
+          shadows: { hue: 210, sat: 5 },
+          midtones: { hue: 0, sat: 0 },
+          highlights: { hue: 45, sat: 8 }
+        }
+      }
     },
     {
       id: 'golden-hour',
@@ -81,7 +199,30 @@
         'Đẩy <strong>Temp lên 6500K</strong>, Tint +8. Tăng <strong>Shadows +35</strong> để mở chi tiết vùng tối, giữ warm tone nhất quán.',
         'Trong <strong>HSL</strong>: Orange Hue −10, Saturation +15. Yellow Luminance +20. Tạo golden light lan tỏa khắp frame.',
         'Áp dụng <strong>Graduated Filter</strong> từ trên xuống: giảm Highlights −30, Temp +500K để bầu trời thêm dramatic và ấm.'
-      ]
+      ],
+      lrSettings: {
+        temp: 6500, tempMin: 2000, tempMax: 10000,
+        tint: 8, tintMin: -50, tintMax: 50,
+        exposure: -0.10,
+        contrast: 5,
+        highlights: -60,
+        shadows: 35,
+        whites: 20,
+        blacks: -15,
+        texture: 0,
+        clarity: -5,
+        dehaze: -5,
+        vibrance: 20,
+        hsl: [
+          { color: 'Orange', hue: '-10', sat: '+15', lum: '0' },
+          { color: 'Yellow', hue: '0', sat: '+25', lum: '+15' }
+        ],
+        colorGrading: {
+          shadows: { hue: 30, sat: 10 },
+          midtones: { hue: 40, sat: 15 },
+          highlights: { hue: 45, sat: 25 }
+        }
+      }
     }
   ];
 
@@ -104,6 +245,145 @@
       <polyline points="12 5 19 12 12 19"></polyline>
     </svg>`
   };
+
+  // ────────────────────────────────────────────
+  // 2B. LIGHTROOM PARAMETERS HELPERS
+  // ────────────────────────────────────────────
+
+  function renderSliderRow(label, value, min, max, unit = "") {
+    let isCenter = (min < 0 && max > 0);
+    let pct = 0;
+    let fillLeft = 0;
+    let fillWidth = 0;
+    let thumbPct = ((value - min) / (max - min)) * 100;
+
+    if (isCenter) {
+      let range = max - min;
+      let zeroPct = (-min / range) * 100;
+      let valPct = ((value - min) / range) * 100;
+      fillLeft = Math.min(zeroPct, valPct);
+      fillWidth = Math.abs(valPct - zeroPct);
+    } else {
+      fillLeft = 0;
+      fillWidth = thumbPct;
+    }
+
+    let displayVal = value > 0 && isCenter ? `+${value}` : `${value}`;
+
+    return `
+      <div class="lr-slider-row">
+        <span class="lr-slider-label">${label}</span>
+        <div class="lr-slider-bar-wrapper">
+          <div class="lr-slider-fill" style="left: ${fillLeft}%; width: ${fillWidth}%;"></div>
+          <div class="lr-slider-thumb" style="left: ${thumbPct}%;"></div>
+        </div>
+        <span class="lr-slider-val">${displayVal}${unit}</span>
+      </div>
+    `;
+  }
+
+  function renderParamsHTML(cs) {
+    const s = cs.lrSettings;
+    if (!s) return '';
+    
+    const basicSliders = [
+      renderSliderRow('Temp', s.temp, s.tempMin, s.tempMax, 'K'),
+      renderSliderRow('Tint', s.tint, s.tintMin, s.tintMax),
+      renderSliderRow('Exposure', s.exposure, -3.0, 3.0),
+      renderSliderRow('Contrast', s.contrast, -100, 100),
+      renderSliderRow('Highlights', s.highlights, -100, 100),
+      renderSliderRow('Shadows', s.shadows, -100, 100),
+      renderSliderRow('Whites', s.whites, -100, 100),
+      renderSliderRow('Blacks', s.blacks, -100, 100),
+      renderSliderRow('Texture', s.texture, -100, 100),
+      renderSliderRow('Clarity', s.clarity, -100, 100),
+      renderSliderRow('Dehaze', s.dehaze, -100, 100),
+      renderSliderRow('Vibrance', s.vibrance, -100, 100)
+    ].join('');
+
+    const hslRows = s.hsl.map(h => `
+      <div style="display: flex; justify-content: space-between; font-size: 0.72rem; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.02);">
+        <span style="color: var(--accent-cyan); font-weight: 500;">${h.color}</span>
+        <span style="font-family: var(--font-mono); color: #ccc;">H: ${h.hue} | S: ${h.sat} | L: ${h.lum}</span>
+      </div>
+    `).join('');
+
+    const renderWheel = (title, grading) => {
+      const radius = 22; // Half of diameter minus thumb boundary
+      const rad = (grading.hue - 90) * Math.PI / 180;
+      const r = (grading.sat / 100) * radius;
+      const x = 25 + r * Math.cos(rad);
+      const y = 25 + r * Math.sin(rad);
+      
+      return `
+        <div class="lr-wheel-card">
+          <div class="lr-wheel-title">${title}</div>
+          <div class="lr-wheel-circle">
+            <div class="lr-wheel-dot" style="left: ${x}px; top: ${y}px;"></div>
+          </div>
+          <div class="lr-wheel-val">${grading.hue}° / ${grading.sat}%</div>
+        </div>
+      `;
+    };
+
+    const shadowWheel = renderWheel('Shadows', s.colorGrading.shadows);
+    const midtoneWheel = renderWheel('Midtones', s.colorGrading.midtones);
+    const highlightWheel = renderWheel('Highlights', s.colorGrading.highlights);
+
+    return `
+      <button class="ba-params-toggle" data-target="${cs.id}">
+        Xem Thông Số Lightroom Chi Tiết
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+      <div class="ba-params-content" id="params-${cs.id}">
+        <div class="lr-panel">
+          <div class="lr-section-title">Tone & Detail</div>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            ${basicSliders}
+          </div>
+          
+          <div class="lr-grid-2">
+            <div>
+              <div class="lr-section-title">Color HSL Adjustments</div>
+              <div style="background: rgba(0,0,0,0.15); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.02); display: flex; flex-direction: column; gap: 4px;">
+                ${hslRows}
+              </div>
+            </div>
+            <div>
+              <div class="lr-section-title">Color Grading Wheels</div>
+              <div class="lr-color-grading-wheels">
+                ${shadowWheel}
+                ${midtoneWheel}
+                ${highlightWheel}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function initParamToggles() {
+    const toggles = document.querySelectorAll('.ba-params-toggle');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const targetId = toggle.getAttribute('data-target');
+        const content = document.getElementById(`params-${targetId}`);
+        if (content) {
+          const isOpen = content.classList.contains('open');
+          if (isOpen) {
+            content.classList.remove('open');
+            toggle.classList.remove('active');
+          } else {
+            content.classList.add('open');
+            toggle.classList.add('active');
+          }
+        }
+      });
+    });
+  }
 
   // ────────────────────────────────────────────
   // 3. RENDER CARDS
@@ -142,12 +422,14 @@
               <p class="ba-step-text">${step}</p>
             </div>
           `).join('')}
+          ${renderParamsHTML(cs)}
         </div>
       </article>
     `).join('');
 
     // Initialize all sliders after rendering
     initSliders();
+    initParamToggles();
     initScrollReveal();
   }
 
