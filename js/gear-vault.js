@@ -14,7 +14,7 @@ const GEAR_DB = [
     desc: 'Kẻ hủy diệt phân khúc APS-C. Auto-focus AI tốt nhất thế giới, quay 4K siêu nét, chống rung IBIS. Tuyệt hảo cho người chạy sự kiện một mình.',
     price: '~35.500.000đ',
     image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/606v4J257U'
   },
   {
     id: 'g-002',
@@ -26,7 +26,7 @@ const GEAR_DB = [
     desc: 'Ống kính "phải có" cho cảm biến Crop. Tiêu cự tương đương 45mm trên Full-frame, hoàn hảo cho chân dung lẫn đường phố. Độ nét tuyệt đối ở f/1.4.',
     price: '~7.500.000đ',
     image: 'https://images.unsplash.com/photo-1617005082633-e07e337de5cc?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/3VPeXg7C09'
   },
   {
     id: 'g-003',
@@ -64,7 +64,7 @@ const GEAR_DB = [
     desc: 'Quái vật thiếu sáng. Cảm biến 12MP thu ánh sáng đỉnh cao, quạt tản nhiệt quay không bao giờ quá nhiệt. Tiêu chuẩn của MV thương mại.',
     price: '~98.000.000đ',
     image: 'https://images.unsplash.com/photo-1589806312595-46c050fb9e0e?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/6KsS1Vb9z6'
   },
   {
     id: 'g-006',
@@ -76,7 +76,7 @@ const GEAR_DB = [
     desc: 'Cỗ máy lai hoàn hảo nhất cho cả quay và chụp thương mại. Khả năng in ấn khổ lớn nhờ cảm biến 45MP và khả năng quay RAW 8K vô tiền khoáng hậu.',
     price: '~85.000.000đ',
     image: 'https://images.unsplash.com/photo-1519638831568-d9897f54ed69?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/50E4d7Vz2V'
   },
   {
     id: 'g-007',
@@ -88,7 +88,7 @@ const GEAR_DB = [
     desc: 'Ống kính đa dụng tối thượng. Nhẹ hơn phiên bản trước 20%, lấy nét cực nhanh, đủ cân mọi job từ Wedding đến Commercial.',
     price: '~58.000.000đ',
     image: 'https://images.unsplash.com/photo-1500634245200-e5245c7574ef?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/3L5Y6X7Z8A'
   },
   {
     id: 'g-008',
@@ -100,7 +100,7 @@ const GEAR_DB = [
     desc: 'Nguồn sáng chính tiêu chuẩn công nghiệp. Đủ mạnh để hắt qua rèm cửa giả lập ánh sáng mặt trời tự nhiên vào ban ngày.',
     price: '~24.000.000đ',
     image: 'https://images.unsplash.com/photo-1527011045970-16acfb8f78f8?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/4Af8b9C0dE'
   },
 
   // --- TIER: DREAM (No Limit) ---
@@ -114,7 +114,7 @@ const GEAR_DB = [
     desc: 'Huyền thoại Hollywood. 17-stop Dynamic Range, tái tạo màu da (Skin tone) không một máy ảnh nào trên thế giới có thể sánh kịp.',
     price: '~1.900.000.000đ',
     image: 'https://images.unsplash.com/photo-1580227318047-9759d57a9e62?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/7Ab6jgoH1H'
   },
   {
     id: 'g-010',
@@ -126,7 +126,7 @@ const GEAR_DB = [
     desc: '"Cooke Look" trứ danh. Cho ra hình ảnh ấm áp, organic và vùng chuyển nét (Roll-off) mượt mà như bơ. Lựa chọn số 1 của các D.P.',
     price: '~1.400.000.000đ (Bộ 5 lens)',
     image: 'https://images.unsplash.com/photo-1620327663249-14a5b4c107be?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/7Ab6jgoH1H'
   },
   {
     id: 'g-011',
@@ -138,7 +138,7 @@ const GEAR_DB = [
     desc: 'Bảng đèn Soft-light bá chủ mọi phim trường. Chỉnh mọi không gian màu, giả lập gel màu chính xác đến từng bước sóng.',
     price: '~165.000.000đ',
     image: 'https://images.unsplash.com/photo-1555543411-825585b9b870?q=80&w=600&auto=format&fit=crop',
-    link: '#'
+    link: 'https://s.shopee.vn/7Ab6jgoH1H'
   }
 ];
 
@@ -351,14 +351,14 @@ document.addEventListener('DOMContentLoaded', () => {
       comboName = "Fujifilm X-T30 II + XF 27mm f/2.8";
       comboDesc = "Combo hoàn hảo cho nhiếp ảnh đường phố. Giả lập màu Film trứ danh của Fujifilm giúp bạn có ảnh đẹp ngay lập tức mà không cần hậu kỳ.";
       items = ["Thân máy Fujifilm X-T30 II (Bạc)", "Ống kính Pancake XF 27mm f/2.8 WR", "Thẻ nhớ SanDisk Extreme Pro 64GB"];
-      affLink = "https://s.shopee.vn/8pjKj2iYzJ"; // Dummy link
+      affLink = "https://s.shopee.vn/8pjKj2iYzJ";
     } 
     // 2. Video + High/Mid Budget
     else if (userAnswers.genre === 'video' && (userAnswers.budget === 'mid' || userAnswers.budget === 'high')) {
       comboName = "Sony FX30 + Sigma 18-50mm f/2.8";
       comboDesc = "Lựa chọn số 1 cho các nhà làm phim tự do. Sony FX30 cung cấp chất lượng 10-bit 4:2:2 chuẩn điện ảnh trong một thân máy nhỏ gọn có quạt tản nhiệt.";
       items = ["Máy quay phim Sony FX30 Cinema Line", "Ống kính Sigma 18-50mm f/2.8 DC DN", "Đèn Godox SL60IID (Key Light)"];
-      affLink = "https://s.shopee.vn/123456789"; 
+      affLink = "https://s.shopee.vn/606v4J257U"; 
       accentColor = "var(--accent-pink)";
     }
     // 3. Photo + Mid Budget
@@ -366,6 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
       comboName = "Sony A7C + Tamron 28-200mm";
       comboDesc = "Cỗ máy Full-frame siêu gọn nhẹ. Phù hợp cho chụp chân dung, phong cảnh và du lịch nhờ hệ thống Autofocus bá đạo của Sony.";
       items = ["Máy ảnh Sony A7C Full-frame", "Ống kính Đa dụng Tamron 28-200mm f/2.8-5.6", "Tủ chống ẩm Andbon 30L"];
+      affLink = "https://s.shopee.vn/4Kf4C6dE8F";
     }
     // 4. Default: Low budget or generic
     else {

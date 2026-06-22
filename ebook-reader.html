@@ -797,7 +797,7 @@
       // Unordered Lists
       html = html.replace(/^\s*-\s+(.+)$/gm, '<li>$1</li>');
       // Wrap consecutive <li> tags in <ul>
-      html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+      html = html.replace(/((?:<li>[\s\S]*?<\/li>\s*)+)/g, '<ul>$1</ul>');
       // Fix issues with double nested ULs
       html = html.replace(/<\/ul>\s*<ul>/g, '');
 

@@ -81,4 +81,124 @@ Tạo hiệu ứng phim nhựa (matte look):
 
 ---
 
-*(Hết Phần Đọc thử. Phiên bản Ebook đầy đủ phân tích thêm 12 bảng màu điện ảnh nâng cao từ các đạo diễn Denis Villeneuve, Wong Kar-wai, Christopher Nolan và hướng dẫn chi tiết cách cân chỉnh màu da chuẩn Hollywood).*
+## CHƯƠNG 4: PHÂN TÍCH BẢNG MÀU CỦA CÁC ĐẠO DIỄN BẬC THẦY
+
+Mỗi đạo diễn vĩ đại đều có một "vân tay màu sắc" (color signature) độc bản. Bằng cách nghiên cứu bảng màu của họ, bạn sẽ học được cách dịch chuyển tâm lý người xem mà không cần dùng đến thoại hay diễn xuất.
+
+### 4.1 Denis Villeneuve - Sắc Vàng Cát, Cam và Bụi Khô Cằn (*Dune*, *Blade Runner 2049*)
+Denis Villeneuve cùng các cộng sự (như D.P Roger Deakins) thường sử dụng bảng màu đơn sắc cực hạn (highly monochromatic), nổi bật nhất là tông màu vàng cát, cam cháy và xám đất sét.
+- **Ý nghĩa tâm lý:** Sự cô độc của con người trước vũ trụ bao la, cảm giác khắc nghiệt của tương lai hậu tận thế, và sự hoang hoải của tinh thần.
+- **Ứng dụng nhiếp ảnh:** Rất phù hợp khi chụp ảnh kiến trúc tối giản (Minimalism) hoặc chân dung ngoại cảnh tại những vùng đất khô cằn, đồi cát. Hãy giảm tối đa dải màu xanh lam và xanh lá, đẩy tông vàng/cam ấm vào cả vùng sáng và vùng tối trung tính.
+
+### 4.2 Vương Gia Vệ (Wong Kar-wai) - Ngọc Bích, Vàng Kim và Đỏ Đam Mê (*In the Mood for Love*, *Chungking Express*)
+Phim của Vương Gia Vệ là bữa tiệc của những sắc màu u uẩn, đậm đặc và hoài niệm: Màu xanh ngọc bích của những mảng tường khách sạn cũ, màu đỏ nhung rực cháy của những chiếc váy sườn xám, và màu vàng kim ấm áp từ những ngọn đèn đường Hong Kong thập niên 90.
+- **Ý nghĩa tâm lý:** Khát khao tình yêu mãnh liệt nhưng bất lực, sự cô đơn đô thị, hoài niệm về quá khứ đã mất, và những bí mật không thể giãi bày.
+- **Ứng dụng nhiếp ảnh:** Tạo ảnh chân dung đêm đô thị bằng cách tăng độ bão hòa màu đỏ và xanh lá cây, sử dụng White Balance lệch ấm và phủ một lớp màu lục lam (Cyan/Green) mờ vào vùng bóng tối sâu.
+
+### 4.3 Christopher Nolan - Xanh Lam Lạnh và Xám Thép (*Interstellar*, *The Dark Knight*)
+Thế giới của Nolan có tính chất lý trí, lạnh lùng và hiện thực cao. Ông hiếm khi sử dụng các tông màu quá rực rỡ, thay vào đó là dải màu xanh lam thẳm, xám kim loại và nâu sẫm của gỗ cổ điển.
+- **Ý nghĩa tâm lý:** Sự ám ảnh, nỗi u sầu sâu thẳm, dòng chảy của thời gian, tính logic lạnh lùng và những dằn vặt nội tâm của các nhân vật nam chính cô độc.
+- **Ứng dụng nhiếp ảnh:** Phù hợp cho ảnh phong cảnh kiến trúc thành phố hiện đại hoặc ảnh phóng sự đường phố. Hãy khử bớt các sắc màu rực rỡ, chỉnh tông màu da hơi tái lạnh và hạ độ bão hòa màu chung xuống khoảng -15.
+
+### 4.4 David Fincher - Lục Xỉn Bệnh Tật và Vàng Trầm Căng Thẳng (*Se7en*, *Fight Club*, *The Social Network*)
+Fincher là bậc thầy tạo ra bầu không khí căng thẳng thần kinh. Phim của ông hầu như luôn bị bao trùm bởi một tông màu xanh lục bẩn (sickly green) hoặc vàng úa ngột ngạt.
+- **Ý nghĩa tâm lý:** Sự mục ruỗng của xã hội hiện đại, bệnh lý tinh thần, paranoia (chứng hoang tưởng bộ phận), và sự mục nát đạo đức.
+- **Ứng dụng nhiếp ảnh:** Thử nghiệm phong cách chân dung Urban Cinematic hoặc Street Photography bằng cách kéo thanh Tint về phía Green (khoảng +5 đến +12), giảm độ sáng (Luminance) của màu da để khuôn mặt trông hơi xanh xao và tăng tương phản vùng tối.
+
+### 4.5 Hayao Miyazaki - Xanh Lá Sinh Mệnh và Pastel Mộng Mơ (*My Neighbor Totoro*, *Spirited Away*)
+Trái ngược hoàn toàn với các đạo diễn live-action u tối, Miyazaki sử dụng bảng màu tươi sáng, ngập tràn sức sống tự nhiên với sắc xanh lá cây trù phú, màu xanh da trời trong vắt và các tông màu pastel nhẹ nhàng.
+- **Ý nghĩa tâm lý:** Sự thuần khiết của trẻ thơ, mối quan hệ hòa hợp giữa con người và thiên nhiên, sự lạc quan và trí tưởng tượng bay bổng.
+- **Ứng dụng nhiếp ảnh:** Hoàn hảo cho ảnh chụp gia đình, trẻ em, hoặc chân dung ngoại cảnh phong cách trong trẻo (Fine Art/Anime-like). Hãy nâng vùng shadow nhẹ nhàng, tăng độ bão hòa của màu xanh lá và xanh lam, đồng thời giữ màu da hồng hào, rực rỡ sức sống.
+
+---
+
+## CHƯƠNG 5: KỸ THUẬT LÀM CHỦ MÀU DA (SKIN TONE CONFORMANCE)
+
+Khi bạn áp dụng những bảng màu điện ảnh đậm đà (như Teal & Orange hay Green Tint), lỗi phổ biến nhất là khuôn mặt của nhân vật bị biến thành màu xanh lè hay màu cam cháy giống như cà rốt. Trong điện ảnh chuyên nghiệp, dù bối cảnh xung quanh có bị nhuộm màu thế nào, màu da người vẫn phải được bảo vệ để trông tự nhiên và có sự sống. Kỹ thuật này gọi là **Skin Tone Conformance** (Đồng bộ hoá màu da).
+
+### 5.1 Đường màu da trên Vectorscope (Skin Tone Line)
+Nếu bạn mở công cụ đo lường màu sắc **Vectorscope** trong các phần mềm chỉnh màu chuyên nghiệp như DaVinci Resolve hay Premiere Pro, bạn sẽ thấy một đường kẻ chéo nằm ở góc khoảng 10 giờ (nằm giữa trục Red và Yellow).
+- **Quy luật sinh học:** Tất cả da người trên thế giới - từ người châu Á da vàng, người châu Phi da đen, đến người châu Âu da trắng - đều có chung một dải sắc tố máu dưới da giống nhau. Do đó, trên máy đo màu, **màu da của bất kỳ ai cũng phải nằm chính xác trên đường kẻ Skin Tone Line này (Hue = ~30°).**
+- Sự khác biệt giữa các màu da chỉ là **Luminance** (độ sáng tối) và **Saturation** (độ đậm nhạt), chứ không phải là **Hue** (sắc đỏ hay vàng).
+
+### 5.2 Cô lập màu da bằng Brush và Range Mask trong Lightroom
+Để chỉnh màu cho cảnh nền mà không làm hỏng màu da, bạn có thể thực hiện theo quy trình sau:
+
+1. **Bước 1: Sử dụng công cụ Masking (Brush hoặc Radial Gradient)** vẽ đè lên vùng da mặt của chủ thể.
+2. **Bước 2: Sử dụng Color Range Mask.** Nhấp chọn bút hút màu (eyedropper) và chấm vào vùng da trung tính trên má của nhân vật. Lightroom sẽ tự động tạo mặt nạ chỉ bao gồm dải màu của da.
+3. **Bước 3: Hiệu chỉnh độc lập.**
+   - Nếu da bị ám xanh do phản chiếu ánh sáng môi trường, hãy kéo thanh **Temp** về phía ấm (Yellow) và tăng nhẹ **Tint** về phía Magenta để trung hòa sắc xanh lục.
+   - Nếu da bị quá cam do tác động của bộ lọc Teal & Orange toàn cục, hãy vào công cụ **Color Mixer (HSL)**, giảm nhẹ độ bão hòa (Saturation) của kênh **Orange** xuống từ -5 đến -15, đồng thời tăng nhẹ **Luminance** của Orange (+5 đến +15) để làm da trông sáng mịn và rạng rỡ hơn.
+
+> [!IMPORTANT]
+> **Quy tắc bảo vệ mắt người xem:** Não bộ con người cực kỳ nhạy cảm với màu da. Chúng ta có thể chấp nhận một cái cây màu xanh dương hay một bầu trời màu hồng phấn trong ảnh nghệ thuật, nhưng chúng ta sẽ lập tức nhận ra sự bất thường ghê rợn (Uncanny Valley) nếu màu da của nhân vật bị ám xanh lục hoặc xám xịt như xác chết.
+
+---
+
+## CHƯƠNG 6: CÔNG THỨC MÀU THỰC CHIẾN TRONG LIGHTROOM & CAMERA RAW
+
+Dưới đây là 3 công thức màu cinematic kinh đoán được LumenForge Academy thiết kế sẵn để bạn có thể tự tay thiết lập thủ công trên Lightroom Classic hoặc Camera RAW.
+
+### 6.1 Công thức Teal & Orange (Hollywood Standard)
+Tạo độ tương phản cực đại giữa chủ thể và phông nền phía sau, mang lại cảm giác bom tấn hành động Mỹ.
+
+- **Profile:** Adobe Landscape (để giữ chi tiết vùng sáng).
+- **Basic Panel:**
+  - Temp: Lệch nhẹ về tông ấm (+2 đến +5)
+  - Contrast: +15
+  - Shadows: +20 (mở rộng chi tiết vùng tối)
+  - Blacks: -10 (giữ độ sâu)
+- **HSL/Color Mixer (Trọng tâm):**
+  - **Red:** Hue +5, Saturation +10, Luminance -5
+  - **Orange (Màu da):** Hue +2 (hơi ngả vàng nhẹ), Saturation -8, Luminance +8
+  - **Yellow:** Hue -15 (kéo về phía cam), Saturation -30
+  - **Green:** Saturation -70 (hạ tông xanh lá cây của cây cối để tránh làm nhiễu mắt)
+  - **Aqua:** Hue -10, Saturation +25
+  - **Blue:** Hue -15 (kéo màu xanh dương về phía Teal/Cyan), Saturation +15, Luminance -10
+- **Color Grading:**
+  - **Shadows:** Hue 215° (Teal), Saturation 12%
+  - **Highlights:** Hue 40° (Warm Gold), Saturation 8%
+  - **Midtones:** Hue 35°, Saturation 3%
+- **Calibration (Bí quyết tạo dải màu mượt mà):**
+  - Blue Primary: Hue -10, Saturation +10
+  - Green Primary: Hue +15
+  - Red Primary: Hue +5
+
+### 6.2 Công thức Cinematic Film Noir (U uất, Cổ điển)
+Mang hơi hướng của những bộ phim trinh thám thế kỷ trước hoặc những bức ảnh nghệ thuật đen tối đậm chất tự sự.
+
+- **Basic Panel:**
+  - Clarity: +15 (tăng chi tiết gai góc)
+  - Dehaze: +5
+  - Vibrance: -25, Saturation: -10 (hạ tông màu tổng thể)
+- **Tone Curve (Quyết định chất Noir):**
+  - Kéo điểm Black Point lên khoảng 8% (tạo mờ sương nhẹ).
+  - Tạo một đường cong chữ S nhẹ để tăng độ tương phản vùng trung tính (Midtones Contrast).
+- **HSL/Color Mixer:**
+  - Giảm Saturation của tất cả các màu đi 30%, ngoại trừ màu **Red** và **Orange** (chỉ giảm 10% để giữ lại một chút sắc tố da tươi tắn của nhân vật).
+- **Color Grading:**
+  - **Shadows:** Hue 205° (Màu xanh dương thép lạnh), Saturation 8%
+  - **Highlights:** Hue 45° (Màu nến ấm), Saturation 5%
+
+### 6.3 Công thức Cyberpunk Neon (Tương lai viễn tưởng)
+Tái hiện bầu không khí đêm mưa lộng lẫy dưới ánh đèn LED của Tokyo hay Thượng Hải, ngập tràn sắc hồng cánh sen và xanh neon cyan.
+
+- **Basic Panel:**
+  - Exposure: -0.5 (dìm ảnh tối xuống để nổi bật đèn neon)
+  - Contrast: +25
+  - Highlights: -30 (cứu chi tiết đèn neon không bị cháy trắng)
+  - Shadows: +35 (cứu chi tiết trong bóng tối)
+- **HSL/Color Mixer:**
+  - **Red:** Hue -5, Saturation +30
+  - **Orange:** Hue -5, Saturation +15
+  - **Blue:** Hue -10 (kéo về màu Cyan), Saturation +40, Luminance +10 (làm nguồn sáng xanh rực rỡ hơn)
+  - **Purple/Magenta:** Hue -15, Saturation +45, Luminance +15 (tạo màu hồng neon rực rỡ)
+- **Color Grading:**
+  - **Shadows:** Hue 240° (Deep Blue), Saturation 15%
+  - **Highlights:** Hue 320° (Magenta/Pink), Saturation 20%
+- **Effects:**
+  - Vignette: -15 (bo góc tối để hút mắt vào giữa khung hình).
+
+---
+
+*(Chúc mừng bạn đã hoàn thành trọn vẹn cuốn sách chuyên sâu "Tâm Lý Học Màu Sắc Trong Điện Ảnh". Hãy ứng dụng các bảng phối màu này để kể những câu chuyện của riêng bạn tại LumenForge Academy).*

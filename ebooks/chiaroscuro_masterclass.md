@@ -110,4 +110,76 @@ Sơ đồ kinh điển của Hollywood thời kỳ hoàng kim (những năm 1930
 
 ---
 
-*(Hết Phần Đọc thử. Phiên bản Ebook đầy đủ còn bao gồm 11 sơ đồ nâng cao khác như: Cross Lighting cho chụp thể thao, Edge/Rim Lighting tách nền, và Color Contrast Theory kết hợp với bóng tối).*
+## CHƯƠNG 4: THIẾT LẬP THỰC CHIẾN VỚI CÁC SƠ ĐỒ ÁNH SÁNG NÂNG CAO
+
+Khi đã làm chủ được các kỹ thuật cơ bản, bạn có thể kết hợp nhiều nguồn sáng phụ hoặc phụ kiện đặc chủng để tạo nên những bức ảnh chân thực và quyến rũ vượt trội.
+
+### Setup 05: Cross Lighting (Ánh sáng Chéo) trong Chân dung Thể thao
+Kỹ thuật này sử dụng hai nguồn sáng đặt đối diện chéo góc nhau để khắc họa chi tiết từng thớ cơ, giọt mồ hôi và nếp nhăn quần áo của vận động viên.
+
+- **Cách thiết lập:**
+  - Nguồn sáng A (Key Light): Đặt phía trước bên trái chủ thể góc 45 độ, cao qua đầu.
+  - Nguồn sáng B (Rim Light): Đặt chéo đối diện ở phía sau bên phải chủ thể góc 135 độ, hướng trực tiếp vào gáy.
+  - **Tác dụng:** Key Light định hình khối khuôn mặt, trong khi Rim Light chém một đường sáng sắc lẻm dọc viền cơ thể, tách biệt hoàn toàn vận động viên khỏi phông nền tối.
+
+### Setup 06: Edge / Rim Lighting (Ánh sáng Viền Tối Giản)
+Đây là thiết lập điên rồ nhất của Chiaroscuro: Bạn hoàn toàn biến mất chủ thể trong bóng đêm và chỉ vẽ lên một đường viền ánh sáng duy nhất bao quanh cơ thể.
+
+- **Cách thiết lập:**
+  - Đặt một nguồn sáng mạnh ngay phía sau lưng chủ thể, chiếu thẳng về hướng máy ảnh.
+  - Chủ thể phải đứng che khuất hoàn toàn ngọn đèn đó.
+  - Sử dụng Negative Fill ở cả hai bên máy ảnh để triệt tiêu mọi ánh sáng dội ngược vào mặt trước chủ thể.
+  - **Tâm lý học:** Sự bí ẩn tuyệt đối. Khán giả chỉ nhìn thấy hình dáng bóng đen (silhouette) được viền một lớp ánh sáng lộng lẫy bao quanh tóc và vai.
+
+### Setup 07: Color Contrast Theory (Tương phản Sắc độ trong Bóng tối)
+Chiaroscuro cổ điển chỉ dựa trên độ sáng tối (Luminance Contrast). Nhưng trong điện ảnh hiện đại, chúng ta kết hợp nó với **Tương phản Nhiệt độ màu** (Color Temperature Contrast).
+
+- **Cách thiết lập:**
+  - Sử dụng một đèn Key Light có nhiệt độ màu ấm áp (3200K - vàng cam của nến/đèn halogen) chiếu lên vùng sáng.
+  - Sử dụng một đèn Fill Light hoặc Rim Light có màu lạnh (6500K - màu xanh lam của hoàng hôn hoặc gel màu xanh cyan) chiếu lên vùng tối.
+  - **Hiệu ứng:** Vùng tối không còn là màu đen đơn điệu, nó được nhuộm một sắc xanh thẳm quyến rũ, tạo chiều sâu thị giác vô song mà Caravaggio chưa từng được tiếp cận ở thế kỷ 17.
+
+---
+
+## CHƯƠNG 5: HẬU KỲ CHIAROSCURO TRONG LIGHTROOM & PHOTOSHOP
+
+Đèn và máy ảnh giúp bạn chụp lại cấu trúc ánh sáng. Nhưng chính quá trình hậu kỳ mới là nơi bạn thực sự "điêu khắc" bóng tối theo ý muốn của mình.
+
+### 5.1 Kỹ thuật Dodge & Burn (Né sáng và Ghi hình)
+Đây là kỹ thuật kế thừa trực tiếp từ phòng tối rửa phim nhựa ngày xưa. Nó giống như việc bạn dùng cọ vẽ trực tiếp lên các khối cơ mặt để định hình cấu trúc 3D.
+
+- **Dodge (Làm sáng):** Dùng cọ Brush trong Lightroom quét lên những vùng nhận sáng tự nhiên (sống mũi, gò má, trán). Tăng Exposure khoảng +0.3 và tăng Highlights +10.
+- **Burn (Làm tối):** Dùng cọ quét lên những vùng bóng đổ (hốc má, thái dương, viền cằm). Giảm Exposure khoảng -0.4 và giảm Shadows -15.
+- **Quy tắc vàng:** Luôn dùng cọ có độ mềm tối đa (Feather = 100%) và độ đậm đặc thấp (Flow = 10-15%) để các nét vẽ chồng chéo tự nhiên, không để lại vệt cọ.
+
+### 5.2 Kiểm soát dải chuyển màu (Tonal Range) bằng Tone Curve
+Đường cong Tone Curve là trái tim của chất ảnh cinematic.
+
+- **Tạo Matte Shadows (Vùng tối mù sương):**
+  - Chấm 3 điểm trên đường cong RGB để khóa vùng Midtones.
+  - Kéo điểm dưới cùng bên trái (Black Point) nâng lên khoảng 6%. Vùng tối sâu nhất sẽ chuyển sang xám tro mượt mà.
+  - Ghìm điểm thứ hai (Shadow Point) hơi đi xuống một chút để bù lại độ tương phản cho vùng tối trung tính.
+  - **Kết quả:** Vùng đen sâu thẳm được xử lý tinh tế, mang màu sắc hoài cổ của những thước phim nhựa Kodak Vision3 500T.
+
+---
+
+## CHƯƠNG 6: TƯ DUY CỦA ĐẠO DIỄN HÌNH ẢNH (CINEMATOGRAPHY INSIGHTS)
+
+Hãy cùng mổ xẻ cách các đạo diễn hình ảnh (D.P) vĩ đại nhất lịch sử điện ảnh sử dụng Chiaroscuro để kể chuyện mà không cần lời thoại.
+
+### 6.1 Gordon Willis và Phim *The Godfather* (Bố Già - 1972)
+Gordon Willis được mệnh danh là "Hoàng tử bóng tối" (Prince of Darkness) sau kiệt tác này. Trước đó, các hãng phim Hollywood luôn yêu cầu mọi cảnh quay phải được chiếu sáng rõ nét để khán giả nhìn rõ mặt diễn viên. Willis đã phá vỡ hoàn toàn quy tắc đó.
+
+Trong cảnh mở đầu phim, nhân vật Bố Già (Marlon Brando) ngồi trong căn phòng tối đóng kín cửa sổ. Willis treo một ngọn đèn trần chiếu thẳng từ trên đầu xuống (Top Light).
+- **Hiệu ứng:** Đôi mắt của Bố Già chìm hoàn toàn vào hai hốc mắt đen ngòm, không một chút ánh sáng phản chiếu.
+- **Tâm lý kể chuyện:** Người xem cảm nhận ngay sự lạnh lùng tàn nhẫn, quyền lực tối thượng và những âm mưu nằm sâu trong bóng tối của người đứng đầu thế giới ngầm. Đôi mắt chìm sâu chính là chiếc mặt nạ che đậy suy nghĩ thực sự của nhân vật.
+
+### 6.2 Roger Deakins và Phim *Blade Runner 2049* (2017)
+Deakins đã giành giải Oscar vĩ đại nhờ sự kết hợp giữa Chiaroscuro cổ điển và thế giới tương lai Cyberpunk. 
+
+Trong văn phòng của Wallace (nhân vật phản diện), Deakins sử dụng kỹ thuật đánh sáng chuyển động (Moving Light). Ánh sáng vàng rực rỡ dội xuống mặt nước phản chiếu lên những bức tường bê tông xám xịt của căn phòng khổng lồ, liên tục di chuyển và quét qua khuôn mặt nhân vật.
+- **Hiệu ứng:** Sự chuyển dịch liên tục giữa ánh sáng chói lòa và bóng tối đặc quánh tạo ra sự bất an tột độ. Nó điêu khắc cấu trúc hình học tối giản của kiến trúc căn phòng và lột tả nội tâm méo mó của kẻ muốn tự xưng làm chúa tể.
+
+---
+
+*(Chúc mừng bạn đã hoàn tất cuốn sách chuyên sâu "Bậc Thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối". Hãy tiếp tục rèn luyện kỹ năng quan sát ánh sáng mỗi ngày tại LumenForge Academy).*
