@@ -324,11 +324,11 @@ window.TOOLS_DB = [
     "status": "Active"
   },
   {
-    "id": "gear-matchmaker",
-    "title": "Gear Matchmaker Quiz",
-    "desc": "Khảo sát nhu cầu để tìm ra bộ thiết bị (máy ảnh, ống kính, đèn) phù hợp nhất với ngân sách và phong cách của bạn.",
+    "id": "visual-identity",
+    "title": "Khảo sát Bản sắc Thị giác & Thiết bị",
+    "desc": "Trắc nghiệm tìm ra cá tính thị giác và bộ thiết bị (máy ảnh, ống kính, setup) phù hợp nhất với phong cách của bạn.",
     "category": "gear",
-    "link": "tools/gear-matchmaker.html",
+    "link": "tools/visual-identity.html",
     "accent": "cyan",
     "status": "Active"
   },

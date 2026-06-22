@@ -20,31 +20,31 @@ const PRODUCT_MAP = {
     name: 'Creator Starter Bundle', 
     title: 'Creator Starter Bundle',
     type: 'Bundle', 
-    link: 'dashboard.html' 
+    link: 'downloads/creator-starter-bundle.zip' 
   },
   'ebook-chiaroscuro': { 
     name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', 
     title: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối',
     type: 'Ebook (PDF)', 
-    link: 'ebooks/chiaroscuro_masterclass.md'
+    link: 'ebook-reader.html?book=chiaroscuro'
   },
   'ebook-color': { 
     name: 'Tâm lý học Màu sắc trong Điện ảnh', 
     title: 'Tâm lý học Màu sắc trong Điện ảnh',
     type: 'Ebook (PDF)', 
-    link: 'ebook-preview.html' 
+    link: 'ebook-reader.html?book=color'
   },
   'preset-film': { 
     name: 'Analog Film Emulation Pack (10 Presets)', 
     title: 'Analog Film Emulation Pack (10 Presets)',
     type: 'Presets & LUTs', 
-    link: 'store.html' 
+    link: 'downloads/analog-film-pack.zip' 
   },
   'preset-cyberpunk': { 
     name: 'Cyberpunk Neon Nights (5 LUTs)', 
     title: 'Cyberpunk Neon Nights (5 LUTs)',
     type: 'LUTs (.CUBE)', 
-    link: 'store.html' 
+    link: 'downloads/cyberpunk-neon-luts.zip' 
   }
 };
 

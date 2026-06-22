@@ -406,6 +406,58 @@ HƯỚNG DẪN THỰC HÀNH:
         zip_file.writestr("Checklists/Practice_RAW_Files_Links.txt", raw_links)
         
     print(f"Pro ZIP created at: {pro_zip_path}")
+
+    # --- 3. CREATE ANALOG FILM PACK ZIP ---
+    film_zip_path = os.path.join(downloads_dir, "analog-film-pack.zip")
+    print("Generating analog film zip...")
+    with zipfile.ZipFile(film_zip_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        presets = ["Kodak_Warm_Pro", "Vintage_Chrome_Pro", "Editorial_Matte_Pro", "Classic_Mono_Pro"]
+        for p in presets:
+            zip_file.writestr(f"Presets/{p}.xmp", create_xmp_content(p.replace("_", " ")))
+        zip_file.writestr("Guides/LumenForge_Pro_Lightroom_Workflow.txt", pro_guide)
+        zip_file.writestr("Guides/Before_After_Case_Studies.txt", case_studies)
+    print(f"Analog film ZIP created at: {film_zip_path}")
+
+    # --- 4. CREATE CYBERPUNK NEON LUTS ZIP ---
+    cyber_zip_path = os.path.join(downloads_dir, "cyberpunk-neon-luts.zip")
+    print("Generating cyberpunk neon luts zip...")
+    with zipfile.ZipFile(cyber_zip_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        presets = ["Moody_Night_Pro", "Cyber_Glow_Pro"]
+        for p in presets:
+            zip_file.writestr(f"Presets/{p}.xmp", create_xmp_content(p.replace("_", " ")))
+        zip_file.writestr("Guides/LumenForge_Pro_Lightroom_Workflow.txt", pro_guide)
+    print(f"Cyberpunk neon LUTs ZIP created at: {cyber_zip_path}")
+
+    # --- 5. CREATE CREATOR STARTER BUNDLE ZIP ---
+    bundle_zip_path = os.path.join(downloads_dir, "creator-starter-bundle.zip")
+    print("Generating creator starter bundle zip...")
+    with zipfile.ZipFile(bundle_zip_path, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        # Add all presets
+        presets = [
+            "Kodak_Warm_Pro", "Teal_Orange_Pro", "Moody_Night_Pro", 
+            "Soft_Portrait_Pro", "Classic_Mono_Pro", "Forest_Fade_Pro", 
+            "Cyber_Glow_Pro", "Golden_Hour_Pro", "Editorial_Matte_Pro", 
+            "Vintage_Chrome_Pro"
+        ]
+        for p in presets:
+            zip_file.writestr(f"Presets/{p}.xmp", create_xmp_content(p.replace("_", " ")))
+        zip_file.writestr("Guides/LumenForge_Pro_Lightroom_Workflow.txt", pro_guide)
+        zip_file.writestr("Guides/Before_After_Case_Studies.txt", case_studies)
+        zip_file.writestr("Checklists/Shooting_Editing_Checklist.txt", checklist)
+        zip_file.writestr("Checklists/Practice_RAW_Files_Links.txt", raw_links)
+        
+        # Read chiaroscuro ebook
+        chiaroscuro_path = os.path.join(base_dir, "ebooks", "chiaroscuro_masterclass.md")
+        if os.path.exists(chiaroscuro_path):
+            with open(chiaroscuro_path, 'r', encoding='utf-8') as f:
+                zip_file.writestr("Ebooks/chiaroscuro_masterclass.md", f.read())
+                
+        # Read color psychology ebook
+        color_path = os.path.join(base_dir, "ebooks", "color_psychology.md")
+        if os.path.exists(color_path):
+            with open(color_path, 'r', encoding='utf-8') as f:
+                zip_file.writestr("Ebooks/color_psychology.md", f.read())
+    print(f"Creator starter bundle ZIP created at: {bundle_zip_path}")
     print("Successfully generated all static assets!")
 
 if __name__ == "__main__":

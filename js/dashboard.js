@@ -38,8 +38,11 @@ async function initDashboard() {
         const coreProducts = [
             { id: 'free-kit', name: 'LumenForge Starter Kit (Free Edition)', type: 'Presets & Guides (ZIP)', link: 'downloads/lumenforge-starter-kit-free.zip' },
             { id: 'starter-kit-pro', name: 'LumenForge Starter Kit (Pro Edition)', type: 'Presets & Guides (ZIP)', link: 'downloads/lumenforge-starter-kit-pro.zip' },
-            { id: 'ebook-chiaroscuro', name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', type: 'Ebook (PDF)', link: 'ebooks/chiaroscuro_masterclass.md' },
-            { id: 'ebook-color', name: 'Tâm lý học Màu sắc trong Điện ảnh', type: 'Ebook (PDF)', link: 'ebook-preview.html' }
+            { id: 'ebook-chiaroscuro', name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=chiaroscuro' },
+            { id: 'ebook-color', name: 'Tâm lý học Màu sắc trong Điện ảnh', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=color' },
+            { id: 'preset-film', name: 'Analog Film Emulation Pack (10 Presets)', type: 'Presets & LUTs', link: 'downloads/analog-film-pack.zip' },
+            { id: 'preset-cyberpunk', name: 'Cyberpunk Neon Nights (5 LUTs)', type: 'Presets & LUTs', link: 'downloads/cyberpunk-neon-luts.zip' },
+            { id: 'bundle-starter', name: 'Creator Starter Bundle', type: 'Bundle', link: 'downloads/creator-starter-bundle.zip' }
         ];
         const prodMeta = coreProducts.find(p => p.id === prodId);
         
@@ -232,18 +235,45 @@ async function initDashboard() {
                 name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối',
                 type: 'Ebook (PDF)',
                 desc: 'Nghệ thuật kiểm soát hướng sáng và tương phản sâu sắc Caravaggio.',
-                link: '#',
-                price: 299000,
-                comingSoon: true
+                link: 'ebook-reader.html?book=chiaroscuro',
+                price: 149000,
+                comingSoon: false
             },
             {
                 id: 'ebook-color',
                 name: 'Tâm lý học Màu sắc trong Điện ảnh',
                 type: 'Ebook (PDF)',
                 desc: 'Cách Hollywood thao túng cảm xúc người xem thông qua bảng màu phim nhựa.',
-                link: '#',
+                link: 'ebook-reader.html?book=color',
+                price: 99000,
+                comingSoon: false
+            },
+            {
+                id: 'preset-film',
+                name: 'Analog Film Emulation Pack (10 Presets)',
+                type: 'Presets & LUTs',
+                desc: 'Gói 10 preset giả lập màu film nhựa Kodak Vision3 và Fuji Eterna.',
+                link: 'downloads/analog-film-pack.zip',
+                price: 99000,
+                comingSoon: false
+            },
+            {
+                id: 'preset-cyberpunk',
+                name: 'Cyberpunk Neon Nights (5 LUTs)',
+                type: 'Presets & LUTs',
+                desc: 'Bộ 5 LUTs màu neon tương phản mạnh mẽ dành cho cảnh đêm thiếu sáng.',
+                link: 'downloads/cyberpunk-neon-luts.zip',
+                price: 79000,
+                comingSoon: false
+            },
+            {
+                id: 'bundle-starter',
+                name: 'Creator Starter Bundle',
+                type: 'Bundle',
+                desc: 'Trọn bộ Ebook Chiaroscuro + 15 Cinematic LUTs + Template Call Sheet.',
+                link: 'downloads/creator-starter-bundle.zip',
                 price: 249000,
-                comingSoon: true
+                comingSoon: false
             }
         ];
 

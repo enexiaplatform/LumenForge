@@ -231,11 +231,14 @@
       <h1>Bậc thầy Chiaroscuro:<br>Nghệ thuật điêu khắc bóng tối</h1>
       <p>Cuốn sách kỹ thuật duy nhất bạn cần để thoát khỏi những bức ảnh phẳng lì tẻ nhạt. Học cách kiểm soát hướng sáng, Negative Fill và Inverse Square Law để tạo ra những tác phẩm chân dung điện ảnh đầy kịch tính.</p>
       
-      <div class="sales-cta-box" style="flex-direction: column; gap: 15px;">
-        <span class="btn-checkout" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; text-align: center;">Sắp ra mắt (Coming Soon)</span>
-        <a href="starter-kit-pro.html" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;">Xem Starter Kit Pro thay thế &rarr;</a>
+      <div class="sales-cta-box" style="gap: 15px; display: inline-flex; justify-content: center; flex-wrap: wrap;">
+        <div style="text-align: left; padding: 0 15px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="color: var(--text-dim); text-decoration: line-through; font-size: 0.85rem;">Giá gốc: 299.000đ</div>
+          <div style="color: var(--accent-amber); font-weight: 800; font-size: 1.8rem; font-family: var(--font-mono); line-height: 1;">149.000đ</div>
+        </div>
+        <a href="#" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">MUA EBOOK NGAY</a>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ PDF Chất lượng cao &nbsp; • &nbsp; Đăng ký nhận thông tin khi có bản chính thức</p>
+      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ PDF Chất lượng cao &nbsp; • &nbsp; Đọc ngay sau thanh toán thành công</p>
     </div>
   </header>
 
@@ -313,8 +316,14 @@
     <div class="container" style="max-width: 800px;">
       <div class="guarantee">
         <h2 style="font-size: 2rem; color: var(--accent-amber); margin-bottom: 15px;">Cam kết Chất lượng</h2>
-        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Chúng tôi cam kết mang lại nội dung chuyên sâu nhất về nghệ thuật ánh sáng và bóng tối trong nhiếp ảnh và điện ảnh.</p>
-        <span class="btn-checkout" style="background: rgba(255,255,255,0.05); color: var(--text-dim); border: 1px solid var(--border-color); cursor: not-allowed; display: inline-block;">Sắp ra mắt (Coming Soon)</span>
+        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Chúng tôi cam kết mang lại nội dung chuyên sâu nhất về nghệ thuật ánh sáng và bóng tối trong nhiếp ảnh và điện ảnh. Bạn sẽ nhận được toàn bộ các tài liệu cập nhật miễn phí trọn đời.</p>
+        <div style="display: inline-flex; gap: 20px; align-items: center;">
+          <div style="text-align: left;">
+            <span style="color: var(--text-dim); text-decoration: line-through; font-size: 0.85rem; display:block;">Giá gốc: 299.000đ</span>
+            <span style="color: var(--accent-amber); font-weight: 800; font-size: 1.8rem; font-family: var(--font-mono);">149.000đ</span>
+          </div>
+          <a href="#" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none; display: inline-block;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">SỞ HỮU EBOOK MASTERCLASS</a>
+        </div>
       </div>
     </div>
   </section>
@@ -352,9 +361,10 @@
   <!-- Sticky CTA for Mobile -->
   <div class="sticky-cta">
     <div>
-      <div style="color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem;">Sắp ra mắt</div>
+      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through; line-height: 1;">299k</div>
+      <div style="color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem; line-height: 1;">149.000đ</div>
     </div>
-    <a href="starter-kit-pro.html" class="sticky-cta-btn" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;">XEM STARTER KIT</a>
+    <a href="#" class="sticky-cta-btn" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">MUA EBOOK</a>
   </div>
 
   <script src="js/common.js"></script>

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(tool.category === 'ai') imgUrl = "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop";
 
         
-        const top5 = ['shoot-planner', 'lens-decoder', 'exposure-reactor', 'film-look', 'gear-matchmaker'];
+        const top5 = ['shoot-planner', 'lens-decoder', 'exposure-reactor', 'film-look', 'visual-identity'];
         const isTop = top5.includes(tool.id);
         
         let extraHTML = '';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div style="font-size: 0.85rem; color: #ccc; margin-bottom: 15px;">Giải quyết nhanh vấn đề của bạn trong tích tắc.</div>
                 <div style="display: flex; gap: 10px;">
                     <span style="display: inline-block; background: var(--accent-cyan); color: #000; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">Dùng thử ngay</span>
-                    <a href="../store.html" style="display: inline-block; background: rgba(255,255,255,0.1); color: #fff; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; text-decoration: none;">Đến Store</a>
+                    <a href="store.html" style="display: inline-block; background: rgba(255,255,255,0.1); color: #fff; padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; text-decoration: none;">Đến Store</a>
                 </div>
               </div>
             `;
