@@ -28,6 +28,7 @@ function generateHTML(recipe) {
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
   <style>
     .recipe-header {
       background: linear-gradient(135deg, rgba(10,10,12,0.9), rgba(10,10,12,0.9)), url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e?q=80&w=2000&auto=format&fit=crop') center/cover;
