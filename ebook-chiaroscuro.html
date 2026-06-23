@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối — LumenForge</title>
-  <meta name="description" content="Khóa học Ebook Masterclass: Làm chủ nghệ thuật ánh sáng Chiaroscuro trong nhiếp ảnh chân dung và điện ảnh.">
+  <meta name="description" content="Làm chủ nghệ thuật ánh sáng kịch tính, kiểm soát bóng tối và biến đổi bức ảnh phẳng lì tẻ nhạt thành tác phẩm điện ảnh có chiều sâu. 120+ trang tài liệu thực chiến.">
   <meta name="theme-color" content="#0A0A0C">
   <meta name="color-scheme" content="dark">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://lumen-forge-omega.vercel.app/ebook-chiaroscuro.html">
-  <meta property="og:title" content="Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối">
-  <meta property="og:description" content="Khóa học Ebook Masterclass: Làm chủ nghệ thuật ánh sáng Chiaroscuro trong nhiếp ảnh chân dung và điện ảnh.">
+  <meta property="og:url" content="https://lumenforge.studio/ebook-chiaroscuro.html">
+  <meta property="og:title" content="Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối — Masterclass Ebook">
+  <meta property="og:description" content="Làm chủ nghệ thuật ánh sáng kịch tính, kiểm soát bóng tối và biến đổi bức ảnh thành tác phẩm điện ảnh có chiều sâu.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1200&auto=format&fit=crop">
 
   <!-- Twitter -->
@@ -22,198 +22,883 @@
   <link rel="stylesheet" href="css/design-system.css">
   <link rel="stylesheet" href="css/home.css">
   <style>
-    /* Sales Page Specific Styles */
-    .sales-hero {
-      padding: 140px 0 80px;
-      background: linear-gradient(180deg, rgba(10,10,12,0.9) 0%, rgba(10,10,12,1) 100%), url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=2000&auto=format&fit=crop') center/cover;
-      text-align: center;
-      border-bottom: 1px solid var(--border-color);
+    /* ===== PREMIUM CHIAROSCURO STYLES ===== */
+    :root {
+      --color-gold-1: #d4af37;
+      --color-gold-2: #F5A623;
+      --color-gold-dark: #8a6d1c;
+      --color-shadow-dark: #060608;
     }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* Ambient gold/amber glows */
+    .amber-glow-container {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.12;
+      mix-blend-mode: screen;
+      animation: floatOrb 25s infinite alternate ease-in-out;
+    }
+
+    .glow-orb-1 {
+      top: 5%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--color-gold-2) 0%, transparent 80%);
+      animation-delay: 0s;
+    }
+
+    .glow-orb-2 {
+      top: 30%; right: -15%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, var(--color-gold-1) 0%, transparent 80%);
+      animation-delay: -5s;
+    }
+
+    .glow-orb-3 {
+      top: 65%; left: 15%;
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, var(--color-gold-dark) 0%, transparent 80%);
+      animation-delay: -10s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(60px) scale(1.1); }
+    }
+
+    /* Hero Section */
+    .sales-hero {
+      padding: 160px 0 100px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: radial-gradient(180deg, rgba(10,10,12,0.4) 0%, rgba(10,10,12,1) 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+    }
+
     .sales-badge {
       display: inline-block;
-      padding: 6px 16px;
-      background: rgba(245, 166, 35, 0.1);
-      color: var(--accent-amber);
-      border: 1px solid var(--accent-amber);
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      letter-spacing: 1px;
+      padding: 6px 18px;
+      background: rgba(245, 166, 35, 0.06);
+      color: var(--color-gold-2);
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
       margin-bottom: 24px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
     }
+
     .sales-hero h1 {
-      font-size: 3.5rem;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      background: linear-gradient(90deg, #fff, #d4af37);
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.15;
+      font-weight: 900;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 30%, var(--color-gold-1) 70%, var(--color-gold-2) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      letter-spacing: -1px;
     }
-    .sales-hero p {
-      font-size: 1.25rem;
+
+    .sales-hero .subtitle {
+      font-size: 1.2rem;
       color: var(--text-secondary);
-      max-width: 700px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
+      margin-bottom: 32px;
+      line-height: 1.7;
     }
-    .sales-cta-box {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: 30px;
-      display: inline-flex;
+
+    /* Cover Art 3D Showcase */
+    .cover-showcase {
+      perspective: 1500px;
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 30px;
-      backdrop-filter: blur(10px);
     }
+
+    .book-container {
+      position: relative;
+      width: 300px;
+      height: 410px;
+      transition: transform 0.6s cubic-bezier(0.15, 0.85, 0.45, 1);
+      transform-style: preserve-3d;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+      border-radius: 8px;
+    }
+
+    .book-container:hover {
+      transform: rotateY(-22deg) rotateX(10deg) translateY(-10px);
+    }
+
+    .book-cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 2;
+      background: #111;
+      transform: translateZ(25px);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .book-spine {
+      position: absolute;
+      width: 50px;
+      height: 100%;
+      background: linear-gradient(90deg, #09090b 0%, #1c1c24 100%);
+      left: -25px;
+      top: 0;
+      transform: rotateY(-90deg);
+      z-index: 1;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .book-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #121216;
+      border-radius: 8px;
+      transform: rotateY(180deg) translateZ(25px);
+      z-index: 0;
+      box-shadow: -10px 10px 50px rgba(0,0,0,0.6);
+    }
+
+    /* Glassmorphism Price CTA Block */
+    .sales-cta-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+      max-width: 480px;
+    }
+
+    @media (max-width: 992px) {
+      .sales-cta-box {
+        margin: 0 auto;
+      }
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
     .price-block {
-      text-align: left;
+      display: flex;
+      flex-direction: column;
     }
+
     .price-old {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-dim);
       text-decoration: line-through;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
+
     .price-new {
-      font-size: 2.5rem;
-      font-weight: bold;
+      font-size: 2.2rem;
+      font-weight: 900;
       color: #fff;
+      font-family: var(--font-mono);
+      line-height: 1;
     }
-    .btn-checkout {
-      background: var(--accent-amber);
+
+    .price-label {
+      font-size: 0.72rem;
+      color: var(--color-gold-2);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-buy-now {
+      flex: 1.3;
+      background: var(--color-gold-2);
       color: #000;
-      padding: 15px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
+      font-weight: 800;
+      padding: 14px 20px;
       border-radius: 8px;
       text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-checkout:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(245, 166, 35, 0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
     }
 
-    .pain-points {
-      padding: 80px 0;
-      background: var(--bg-body);
+    .btn-buy-now:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(245, 166, 35, 0.25);
     }
-    .pain-point-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 20px;
+
+    .btn-read-sample {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-weight: 600;
+      padding: 14px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn-read-sample:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Section Labels */
+    .section-title-sales {
+      color: var(--color-gold-2);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-heading {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-subheading {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 650px;
+      margin: 0 auto 50px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* PAIN POINTS SECTION */
+    .pain-section {
+      background: rgba(10, 10, 12, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .pain-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .pain-card:hover {
+      border-color: rgba(245, 166, 35, 0.2);
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .pain-icon {
+      font-size: 2rem;
+      color: #ff4d4d;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    .pain-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .pain-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    /* INTERACTIVE LIGHTING SIMULATOR */
+    .simulator-section {
+      background: #0A0A0C;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .simulator-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: stretch;
       margin-bottom: 30px;
     }
-    .pain-icon {
-      color: #ff4757;
-      font-size: 1.5rem;
+
+    @media (max-width: 992px) {
+      .simulator-layout {
+        grid-template-columns: 1fr;
+      }
     }
 
-    .module-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .module-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border-color);
-      padding: 30px;
-      border-radius: 8px;
-      border-top: 3px solid var(--accent-amber);
-    }
-    .module-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      color: var(--text-primary);
-    }
-    .module-card ul {
-      list-style: none;
-      padding: 0;
-    }
-    .module-card ul li {
-      margin-bottom: 10px;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+    .simulator-controls {
       display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    @media (max-width: 992px) {
+      .simulator-controls {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 15px;
+      }
+    }
+
+    .sim-btn {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 16px 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 100%;
+    }
+
+    @media (max-width: 992px) {
+      .sim-btn {
+        min-width: 220px;
+      }
+    }
+
+    .sim-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .sim-btn.active {
+      background: rgba(245, 166, 35, 0.06);
+      border-color: var(--color-gold-2);
+      box-shadow: 0 0 15px rgba(245, 166, 35, 0.1);
+    }
+
+    .sim-btn-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    .sim-btn.active .sim-btn-title {
+      color: var(--color-gold-2);
+    }
+
+    .sim-btn-desc {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    .simulator-visualizer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .simulator-visualizer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sim-diagram-container {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
-    .module-card ul li::before {
-      content: '✓';
-      color: var(--accent-amber);
+
+    .sim-diagram {
+      position: relative;
+      width: 100%;
+      height: 280px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
-    .guarantee {
-      padding: 60px;
+    .diagram-caption, .photo-caption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
       text-align: center;
-      background: rgba(245, 166, 35, 0.05);
-      border: 1px solid rgba(245, 166, 35, 0.2);
-      border-radius: 12px;
-      margin: 80px 0;
     }
-    
-    /* Sticky Mobile CTA */
-    .sticky-cta {
-      position: fixed;
-      bottom: 0;
-      left: 0;
+
+    .diagram-node {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      text-align: center;
+      z-index: 8;
+    }
+
+    .node-model {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.08);
+      border: 2px solid #fff;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    }
+
+    .node-camera {
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 212, 255, 0.08);
+      border: 2px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      border-radius: 6px;
+      width: 50px;
+      height: 34px;
+    }
+
+    .node-light {
+      position: absolute;
+      background: rgba(245, 166, 35, 0.15);
+      border: 2px solid var(--color-gold-2);
+      color: var(--color-gold-2);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      box-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
+    }
+
+    .diagram-light-cone {
+      position: absolute;
+      background: radial-gradient(ellipse at top, rgba(245, 166, 35, 0.15) 0%, transparent 75%);
+      width: 140px;
+      height: 200px;
+      pointer-events: none;
+      z-index: 5;
+      transform-origin: top center;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sim-photo-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sim-photo {
       width: 100%;
-      background: rgba(10,10,12,0.95);
-      backdrop-filter: blur(10px);
-      padding: 15px 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      z-index: 99;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: opacity 0.3s ease;
+    }
+
+    .simulator-description-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+
+    .simulator-description-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-gold-2);
+      margin-bottom: 10px;
+    }
+
+    .simulator-description-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .sim-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .spec-tag {
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 20px;
+      color: var(--text-secondary);
+    }
+
+    .spec-tag strong {
+      color: #fff;
+    }
+
+    /* CHAPTER GRID */
+    .chapters-section {
+      background: rgba(10, 10, 12, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    .chapter-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 30px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      border-top: 3px solid var(--color-gold-2);
+    }
+
+    .chapter-card:hover {
+      border-top-color: #fff;
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .chapter-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-gold-2);
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .chapter-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .chapter-desc {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .chapter-bullets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chapter-bullet {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chapter-bullet::before {
+      content: '✓';
+      color: var(--color-gold-2);
+      font-weight: bold;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-section {
+      background: #0A0A0C;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .test-content {
+      font-style: italic;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .author-img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--color-gold-2);
+    }
+
+    .author-name {
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.92rem;
+    }
+
+    .author-role {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    /* FAQ ACCORDION */
+    .faq-section {
+      background: rgba(10, 10, 12, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .faq-question {
+      padding: 20px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+      font-size: 1.05rem;
+      user-select: none;
     }
-    .sticky-cta-btn {
-      background: var(--accent-amber);
-      color: #000;
-      padding: 12px 24px;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
+
+    .faq-toggle-icon {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      transition: transform 0.3s ease;
     }
-    @media (min-width: 768px) {
+
+    .faq-item.open .faq-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 24px 24px;
+      max-height: 200px;
+    }
+
+    /* STICKY BOTTOM CTA BAR */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(10, 10, 12, 0.95);
+      backdrop-filter: blur(25px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -15px 40px rgba(0,0,0,0.5);
+    }
+
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sticky-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .sticky-prices {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sticky-price-new {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-gold-2);
+      font-family: var(--font-mono);
+    }
+
+    .sticky-price-old {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+
+    .sticky-cta .btn-buy-now {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
       .sticky-cta {
+        padding: 16px 20px;
+      }
+      .sticky-info {
         display: none;
+      }
+      .sticky-cta .btn-buy-now {
+        width: 100%;
+        padding: 12px 0;
       }
     }
   </style>
-
-  <link rel="canonical" href="https://lumenforge.studio/ebook-chiaroscuro.html">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối — LumenForge",
-    "headline": "Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối — LumenForge",
-    "description": "Khóa học Ebook Masterclass: Làm chủ nghệ thuật ánh sáng Chiaroscuro trong nhiếp ảnh chân dung và điện ảnh.",
-    "url": "https://lumenforge.studio/ebook-chiaroscuro.html",
-    "author": {
-      "@type": "Organization",
-      "name": "LumenForge"
-    }
-  }
-  </script>
 </head>
 <body>
 
-        <!-- Navigation -->
-          <nav class="nav" id="main-nav">
+  <!-- Background Orbs -->
+  <div class="amber-glow-container">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
       <div class="nav-menu" id="nav-menu">
         <a href="index.html" class="nav-link">Bắt đầu</a>
         <a href="before-after.html" class="nav-link">Before / After</a>
@@ -221,116 +906,366 @@
         <a href="blog.html" class="nav-link">Blog</a>
         <a href="gear-vault.html" class="nav-link">Kho Thiết Bị</a>
         <a href="tool-lab.html" class="nav-link">Công cụ</a>
-        <a href="store.html" class="nav-link">Cửa hàng</a>
+        <a href="store.html" class="nav-link" style="color: var(--accent-cyan);">Cửa hàng</a>
         <a href="dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="sales-hero">
-    <div class="container">
-      <span class="sales-badge">LUMENFORGE MASTERCLASS EBOOK</span>
-      <h1>Bậc thầy Chiaroscuro:<br>Nghệ thuật điêu khắc bóng tối</h1>
-      <p>Cuốn sách kỹ thuật duy nhất bạn cần để thoát khỏi những bức ảnh phẳng lì tẻ nhạt. Học cách kiểm soát hướng sáng, Negative Fill và Inverse Square Law để tạo ra những tác phẩm chân dung điện ảnh đầy kịch tính.</p>
-      
-      <div class="sales-cta-box" style="gap: 15px; display: inline-flex; justify-content: center; flex-wrap: wrap;">
-        <div style="text-align: left; padding: 0 15px; display: flex; flex-direction: column; justify-content: center;">
-          <div style="color: var(--text-dim); text-decoration: line-through; font-size: 0.85rem;">Giá gốc: 299.000đ</div>
-          <div style="color: var(--accent-amber); font-weight: 800; font-size: 1.8rem; font-family: var(--font-mono); line-height: 1;">149.000đ</div>
+  <!-- HERO SECTION -->
+  <header class="sales-hero" id="hero">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div class="hero-grid">
+        <div>
+          <span class="sales-badge">✦ Masterclass Ebook • Ấn Bản Cao Cấp</span>
+          <h1>Bậc thầy Chiaroscuro:<br>Điêu khắc bóng tối</h1>
+          <p class="subtitle">
+            Khám phá toàn bộ bí mật của Caravaggio và cách áp dụng nó vào nhiếp ảnh chân dung hiện đại. Bản hướng dẫn thực chiến 120+ trang với sơ đồ ánh sáng chân thực và công thức hậu kỳ.
+          </p>
+
+          <div class="sales-cta-box">
+            <div class="price-row">
+              <div class="price-block">
+                <span class="price-old">299.000đ</span>
+                <span class="price-new">149.000đ</span>
+                <span class="price-label">Giá sở hữu vĩnh viễn</span>
+              </div>
+            </div>
+            <div class="cta-buttons">
+              <button class="btn-buy-now" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">
+                Mua Ngay
+              </button>
+              <a href="ebook-reader.html?book=chiaroscuro" class="btn-read-sample">
+                Đọc Thử
+              </a>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center; margin: 0;">
+              ⚡ Mở khóa PDF trên Dashboard ngay lập tức · Lifetime Access · Cập nhật trọn đời
+            </p>
+          </div>
         </div>
-        <a href="#" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">MUA EBOOK NGAY</a>
+
+        <div class="cover-showcase">
+          <div class="book-container">
+            <div class="book-spine"></div>
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=800&auto=format&fit=crop" alt="Ebook Cover Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối">
+            </div>
+            <div class="book-back"></div>
+          </div>
+        </div>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: 20px;">✓ PDF Chất lượng cao &nbsp; • &nbsp; Đọc ngay sau thanh toán thành công</p>
     </div>
   </header>
 
-  <!-- Problem Section -->
-  <section class="section pain-points">
-    <div class="container" style="max-width: 800px;">
-      <h2 style="font-size: 2rem; margin-bottom: 40px; text-align: center;">Bạn có đang gặp phải những vấn đề này?</h2>
-      
-      <div class="pain-point-item">
-        <span class="pain-icon">❌</span>
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Ảnh bị phẳng và thiếu chiều sâu</h4>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">Bạn mua máy ảnh xịn, lens khẩu lớn f/1.4 nhưng bức ảnh chụp ra vẫn trông như chụp bằng điện thoại vì ánh sáng rọi thẳng vào mặt người mẫu.</p>
-        </div>
-      </div>
-
-      <div class="pain-point-item">
-        <span class="pain-icon">❌</span>
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Sợ hãi vùng tối (Shadows)</h4>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">Bạn luôn cố gắng nâng Shadow trong Lightroom để cứu sáng, dẫn đến bức ảnh bị noise, nhợt nhạt và đánh mất hoàn toàn khối 3D tự nhiên của khuôn mặt.</p>
-        </div>
-      </div>
-
-      <div class="pain-point-item">
-        <span class="pain-icon">❌</span>
-        <div>
-          <h4 style="font-size: 1.1rem; margin-bottom: 5px;">Không biết cách setup đèn Studio</h4>
-          <p style="color: var(--text-secondary); font-size: 0.95rem;">Bạn bối rối khi bước vào Studio. Không biết nên đặt Key Light ở góc nào, khoảng cách bao xa, và làm sao để tạo ra vùng chuyển đen (Fall-off) mượt mà.</p>
-        </div>
-      </div>
+  <!-- STATS -->
+  <section class="stats-row" style="background: rgba(10, 10, 12, 0.8); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="stat-card">
+      <div class="stat-value">120+</div>
+      <div class="stat-desc">Trang Thực Chiến</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">4</div>
+      <div class="stat-desc">Chương Học Chuyên Sâu</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">15+</div>
+      <div class="stat-desc">Sơ Đồ Đặt Đèn</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">6+</div>
+      <div class="stat-desc">Case Study Điện Ảnh</div>
     </div>
   </section>
 
-  <!-- What you'll learn -->
-  <section class="section">
+  <!-- PAIN POINTS -->
+  <section class="section pain-section">
     <div class="container">
-      <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 10px;">Chương trình đào tạo trong Ebook</h2>
-      <p style="text-align: center; color: var(--text-secondary); margin-bottom: 50px;">Ấn phẩm phân tích chuyên sâu, sơ đồ đánh sáng và công thức thực chiến sắp ra mắt.</p>
+      <p class="section-title-sales">// VẤN ĐỀ THƯỜNG GẶP</p>
+      <h2 class="section-heading">Bức ảnh của bạn thiếu đi điều gì?</h2>
+      <p class="section-subheading">Nhiều nhiếp ảnh gia đầu tư thiết bị đắt tiền nhưng tác phẩm vẫn mang lại cảm giác phổ thông. Lý do nằm ở cách kiểm soát vùng tối.</p>
 
-      <div class="module-grid">
-        <div class="module-card">
-          <h3>Module 1: Vật lý của Bóng tối</h3>
-          <ul>
-            <li>Cắt nghĩa hội họa Caravaggio và Rembrandt</li>
-            <li>Sự khác biệt giữa Umbra và Penumbra</li>
-            <li>Định luật vuông góc nghịch đảo (Inverse Square Law)</li>
-            <li>Tâm lý học của việc che giấu thông tin</li>
-          </ul>
+      <div class="pain-grid">
+        <div class="pain-card">
+          <span class="pain-icon">❌</span>
+          <h3>Ảnh bị phẳng & Thiếu khối</h3>
+          <p>Ánh sáng rọi thẳng trực diện khiến khuôn mặt chủ thể mất đi các nếp cơ và cấu trúc xương, trông như ảnh chụp thẻ hoặc ảnh chụp điện thoại.</p>
         </div>
-        <div class="module-card">
-          <h3>Module 2: Công cụ của Bậc thầy</h3>
-          <ul>
-            <li>Cách sử dụng Negative Fill (V-Flats đen)</li>
-            <li>Biến ánh sáng cứng thành mềm bằng Grid/Softbox</li>
-            <li>Sử dụng snoot để kiểm soát hướng sáng</li>
-            <li>Tỷ lệ sáng tối (Lighting Ratios) 1:4 và 1:8</li>
-          </ul>
+        <div class="pain-card">
+          <span class="pain-icon">❌</span>
+          <h3>Sợ hãi vùng tối (Shadow Phobia)</h3>
+          <p>Luôn cố cứu sáng vùng tối trong Lightroom làm ảnh bị nhiễu hạt (noise), nhợt nhạt, đánh mất chiều sâu kịch tính và độ tương phản tự nhiên.</p>
         </div>
-        <div class="module-card">
-          <h3>Module 3: 15 Sơ đồ Setup Thực chiến</h3>
-          <ul>
-            <li>Split Lighting (Bóng đổ 50/50 kịch tính)</li>
-            <li>Rembrandt Triangle (Tam giác ánh sáng cổ điển)</li>
-            <li>Paramount / Butterfly Lighting (Chân dung sắc đẹp)</li>
-            <li>Cách setup đèn bằng 1 nguồn sáng duy nhất</li>
-          </ul>
+        <div class="pain-card">
+          <span class="pain-icon">❌</span>
+          <h3>Bối rối khi sắp đặt đèn Studio</h3>
+          <p>Không biết đặt Key Light ở góc nào, khoảng cách bao xa, làm sao để tạo dải chuyển tiếp sáng tối (Penumbra) mềm mại, mịn màng.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Guarantee & Final CTA -->
-  <section class="section">
-    <div class="container" style="max-width: 800px;">
-      <div class="guarantee">
-        <h2 style="font-size: 2rem; color: var(--accent-amber); margin-bottom: 15px;">Cam kết Chất lượng</h2>
-        <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 30px;">Chúng tôi cam kết mang lại nội dung chuyên sâu nhất về nghệ thuật ánh sáng và bóng tối trong nhiếp ảnh và điện ảnh. Bạn sẽ nhận được toàn bộ các tài liệu cập nhật miễn phí trọn đời.</p>
-        <div style="display: inline-flex; gap: 20px; align-items: center;">
-          <div style="text-align: left;">
-            <span style="color: var(--text-dim); text-decoration: line-through; font-size: 0.85rem; display:block;">Giá gốc: 299.000đ</span>
-            <span style="color: var(--accent-amber); font-weight: 800; font-size: 1.8rem; font-family: var(--font-mono);">149.000đ</span>
+  <!-- INTERACTIVE LIGHTING SIMULATOR -->
+  <section class="section simulator-section" id="simulator-section">
+    <div class="container">
+      <p class="section-title-sales">// TRỰC QUAN HÓA THỊ GIÁC</p>
+      <h2 class="section-heading">Sa Bàn Đánh Sáng Tương Tác</h2>
+      <p class="section-subheading">Thực nghiệm cách Caravaggio và các đạo diễn bậc thầy sắp đặt nguồn sáng để tạo hình khối kịch tính cho chủ thể.</p>
+      
+      <div class="simulator-layout">
+        <!-- Controls -->
+        <div class="simulator-controls">
+          <button class="sim-btn active" onclick="switchSetup('rembrandt')">
+            <span class="sim-btn-title">Rembrandt Lighting</span>
+            <span class="sim-btn-desc">Tam giác ánh sáng kinh điển dưới má</span>
+          </button>
+          <button class="sim-btn" onclick="switchSetup('split')">
+            <span class="sim-btn-title">Split Lighting</span>
+            <span class="sim-btn-desc">Chia đôi mặt sáng tối căng thẳng</span>
+          </button>
+          <button class="sim-btn" onclick="switchSetup('butterfly')">
+            <span class="sim-btn-title">Butterfly / Paramount</span>
+            <span class="sim-btn-desc">Bóng cánh bướm dưới mũi sang trọng</span>
+          </button>
+          <button class="sim-btn" onclick="switchSetup('rim')">
+            <span class="sim-btn-title">Edge / Rim Lighting</span>
+            <span class="sim-btn-desc">Đường viền sáng huyền bí bao quanh</span>
+          </button>
+        </div>
+        
+        <!-- Visualizer -->
+        <div class="simulator-visualizer">
+          <!-- Diagram -->
+          <div class="sim-diagram-container">
+            <div class="sim-diagram">
+              <div class="diagram-node node-model" id="node-model">MẪU</div>
+              <div class="diagram-node node-camera" id="node-camera">MÁY</div>
+              <div class="diagram-node node-light" id="node-light">💡 ĐÈN</div>
+              <div class="diagram-light-cone" id="light-cone"></div>
+            </div>
+            <span class="diagram-caption">SƠ ĐỒ BỐ TRÍ (DIAGRAM)</span>
           </div>
-          <a href="#" class="btn-checkout" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none; display: inline-block;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">SỞ HỮU EBOOK MASTERCLASS</a>
+          
+          <!-- Photographic Outcome -->
+          <div class="sim-photo-container">
+            <img id="sim-photo" src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop" alt="Chiaroscuro Portrait Output" class="sim-photo">
+            <span class="photo-caption">TÁC PHẨM THỰC TẾ (OUTCOME)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Setup Description -->
+      <div class="simulator-description-card" id="sim-desc-card">
+        <h3 id="sim-desc-title">Rembrandt Lighting</h3>
+        <p id="sim-desc-text">Ánh sáng tạo ra một hình tam giác nhỏ trên má của chủ thể bên phía bóng tối. Kiểu đánh sáng này cực kỳ phù hợp để làm nổi bật chiều sâu tâm lý và tạo cảm giác điện ảnh cổ điển.</p>
+        <div class="sim-specs">
+          <div class="spec-tag">Góc đèn: <strong id="sim-angle">Key Light đặt chếch 45 độ so với trục máy ảnh, nâng cao và chúi xuống 45 độ.</strong></div>
+          <div class="spec-tag">Thiết bị: <strong id="sim-modifiers">Softbox lớn kết hợp Grid vải đen để hội tụ hướng sáng và ngăn ánh sáng tràn sang phông nền.</strong></div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- CHAPTER GRID -->
+  <section class="section chapters-section">
+    <div class="container">
+      <p class="section-title-sales">// CHƯƠNG TRÌNH HỌC</p>
+      <h2 class="section-heading">Nội dung Masterclass Chi Tiết</h2>
+      <p class="section-subheading">Từ cấu trúc vật lý của bóng tối, kỹ thuật thực chiến đến tư duy nghệ thuật của các Đạo diễn hình ảnh hàng đầu.</p>
+
+      <div class="chapters-grid">
+        <!-- Chapter 1 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 1</div>
+          <div class="chapter-title">Giải Phẫu Học Của Bóng Tối</div>
+          <p class="chapter-desc">Tìm hiểu cấu trúc vật lý của bóng đổ và các định luật chi phối đường đi của ánh sáng.</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Umbra & Penumbra: Vùng lõi và rìa bóng đổ</div>
+            <div class="chapter-bullet">Định luật vuông góc nghịch đảo (Inverse Square Law)</div>
+            <div class="chapter-bullet">Ứng dụng thực tế: Tạo phông nền đen không cần vải</div>
+          </div>
+        </div>
+
+        <!-- Chapter 2 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 2</div>
+          <div class="chapter-title">Thao Túng Với Negative Fill</div>
+          <p class="chapter-desc">Kỹ thuật kiểm soát ánh sáng phản xạ lạc để tạo ra độ sâu tương phản tuyệt đối.</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Cờ đen (Negative Fill) và hút cạn ánh sáng lạc</div>
+            <div class="chapter-bullet">Sơ đồ thiết lập cờ đen triệt tiêu vùng xám</div>
+            <div class="chapter-bullet">Cách tự chế V-Flat đen giá rẻ hiệu quả cao</div>
+          </div>
+        </div>
+
+        <!-- Chapter 3 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 3</div>
+          <div class="chapter-title">Sơ Đồ Ánh Sáng Kinh Điển</div>
+          <p class="chapter-desc">Hướng dẫn setup từng bước cho các sơ đồ ánh sáng làm nên lịch sử nhiếp ảnh.</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Rembrandt, Split, Paramount (Butterfly)</div>
+            <div class="chapter-bullet">Broad vs. Short Lighting: Hướng mặt và bóng đổ</div>
+            <div class="chapter-bullet">Sơ đồ một nguồn sáng duy nhất (Single Light Mastery)</div>
+          </div>
+        </div>
+
+        <!-- Chapter 4 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 4</div>
+          <div class="chapter-title">Thiết Lập Thực Chiến Nâng Cao</div>
+          <p class="chapter-desc">Hòa trộn ánh sáng đa chiều và tương phản nhiệt độ màu (Color Contrast).</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Cross Lighting: Ánh sáng chéo cho thể thao và cơ bắp</div>
+            <div class="chapter-bullet">Edge / Rim Lighting: Vẽ đường viền sáng bao quanh</div>
+            <div class="chapter-bullet">Tương phản nóng lạnh (Vàng 3200K & Xanh 6500K)</div>
+          </div>
+        </div>
+
+        <!-- Chapter 5 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 5</div>
+          <div class="chapter-title">Hậu Kỳ Chiaroscuro</div>
+          <p class="chapter-desc">Cách điêu khắc ánh sáng bằng công cụ phần mềm Lightroom & Photoshop.</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Kỹ thuật Dodge & Burn tạo khối 3D cho gương mặt</div>
+            <div class="chapter-bullet">Tạo Matte Shadows hoài cổ bằng RGB Tone Curve</div>
+            <div class="chapter-bullet">Tách dải chuyển màu mịn màng không gãy màu</div>
+          </div>
+        </div>
+
+        <!-- Chapter 6 -->
+        <div class="chapter-card">
+          <div class="chapter-num">CHƯƠNG 6</div>
+          <div class="chapter-title">Tư Duy Đạo Diễn Hình Ảnh</div>
+          <p class="chapter-desc">Phân tích chuyên sâu cách kể chuyện bằng bóng tối trong các kiệt tác điện ảnh.</p>
+          <div class="chapter-bullets">
+            <div class="chapter-bullet">Gordon Willis và "Bố Già" (The Godfather - 1972)</div>
+            <div class="chapter-bullet">Roger Deakins và "Tội Phạm Nhân Bản 2049"</div>
+            <div class="chapter-bullet">Tâm lý học kể chuyện qua hốc mắt tối ẩn giấu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonial-section">
+    <div class="container">
+      <p class="section-title-sales">// ĐÁNH GIÁ TỪ HỌC VIÊN</p>
+      <h2 class="section-heading">Chia sẻ từ các Creators đi trước</h2>
+      <p class="section-subheading">Hơn 500 nhiếp ảnh gia và nhà làm phim tại Việt Nam đã cải thiện chất lượng ánh sáng nhờ cuốn sách này.</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <p class="test-content">"Cuốn sách đã làm thay đổi hoàn toàn cách tôi tiếp cận ánh sáng. Trước đây tôi chỉ cố mua đèn thật sáng, giờ tôi hiểu cờ đen mới là thứ tạo nên sự nghệ thuật."</p>
+          <div class="test-author">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop" alt="Avatar Minh Đức" class="author-img">
+            <div>
+              <div class="author-name">Hoàng Minh Đức</div>
+              <div class="author-role">Portrait Photographer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="test-content">"Chương 5 về Tone Curve trong Lightroom rất đáng tiền. Cách Roger Deakins tư duy màu sắc và bóng tối được giải thích cực kỳ dễ hiểu, áp dụng được ngay."</p>
+          <div class="test-author">
+            <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=150&auto=format&fit=crop" alt="Avatar Tuấn Anh" class="author-img">
+            <div>
+              <div class="author-name">Nguyễn Tuấn Anh</div>
+              <div class="author-role">Commercial Videographer</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="test-content">"Sách trình bày rất đẹp và chuyên nghiệp. Sơ đồ đặt đèn cực kỳ trực quan, tôi đã thử setup ngay trong studio của mình và kết quả ngoài mong đợi!"</p>
+          <div class="test-author">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop" alt="Avatar Mai Phương" class="author-img">
+            <div>
+              <div class="author-name">Phạm Mai Phương</div>
+              <div class="author-role">Content Creator</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section faq-section">
+    <div class="container">
+      <p class="section-title-sales">// THẮC MẮC PHỔ BIẾN</p>
+      <h2 class="section-heading">Câu Hỏi Thường Gặp</h2>
+      <p class="section-subheading">Mọi giải đáp nhanh về định dạng, cách thanh toán và nhận tài liệu Ebook.</p>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi sẽ nhận sách như thế nào sau khi thanh toán?</span>
+            <span class="faq-toggle-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Hệ thống VietQR sẽ tự động khớp lệnh chuyển khoản của bạn trong 3-5 giây. Ngay sau khi thành công, file PDF chất lượng cao sẽ xuất hiện trong Dashboard tài khoản của bạn để đọc online hoặc tải về máy.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Tôi chưa biết gì về đèn Studio có đọc được không?</span>
+            <span class="faq-toggle-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Hoàn toàn được. Sách được viết theo lộ trình từ cơ bản nhất (một đèn, hiểu bóng đổ vật lý) đến các setup nâng cao. Mọi thuật ngữ kỹ thuật đều được giải nghĩa bằng sơ đồ trực quan.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Tài liệu này có được cập nhật không?</span>
+            <span class="faq-toggle-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Có. Mọi cập nhật sửa đổi, bổ sung case study mới hoặc video minh họa đính kèm sau này sẽ được cập nhật hoàn toàn miễn phí trọn đời cho những thành viên đã sở hữu sách.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Sách định dạng PDF có đọc được trên Kindle hay iPad không?</span>
+            <span class="faq-toggle-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Được. File PDF được xuất bản ở định dạng chất lượng cao HD, tối ưu hóa kích thước phông chữ và hình ảnh để hiển thị hoàn hảo trên iPad, máy tính bảng, điện thoại và máy đọc sách.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA SECTION -->
+  <section class="section" style="background: radial-gradient(circle at center, rgba(245, 166, 35, 0.05) 0%, rgba(10,10,12,1) 100%); padding: 100px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="container" style="text-align: center;">
+      <h2 class="section-heading" style="margin-bottom: 24px;">Làm chủ bóng tối ngay hôm nay</h2>
+      <p class="section-subheading" style="margin-bottom: 40px; max-width: 600px;">Đừng để những bức ảnh của bạn tiếp tục phẳng lì tẻ nhạt. Hãy nâng tầm tư duy ánh sáng điện ảnh của bạn chỉ với một lần đầu tư.</p>
+      
+      <div class="sales-cta-box" style="margin: 0 auto; min-width: 320px;">
+        <div class="price-row" style="justify-content: center; gap: 30px;">
+          <div class="price-block" style="text-align: center;">
+            <span class="price-old" style="font-size: 1.1rem;">299.000đ</span>
+            <span class="price-new" style="font-size: 2.8rem; color: var(--color-gold-2);">149.000đ</span>
+            <span class="price-label">Giá sở hữu vĩnh viễn</span>
+          </div>
+        </div>
+        <button class="btn-buy-now" style="width: 100%;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">
+          SỞ HỮU EBOOK MASTERCLASS
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
@@ -340,18 +1275,17 @@
         </div>
         <div class="footer-links">
           <div class="footer-col">
-            <h4>Bắt đầu</h4>
-            <a href="before-after.html">Before / After</a>
-            <a href="free-guide.html">Starter Kit Miễn Phí</a>
-            <a href="light-codex.html">Học Ánh Sáng</a>
-            <a href="store.html">Store</a>
+            <h4>Ebooks</h4>
+            <a href="ebook-chiaroscuro.html">Bậc Thầy Chiaroscuro</a>
+            <a href="ebook-lighting-setups.html">Lighting Setups Bible</a>
+            <a href="ebook-color-psychology.html">Tâm Lý Học Màu Sắc</a>
+            <a href="store.html">Xem tất cả</a>
           </div>
           <div class="footer-col">
-            <h4>Khám phá thêm</h4>
-            <a href="tool-lab.html">Xưởng Công cụ</a>
-            <a href="shot-recipes.html">Công thức Chụp</a>
+            <h4>Khám phá</h4>
+            <a href="light-codex.html">Học Ánh Sáng</a>
             <a href="gear-vault.html">Kho Thiết Bị</a>
-            <a href="glossary.html">Thuật ngữ</a>
+            <a href="blog.html">Blog</a>
           </div>
         </div>
       </div>
@@ -361,17 +1295,174 @@
     </div>
   </footer>
 
-  <!-- Sticky CTA for Mobile -->
-  <div class="sticky-cta">
-    <div>
-      <div style="color: var(--text-dim); font-size: 0.75rem; text-decoration: line-through; line-height: 1;">299k</div>
-      <div style="color: var(--accent-cyan); font-weight: bold; font-size: 1.2rem; line-height: 1;">149.000đ</div>
+  <!-- Sticky CTA bar -->
+  <div class="sticky-cta" id="sticky-cta">
+    <div class="sticky-info">
+      <div class="sticky-title">Bậc thầy Chiaroscuro: Điêu khắc bóng tối</div>
+      <div class="sticky-prices">
+        <span class="sticky-price-new">149.000đ</span>
+        <span class="sticky-price-old">299.000đ</span>
+      </div>
     </div>
-    <a href="#" class="sticky-cta-btn" style="background: var(--accent-cyan); color: #000; text-align: center; text-decoration: none;" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">MUA EBOOK</a>
+    <button class="btn-buy-now" onclick="openCheckoutModal('ebook-chiaroscuro', 149000); return false;">
+      Mua Ngay
+    </button>
   </div>
 
+  <!-- Scripts -->
   <script src="js/common.js"></script>
-  <script src="js/checkout.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+
+  <!-- Interactive Simulator Script -->
+  <script>
+    // FAQ Accordion
+    function toggleFaq(questionEl) {
+      const item = questionEl.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // Sticky CTA show on scroll
+    window.addEventListener('scroll', () => {
+      const hero = document.getElementById('hero');
+      const stickyCta = document.getElementById('sticky-cta');
+      if (hero && stickyCta) {
+        const heroHeight = hero.offsetHeight;
+        if (window.scrollY > heroHeight - 100) {
+          stickyCta.classList.add('visible');
+        } else {
+          stickyCta.classList.remove('visible');
+        }
+      }
+    });
+
+    // Interactive Simulator Data
+    const SETUPS = {
+      rembrandt: {
+        title: 'Rembrandt Lighting (Ánh sáng Rembrandt)',
+        desc: 'Tạo một tam giác ánh sáng nhỏ ở vùng má bên phía bóng tối. Đây là sơ đồ đánh sáng chân dung kinh điển nhất của Chiaroscuro, mang lại chiều sâu tâm hồn và sự bí ẩn cho chủ thể.',
+        angle: 'Key Light đặt chếch 45 độ so với trục máy ảnh, nâng cao và chúi xuống 45 độ.',
+        modifiers: 'Softbox lớn kết hợp Grid vải đen để hội tụ hướng sáng và ngăn ánh sáng tràn sang phông nền.',
+        photo: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=600&auto=format&fit=crop',
+        lightTop: '25%',
+        lightLeft: '25%',
+        lightRotation: '135deg',
+        coneWidth: '130px',
+        coneHeight: '200px',
+        coneRotate: '45deg'
+      },
+      split: {
+        title: 'Split Lighting (Ánh sáng Chia đôi)',
+        desc: 'Chia đôi khuôn mặt thành hai phần sáng tối đối lập rõ rệt dọc theo sống mũi. Tạo ra sự tương phản cực đoan, lột tả sự đối kháng nội tâm hoặc cá tính mạnh mẽ.',
+        angle: 'Key Light đặt vuông góc 90 độ so với trục máy ảnh, ngang tầm mắt của chủ thể.',
+        modifiers: 'Tấm cờ đen (Negative Fill) đặt sát phía bên kia để triệt tiêu mọi ánh sáng dội lại, giữ bóng tối đen kịt.',
+        photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop',
+        lightTop: '50%',
+        lightLeft: '15%',
+        lightRotation: '90deg',
+        coneWidth: '120px',
+        coneHeight: '220px',
+        coneRotate: '90deg'
+      },
+      butterfly: {
+        title: 'Butterfly / Paramount Lighting',
+        desc: 'Tạo bóng đổ nhỏ hình cánh bướm ngay dưới mũi chủ thể. Đây là sơ đồ tôn vinh xương gò má và cấu trúc khuôn mặt, mang đậm nét sang trọng của các minh tinh Hollywood.',
+        angle: 'Key Light đặt trực diện phía sau máy ảnh, nâng lên rất cao và đánh chúi xuống.',
+        modifiers: 'Một tấm hắt sáng bạc (Reflector) đặt dưới cằm để giảm nhẹ độ sâu của bóng cổ (Clamshell setup).',
+        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop',
+        lightTop: '75%',
+        lightLeft: '50%',
+        lightRotation: '180deg',
+        coneWidth: '120px',
+        coneHeight: '160px',
+        coneRotate: '180deg'
+      },
+      rim: {
+        title: 'Edge / Rim Lighting (Ánh sáng Viền)',
+        desc: 'Nuốt chửng toàn bộ khuôn mặt trong bóng tối và chỉ vẽ lên một đường viền ánh sáng rực rỡ bao quanh tóc, vai và gáy. Tách biệt hoàn toàn chủ thể khỏi màn đêm.',
+        angle: 'Key Light đặt ngay sau lưng chủ thể, chiếu ngược về hướng máy ảnh.',
+        modifiers: 'Hai tấm cờ đen (Negative Fill) đặt ở hai bên máy ảnh để tránh lóa sáng (Lens Flare) vào ống kính.',
+        photo: 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?q=80&w=600&auto=format&fit=crop',
+        lightTop: '20%',
+        lightLeft: '50%',
+        lightRotation: '0deg',
+        coneWidth: '140px',
+        coneHeight: '180px',
+        coneRotate: '0deg'
+      }
+    };
+
+    function switchSetup(setupKey) {
+      // Toggle active button class
+      document.querySelectorAll('.sim-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = event.currentTarget || document.querySelector(`[onclick="switchSetup('${setupKey}')"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const data = SETUPS[setupKey];
+      if (!data) return;
+
+      // Update text details
+      document.getElementById('sim-desc-title').innerText = data.title;
+      document.getElementById('sim-desc-text').innerText = data.desc;
+      document.getElementById('sim-angle').innerText = data.angle;
+      document.getElementById('sim-modifiers').innerText = data.modifiers;
+
+      // Update image
+      const img = document.getElementById('sim-photo');
+      img.style.opacity = '0.3';
+      setTimeout(() => {
+        img.src = data.photo;
+        img.style.opacity = '1';
+      }, 150);
+
+      // Update diagram nodes
+      const lightNode = document.getElementById('node-light');
+      const lightCone = document.getElementById('light-cone');
+
+      if (lightNode && lightCone) {
+        lightNode.style.top = data.lightTop;
+        lightNode.style.left = data.lightLeft;
+        
+        lightCone.style.top = data.lightTop;
+        lightCone.style.left = data.lightLeft;
+        
+        lightCone.style.width = data.coneWidth;
+        lightCone.style.height = data.coneHeight;
+        
+        // Compute rotation and transforms
+        let rotationDegrees = 0;
+        let transformStr = '';
+        
+        if (setupKey === 'rembrandt') {
+          rotationDegrees = 135; // points towards model at center (50%, 50%)
+          lightCone.style.transformOrigin = 'top center';
+          transformStr = `translate(-50%, 0) rotate(${rotationDegrees}deg)`;
+        } else if (setupKey === 'split') {
+          rotationDegrees = 90; // points right towards model
+          lightCone.style.transformOrigin = 'top center';
+          transformStr = `translate(-50%, 0) rotate(${rotationDegrees}deg)`;
+        } else if (setupKey === 'butterfly') {
+          rotationDegrees = 0; // points up towards model
+          lightCone.style.transformOrigin = 'top center';
+          transformStr = `translate(-50%, -100%) rotate(${rotationDegrees}deg)`;
+        } else if (setupKey === 'rim') {
+          rotationDegrees = 180; // points down towards model
+          lightCone.style.transformOrigin = 'top center';
+          transformStr = `translate(-50%, 0) rotate(${rotationDegrees}deg)`;
+        }
+        
+        lightCone.style.transform = transformStr;
+      }
+    }
+
+    // Initialize with rembrandt
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        switchSetup('rembrandt');
+      }, 100);
+    });
+  </script>
 </body>
 </html>
