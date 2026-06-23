@@ -146,7 +146,7 @@ window.TOOLS_DB = [
   {
     "id": "fov-simulator",
     "title": "Trình giả lập Tiêu cự & FOV",
-    "desc": "",
+    "desc": "Trình giả lập quang học giúp trực quan hóa góc nhìn (Field of View) và độ nén phối cảnh khi thay đổi tiêu cự từ 14mm đến 200mm.",
     "category": "lens",
     "link": "tools/fov-simulator.html",
     "accent": "blue",
@@ -200,7 +200,7 @@ window.TOOLS_DB = [
   {
     "id": "lighting-studio",
     "title": "Phòng chụp Ánh sáng 3 Điểm",
-    "desc": "",
+    "desc": "Mô phỏng phòng chụp Studio 3D trực quan. Điều chỉnh góc đặt, độ sáng và màu sắc của Key, Fill, Rim Light để hiểu cách định hình khối.",
     "category": "lighting",
     "link": "tools/lighting-studio.html",
     "accent": "amber",
