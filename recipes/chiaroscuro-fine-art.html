@@ -156,9 +156,48 @@
         </div>
       </div>
 
-      <div class="diagram-placeholder">
-        [ Lighting Diagram Placeholder: Mở Tool Phòng Đánh Sáng 3 Điểm để mô phỏng ]
-      </div>
+      <div class="lighting-diagram-wrapper" style="background: #111115; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 20px; margin: 30px 0;">
+  <p style="font-family: var(--font-mono); font-size: 0.72rem; color: #E8725C; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; text-align: center;">// SƠ ĐỒ ĐÁNH SÁNG CHIA ĐÔI / CHIAROSCURO</p>
+  <svg viewBox="0 0 500 350" width="100%" height="320" style="display: block; margin: 0 auto; max-width: 500px;">
+    <defs>
+      <!-- Hard beam gradient -->
+      <radialGradient id="hard-beam" cx="0%" cy="50%" r="100%">
+        <stop offset="0%" stop-color="rgba(232, 114, 92, 0.3)"/>
+        <stop offset="100%" stop-color="rgba(232, 114, 92, 0)"/>
+      </radialGradient>
+    </defs>
+    
+    <!-- Grid System -->
+    <circle cx="250" cy="160" r="140" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+    <line x1="250" y1="20" x2="250" y2="300" stroke="rgba(255,255,255,0.02)" stroke-dasharray="3,3"/>
+    <line x1="110" y1="160" x2="390" y2="160" stroke="rgba(255,255,255,0.02)" stroke-dasharray="3,3"/>
+
+    <!-- Side Light Beam (from Left 90 deg) -->
+    <path d="M 90 160 L 250 120 L 250 200 Z" fill="url(#hard-beam)"/>
+
+    <!-- Subject (Center) -->
+    <circle cx="250" cy="160" r="22" fill="#1E1E26" stroke="#E8725C" stroke-width="2"/>
+    <text x="250" y="164" font-family="var(--font-body)" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">CHỦ THỂ</text>
+    <line x1="250" y1="138" x2="250" y2="148" stroke="#E8725C" stroke-width="2"/>
+
+    <!-- Camera (Bottom) -->
+    <rect x="235" y="275" width="30" height="18" rx="2" fill="#1A1A22" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+    <polygon points="243,275 257,275 250,265" fill="rgba(255,255,255,0.4)"/>
+    <text x="250" y="308" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)" text-anchor="middle">MÁY ẢNH</text>
+
+    <!-- Side Key Light (Left 90 deg) -->
+    <circle cx="90" cy="160" r="14" fill="#E8725C" stroke="#fff" stroke-width="1"/>
+    <line x1="90" y1="160" x2="250" y2="160" stroke="#E8725C" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+    <text x="80" y="125" font-family="var(--font-mono)" font-size="9" fill="#E8725C" font-weight="bold" text-anchor="middle">ĐÈN CHÍNH (Hard/Grid)</text>
+    <text x="80" y="135" font-family="var(--font-body)" font-size="8" fill="var(--text-dim)" text-anchor="middle">Đặt vuông góc 90°</text>
+
+    <!-- Negative Fill (Right Side) -->
+    <line x1="370" y1="110" x2="370" y2="210" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    <rect x="366" y="110" width="8" height="100" fill="#000" stroke="rgba(255,255,255,0.1)"/>
+    <text x="385" y="155" font-family="var(--font-mono)" font-size="9" fill="var(--text-dim)" font-weight="bold">NEGATIVE FILL</text>
+    <text x="385" y="165" font-family="var(--font-body)" font-size="8" fill="var(--text-dim)">Cờ đen triệt tiêu phản xạ</text>
+  </svg>
+</div>
 
       <div class="info-grid">
         <div class="info-card">
@@ -194,9 +233,33 @@
     </div>
   </section>
 
-  <footer class="footer" style="margin-top: 100px;">
-    <div class="container" style="text-align: center; color: var(--text-dim);">
-      &copy; 2026 LumenForge Shot Recipes.
+    <!-- Footer -->
+  <footer class="footer" style="margin-top: 80px;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Từ ảnh bình thường đến cinematic — bằng ánh sáng, màu sắc và workflow.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Ebooks</h4>
+            <a href="../ebook-chiaroscuro.html">Bậc Thầy Chiaroscuro</a>
+            <a href="../ebook-lighting-setups.html">Lighting Setups Bible</a>
+            <a href="../ebook-color-psychology.html">Tâm Lý Học Màu Sắc</a>
+            <a href="../store.html">Xem tất cả</a>
+          </div>
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="../light-codex.html">Học Ánh Sáng</a>
+            <a href="../gear-vault.html">Kho Thiết Bị</a>
+            <a href="../blog.html">Blog</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025–2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
     </div>
   </footer>
 
