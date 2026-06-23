@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tâm lý học Màu sắc trong Điện ảnh — LumenForge</title>
+  <meta name="description" content="Ebook Masterclass chuyên sâu nhất về cách Hollywood thao túng cảm xúc khán giả thông qua bảng màu phim nhựa 50 tác phẩm kinh điển.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lumenforge.studio/ebook-color-psychology.html">
+  <meta property="og:title" content="Tâm lý học Màu sắc trong Điện ảnh — Masterclass Ebook">
+  <meta property="og:description" content="Làm chủ ngôn ngữ màu sắc và cách xây dựng Mood phim đỉnh cao như các Đạo diễn bậc thầy. 120+ trang tài liệu thực chiến.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop">
+
+  <link rel="canonical" href="https://lumenforge.studio/ebook-color-psychology.html">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+
+  <style>
+    /* ===== PREMIUM PSYCHOLOGY EBOOK STYLES ===== */
+    :root {
+      --color-wheel-red: #ff4444;
+      --color-wheel-blue: #00D4FF;
+      --color-wheel-yellow: #F5A623;
+      --color-wheel-green: #10B981;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* Ambient spectrum glows */
+    .spectrum-glow-container {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.15;
+      mix-blend-mode: screen;
+      animation: floatOrb 20s infinite alternate ease-in-out;
+    }
+
+    .glow-orb-1 {
+      top: 5%; left: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--color-wheel-blue) 0%, transparent 80%);
+      animation-delay: 0s;
+    }
+
+    .glow-orb-2 {
+      top: 25%; right: -15%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, var(--color-wheel-yellow) 0%, transparent 80%);
+      animation-delay: -5s;
+    }
+
+    .glow-orb-3 {
+      top: 60%; left: 20%;
+      width: 550px; height: 550px;
+      background: radial-gradient(circle, var(--color-wheel-red) 0%, transparent 80%);
+      animation-delay: -10s;
+    }
+
+    .glow-orb-4 {
+      top: 80%; right: 10%;
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, var(--color-wheel-green) 0%, transparent 80%);
+      animation-delay: -15s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(50px) scale(1.1); }
+    }
+
+    /* Hero Layout */
+    .sales-hero {
+      padding: 160px 0 100px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: radial-gradient(180deg, rgba(10,10,12,0.4) 0%, rgba(10,10,12,1) 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+      }
+    }
+
+    .sales-badge {
+      display: inline-block;
+      padding: 6px 18px;
+      background: rgba(0, 212, 255, 0.06);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .sales-hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.15;
+      font-weight: 900;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff 20%, var(--accent-cyan) 60%, var(--accent-amber) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+    }
+
+    .sales-hero .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    /* Cover Art 3D Showcase */
+    .cover-showcase {
+      perspective: 1500px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .book-container {
+      position: relative;
+      width: 320px;
+      height: 440px;
+      transition: transform 0.6s cubic-bezier(0.15, 0.85, 0.45, 1);
+      transform-style: preserve-3d;
+      box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+      border-radius: 8px;
+    }
+
+    .book-container:hover {
+      transform: rotateY(-22deg) rotateX(10deg) translateY(-10px);
+    }
+
+    .book-cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 2;
+      background: #111;
+      transform: translateZ(25px);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.5);
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .book-spine {
+      position: absolute;
+      width: 50px;
+      height: 100%;
+      background: linear-gradient(90deg, #09090b 0%, #1c1c24 100%);
+      left: -25px;
+      top: 0;
+      transform: rotateY(-90deg);
+      z-index: 1;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .book-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #121216;
+      border-radius: 8px;
+      transform: rotateY(180deg) translateZ(25px);
+      z-index: 0;
+      box-shadow: -10px 10px 50px rgba(0,0,0,0.6);
+    }
+
+    /* Glassmorphism Price CTA Block */
+    .sales-cta-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 36px;
+      backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 540px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 992px) {
+      .sales-cta-box {
+        margin: 0 auto;
+      }
+    }
+
+    .price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 20px;
+    }
+
+    .price-old {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+
+    .price-new {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      font-family: var(--font-mono);
+      background: linear-gradient(90deg, #fff 30%, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .price-label {
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .cta-actions {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .cta-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .btn-buy-now {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, #0099cc 100%);
+      color: #000;
+      padding: 16px 30px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.25);
+    }
+
+    .btn-buy-now:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.45);
+    }
+
+    .btn-read-try {
+      background: rgba(255,255,255,0.03);
+      color: #fff;
+      padding: 16px 30px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.3s ease;
+    }
+
+    .btn-read-try:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Stats bar */
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      padding: 50px 20px;
+      background: rgba(10,10,12,0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      flex-wrap: wrap;
+      gap: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.8rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+      font-family: var(--font-mono);
+    }
+
+    .stat-desc {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* Section Headers styling */
+    .section-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* 2. PAIN POINTS SECTION */
+    .pain-points {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .pain-card {
+      background: rgba(239, 68, 68, 0.01);
+      border: 1px solid rgba(239, 68, 68, 0.1);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pain-card:hover {
+      background: rgba(239, 68, 68, 0.03);
+      border-color: rgba(239, 68, 68, 0.25);
+      transform: translateY(-5px);
+    }
+
+    .pain-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent-red);
+      opacity: 0.5;
+    }
+
+    .pain-icon-wrapper {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--accent-red);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .pain-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .pain-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* 3. CHAPTERS SECTION */
+    .chapters-section {
+      padding: 100px 0;
+      background: rgba(10, 10, 12, 0.6);
+      position: relative;
+    }
+
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .chapter-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .chapter-card:hover {
+      border-color: rgba(0, 212, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-5px);
+    }
+
+    .chapter-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .chapter-card:hover::after {
+      opacity: 1;
+    }
+
+    .chapter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .chapter-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 212, 255, 0.08);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .chapter-card h3 {
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .chapter-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .chapter-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chapter-tag {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .chapter-card:hover .chapter-tag {
+      background: rgba(0, 212, 255, 0.05);
+      border-color: rgba(0, 212, 255, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    /* 4. INTERACTIVE COLOR WHEEL / MOOD PICKER */
+    .mood-picker-section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .mood-container {
+      margin-top: 50px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 40px;
+      backdrop-filter: blur(20px);
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 50px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 992px) {
+      .mood-container {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        gap: 40px;
+      }
+    }
+
+    .color-wheel-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Circular Color Wheel UI */
+    .color-wheel {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, rgba(10,10,12,1) 30%, rgba(255,255,255,0.02) 65%, rgba(255,255,255,0.08) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+      animation: spinSlow 40s linear infinite;
+    }
+
+    @keyframes spinSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Pause spinning when user is hovering */
+    .color-wheel-wrapper:hover .color-wheel {
+      animation-play-state: paused;
+    }
+
+    .color-node {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border: 3px solid #0A0A0C;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+    }
+
+    .color-node:hover {
+      transform: scale(1.25);
+      box-shadow: 0 0 30px var(--node-color);
+    }
+
+    .color-node.active {
+      transform: scale(1.3);
+      box-shadow: 0 0 35px var(--node-color);
+      border-color: #fff;
+    }
+
+    /* Position nodes on wheel */
+    .node-red {
+      background-color: var(--color-wheel-red);
+      --node-color: var(--color-wheel-red);
+      top: 15px; left: 50%;
+      transform: translateX(-50%) rotate(0deg);
+    }
+    .node-green {
+      background-color: var(--color-wheel-green);
+      --node-color: var(--color-wheel-green);
+      top: 50%; right: 15px;
+      transform: translateY(-50%) rotate(0deg);
+    }
+    .node-blue {
+      background-color: var(--color-wheel-blue);
+      --node-color: var(--color-wheel-blue);
+      bottom: 15px; left: 50%;
+      transform: translateX(-50%) rotate(0deg);
+    }
+    .node-yellow {
+      background-color: var(--color-wheel-yellow);
+      --node-color: var(--color-wheel-yellow);
+      top: 50%; left: 15px;
+      transform: translateY(-50%) rotate(0deg);
+    }
+
+    /* Non-rotating interior */
+    .wheel-core {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #0A0A0C;
+      border: 1px solid rgba(255,255,255,0.1);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .wheel-core span {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
+    }
+
+    .wheel-core h4 {
+      font-size: 0.85rem;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    /* Mood display panel */
+    .mood-panel {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #111116;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      transition: all 0.4s ease;
+    }
+
+    .mood-still-container {
+      width: 100%;
+      aspect-ratio: 2.39 / 1;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .mood-still-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.5s ease, transform 10s ease;
+    }
+
+    .mood-still-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 12%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2;
+    }
+
+    .mood-still-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 12%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2;
+    }
+
+    .cinema-banner {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      z-index: 3;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .cinema-aspect {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      z-index: 3;
+    }
+
+    .mood-body {
+      padding: 30px;
+      position: relative;
+    }
+
+    .mood-title {
+      font-size: 1.4rem;
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .mood-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .mood-tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-secondary);
+    }
+
+    .mood-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      min-height: 70px;
+    }
+
+    .mood-quote {
+      border-left: 3px solid var(--mood-accent-color, var(--accent-cyan));
+      padding-left: 16px;
+      font-style: italic;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      background: rgba(255,255,255,0.01);
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* 5. TESTIMONIALS SECTION */
+    .testimonials {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 36px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .testimonial-card:hover {
+      border-color: rgba(0, 212, 255, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+      transform: translateY(-4px);
+    }
+
+    .quote-icon {
+      font-size: 2.2rem;
+      color: rgba(0, 212, 255, 0.2);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .testimonial-card blockquote {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      font-style: normal;
+    }
+
+    .reviewer-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .reviewer-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-amber));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    .reviewer-details h4 {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .reviewer-details p {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+    }
+
+    /* 6. FAQ SECTION */
+    .faq-section {
+      padding: 100px 0;
+      background: rgba(10, 10, 12, 0.6);
+      position: relative;
+    }
+
+    .faq-wrapper {
+      max-width: 800px;
+      margin: 50px auto 0;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-question {
+      padding: 24px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .faq-item:hover .faq-question {
+      color: var(--accent-cyan);
+    }
+
+    .faq-icon {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 30px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0;
+    }
+
+    .faq-item.open {
+      border-color: rgba(0, 212, 255, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-item.open .faq-question {
+      color: var(--accent-cyan);
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      color: var(--accent-cyan);
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding-bottom: 24px;
+      opacity: 1;
+    }
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 120px 0;
+      position: relative;
+    }
+
+    .cta-card {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(245, 166, 35, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+
+    .cta-card h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+
+    .cta-card p {
+      color: var(--text-secondary);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons-center {
+      display: inline-flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta-info-bottom {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 24px;
+      display: block;
+      font-family: var(--font-mono);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* STICKY BOTTOM CTA BAR */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(10, 10, 12, 0.95);
+      backdrop-filter: blur(25px);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -15px 40px rgba(0,0,0,0.5);
+    }
+
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sticky-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .sticky-prices {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sticky-price-new {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    .sticky-price-old {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+
+    .sticky-cta .btn-buy-now {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      .sticky-cta {
+        padding: 16px 20px;
+      }
+      .sticky-info {
+        display: none;
+      }
+      .sticky-cta .btn-buy-now {
+        width: 100%;
+        padding: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Orbs -->
+  <div class="spectrum-glow-container">
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+    <div class="glow-orb glow-orb-4"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Bắt đầu</a>
+        <a href="before-after.html" class="nav-link">Before / After</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="gear-vault.html" class="nav-link">Kho Thiết Bị</a>
+        <a href="tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="store.html" class="nav-link" style="color: var(--accent-cyan);">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="sales-hero" id="hero">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div class="hero-grid">
+        <div>
+          <span class="sales-badge">✦ Masterclass Ebook • Mới Phát Hành</span>
+          <h1>Tâm lý học Màu sắc<br>trong Điện ảnh</h1>
+          <p class="subtitle">
+            Khám phá cách Hollywood thao túng cảm xúc khán giả thông qua bảng màu phim nhựa của 50 tác phẩm kinh điển. Bản hướng dẫn thực chiến 120+ trang dành cho nhiếp ảnh gia và filmmaker Việt.
+          </p>
+
+          <div class="sales-cta-box">
+            <div class="price-row">
+              <div>
+                <div class="price-old">249.000đ</div>
+                <div class="price-new">99.000đ</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="price-label">Giá giới hạn</div>
+                <div style="font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;">Tiết kiệm hơn 60%</div>
+              </div>
+            </div>
+            <div class="cta-actions">
+              <a href="#" class="btn-buy-now" onclick="openCheckoutModal('ebook-color', 99000); return false;">
+                Mua Ngay — 99k
+              </a>
+              <a href="ebook-reader.html?book=color" class="btn-read-try">
+                Đọc Thử Miễn Phí
+              </a>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center; margin: 0;">
+              ⚡ Mở khóa PDF trên Dashboard ngay lập tức · Lifetime Access · Cập nhật trọn đời
+            </p>
+          </div>
+        </div>
+
+        <div class="cover-showcase">
+          <div class="book-container">
+            <div class="book-spine"></div>
+            <div class="book-cover">
+              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop" alt="Ebook Cover Tâm lý học Màu sắc trong Điện ảnh">
+            </div>
+            <div class="book-back"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <section class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value">120+</div>
+      <div class="stat-desc">Trang Phân Tích</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">50+</div>
+      <div class="stat-desc">Phim Kinh Điển</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">5</div>
+      <div class="stat-desc">Đạo Diễn Bậc Thầy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">6</div>
+      <div class="stat-desc">Chương Masterclass</div>
+    </div>
+  </section>
+
+  <!-- 2. PAIN POINTS -->
+  <section class="pain-points section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <span class="section-meta">// Các lỗi sai kinh điển</span>
+        <h2 class="section-title">Tại sao màu ảnh của bạn trông vẫn "non"?</h2>
+        <p class="section-desc" style="margin: 0 auto;">Cầm máy xịn và kéo thanh slider trong Lightroom vô tội vạ không thể biến bức ảnh của bạn thành một tác phẩm nghệ thuật. Hãy chấm dứt 3 sai lầm cốt lõi sau:</p>
+      </div>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-icon-wrapper">⚠️</div>
+          <h3>Skin Tone Color Spill (Ám màu da)</h3>
+          <p>Lỗi phổ biến nhất khi áp dụng color grading bừa bãi. Da của nhân vật bị ám màu xanh lá của môi trường hoặc xanh dương từ bầu trời làm họ trông thiếu sức sống, phi tự nhiên và đánh mất hoàn toàn sự nổi bật của chủ thể.</p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-icon-wrapper">⚠️</div>
+          <h3>Wrong Mood Palette (Sai bảng màu cảm xúc)</h3>
+          <p>Áp dụng tông màu lạnh (Blue/Cyan) cho những phân cảnh gia đình sum họp hoặc kéo màu ấm vàng cho một khoảnh khắc cô đơn rợn ngợp. Màu sắc không đồng điệu với kịch bản sẽ phá vỡ hoàn toàn dụng ý dẫn chuyện.</p>
+        </div>
+
+        <div class="pain-card">
+          <div class="pain-icon-wrapper">⚠️</div>
+          <h3>Over-Saturation (Lạm dụng bão hòa màu)</h3>
+          <p>Kéo bão hòa màu quá mức vì nghĩ ảnh rực rỡ mới là đẹp. Điều này làm bết màu, mất chi tiết chuyển màu mượt mà (color roll-off) và tạo ra cảm giác nhức mắt, giảm độ chuyên nghiệp của sản phẩm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CHAPTER GRID -->
+  <section class="chapters-section section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <span class="section-meta">// Chi tiết ấn phẩm</span>
+        <h2 class="section-title">Hành trình làm chủ Màu sắc Điện ảnh</h2>
+        <p class="section-desc" style="margin: 0 auto;">Ebook được thiết kế có hệ thống từ lý thuyết thị giác, phân tích tâm lý đến hướng dẫn công thức kéo màu chi tiết.</p>
+      </div>
+
+      <div class="chapters-grid">
+        <!-- Chương 1 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 1</span>
+          </div>
+          <h3>Vật lý của Ánh sáng & Sinh học của Thị giác</h3>
+          <p>Hiểu cách sóng ánh sáng hoạt động và cơ chế võng mạc xử lý màu sắc. Tại sao mắt người nhạy cảm nhất với sắc xanh lá và cách não bộ phản hồi vô thức với dải màu khác nhau.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Bước sóng ánh sáng</span>
+            <span class="chapter-tag">Võng mạc sinh học</span>
+            <span class="chapter-tag">Tương phản thị giác</span>
+          </div>
+        </div>
+
+        <!-- Chương 2 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 2</span>
+          </div>
+          <h3>Lý thuyết Màu sắc & Ba trụ cột phối màu điện ảnh</h3>
+          <p>Làm quen với vòng tròn màu sắc nguyên bản. Ứng dụng các quy tắc phối màu kinh điển: Complementary (Bổ túc), Analogous (Tương đồng), và Triadic (Tam giác) vào bố cục mỹ thuật phim.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Color Wheel</span>
+            <span class="chapter-tag">Complementary</span>
+            <span class="chapter-tag">Analogous</span>
+            <span class="chapter-tag">Phối màu mỹ thuật</span>
+          </div>
+        </div>
+
+        <!-- Chương 3 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 3</span>
+          </div>
+          <h3>Ngôn ngữ cảm xúc của 5 tông màu chính</h3>
+          <p>Khám phá ý nghĩa tâm lý và các trường hợp ứng dụng kinh điển của Đỏ (bạo lực, đam mê), Xanh dương (cô đơn, công nghệ), Vàng (nostalgia, điên loạn), Xanh lá (tha hóa, tái sinh), và Cam/Teal.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Tâm lý học màu</span>
+            <span class="chapter-tag">Màu đỏ bạo liệt</span>
+            <span class="chapter-tag">Orange & Teal</span>
+            <span class="chapter-tag">Ngôn ngữ thị giác</span>
+          </div>
+        </div>
+
+        <!-- Chương 4 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 4</span>
+          </div>
+          <h3>Phân tích bảng màu của 5 Đạo diễn Bậc thầy</h3>
+          <p>Giải mã công thức kể chuyện bằng sắc thái của Denis Villeneuve, Wong Kar-wai (Vương Gia Vệ), David Fincher, Christopher Nolan và thế giới anime kỳ ảo của Hayao Miyazaki.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Denis Villeneuve</span>
+            <span class="chapter-tag">Wong Kar-wai</span>
+            <span class="chapter-tag">David Fincher</span>
+            <span class="chapter-tag">Miyazaki</span>
+          </div>
+        </div>
+
+        <!-- Chương 5 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 5</span>
+          </div>
+          <h3>Skin Tone Conformance (Làm chủ màu da)</h3>
+          <p>Kỹ thuật bảo toàn màu da tự nhiên khi thực hiện color grading. Sử dụng công cụ Vectorscope để cô lập, chỉnh sửa và cân bằng vùng da (Skin Tone Line) đúng chuẩn điện ảnh.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Vectorscope</span>
+            <span class="chapter-tag">Skin Tone Line</span>
+            <span class="chapter-tag">Color Correction</span>
+            <span class="chapter-tag">Cô lập mặt</span>
+          </div>
+        </div>
+
+        <!-- Chương 6 -->
+        <div class="chapter-card">
+          <div class="chapter-header">
+            <span class="chapter-num">Chương 6</span>
+          </div>
+          <h3>Công thức màu thực chiến trong Lightroom & Camera RAW</h3>
+          <p>Hướng dẫn chi tiết từng bước kéo màu bằng Hue/Saturation/Luminance (HSL), Color Grading Wheels, và Tone Curve để tạo ra chất phim nhựa cinematic chân thực trên các phần mềm thông dụng.</p>
+          <div class="chapter-tags">
+            <span class="chapter-tag">Lightroom Classic</span>
+            <span class="chapter-tag">Color Grading Wheels</span>
+            <span class="chapter-tag">Tone Curve</span>
+            <span class="chapter-tag">Công thức thực chiến</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. INTERACTIVE COLOR WHEEL / MOOD PICKER -->
+  <section class="mood-picker-section section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <span class="section-meta">// Trải nghiệm tương tác</span>
+        <h2 class="section-title">Color Mood Simulator</h2>
+        <p class="section-desc" style="margin: 0 auto;">Click vào các màu sắc trên vòng tròn để mô phỏng tác động tâm lý và cảm quan phim ảnh tương ứng.</p>
+      </div>
+
+      <div class="mood-container">
+        <!-- Wheel controller -->
+        <div class="color-wheel-wrapper">
+          <div class="color-wheel" id="interactive-wheel">
+            <div class="color-node node-red active" data-color="red">Red</div>
+            <div class="color-node node-green" data-color="green">Green</div>
+            <div class="color-node node-blue" data-color="blue">Blue</div>
+            <div class="color-node node-yellow" data-color="yellow">Yellow</div>
+          </div>
+          <div class="wheel-core">
+            <span>Đang chọn</span>
+            <h4 id="wheel-active-name" style="color: var(--color-wheel-red);">MÀU ĐỎ</h4>
+          </div>
+        </div>
+
+        <!-- Preview panel -->
+        <div class="mood-panel" id="mood-panel" style="--mood-accent-color: var(--color-wheel-red);">
+          <div class="mood-still-container">
+            <span class="cinema-banner">LumenForge Cinema Scope</span>
+            <span class="cinema-aspect">2.39 : 1 Widescreen</span>
+            <img id="mood-img" class="mood-still-bg" src="https://images.unsplash.com/photo-1543536448-d209d2d13a1c?q=80&w=1200&auto=format&fit=crop" alt="Cinematic Red Still">
+          </div>
+          <div class="mood-body">
+            <h3 class="mood-title" id="mood-title">Sự Bạo Liệt, Đam Mê & Nguy Hiểm (Red)</h3>
+            <div class="mood-tags" id="mood-tags">
+              <span class="mood-tag">#Đam Mê</span>
+              <span class="mood-tag">#Nguy Hiểm</span>
+              <span class="mood-tag">#Kịch Tính</span>
+              <span class="mood-tag">#Bạo Lực</span>
+            </div>
+            <p class="mood-desc" id="mood-desc">
+              Màu đỏ là màu mạnh nhất về mặt kích thích sinh học. Trong điện ảnh, nó được dùng để tạo sự chú ý tuyệt đối, báo hiệu mối đe dọa cận kề, cơn giận dữ tột cùng, hoặc biểu trưng cho tình yêu mãnh liệt và đầy dục vọng.
+            </p>
+            <div class="mood-quote" id="mood-quote">
+              "Red is the ultimate color of passion and violence in cinema." — American Beauty, Blade Runner 2049, In the Mood for Love
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TESTIMONIALS -->
+  <section class="testimonials section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <span class="section-meta">// Đánh giá từ độc giả</span>
+        <h2 class="section-title">Nhận xét của những người đi trước</h2>
+        <p class="section-desc" style="margin: 0 auto;">Lắng nghe trải nghiệm thực tế từ các nhiếp ảnh gia, đạo diễn hình ảnh và chuyên viên dựng phim.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card">
+          <div class="quote-icon">“</div>
+          <blockquote>
+            Cuốn sách này đã hệ thống hóa toàn bộ kiến thức màu sắc mà tôi phải mất 5 năm làm nghề mới lờ mờ nhận ra. Phần phân tích về bảo toàn Skin Tone trên Vectorscope cực kỳ đáng giá cho các colorist chuyên nghiệp.
+          </blockquote>
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: var(--accent-cyan); color: #000;">LV</div>
+            <div class="reviewer-details">
+              <h4>Lâm Thế Vinh</h4>
+              <p>Director of Photography, Hà Nội</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card">
+          <div class="quote-icon">“</div>
+          <blockquote>
+            Tôi rất thích chương phân tích phong cách màu của Vương Gia Vệ và Fincher. Các bảng màu mẫu kèm thông số Lightroom thực tế giúp tôi áp dụng trực tiếp được luôn vào các bộ ảnh chụp chân dung ngoại cảnh.
+          </blockquote>
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: var(--accent-amber); color: #000;">KV</div>
+            <div class="reviewer-details">
+              <h4>Khánh Vy</h4>
+              <p>Portrait & Concept Photographer, TP.HCM</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card">
+          <div class="quote-icon">“</div>
+          <blockquote>
+            Chỉ với 99k mà nhận được lượng kiến thức khổng lồ thế này. Các quy tắc phối màu trong Chương 2 đã thay đổi hoàn toàn cách tôi thiết lập bối cảnh và chọn trang phục cho dàn diễn viên trong phim ngắn mới nhất.
+          </blockquote>
+          <div class="reviewer-info">
+            <div class="reviewer-avatar" style="background: var(--color-wheel-green); color: #000;">HN</div>
+            <div class="reviewer-details">
+              <h4>Hoàng Nam</h4>
+              <p>Indie Filmmaker, Đà Nẵng</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FAQ -->
+  <section class="faq-section section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div style="text-align: center; margin-bottom: 50px;">
+        <span class="section-meta">// Giải đáp thắc mắc</span>
+        <h2 class="section-title">Câu hỏi thường gặp</h2>
+      </div>
+
+      <div class="faq-wrapper">
+        <!-- FAQ 1 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Ebook định dạng gì và đọc trên những thiết bị nào?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Ebook được phát hành dưới định dạng file PDF chất lượng cao, hiển thị sắc nét trên mọi thiết bị: Máy tính, Laptop, Máy tính bảng, và Điện thoại di động. Ngoài ra bạn có thể đọc trực tiếp trực tuyến bằng trình đọc ebook chuyên dụng của LumenForge qua Dashboard của mình.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Tôi sẽ nhận được sách như thế nào sau khi thanh toán?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Ngay sau khi hệ thống xác nhận thanh toán thành công (thông qua mã quét chuyển khoản tự động), quyền truy cập ebook sẽ được mở khóa tức thì tại Dashboard cá nhân của bạn dưới mục "Tài liệu của tôi". Bạn cũng sẽ nhận được email hướng dẫn kèm đường dẫn tải PDF trực tiếp.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Ebook có được cập nhật thêm nội dung không?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Có. Mọi phiên bản cập nhật sửa lỗi, bổ sung thêm các case study phân tích những bộ phim mới ra mắt sẽ được cung cấp hoàn toàn miễn phí trọn đời cho những thành viên đã sở hữu ebook. Bạn chỉ cần vào Dashboard để tải phiên bản mới nhất bất cứ lúc nào.</p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Chính sách hoàn trả và hỗ trợ kỹ thuật ra sao?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p>Vì đây là sản phẩm nội dung số có thể tải về trực tiếp, LumenForge không hỗ trợ chính sách hoàn trả sau khi thanh toán đã hoàn tất. Tuy nhiên, nếu bạn gặp bất kỳ sự cố kỹ thuật nào trong quá trình thanh toán, kích hoạt tài khoản hoặc tải file, đội ngũ support của chúng tôi sẽ hỗ trợ giải quyết 24/7 qua hotline và fanpage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta section">
+    <div class="container" style="position: relative; z-index: 10;">
+      <div class="cta-card">
+        <span class="section-meta">// Sở hữu ngay</span>
+        <h2>Bắt đầu làm chủ tâm lý màu sắc điện ảnh</h2>
+        <p>Làm chủ ngôn ngữ màu sắc để thổi hồn điện ảnh vào từng khung hình của bạn. Giá ưu đãi ra mắt chỉ áp dụng trong tuần này.</p>
+        
+        <div class="cta-buttons-center">
+          <a href="#" class="btn-buy-now" onclick="openCheckoutModal('ebook-color', 99000); return false;">
+            Mua Ebook Ngay — 99k
+          </a>
+          <a href="ebook-reader.html?book=color" class="btn-read-try">
+            Đọc Thử Bản Xem Trước
+          </a>
+        </div>
+        <span class="cta-info-bottom">✓ Thanh toán an toàn · File PDF HD · Đọc ngay tức thì</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></span>
+          <p class="footer-tagline">Từ ảnh bình thường đến cinematic — bằng ánh sáng, màu sắc và workflow.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Ebooks</h4>
+            <a href="ebook-chiaroscuro.html">Bậc Thầy Chiaroscuro</a>
+            <a href="ebook-lighting-setups.html">Lighting Setups Bible</a>
+            <a href="ebook-color-psychology.html">Tâm Lý Học Màu Sắc</a>
+            <a href="store.html">Xem tất cả</a>
+          </div>
+          <div class="footer-col">
+            <h4>Khám phá</h4>
+            <a href="light-codex.html">Học Ánh Sáng</a>
+            <a href="gear-vault.html">Kho Thiết Bị</a>
+            <a href="blog.html">Blog</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025–2026 LumenForge. Cinematic photography, forged through light and color.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky CTA bar -->
+  <div class="sticky-cta" id="sticky-cta">
+    <div class="sticky-info">
+      <div class="sticky-title">Tâm lý học Màu sắc trong Điện ảnh (Ebook)</div>
+      <div class="sticky-prices">
+        <span class="sticky-price-new">99.000đ</span>
+        <span class="sticky-price-old">249.000đ</span>
+      </div>
+    </div>
+    <a href="#" class="btn-buy-now" onclick="openCheckoutModal('ebook-color', 99000); return false;">
+      Mua Ngay
+    </a>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/checkout.js"></script>
+
+  <script>
+    // FAQ Accordion logic
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', () => {
+        const item = question.parentNode;
+        const isOpen = item.classList.contains('open');
+        
+        // Close all items
+        document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+        
+        // Open current if not open
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // Sticky CTA scroll handler
+    const stickyCta = document.getElementById('sticky-cta');
+    const hero = document.getElementById('hero');
+    
+    window.addEventListener('scroll', () => {
+      const heroBottom = hero.getBoundingClientRect().bottom;
+      if (heroBottom < 100) {
+        stickyCta.classList.add('visible');
+      } else {
+        stickyCta.classList.remove('visible');
+      }
+    });
+
+    // Interactive Color Wheel Mood Picker data
+    const moodData = {
+      red: {
+        title: "Sự Bạo Liệt, Đam Mê & Nguy Hiểm (Red)",
+        tags: ["#Đam Mê", "#Nguy Hiểm", "#Kịch Tính", "#Bạo Lực"],
+        desc: "Màu đỏ là màu mạnh nhất về mặt kích thích sinh học. Trong điện ảnh, nó được dùng để tạo sự chú ý tuyệt đối, báo hiệu mối đe dọa cận kề, cơn giận dữ tột cùng, hoặc biểu trưng cho tình yêu mãnh liệt và đầy dục vọng.",
+        quote: "Red is the ultimate color of passion and violence in cinema. — American Beauty, Blade Runner 2049, In the Mood for Love",
+        img: "https://images.unsplash.com/photo-1543536448-d209d2d13a1c?q=80&w=1200&auto=format&fit=crop",
+        accent: "var(--color-wheel-red)",
+        name: "MÀU ĐỎ"
+      },
+      green: {
+        title: "Bệnh Tật, Tha Hóa & Sự Tái Sinh (Green)",
+        tags: ["#Nhân Tạo", "#Bất An", "#Tha Hóa", "#Thiên Nhiên"],
+        desc: "Xanh lá cây mang tính lưỡng cực. Nó vừa biểu hiện cho thiên nhiên tươi mới, sinh sôi, vừa gợi lên cảm giác bất an, nhân tạo khó chịu và sự tha hóa đạo đức, thường thấy trong các tác phẩm khoa học viễn tưởng hay phim giật gân.",
+        quote: "Green is the tone of the unnatural and the toxic transition. — The Matrix, Fight Club, Vertigo",
+        img: "https://images.unsplash.com/photo-1513829096963-8a30e62057d3?q=80&w=1200&auto=format&fit=crop",
+        accent: "var(--color-wheel-green)",
+        name: "MÀU XANH LÁ"
+      },
+      blue: {
+        title: "Sự Cô Độc, U Sầu & Công Nghệ (Blue)",
+        tags: ["#Cô Độc", "#Lạnh Lẽo", "#Tương Lai", "#U Sầu"],
+        desc: "Xanh dương làm giảm nhiệt độ thị giác của khung hình xuống mức tối đa. Nó khơi gợi sự cô đơn tột cùng, nỗi u sầu, hoặc biểu đạt thế giới tương lai đầy lạnh lẽo, cơ khí và thiếu thốn hơi ấm của tình người.",
+        quote: "Blue represents isolation and the cold mechanics of destiny. — Blade Runner, The Truman Show, Her",
+        img: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=1200&auto=format&fit=crop",
+        accent: "var(--color-wheel-blue)",
+        name: "MÀU XANH DƯƠNG"
+      },
+      yellow: {
+        title: "Sự Hoài Cổ, Cảnh Báo & Ám Ảnh (Yellow)",
+        tags: ["#Hoài Cổ", "#Ám Ảnh", "#Điên Loạn", "#Ấm Áp"],
+        desc: "Màu vàng có thể đem lại cảm giác ấm áp hoài cổ ngọt ngào, nhưng khi bị phủ một tông xanh lục hoặc làm xỉn đi, nó lập tức báo hiệu sự điên loạn, bất ổn tâm lý nghiêm trọng và nỗi ám ảnh của nhân vật.",
+        quote: "Yellow is a dual edge - either warm nostalgia or borderline madness. — Amélie, Taxi Driver, Kill Bill",
+        img: "https://images.unsplash.com/photo-1554050857-c84a8abdb5e2?q=80&w=1200&auto=format&fit=crop",
+        accent: "var(--color-wheel-yellow)",
+        name: "MÀU VÀNG"
+      }
+    };
+
+    const colorNodes = document.querySelectorAll('.color-node');
+    const moodPanel = document.getElementById('mood-panel');
+    const moodImg = document.getElementById('mood-img');
+    const moodTitle = document.getElementById('mood-title');
+    const moodTags = document.getElementById('mood-tags');
+    const moodDesc = document.getElementById('mood-desc');
+    const moodQuote = document.getElementById('mood-quote');
+    const wheelActiveName = document.getElementById('wheel-active-name');
+
+    colorNodes.forEach(node => {
+      node.addEventListener('click', (e) => {
+        // Prevent event propagation so clicking nodes does not disrupt hover effect
+        e.stopPropagation();
+
+        // Remove active class from all nodes
+        colorNodes.forEach(n => n.classList.remove('active'));
+        
+        // Add active to selected
+        node.classList.add('active');
+        
+        const color = node.getAttribute('data-color');
+        const data = moodData[color];
+
+        if (data) {
+          // Fade effect
+          moodPanel.style.opacity = 0.3;
+          moodPanel.style.transform = "scale(0.98)";
+          
+          setTimeout(() => {
+            // Update image & text content
+            moodImg.src = data.img;
+            moodTitle.textContent = data.title;
+            moodDesc.textContent = data.desc;
+            moodQuote.textContent = data.quote;
+            
+            // Update tags
+            moodTags.innerHTML = '';
+            data.tags.forEach(tag => {
+              const span = document.createElement('span');
+              span.className = 'mood-tag';
+              span.textContent = tag;
+              moodTags.appendChild(span);
+            });
+
+            // Update accent variables
+            moodPanel.style.setProperty('--mood-accent-color', data.accent);
+            wheelActiveName.textContent = data.name;
+            wheelActiveName.style.color = data.accent;
+            
+            // Fade back in
+            moodPanel.style.opacity = 1;
+            moodPanel.style.transform = "scale(1)";
+          }, 300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
