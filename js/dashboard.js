@@ -40,6 +40,7 @@ async function initDashboard() {
             { id: 'starter-kit-pro', name: 'LumenForge Starter Kit (Pro Edition)', type: 'Presets & Guides (ZIP)', link: 'downloads/lumenforge-starter-kit-pro.zip' },
             { id: 'ebook-chiaroscuro', name: 'Bậc thầy Chiaroscuro: Nghệ thuật điêu khắc bóng tối', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=chiaroscuro' },
             { id: 'ebook-color', name: 'Tâm lý học Màu sắc trong Điện ảnh', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=color' },
+            { id: 'ebook-lighting', name: 'Lighting Setups Bible: Kinh Thánh Ánh Sáng', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=lighting' },
             { id: 'preset-film', name: 'Analog Film Emulation Pack (10 Presets)', type: 'Presets & LUTs', link: 'downloads/analog-film-pack.zip' },
             { id: 'preset-cyberpunk', name: 'Cyberpunk Neon Nights (5 LUTs)', type: 'Presets & LUTs', link: 'downloads/cyberpunk-neon-luts.zip' },
             { id: 'bundle-starter', name: 'Creator Starter Bundle', type: 'Bundle', link: 'downloads/creator-starter-bundle.zip' }
@@ -249,6 +250,15 @@ async function initDashboard() {
                 comingSoon: false
             },
             {
+                id: 'ebook-lighting',
+                name: 'Lighting Setups Bible: Kinh Thánh Ánh Sáng',
+                type: 'Ebook (PDF)',
+                desc: '140+ trang, 24+ sơ đồ bố trí ánh sáng từ cơ bản đến nâng cao chuyên sâu.',
+                link: 'ebook-reader.html?book=lighting',
+                price: 149000,
+                comingSoon: false
+            },
+            {
                 id: 'preset-film',
                 name: 'Analog Film Emulation Pack (10 Presets)',
                 type: 'Presets & LUTs',
@@ -345,7 +355,9 @@ async function initDashboard() {
             } else if (status === 'purchased') {
                 card.style.borderLeft = '4px solid var(--accent-green, #10b981)';
                 statusBadgeHTML = `<span style="background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Purchased</span>`;
-                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;" target="_blank">⬇ Tải xuống (ZIP)</a>`;
+                const isEbook = prod.type === 'Ebook (PDF)' || prod.link.includes('ebook-reader.html');
+                const btnText = isEbook ? '📖 Đọc Ebook' : '⬇ Tải xuống (ZIP)';
+                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;" target="_blank">${btnText}</a>`;
             } else if (status === 'pending') {
                 card.style.borderLeft = '4px solid var(--accent-amber)';
                 statusBadgeHTML = `<span style="background: rgba(245, 166, 35, 0.15); color: var(--accent-amber); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Chờ xác minh</span>`;
