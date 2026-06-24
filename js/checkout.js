@@ -46,6 +46,12 @@ const PRODUCT_MAP = {
     type: 'LUTs (.CUBE)', 
     link: 'downloads/cyberpunk-neon-luts.zip' 
   },
+  'preset-alchemist': {
+    name: 'Color Alchemist Preset Pack',
+    title: 'Color Alchemist Preset Pack (15 Presets & 5 LUTs)',
+    type: 'Presets & LUTs',
+    link: 'downloads/color-alchemist-pack.zip'
+  },
   'pro-monthly': {
     name: 'LumenForge PRO (1-Month Membership)',
     title: 'LumenForge PRO (1-Month Membership)',

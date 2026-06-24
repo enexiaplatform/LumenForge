@@ -43,6 +43,7 @@ async function initDashboard() {
             { id: 'ebook-lighting', name: 'Lighting Setups Bible: Kinh Thánh Ánh Sáng', type: 'Ebook (PDF)', link: 'ebook-reader.html?book=lighting' },
             { id: 'preset-film', name: 'Analog Film Emulation Pack (10 Presets)', type: 'Presets & LUTs', link: 'downloads/analog-film-pack.zip' },
             { id: 'preset-cyberpunk', name: 'Cyberpunk Neon Nights (5 LUTs)', type: 'Presets & LUTs', link: 'downloads/cyberpunk-neon-luts.zip' },
+            { id: 'preset-alchemist', name: 'Color Alchemist Preset Pack (15 Presets & 5 LUTs)', type: 'Presets & LUTs', link: 'downloads/color-alchemist-pack.zip' },
             { id: 'bundle-starter', name: 'Creator Starter Bundle', type: 'Bundle', link: 'downloads/creator-starter-bundle.zip' }
         ];
         const prodMeta = coreProducts.find(p => p.id === prodId);
@@ -288,6 +289,15 @@ async function initDashboard() {
                 desc: 'Bộ 5 LUTs màu neon tương phản mạnh mẽ dành cho cảnh đêm thiếu sáng.',
                 link: 'downloads/cyberpunk-neon-luts.zip',
                 price: 79000,
+                comingSoon: false
+            },
+            {
+                id: 'preset-alchemist',
+                name: 'Color Alchemist Preset Pack (15 Presets & 5 LUTs)',
+                type: 'Presets & LUTs',
+                desc: 'Bộ 15 Preset Lightroom và 5 Cinematic LUTs thiết kế theo thuyết toán học Color Matrix.',
+                link: 'downloads/color-alchemist-pack.zip',
+                price: 99000,
                 comingSoon: false
             },
             {

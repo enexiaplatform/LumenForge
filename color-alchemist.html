@@ -357,7 +357,7 @@
     <p class="section-label">[&thinsp;THE COLOR ALCHEMIST&thinsp;]</p>
     <h1>Phép Thuật Của Màu Sắc</h1>
     <p class="hero-subtitle">Bộ 15 Preset Lightroom và 5 Cinematic LUTs được thiết kế dựa trên thuyết toán học về Color Matrix. Biến hóa ảnh RAW nhợt nhạt thành tác phẩm điện ảnh Hollywood chỉ với 1 cú click.</p>
-    <button class="btn btn-gold" style="font-size: 1.2rem; padding: 15px 40px;" onclick="openCheckout()">Sở Hữu Ngay — $49</button>
+    <button class="btn btn-gold" style="font-size: 1.2rem; padding: 15px 40px;" onclick="openCheckoutModal('preset-alchemist', 99000); return false;">Sở Hữu Ngay — 99.000đ</button>
   </header>
 
   <!-- Interactive Showcase -->
@@ -425,52 +425,11 @@
       </div>
       
       <div style="text-align: center;">
-        <button class="btn btn-gold" style="font-size: 1.3rem; padding: 20px 50px;" onclick="openCheckout()">Mua Gói Toàn Diện — $49</button>
-        <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Thanh toán an toàn qua thẻ tín dụng hoặc PayPal. Link tải gửi ngay qua Email.</p>
+        <button class="btn btn-gold" style="font-size: 1.3rem; padding: 20px 50px;" onclick="openCheckoutModal('preset-alchemist', 99000); return false;">Mua Gói Toàn Diện — 99.000đ</button>
+        <p style="margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">Thanh toán an toàn qua chuyển khoản ngân hàng VietQR hoặc MoMo. Kích hoạt tải ngay.</p>
       </div>
     </div>
   </section>
-
-  <!-- Fake Checkout Modal -->
-  <div class="checkout-overlay" id="checkout-overlay">
-    <div class="checkout-modal">
-      <div class="checkout-header">
-        <h3 style="color: #fff; margin: 0;">Hoàn Tất Thanh Toán</h3>
-        <button class="close-modal" onclick="closeCheckout()">&times;</button>
-      </div>
-      <div class="checkout-form">
-        <label>Email Nhận Link Tải Về</label>
-        <input type="email" placeholder="john.doe@example.com" required id="chk-email">
-        
-        <label>Tên Chủ Thẻ</label>
-        <input type="text" placeholder="NGUYEN VAN A" required>
-        
-        <label>Số Thẻ (Giả lập tính năng an toàn)</label>
-        <input type="text" placeholder="**** **** **** 1234" maxlength="19">
-        
-        <div style="display: flex; gap: 15px;">
-          <div style="flex: 1;">
-            <label>Ngày hết hạn</label>
-            <input type="text" placeholder="MM/YY">
-          </div>
-          <div style="flex: 1;">
-            <label>CVC</label>
-            <input type="text" placeholder="***">
-          </div>
-        </div>
-
-        <div class="total-row">
-          <span>Tổng Cộng (Đã bao gồm VAT)</span>
-          <span style="color: var(--accent-amber);">$49.00</span>
-        </div>
-
-        <button class="btn btn-gold" style="width: 100%; font-size: 1.1rem; padding: 15px;" onclick="processPayment()">Thanh Toán Ngay & Nhận Hàng</button>
-        <p style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: var(--text-dim);">
-          Giao dịch được mã hóa SSL an toàn 256-bit. <br>LumenForge Demo - Không thu phí thật.
-        </p>
-      </div>
-    </div>
-  </div>
 
             <!-- Footer -->
   <footer class="footer">
@@ -566,39 +525,6 @@
         afterWrapper.style.width = '50%';
       });
     });
-
-    // --- Checkout Logic ---
-    const overlay = document.getElementById('checkout-overlay');
-    function openCheckout() {
-      overlay.classList.add('active');
-    }
-    function closeCheckout() {
-      overlay.classList.remove('active');
-    }
-    
-    function processPayment() {
-      const email = document.getElementById('chk-email').value;
-      if (!email) {
-        alert("Vui lòng nhập Email để nhận link tải.");
-        return;
-      }
-      
-      const btn = document.querySelector('.checkout-form .btn-gold');
-      btn.innerText = "Đang xử lý...";
-      btn.style.opacity = '0.7';
-      
-      setTimeout(() => {
-        overlay.innerHTML = `
-          <div class="checkout-modal" style="text-align: center; transform: translateY(0);">
-            <div style="font-size: 4rem; color: var(--accent-cyan); margin-bottom: 20px;">✓</div>
-            <h2 style="color: #fff; margin-bottom: 10px;">Thanh toán thành công!</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 20px;">Link tải trọn bộ Color Alchemist và Ebook đã được gửi tới email:<br><strong style="color: #fff;">${email}</strong></p>
-            <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 30px;">Vui lòng kiểm tra cả thư mục Spam nếu bạn không thấy email sau 5 phút.</p>
-            <button class="btn btn-outline" onclick="closeCheckout()">Trở về Cửa hàng</button>
-          </div>
-        `;
-      }, 1500);
-    }
   </script>
   <script src="js/common.js"></script>
   <script src="js/auth.js"></script>
