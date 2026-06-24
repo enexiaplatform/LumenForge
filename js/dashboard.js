@@ -84,8 +84,22 @@ async function initDashboard() {
     const avatarEl = document.getElementById('user-avatar');
     if (avatarEl) avatarEl.innerText = user.avatar || 'U';
     
-    const nameEl = document.querySelector('.user-info h2');
-    if (nameEl) nameEl.innerText = user.name;
+    const displayNameEl = document.getElementById('user-display-name');
+    if (displayNameEl) {
+        displayNameEl.innerText = user.name;
+    } else {
+        const nameEl = document.querySelector('.user-info h2');
+        if (nameEl) nameEl.innerText = user.name;
+    }
+
+    const proBadgeEl = document.getElementById('pro-badge-placeholder');
+    if (proBadgeEl) {
+        if (lfAuth.isPro()) {
+            proBadgeEl.innerHTML = `<span style="background: linear-gradient(135deg, #d4af37 0%, #b38b22 100%); color: #000; font-weight: 900; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 0 10px rgba(212, 175, 55, 0.4); display: inline-block; vertical-align: middle;">PRO MEMBER</span>`;
+        } else {
+            proBadgeEl.innerHTML = '';
+        }
+    }
     
     // 2. XP & Rank Calculation (Including Quiz XP)
     const xpEl = document.getElementById('user-xp');
@@ -284,6 +298,33 @@ async function initDashboard() {
                 link: 'downloads/creator-starter-bundle.zip',
                 price: 249000,
                 comingSoon: false
+            },
+            {
+                id: 'pro-monthly',
+                name: 'LumenForge PRO (Gói Tháng)',
+                type: 'Membership',
+                desc: 'Quyền truy cập toàn bộ hệ sinh thái PRO bao gồm Cinema Analyzer và Studio Simulator.',
+                link: 'pro-hub.html',
+                price: 149000,
+                comingSoon: false
+            },
+            {
+                id: 'pro-annual',
+                name: 'LumenForge PRO (Gói Năm)',
+                type: 'Membership',
+                desc: 'Quyền truy cập toàn bộ hệ sinh thái PRO bao gồm Cinema Analyzer, Studio Simulator và Ebooks.',
+                link: 'pro-hub.html',
+                price: 990000,
+                comingSoon: false
+            },
+            {
+                id: 'pro-lifetime',
+                name: 'LumenForge PRO (Trọn Đời)',
+                type: 'Membership',
+                desc: 'Sở hữu vĩnh viễn trọn bộ hệ sinh thái PRO, Presets, Ebooks và cập nhật tương lai.',
+                link: 'pro-hub.html',
+                price: 1990000,
+                comingSoon: false
             }
         ];
 
@@ -356,8 +397,10 @@ async function initDashboard() {
                 card.style.borderLeft = '4px solid var(--accent-green, #10b981)';
                 statusBadgeHTML = `<span style="background: rgba(16, 185, 129, 0.15); color: #10B981; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Purchased</span>`;
                 const isEbook = prod.type === 'Ebook (PDF)' || prod.link.includes('ebook-reader.html');
-                const btnText = isEbook ? '📖 Đọc Ebook' : '⬇ Tải xuống (ZIP)';
-                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;" target="_blank">${btnText}</a>`;
+                const isMembership = prod.type === 'Membership';
+                const btnText = isMembership ? '⚡ Vào PRO Hub' : (isEbook ? '📖 Đọc Ebook' : '⬇ Tải xuống (ZIP)');
+                const targetAttr = isMembership ? '' : 'target="_blank"';
+                actionButtonHTML = `<a href="${prod.link}" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; text-decoration: none; text-align: center; background: var(--accent-cyan); color: #000; display: block;" ${targetAttr}>${btnText}</a>`;
             } else if (status === 'pending') {
                 card.style.borderLeft = '4px solid var(--accent-amber)';
                 statusBadgeHTML = `<span style="background: rgba(245, 166, 35, 0.15); color: var(--accent-amber); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; text-transform: uppercase;">Chờ xác minh</span>`;

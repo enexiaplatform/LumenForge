@@ -149,6 +149,10 @@ class AuthSystem {
         const purchase = this.purchases.find(p => p.id === productId);
         return purchase && (purchase.status === 'purchased' || purchase.status === 'free');
     }
+
+    isPro() {
+        return this.hasPurchased('pro-monthly') || this.hasPurchased('pro-annual') || this.hasPurchased('pro-lifetime');
+    }
 }
 
 const lfAuth = new AuthSystem();

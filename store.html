@@ -132,6 +132,108 @@
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 10px;
     }
+
+    /* Pricing Section */
+    .pricing-grid-pro {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .pricing-card-pro {
+      background: rgba(20, 20, 25, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .pricing-card-pro.popular {
+      border-color: var(--accent-gold);
+      background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.05) 0%, rgba(20, 20, 25, 0.9) 70%);
+      box-shadow: 0 20px 45px rgba(212, 175, 55, 0.08);
+    }
+
+    .pricing-card-pro:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .pricing-card-pro.popular:hover {
+      border-color: var(--accent-gold);
+      box-shadow: 0 25px 50px rgba(212, 175, 55, 0.15);
+    }
+
+    .popular-ribbon {
+      position: absolute;
+      top: 15px; right: 15px;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #b38b22 100%);
+      color: #000;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 0 10px var(--accent-gold-glow);
+    }
+
+    .plan-name {
+      font-size: 1.35rem;
+      color: #fff;
+      font-family: var(--font-heading);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .plan-price {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      font-family: var(--font-mono);
+      margin: 20px 0;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+    }
+
+    .plan-price span {
+      font-size: 1rem;
+      color: var(--text-dim);
+      font-family: var(--font-body);
+      font-weight: normal;
+      margin-left: 4px;
+    }
+
+    .plan-features-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0 35px 0;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .plan-features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    .plan-features-list li svg {
+      color: var(--accent-gold);
+      flex-shrink: 0;
+    }
   </style>
 
   <link rel="canonical" href="https://lumenforge.studio/store.html">
@@ -208,20 +310,115 @@
           </div>
         </div>
 
+      <!-- LumenForge PRO Membership Tiers -->
+      <h3 class="section-title-store" style="margin-top: 60px; border-bottom: 1px solid rgba(212, 175, 55, 0.3);">02 // HỘI VIÊN LUMENFORGE PRO</h3>
+      <div style="text-align: center; margin-bottom: 30px;">
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 10px auto 0 auto; line-height: 1.6; font-size: 1.05rem;">
+          Đăng ký gói hội viên cao cấp để mở khóa toàn bộ các Ebooks, Presets và các công cụ mô phỏng nâng cao.
+        </p>
+      </div>
+      
+      <div class="pricing-grid-pro" style="margin-bottom: 60px;">
+        <!-- Monthly Plan -->
+        <div class="pricing-card-pro">
+          <div>
+            <div class="plan-name">PRO Monthly</div>
+            <p style="color: var(--text-dim); font-size: 0.85rem;">Trải nghiệm linh hoạt hàng tháng</p>
+            <div class="plan-price">149.000đ<span>/ tháng</span></div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Mở khóa 50+ Phân tích Phim
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Pro Studio Builder (2D/3D)
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Kênh Discord Mentorship
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Tải 15+ Preset & LUTs gốc
+              </li>
+            </ul>
+          </div>
+          <button class="btn-buy" style="width: 100%; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; text-align: center; font-size: 0.9rem; padding: 12px; border-radius: 6px; cursor: pointer;" onclick="buyProPlan('pro-monthly', 149000)">Đăng ký ngay</button>
+        </div>
+        
+        <!-- Annual Plan -->
+        <div class="pricing-card-pro popular">
+          <div class="popular-ribbon">Tiết kiệm 45%</div>
+          <div>
+            <div class="plan-name" style="color: var(--accent-gold);">PRO Annual</div>
+            <p style="color: var(--text-dim); font-size: 0.85rem;">Học tập bài bản & tiết kiệm tối đa</p>
+            <div class="plan-price">990.000đ<span>/ năm</span></div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Toàn bộ quyền lợi gói Monthly
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Review Portfolio trực tiếp hàng tháng
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Tải trọn bộ 3 Ebook PDF độc quyền
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Cập nhật presets & tài nguyên mới free
+              </li>
+            </ul>
+          </div>
+          <button class="btn-buy" style="width: 100%; background: var(--accent-gold); color: #000; border: none; font-weight: bold; text-align: center; font-size: 0.9rem; padding: 12px; border-radius: 6px; cursor: pointer; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);" onclick="buyProPlan('pro-annual', 990000)">Đăng ký ngay</button>
+        </div>
+        
+        <!-- Lifetime Plan -->
+        <div class="pricing-card-pro">
+          <div>
+            <div class="plan-name">PRO Lifetime</div>
+            <p style="color: var(--text-dim); font-size: 0.85rem;">Mua một lần, sở hữu vĩnh viễn</p>
+            <div class="plan-price">1.990.000đ<span>/ trọn đời</span></div>
+            <ul class="plan-features-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Sở hữu vĩnh viễn trọn bộ tài nguyên
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Quyền truy cập tất cả sản phẩm tương lai
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Hỗ trợ 1-1 trực tiếp từ D.P sáng lập
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Huy hiệu vàng Vĩnh Viễn trên Dashboard
+              </li>
+            </ul>
+          </div>
+          <button class="btn-buy" style="width: 100%; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; text-align: center; font-size: 0.9rem; padding: 12px; border-radius: 6px; cursor: pointer;" onclick="buyProPlan('pro-lifetime', 1990000)">Đăng ký ngay</button>
+        </div>
+      </div>
+
       <!-- Creator Ebooks Section -->
       <div id="creator-ebooks-section" style="display: none; margin-top: 60px;">
-        <h3 class="section-title-store">02 // TÀI LIỆU & EBOOKS CỘNG ĐỒNG</h3>
+        <h3 class="section-title-store">03 // TÀI LIỆU & EBOOKS CỘNG ĐỒNG</h3>
         <div id="ebooks-grid" class="products-grid"></div>
       </div>
 
       <!-- Creator Presets & LUTs Section -->
       <div id="creator-presets-section" style="display: none; margin-top: 60px;">
-        <h3 class="section-title-store">03 // PRESETS & LUTS CỘNG ĐỒNG</h3>
+        <h3 class="section-title-store">04 // PRESETS & LUTS CỘNG ĐỒNG</h3>
         <div id="presets-grid" class="products-grid"></div>
       </div>
 
       <!-- Free Resource -->
-      <h3 class="section-title-store" style="margin-top: 60px;">04 // FREE RESOURCES</h3>
+      <h3 class="section-title-store" style="margin-top: 60px;">05 // FREE RESOURCES</h3>
       <div class="products-grid">
         
         <!-- LumenForge Starter Kit Free -->
@@ -241,7 +438,7 @@
       </div>
 
       <!-- Premium Ebooks & Presets Section -->
-      <h3 class="section-title-store" style="margin-top: 60px;">05 // EBOOKS & BỘ MÀU CHUYÊN SÂU</h3>
+      <h3 class="section-title-store" style="margin-top: 60px;">06 // EBOOKS & BỘ MÀU CHUYÊN SÂU</h3>
       <div class="products-grid">
         
         <!-- Product 1: Chiaroscuro -->
@@ -401,7 +598,7 @@
 
       <!-- Store FAQ -->
       <div style="margin-top: 60px;">
-        <h3 class="section-title-store">06 // CÂU HỎI THƯỜNG GẶP KHI MUA</h3>
+        <h3 class="section-title-store">07 // CÂU HỎI THƯỜNG GẶP KHI MUA</h3>
         <div class="faq-list">
 
           <div class="faq-item">
@@ -491,6 +688,27 @@
       const isOpen = item.classList.contains('open');
       document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
+    }
+
+    // PRO Membership purchase trigger
+    function buyProPlan(productId, priceVnd) {
+      if (typeof lfAuth === 'undefined') {
+        alert('Hệ thống xác thực chưa được khởi động.');
+        return;
+      }
+      
+      if (!lfAuth.isLoggedIn()) {
+        alert('Vui lòng đăng nhập tài khoản trước khi đăng ký gói hội viên PRO!');
+        openAuthModal();
+        return;
+      }
+      
+      if (typeof openCheckoutModal === 'undefined') {
+        alert('Hệ thống thanh toán đang bảo trì, vui lòng thử lại sau.');
+        return;
+      }
+      
+      openCheckoutModal(productId, priceVnd);
     }
   </script>
 </body>

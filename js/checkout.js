@@ -45,6 +45,24 @@ const PRODUCT_MAP = {
     title: 'Cyberpunk Neon Nights (5 LUTs)',
     type: 'LUTs (.CUBE)', 
     link: 'downloads/cyberpunk-neon-luts.zip' 
+  },
+  'pro-monthly': {
+    name: 'LumenForge PRO (1-Month Membership)',
+    title: 'LumenForge PRO (1-Month Membership)',
+    type: 'Membership',
+    link: 'pro-hub.html?status=active'
+  },
+  'pro-annual': {
+    name: 'LumenForge PRO (1-Year Membership)',
+    title: 'LumenForge PRO (1-Year Membership)',
+    type: 'Membership',
+    link: 'pro-hub.html?status=active'
+  },
+  'pro-lifetime': {
+    name: 'LumenForge PRO (Lifetime Membership)',
+    title: 'LumenForge PRO (Lifetime Membership)',
+    type: 'Membership',
+    link: 'pro-hub.html?status=active'
   }
 };
 
