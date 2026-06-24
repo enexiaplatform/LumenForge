@@ -41,10 +41,22 @@ function updateSimulation() {
   movingObject.style.setProperty('--blur-amount', `${blurAmount}px`);
 }
 
-function setPreset(targetAngle) {
+// Export preset functions to window for HTML button onclick triggers
+window.setPreset = function(targetAngle) {
   angleSlider.value = targetAngle;
   updateSimulation();
-}
+};
+
+window.setProPreset = function(name, targetAngle) {
+  if (typeof lfAuth !== 'undefined') {
+    const featureName = name.replace(' 👑', '');
+    const hasAccess = lfAuth.gateFeature(featureName, () => {});
+    if (!hasAccess) return; // Block preset if not PRO
+  }
+  
+  angleSlider.value = targetAngle;
+  updateSimulation();
+};
 
 // Event Listeners
 angleSlider.addEventListener('input', updateSimulation);
