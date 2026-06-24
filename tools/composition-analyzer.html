@@ -318,6 +318,32 @@
             <button class="grid-btn" data-grid="dynamic">
               Dynamic Symmetry <span>(Đường chéo)</span>
             </button>
+
+            <!-- Premium VIP PRO Grids -->
+            <button class="grid-btn pro-grid" data-grid="triangle" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Golden Triangle <span>(PRO)</span>
+            </button>
+            
+            <button class="grid-btn pro-grid" data-grid="crosshair" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Quadrant & Center <span>(PRO)</span>
+            </button>
+
+            <button class="grid-btn pro-grid" data-grid="safearea" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Safe Title/Action <span>(PRO)</span>
+            </button>
+
+            <button class="grid-btn pro-grid" data-grid="crop239" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Cinema Crop 2.39:1 <span>(PRO)</span>
+            </button>
+
+            <button class="grid-btn pro-grid" data-grid="crop185" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Cinema Crop 1.85:1 <span>(PRO)</span>
+            </button>
+
+            <button class="grid-btn pro-grid" data-grid="crop916" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+              👑 Vertical Crop 9:16 <span>(PRO)</span>
+            </button>
+
             <button class="grid-btn" data-grid="none">
               Tắt (None) <span>(Off)</span>
             </button>
@@ -341,6 +367,16 @@
             </div>
           </div>
 
+          <!-- Custom Photo Uploader -->
+          <div class="control-group" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+            <h4 class="control-header">PHÂN TÍCH ẢNH CÁ NHÂN</h4>
+            <input type="file" id="inp-upload-img" accept="image/*" style="display: none;">
+            <button class="btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: bold; background: var(--accent-cyan); color: #000; border: none;" onclick="document.getElementById('inp-upload-img').click()">
+              📂 Tải ảnh của bạn lên
+            </button>
+            <p style="font-size: 0.75rem; color: var(--text-dim); text-align: center; margin-top: 5px;">Hỗ trợ ảnh JPG, PNG. Xử lý 100% tại trình duyệt của bạn.</p>
+          </div>
+
           <div class="link-box">
             Đọc bài viết lý thuyết để hiểu rõ hơn về toán học trong nhiếp ảnh:<br>
             <a href="../articles/golden-ratio-composition.html">Vượt qua Quy tắc Một phần Ba →</a>
@@ -354,6 +390,8 @@
   </section>
 
   <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/composition-analyzer.js"></script>
 
   <!-- Footer -->
