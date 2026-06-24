@@ -173,6 +173,58 @@ document.addEventListener('DOMContentLoaded', () => {
     URL.revokeObjectURL(url);
   });
 
+  // Curated Cinematic Presets Database
+  const lrPresets = {
+    'teal-orange': {
+      temp: 15, tint: -5, exp: 0.2, con: 20, hi: -10, sh: 15, vib: 10, sat: 5,
+      hslRed: 5, hslOrg: 10, hslGrn: -30, hslBlu: 25,
+      splitShHue: 35, splitShSat: 15, splitHiHue: 215, splitHiSat: 25
+    },
+    'vintage': {
+      temp: 20, tint: 10, exp: -0.1, con: -15, hi: -25, sh: 30, vib: -20, sat: -10,
+      hslRed: 10, hslOrg: 15, hslGrn: -40, hslBlu: -30,
+      splitShHue: 45, splitShSat: 10, splitHiHue: 0, splitHiSat: 0
+    },
+    'cyberpunk': {
+      temp: -25, tint: 35, exp: 0.1, con: 30, hi: -5, sh: -10, vib: 25, sat: 15,
+      hslRed: 40, hslOrg: -20, hslGrn: -55, hslBlu: 50,
+      splitShHue: 190, splitShSat: 25, splitHiHue: 320, splitHiSat: 30
+    },
+    'chiaroscuro': {
+      temp: 5, tint: 0, exp: -0.8, con: 45, hi: 10, sh: -40, vib: -15, sat: -10,
+      hslRed: -10, hslOrg: 5, hslGrn: -60, hslBlu: -50,
+      splitShHue: 30, splitShSat: 8, splitHiHue: 0, splitHiSat: 0
+    }
+  };
+
+  // Bind Preset Click
+  document.querySelectorAll('.preset-btn-lr').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const presetKey = btn.getAttribute('data-lr-preset');
+      const p = lrPresets[presetKey];
+      if (!p) return;
+
+      // Gate the feature behind PRO
+      if (typeof lfAuth !== 'undefined') {
+        const featureName = btn.textContent.trim().replace(' 👑', '').replace(' (PRO)', '');
+        const hasAccess = lfAuth.gateFeature(featureName, () => {});
+        if (!hasAccess) return; // Block if not PRO
+      }
+
+      // Apply values to sliders and update text displays
+      Object.keys(p).forEach(key => {
+        if (sliders[key]) {
+          sliders[key].value = p[key];
+          if (values[key]) {
+            values[key].textContent = p[key];
+          }
+        }
+      });
+
+      if (currentImage) applyFilters();
+    });
+  });
+
   // The XMP Template builder
   function generateXMP(presetName, params) {
     const uuid = 'uuid:' + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {

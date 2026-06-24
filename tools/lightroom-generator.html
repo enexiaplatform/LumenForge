@@ -231,7 +231,25 @@
 
       <!-- Sliders Panel -->
       <div class="panel">
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 5px;">Basic Panel</h3>
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 5px; display: flex; align-items: center; gap: 8px;">
+          <span>🎬</span> Cinematic Look Presets
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 20px;">
+          <button class="preset-btn-lr" data-lr-preset="teal-orange" style="border: 1px solid var(--accent-gold); color: var(--accent-gold); background: rgba(212,175,55,0.03); padding: 8px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: left; position: relative; font-family: var(--font-body);">
+            Teal & Orange (PRO) <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.75rem;">👑</span>
+          </button>
+          <button class="preset-btn-lr" data-lr-preset="vintage" style="border: 1px solid var(--accent-gold); color: var(--accent-gold); background: rgba(212,175,55,0.03); padding: 8px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: left; position: relative; font-family: var(--font-body);">
+            Vintage Film (PRO) <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.75rem;">👑</span>
+          </button>
+          <button class="preset-btn-lr" data-lr-preset="cyberpunk" style="border: 1px solid var(--accent-gold); color: var(--accent-gold); background: rgba(212,175,55,0.03); padding: 8px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: left; position: relative; font-family: var(--font-body);">
+            Cyberpunk (PRO) <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.75rem;">👑</span>
+          </button>
+          <button class="preset-btn-lr" data-lr-preset="chiaroscuro" style="border: 1px solid var(--accent-gold); color: var(--accent-gold); background: rgba(212,175,55,0.03); padding: 8px; font-size: 0.78rem; font-weight: bold; border-radius: 4px; cursor: pointer; text-align: left; position: relative; font-family: var(--font-body);">
+            Chiaroscuro (PRO) <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); font-size: 0.75rem;">👑</span>
+          </button>
+        </div>
+        
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 5px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">Basic Panel</h3>
         
         <div class="section-title">Color (White Balance)</div>
         <div class="slider-group">
@@ -322,8 +340,10 @@
 </div>
   </main>
 
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/lightroom-generator.js"></script>
-<script src="../js/common.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
