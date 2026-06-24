@@ -130,6 +130,18 @@
       margin: 10px auto;
       border: 2px solid #fff;
     }
+    
+    .sample-thumb {
+      cursor: pointer;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 55px;
+      transition: var(--transition);
+    }
+    .sample-thumb:hover {
+      border-color: rgba(255,255,255,0.3);
+    }
   </style>
 
   <link rel="canonical" href="https://lumenforge.studio/tools/color-matcher.html">
@@ -200,12 +212,28 @@
           </div>
         </div>
         
-        <div class="palette-container" id="ref-palette">
+        <div class="palette-container" id="ref-palette" style="margin-bottom: 15px;">
           <div class="color-swatch" id="c1"></div>
           <div class="color-swatch" id="c2"></div>
           <div class="color-swatch" id="c3"></div>
           <div class="color-swatch" id="c4"></div>
           <div class="color-swatch" id="c5"></div>
+        </div>
+
+        <!-- Movie Samples Selection -->
+        <div class="control-group" style="margin-top: 10px; width: 100%;">
+          <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">Ảnh phim Mẫu (Click chọn)</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div class="sample-thumb" id="ref-sample-1" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Blade Runner 2049 (Amber/Teal)">
+              <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="ref-sample-2" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="The Matrix (Acidic Green)">
+              <img src="https://images.unsplash.com/photo-1515621061946-eff1c2a352bd?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="ref-sample-3" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Dune (Desert Gold)">
+              <img src="https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
         </div>
       </div>
 
@@ -221,13 +249,41 @@
             </button>
           </div>
         </div>
-        <p style="color: var(--text-secondary); text-align: center; font-size: 0.9rem;">
-          Tải ảnh của bạn lên để so sánh Tone màu.
-        </p>
+
+        <!-- Target Samples Selection -->
+        <div class="control-group" style="margin-top: 10px; width: 100%;">
+          <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">Ảnh mục tiêu Mẫu (Click chọn)</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div class="sample-thumb" id="tar-sample-1" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Studio Portrait">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="tar-sample-2" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Night Street">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="tar-sample-3" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Outdoor Portrait">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Match Intensity & Action Controls -->
+        <div class="control-group" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; width: 100%; text-align: left;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.9rem; color: var(--text-primary); display: inline-flex; align-items: center; gap: 5px;">Cường độ phối màu <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></span>
+            <span id="val-intensity" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600;">100%</span>
+          </div>
+          <input type="range" id="slider-intensity" min="0" max="100" value="100" step="5" style="width: 100%; accent-color: var(--accent-cyan);">
+        </div>
+
+        <div style="display: flex; gap: 10px; width: 100%; margin-top: 15px;">
+          <button id="btn-match" style="flex: 1; padding: 12px; background: var(--accent-cyan); color: #000; border: none; border-radius: var(--radius-md); font-weight: bold; cursor: pointer;">⚡ Phối tông màu</button>
+          <button id="btn-download" style="flex: 1; padding: 12px; background: var(--accent-gold); color: #000; border: none; border-radius: var(--radius-md); font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">👑 Tải ảnh Graded</button>
+        </div>
+        <button id="btn-reset-target" style="width: 100%; margin-top: 8px; padding: 8px; background: transparent; color: var(--text-dim); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; font-size: 0.85rem;">Upload ảnh khác</button>
       </div>
 
       <!-- Analysis Result -->
-      <div class="grading-advice" id="advice-box">
+      <div class="grading-advice" id="advice-box" style="grid-column: 1 / -1;">
         <div class="advice-title">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           Phân tích Color Grading & Lời khuyên
@@ -253,17 +309,18 @@
         </div>
       </div>
 
-    
-        <div style="margin-top: 30px; padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-amber); text-align: center; background: rgba(245, 166, 35, 0.05);">
+        <div style="grid-column: 1 / -1; margin-top: 30px; padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-amber); text-align: center; background: rgba(245, 166, 35, 0.05);">
           <h4 style="color: var(--accent-amber); font-size: 0.95rem; margin-bottom: 8px;">Tối ưu hóa Quy trình làm việc?</h4>
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">Sở hữu ngay trọn bộ <strong>Cinematic Film Emulation Pack</strong> gồm 15 Presets & LUTs (.cube) dùng vĩnh viễn trên Lightroom, Premiere.</p>
           <a href="../store.html" class="btn-primary" style="display: block; width: 100%; text-align: center; padding: 10px; font-size: 0.85rem; background: var(--accent-amber); color: #000; text-decoration: none; font-weight: bold; border-radius: 4px;">Khám phá Preset Shop</a>
         </div>
-</div>
+    </div>
   </main>
 
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/color-matcher.js"></script>
-<script src="../js/common.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
