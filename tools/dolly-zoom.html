@@ -143,6 +143,33 @@
       line-height: 1.6;
       margin-top: 20px;
     }
+    
+    .preset-btn:hover {
+      background: rgba(255,255,255,0.08) !important;
+      color: #fff !important;
+    }
+    .preset-btn.active {
+      border-color: var(--accent-amber) !important;
+      background: rgba(245, 166, 35, 0.1) !important;
+      color: var(--accent-amber) !important;
+    }
+    
+    .upload-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .upload-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--text-secondary);
+    }
   </style>
 
   <link rel="canonical" href="https://lumenforge.studio/tools/dolly-zoom.html">
@@ -195,94 +222,94 @@
     <div class="tool-header">
       <span class="tool-badge" style="background: rgba(255,255,255,0.1); color: var(--text-primary);">Optics Physics</span>
       <h1>Dolly Zoom Playground</h1>
-      <p class="tool-desc">Kéo thanh trượt để trải nghiệm hiệu ứng Vertigo (Zoom in + Move back). Tiền cảnh giữ nguyên, nhưng Hậu cảnh (background) bị nén và kéo sập vào màn hình.</p>
-    </div>
-
-    <div class="vertigo-layout">
+      <p class="tool-desc">Kéo thanh trượt để trải nghiệm hiệu ứng Vertigo     <div class="vertigo-layout">
       
       <div class="scene-container" id="scene">
         <div class="rule-of-thirds"></div>
         <div class="scene-3d">
-          <div class="bg-layer"></div>
-          <!-- <div class="mid-layer"></div> -->
-          <div class="fg-layer"></div>
+          <div class="bg-layer" id="bg-layer"></div>
+          <div class="fg-layer" id="fg-layer"></div>
+        </div>
+      </div>
+
+      <!-- Blockbuster Scene Selection -->
+      <div style="margin-top: 15px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-md); text-align: left;">
+        <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Cảnh phim kinh điển (Click chọn)</h4>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <button class="preset-btn active" id="preset-vertigo" style="padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: #fff; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 0.85rem; font-weight: bold;">
+            Vertigo Alley
+          </button>
+          <button class="preset-btn" id="preset-jaws" style="padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: #fff; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 0.85rem; font-weight: bold;">
+            Jaws Beach
+          </button>
+          <button class="preset-btn" id="preset-goodfellas" style="padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: #fff; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 0.85rem; font-weight: bold;">
+            Goodfellas Diner
+          </button>
         </div>
       </div>
 
       <div class="controls-panel">
-        <div class="slider-group">
-          <div class="slider-header">
-            <span>Tiêu cự Lens (Focal Length)</span>
-            <span>Khoảng cách máy ảnh đang tự bù trừ</span>
+        
+        <!-- Focal Length & Auto-Play -->
+        <div style="display: flex; align-items: center; gap: 15px; width: 100%; margin-bottom: 20px;">
+          <div style="flex: 1; text-align: left;">
+            <div class="slider-header" style="margin-bottom: 8px;">
+              <span>Tiêu cự Lens (Focal Length)</span>
+              <span id="lens-display" style="font-family: var(--font-mono); color: var(--accent-amber); font-weight: bold;">35mm</span>
+            </div>
+            <input type="range" id="zoom-slider" min="0" max="100" value="15">
           </div>
-          <!-- 
-            We map:
-            Value 0   -> Wide (14mm)     -> perspective 200px
-            Value 100 -> Tele (200mm)    -> perspective 4000px
-          -->
-          <input type="range" id="zoom-slider" min="0" max="100" value="15">
+          <button id="btn-animate" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: #fff; padding: 10px 15px; border-radius: var(--radius-md); font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 5px; height: 45px; margin-top: 20px; transition: var(--transition);">
+            ▶ <span>Auto-Play</span> <span style="color: var(--accent-gold); font-size: 0.75rem;">👑 PRO</span>
+          </button>
         </div>
 
-        <div class="lens-info" id="lens-display">35mm (Tiêu chuẩn)</div>
-        
-        <p class="desc-text" id="desc-display">
+        <!-- Depth of Field Blur (Aperture) -->
+        <div class="slider-group" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; text-align: left;">
+          <div class="slider-header" style="margin-bottom: 8px;">
+            <span style="display: flex; align-items: center; gap: 5px;">Khẩu độ xóa phông (DoF Blur) <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></span>
+            <span id="val-blur" style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 600;">f/2.8 (Mặc định)</span>
+          </div>
+          <input type="range" id="slider-blur" min="0" max="100" value="30" step="5" style="width: 100%; accent-color: var(--accent-cyan);">
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px;">Mô phỏng khẩu độ ống kính. Khẩu độ càng lớn thì hậu cảnh càng mờ nhòe (bokeh) khi tiêu cự tăng.</p>
+        </div>
+
+        <!-- Custom Scene Composer -->
+        <div style="border-top: 1px solid var(--border-color); padding-top: var(--space-lg); margin-top: var(--space-lg); display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left;">
+          <div>
+            <h4 style="margin-bottom: 8px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Bối cảnh (Background) <span style="color: var(--accent-gold); font-size: 0.75rem;">👑 PRO</span></h4>
+            <label class="upload-btn" style="padding: 10px; font-size: 0.85rem; border-style: dashed;">
+              <input type="file" id="file-bg" accept="image/*" style="display:none;">
+              🖼 Tải ảnh nền
+            </label>
+          </div>
+          <div>
+            <h4 style="margin-bottom: 8px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Chủ thể (Subject PNG) <span style="color: var(--accent-gold); font-size: 0.75rem;">👑 PRO</span></h4>
+            <label class="upload-btn" style="padding: 10px; font-size: 0.85rem; border-style: dashed;">
+              <input type="file" id="file-fg" accept="image/*" style="display:none;">
+              👤 Tải chủ thể
+            </label>
+          </div>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-dim); text-align: center; margin-top: 10px;">(Hỗ trợ định dạng PNG trong suốt để đạt hiệu ứng tách nền 3D tốt nhất)</p>
+
+        <p class="desc-text" id="desc-display" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; text-align: left;">
           Ở tiêu cự 35mm, không gian có độ sâu vừa phải. Hậu cảnh và tiền cảnh được phân chia rõ ràng, tạo cảm giác hiện diện (Presence) tự nhiên như mắt người.
         </p>
       </div>
 
-    
         <div style="margin-top: 30px; padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-amber); text-align: center; background: rgba(245, 166, 35, 0.05);">
           <h4 style="color: var(--accent-amber); font-size: 0.95rem; margin-bottom: 8px;">Tối ưu hóa Quy trình làm việc?</h4>
           <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">Sở hữu ngay trọn bộ <strong>Cinematic Film Emulation Pack</strong> gồm 15 Presets & LUTs (.cube) dùng vĩnh viễn trên Lightroom, Premiere.</p>
           <a href="../store.html" class="btn-primary" style="display: block; width: 100%; text-align: center; padding: 10px; font-size: 0.85rem; background: var(--accent-amber); color: #000; text-decoration: none; font-weight: bold; border-radius: 4px;">Khám phá Preset Shop</a>
         </div>
-</div>
+    </div>
   </main>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const slider = document.getElementById('zoom-slider');
-      const scene = document.getElementById('scene');
-      const lensDisplay = document.getElementById('lens-display');
-      const descDisplay = document.getElementById('desc-display');
-
-      // Map slider 0-100 to Perspective (200px - 5000px) and Focal Length (14mm - 200mm)
-      function updateScene() {
-        const val = parseInt(slider.value);
-        
-        // Perspective Math: 
-        // 0 -> 200px, 100 -> 5000px
-        const minP = 200;
-        const maxP = 6000;
-        const perspective = minP + (maxP - minP) * Math.pow(val / 100, 2); // Non-linear for better feel
-        
-        scene.style.perspective = perspective + 'px';
-
-        // Focal Length text
-        // 0 -> 14, 100 -> 200
-        const minF = 14;
-        const maxF = 200;
-        const focal = minF + (maxF - minF) * Math.pow(val / 100, 1.5);
-        
-        lensDisplay.textContent = Math.round(focal) + 'mm';
-
-        // Description logic
-        if (focal < 24) {
-          descDisplay.textContent = "Góc siêu rộng. Gây bóp méo phối cảnh mạnh (Extension Distortion). Hậu cảnh bị đẩy lùi ra xa tít tắp, tạo cảm giác mênh mông, cô đơn hoặc vĩ đại.";
-        } else if (focal < 70) {
-          descDisplay.textContent = "Góc tiêu chuẩn. Không gian có độ sâu vừa phải. Hậu cảnh và tiền cảnh được phân chia rõ ràng, tạo cảm giác hiện diện (Presence) tự nhiên như mắt người.";
-        } else if (focal < 135) {
-          descDisplay.textContent = "Telephoto. Bắt đầu xuất hiện hiện tượng Nén Không Gian (Perspective Compression). Hậu cảnh bị kéo lại gần chủ thể hơn. Rất tôn dáng cho chụp chân dung.";
-        } else {
-          descDisplay.textContent = "Siêu Tele. Nén không gian cực mạnh. Ngọn núi phía sau cao khổng lồ và áp sát vào lưng nhân vật. Khoảng cách vật lý bị xóa nhòa hoàn toàn.";
-        }
-      }
-
-      slider.addEventListener('input', updateScene);
-      updateScene(); // Init
-    });
-  </script>
-<script src="../js/common.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
+  <script src="../js/tools/dolly-zoom.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
