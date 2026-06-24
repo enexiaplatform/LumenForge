@@ -225,50 +225,82 @@
               <span class="ratio-val">Gốc</span>
             </button>
             <button class="ratio-btn" data-ratio="1.333">
-              <span class="ratio-name">Vintage / IMAX</span>
+              <span class="ratio-name">Vintage / IMAX (Standard)</span>
               <span class="ratio-val">4:3</span>
             </button>
             <button class="ratio-btn" data-ratio="1.777">
               <span class="ratio-name">Standard HD (TV)</span>
               <span class="ratio-val">16:9</span>
             </button>
-            <button class="ratio-btn" data-ratio="1.85">
-              <span class="ratio-name">Flat Cinema</span>
-              <span class="ratio-val">1.85:1</span>
-            </button>
-            <button class="ratio-btn" data-ratio="2.35">
-              <span class="ratio-name">Anamorphic Scope</span>
-              <span class="ratio-val">2.35:1</span>
-            </button>
-            <button class="ratio-btn" data-ratio="2.76">
-              <span class="ratio-name">Ultra Panavision</span>
-              <span class="ratio-val">2.76:1</span>
-            </button>
             <button class="ratio-btn" data-ratio="1">
               <span class="ratio-name">Square (Instagram)</span>
               <span class="ratio-val">1:1</span>
             </button>
+            
+            <!-- VIP PRO Aspect Ratios -->
+            <button class="ratio-btn" data-ratio="1.85" data-pro="true" style="border-color: rgba(212, 175, 55, 0.25);">
+              <span class="ratio-name" style="color: var(--accent-gold);">👑 Flat Cinema</span>
+              <span class="ratio-val">1.85:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="2" data-pro="true" style="border-color: rgba(212, 175, 55, 0.25);">
+              <span class="ratio-name" style="color: var(--accent-gold);">👑 Univisium (Netflix)</span>
+              <span class="ratio-val">2.00:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="2.35" data-pro="true" style="border-color: rgba(212, 175, 55, 0.25);">
+              <span class="ratio-name" style="color: var(--accent-gold);">👑 Anamorphic Scope</span>
+              <span class="ratio-val">2.35:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="2.76" data-pro="true" style="border-color: rgba(212, 175, 55, 0.25);">
+              <span class="ratio-name" style="color: var(--accent-gold);">👑 Ultra Panavision</span>
+              <span class="ratio-val">2.76:1</span>
+            </button>
+            <button class="ratio-btn" data-ratio="1.43" data-pro="true" style="border-color: rgba(212, 175, 55, 0.25);">
+              <span class="ratio-name" style="color: var(--accent-gold);">👑 IMAX Grand</span>
+              <span class="ratio-val">1.43:1</span>
+            </button>
+          </div>
+
+          <!-- Re-framing (Pan Offset) -->
+          <div class="control-group" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.9rem; color: var(--text-primary); display: flex; align-items: center; gap: 5px;">Cân chỉnh khung hình <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></span>
+              <span id="val-pan" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600;">0 px</span>
+            </div>
+            <input type="range" id="slider-pan" min="-150" max="150" value="0" step="5" style="width: 100%; accent-color: var(--accent-cyan);">
+            <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px;">Dịch chuyển ảnh lên/xuống (hoặc trái/phải) để căn chỉnh bố cục hoàn hảo bên dưới thanh letterbox.</p>
           </div>
 
           <div style="border-top: 1px solid var(--border-color); padding-top: var(--space-lg); margin-top: var(--space-lg);">
-            <label class="upload-btn">
+            <label class="upload-btn" style="margin-bottom: 15px;">
               <input type="file" id="file-upload" accept="image/*" style="display:none;">
               📷 Upload Ảnh Của Bạn
             </label>
-            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center; margin-top: 10px;">(Xử lý trực tiếp trên trình duyệt, không upload lên server)</p>
+            <p style="font-size: 0.8rem; color: var(--text-dim); text-align: center; margin-bottom: 15px;">(Xử lý trực tiếp trên trình duyệt, không upload lên server)</p>
+
+            <!-- Cinema Samples Selection -->
+            <div class="control-group" style="margin-top: 15px;">
+              <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; text-align: left;">Ảnh mẫu thử nghiệm (Click chọn)</h4>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                <div class="sample-thumb" id="sample-1" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Landscape Cinema">
+                  <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="sample-thumb" id="sample-2" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Night Street">
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="sample-thumb" id="sample-3" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Studio Portrait">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+              </div>
+            </div>
           </div>
+
+          <button id="btn-download" style="width: 100%; margin-top: 20px; padding: 15px; background: var(--accent-gold); color: #000; border: none; border-radius: var(--radius-md); font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">👑 Tải ảnh đã cắt (Letterbox)</button>
         </div>
 
         <!-- Preview -->
         <div class="preview-area" id="preview-area">
           <div class="canvas-wrapper" id="canvas-wrapper">
-            <!-- Sample Image from Unsplash -->
-            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=2000&auto=format&fit=crop" id="target-img" class="target-image" alt="Target Image" loading="lazy" decoding="async">
-            
-            <div class="letterbox letterbox-top" id="lb-top"></div>
-            <div class="letterbox letterbox-bottom" id="lb-bottom"></div>
-            <div class="letterbox letterbox-left" id="lb-left"></div>
-            <div class="letterbox letterbox-right" id="lb-right"></div>
+            <canvas id="crop-canvas"></canvas>
           </div>
 
           <div class="ratio-info-hud" id="hud-text">Ratio: Original</div>
@@ -280,121 +312,9 @@
   </section>
 
   <script src="../js/common.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const img = document.getElementById('target-img');
-      const ratioBtns = document.querySelectorAll('.ratio-btn');
-      const lbTop = document.getElementById('lb-top');
-      const lbBottom = document.getElementById('lb-bottom');
-      const lbLeft = document.getElementById('lb-left');
-      const lbRight = document.getElementById('lb-right');
-      const hudText = document.getElementById('hud-text');
-      const fileUpload = document.getElementById('file-upload');
-
-      let currentRatio = 0; // 0 means original
-
-      // Calculate and apply letterbox
-      function updateLetterbox() {
-        if (!img.complete) {
-          img.onload = updateLetterbox;
-          return;
-        }
-
-        // Reset all letterboxes
-        lbTop.style.height = '0';
-        lbBottom.style.height = '0';
-        lbLeft.style.width = '0';
-        lbRight.style.width = '0';
-
-        if (currentRatio === 0) return;
-
-        // Get actual rendered dimensions of the image inside the container
-        const rect = img.getBoundingClientRect();
-        const imgW = rect.width;
-        const imgH = rect.height;
-        
-        if (imgW === 0 || imgH === 0) return;
-
-        const imgRatio = imgW / imgH;
-
-        if (currentRatio > imgRatio) {
-          // Target ratio is wider than image. Crop Top/Bottom.
-          // We need a new height such that imgW / newH = currentRatio
-          // => newH = imgW / currentRatio
-          const newH = imgW / currentRatio;
-          const diff = imgH - newH;
-          const barHeight = diff / 2;
-          
-          // The letterboxes are relative to the wrapper, but the image might not fill the wrapper.
-          // Wait, the wrapper is flex center. The image is object-fit: contain.
-          // So we should make the letterboxes attach to the edges of the image.
-          // Actually, let's position the letterboxes absolutely inside the wrapper, but calculate based on image position.
-          const wrapRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
-          const imgTopOffset = rect.top - wrapRect.top;
-          const imgBottomOffset = wrapRect.bottom - rect.bottom;
-
-          lbTop.style.height = (imgTopOffset + barHeight) + 'px';
-          lbBottom.style.height = (imgBottomOffset + barHeight) + 'px';
-          
-        } else if (currentRatio < imgRatio) {
-          // Target ratio is taller/squarer than image. Crop Left/Right.
-          // We need a new width such that newW / imgH = currentRatio
-          // => newW = imgH * currentRatio
-          const newW = imgH * currentRatio;
-          const diff = imgW - newW;
-          const barWidth = diff / 2;
-
-          const wrapRect = document.getElementById('canvas-wrapper').getBoundingClientRect();
-          const imgLeftOffset = rect.left - wrapRect.left;
-          const imgRightOffset = wrapRect.right - rect.right;
-
-          lbLeft.style.width = (imgLeftOffset + barWidth) + 'px';
-          lbRight.style.width = (imgRightOffset + barWidth) + 'px';
-        }
-      }
-
-      // Handle Buttons
-      ratioBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          ratioBtns.forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          
-          currentRatio = parseFloat(btn.getAttribute('data-ratio'));
-          hudText.innerText = "Ratio: " + btn.querySelector('.ratio-val').innerText;
-          
-          updateLetterbox();
-        });
-      });
-
-      // Handle Resize
-      window.addEventListener('resize', () => {
-        // Debounce slightly
-        clearTimeout(window.resizeTimer);
-        window.resizeTimer = setTimeout(updateLetterbox, 100);
-      });
-
-      // Image Upload
-      fileUpload.addEventListener('change', function(e) {
-        if (e.target.files && e.target.files[0]) {
-          const reader = new FileReader();
-          reader.onload = function(e) {
-            img.src = e.target.result;
-            // Wait for new image to load before recalculating
-            img.onload = () => {
-              // Click the 'Original' button to reset crop
-              document.querySelector('.ratio-btn[data-ratio="0"]').click();
-            };
-          }
-          reader.readAsDataURL(e.target.files[0]);
-        }
-      });
-
-      // Init on load
-      if(img.complete) {
-        updateLetterbox();
-      }
-    });
-  </script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
+  <script src="../js/tools/aspect-ratio.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
