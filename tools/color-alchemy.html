@@ -37,48 +37,96 @@
       position: relative;
       overflow: hidden;
       border: 1px solid var(--border-glow);
-    }
-    
-    /* The base sunset photo represented as CSS gradients */
-    .color-base-scene {
-      position: absolute;
-      inset: 0;
-      background: 
-        radial-gradient(circle at 75% 70%, #FFF3E0 0%, #FFB74D 20%, #E64A19 50%, #263238 90%);
       display: flex;
-      align-items: flex-end;
+      justify-content: center;
+      align-items: center;
     }
     
-    /* Silhouettes in the scene */
-    .color-scene-silhouettes {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 2;
+    canvas#img-canvas {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
     }
     
-    /* The color cast overlay that gets manipulated by JS */
-    .color-cast-overlay {
+    .vectorscope-panel {
       position: absolute;
-      inset: 0;
-      z-index: 3;
-      mix-blend-mode: color;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s ease, background-color 0.15s ease;
+      bottom: 12px;
+      right: 12px;
+      width: 140px;
+      height: 155px;
+      background: rgba(10, 10, 15, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      z-index: 10;
+      display: none;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(10px);
     }
     
-    .color-brightness-overlay {
+    .vectorscope-panel.active {
+      display: block;
+    }
+
+    .loader {
       position: absolute;
-      inset: 0;
-      z-index: 4;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      opacity: 0;
-      background-color: #000;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      background: rgba(0,0,0,0.85);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      border: 1px solid var(--border-glow);
+      z-index: 15;
+      display: none;
+    }
+    
+    .upload-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(10,10,12,0.8);
+      z-index: 10;
+    }
+    
+    .upload-overlay.hidden { display: none; }
+    
+    .btn-upload {
+      background: var(--accent-amber);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .btn-upload:hover { background: #f5b942; }
+
+    .sample-thumb {
+      cursor: pointer;
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 55px;
+      transition: var(--transition);
+    }
+    
+    .sample-thumb:hover {
+      border-color: var(--text-dim);
+    }
+    
+    .sample-thumb.active {
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 10px rgba(245, 166, 35, 0.3);
     }
     
     /* Kelvin and Tint HUD display */
@@ -170,25 +218,27 @@
         <!-- Live Color Preview Viewport -->
         <div class="color-preview-container">
           <div class="color-viewport" id="color-viewport">
+            <!-- Image Canvas -->
+            <canvas id="img-canvas"></canvas>
             
-            <!-- Base Sunset Scene -->
-            <div class="color-base-scene"></div>
+            <!-- Loading Indicator -->
+            <div id="loader" class="loader">Processing...</div>
             
-            <!-- Silhouettes SVG -->
-            <svg class="color-scene-silhouettes" viewBox="0 0 640 360" preserveAspectRatio="none">
-              <!-- Mountains in silhouette -->
-              <path d="M 0 360 L 0 280 Q 150 250 320 290 Q 480 230 640 260 L 640 360 Z" fill="#090E11"/>
-              <!-- Pine trees silhouettes -->
-              <polygon points="60,300 70,250 80,300" fill="#05080A"/>
-              <polygon points="65,280 70,230 75,280" fill="#05080A"/>
-              <polygon points="120,310 130,260 140,310" fill="#05080A"/>
-              <!-- A person sitting looking at sunset -->
-              <circle cx="480" cy="225" r="8" fill="#020305"/>
-              <path d="M472 233 C472 233, 465 265, 470 295 L490 295 C490 280, 488 245, 480 233 Z" fill="#020305"/>
-            </svg>
-            
-            <!-- Manipulated Color Overlay -->
-            <div class="color-cast-overlay" id="color-cast-overlay"></div>
+            <!-- Upload Overlay -->
+            <div class="upload-overlay" id="upload-overlay">
+              <input type="file" id="file-input" accept="image/*" style="display: none;">
+              <button class="btn-upload" onclick="document.getElementById('file-input').click()">
+                Upload Ảnh
+              </button>
+            </div>
+
+            <!-- Vectorscope Panel (👑 PRO) -->
+            <div class="vectorscope-panel" id="vectorscope-panel">
+              <div style="position: absolute; top: 4px; left: 8px; font-size: 0.65rem; color: var(--accent-gold); font-family: var(--font-mono); font-weight: bold;">
+                👑 SKIN VECTORSCOPE
+              </div>
+              <canvas id="vectorscope-canvas" width="140" height="140" style="width: 140px; height: 140px; display: block; margin-top: 15px;"></canvas>
+            </div>
             
             <!-- HUD -->
             <div class="color-hud-overlay">
@@ -211,6 +261,22 @@
 
         <!-- Controls Sliders -->
         <div class="tool-controls">
+          
+          <!-- Sample Images Selection -->
+          <div class="control-group" style="margin-bottom: var(--space-md); width: 100%;">
+            <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Ảnh mẫu thử nghiệm (Click chọn)</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+              <div class="sample-thumb" id="sample-1" style="title: Studio Portrait (Cân bằng da)">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <div class="sample-thumb" id="sample-2" style="title: Sunset Landscape (Phong cảnh hoàng hôn)">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+              <div class="sample-thumb" id="sample-3" style="title: Indoor Tungsten (Đèn ấm rạp phim)">
+                <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            </div>
+          </div>
           
           <!-- Color Temp Slider -->
           <div class="input-group">
@@ -244,23 +310,63 @@
               <label class="radio-card">
                 <input type="radio" name="wbp" value="tungsten">
                 <span class="radio-card-icon">💡</span>
-                <span>Đèn sợi đốt (Tungsten - 3200K)</span>
+                <span>Đèn huỳnh/sợi (3200K)</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="wbp" value="daylight">
                 <span class="radio-card-icon">☀️</span>
-                <span>Ánh sáng ngày (Daylight - 5200K)</span>
+                <span>Ánh ngày (5200K)</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="wbp" value="cloudy">
                 <span class="radio-card-icon">☁️</span>
-                <span>Trời nhiều mây (Cloudy - 6000K)</span>
+                <span>Trời mây (6000K)</span>
               </label>
               <label class="radio-card">
                 <input type="radio" name="wbp" value="shade">
                 <span class="radio-card-icon">🌳</span>
-                <span>Bóng râm (Shade - 8000K)</span>
+                <span>Bóng râm (8000K)</span>
               </label>
+              <!-- VIP PRO Presets -->
+              <label class="radio-card pro-preset" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);" title="Cyberpunk Night (PRO)">
+                <input type="radio" name="wbp" value="cyberpunk">
+                <span class="radio-card-icon">👑</span>
+                <span style="color: var(--accent-gold);">Cyberpunk Night</span>
+              </label>
+              <label class="radio-card pro-preset" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);" title="Warm Vintage (PRO)">
+                <input type="radio" name="wbp" value="vintage-warm">
+                <span class="radio-card-icon">👑</span>
+                <span style="color: var(--accent-gold);">Warm Vintage</span>
+              </label>
+              <label class="radio-card pro-preset" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);" title="Matrix Green (PRO)">
+                <input type="radio" name="wbp" value="matrix">
+                <span class="radio-card-icon">👑</span>
+                <span style="color: var(--accent-gold);">Matrix Green</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Skin Tone Assist & Export Controls -->
+          <div class="input-group full-width" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-md); border-top: 1px solid rgba(255,255,255,0.05); padding-top: var(--space-md); margin-top: var(--space-md); width: 100%;">
+            <!-- Vectorscope Toggle -->
+            <div>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="vectorscope-toggle" style="width: 18px; height: 18px; accent-color: var(--accent-gold);">
+                <span style="font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; gap: 4px;">
+                  Bật Vectorscope da <span style="color: var(--accent-gold); font-size: 0.75rem;">👑 PRO</span>
+                </span>
+              </label>
+              <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 5px;">Hiển thị radar đo sắc độ da thời gian thực để căn chỉnh chuẩn xác.</p>
+            </div>
+            
+            <!-- Upload / Download Buttons -->
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button id="btn-download" style="background: var(--accent-cyan); color: #000; border: none; padding: 12px; border-radius: var(--radius-md); font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: var(--transition); width: 100%;">
+                <span>⬇️ Xuất Ảnh Chất Lượng Cao</span> <span style="color: #000; font-size: 0.75rem; background: rgba(255,255,255,0.3); padding: 1px 4px; border-radius: 3px; font-weight: normal;">👑 PRO</span>
+              </button>
+              <button id="btn-upload-trigger" style="background: transparent; color: var(--text-primary); border: 1px dashed var(--border-color); padding: 10px; border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); font-size: 0.85rem; width: 100%;">
+                Upload ảnh chân dung khác... 👑 PRO
+              </button>
             </div>
           </div>
 
@@ -307,6 +413,8 @@
   </footer>
 
   <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/color-alchemy.js"></script>
 </body>
 </html>
