@@ -6,6 +6,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://lumenforge.studio/before-after.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://lumenforge.studio/blog.html</loc>
     <lastmod>2026-06-23</lastmod>
     <priority>0.9</priority>
@@ -96,6 +101,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lumenforge.studio/privacy.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://lumenforge.studio/pro-hub.html</loc>
     <lastmod>2026-06-12</lastmod>
     <priority>0.8</priority>
@@ -111,9 +121,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://lumenforge.studio/starter-kit-pro.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://lumenforge.studio/store.html</loc>
     <lastmod>2026-06-12</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lumenforge.studio/terms.html</loc>
+    <lastmod>2026-06-24</lastmod>
+    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/studio-planner.html</loc>
