@@ -212,6 +212,23 @@
       </div>
 
       <div class="panel">
+        
+        <!-- Sample Images Selection -->
+        <div class="control-group" style="margin-bottom: 15px;">
+          <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Ảnh mẫu thử nghiệm (Click chọn)</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div class="sample-thumb" id="sample-1" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Studio Portrait (Phông Vàng Cát)">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="sample-2" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Cyberpunk Neon (Phông Neon Đậm)">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="sample-3" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Classic Headshot (Phông Xám Studio)">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
         <h3 style="margin-bottom: 10px; font-size: 1rem; color: var(--text-dim);">CHỌN CUỘN PHIM (FILM STOCK)</h3>
         
         <div class="film-btn active" data-film="original">
@@ -239,6 +256,37 @@
           <p>Đen trắng cổ điển. Tương phản gắt (High contrast) và hạt Grain rất to và thô.</p>
         </div>
 
+        <!-- VIP PRO Film Stocks -->
+        <div class="film-btn pro-stock" data-film="kodak-gold" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+          <h4 style="color: var(--accent-gold);">👑 Kodak Gold 200 (VIP PRO)</h4>
+          <p>Tông màu vàng ấm áp cổ điển rực rỡ, độ tương phản và bão hòa màu cao đặc trưng thập niên 90.</p>
+        </div>
+
+        <div class="film-btn pro-stock" data-film="fuji-velvia" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+          <h4 style="color: var(--accent-gold);">👑 Fujifilm Velvia 50 (VIP PRO)</h4>
+          <p>Đo bão hòa màu và tương phản cực cao, mang lại tông xanh lá và xanh dương sâu thẳm.</p>
+        </div>
+
+        <div class="film-btn pro-stock" data-film="polaroid" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+          <h4 style="color: var(--accent-gold);">👑 Polaroid 600 (VIP PRO)</h4>
+          <p>Màu sắc bạc màu hoài cổ (faded), shadow ám xanh cyan và highlights ấm áp vàng nhạt.</p>
+        </div>
+
+        <div class="film-btn pro-stock" data-film="ilford" data-pro="true" style="border-color: rgba(212, 175, 55, 0.35);">
+          <h4 style="color: var(--accent-gold);">👑 Ilford Delta 3200 (VIP PRO)</h4>
+          <p>Ảnh đen trắng nghệ thuật hạt lớn (heavy grain) với dải tương phản rộng và mượt mà.</p>
+        </div>
+
+        <!-- Custom Grain Strength (VIP PRO) -->
+        <div class="control-group" style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.9rem; color: var(--text-primary); display: flex; align-items: center; gap: 5px;">Cường độ hạt Grain <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></span>
+            <span id="val-grain" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600;">Mặc định</span>
+          </div>
+          <input type="range" id="slider-grain" min="0" max="100" value="20" step="5" style="width: 100%; accent-color: var(--accent-cyan);">
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px;">Tùy chỉnh mật độ nhiễu hạt để tạo cảm giác ảnh chụp phim cổ điển.</p>
+        </div>
+
         <button id="btn-download">⬇ Tải ảnh đã xử lý</button>
         <button id="btn-reset" onclick="document.getElementById('file-input').click()">Upload ảnh khác</button>
 
@@ -252,8 +300,10 @@
     </div>
   </main>
 
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/film-look.js"></script>
-<script src="../js/common.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
