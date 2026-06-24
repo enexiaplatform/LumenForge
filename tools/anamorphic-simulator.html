@@ -148,11 +148,22 @@
 </head>
 <body>
 
-  <nav class="nav">
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
     <div class="nav-container">
       <a href="../index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
-      <div class="nav-menu">
-        <a href="../tool-lab.html" class="nav-link">← Quay lại Lab</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="../index.html" class="nav-link">Bắt đầu</a>
+        <a href="../before-after.html" class="nav-link">Before / After</a>
+        <a href="../light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="../blog.html" class="nav-link">Blog</a>
+        <a href="../gear-vault.html" class="nav-link">Kho Thiết Bị</a>
+        <a href="../tool-lab.html" class="nav-link">Công cụ</a>
+        <a href="../store.html" class="nav-link">Cửa hàng</a>
+        <a href="../dashboard.html" class="nav-link">Dashboard</a>
       </div>
     </div>
   </nav>
@@ -176,7 +187,17 @@
       </div>
 
       <div class="control-group">
-        <label>CƯỜNG ĐỘ FLARE (BLUE STREAK)</label>
+        <label>DÒNG ỐNG KÍNH & MÀU FLARE (LENS MODEL & FLARE)</label>
+        <select id="flare-color" class="form-select" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: #fff; border-radius: 4px; font-family: var(--font-body); font-size: 0.9rem;">
+          <option value="blue">Panavision Autar (Classic Blue) - Free</option>
+          <option value="gold" data-pro="true">Cooke Anamorphic (Amber Gold) - (VIP PRO) 👑</option>
+          <option value="magenta" data-pro="true">Atlas Orion (Neon Magenta) - (VIP PRO) 👑</option>
+          <option value="green" data-pro="true">LOMO Roundfront (Vintage Green) - (VIP PRO) 👑</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>CƯỜNG ĐỘ FLARE (ANAMORPHIC FLARE)</label>
         <input type="range" id="flare-intensity" min="0" max="100" value="0">
       </div>
 
@@ -191,6 +212,9 @@
     </div>
   </div>
 
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/anamorphic-simulator.js"></script>
 
   <!-- Footer -->
@@ -213,8 +237,6 @@
             <h4>Khám phá</h4>
             <a href="../pro-hub.html" style="color: var(--accent-gold); font-weight: bold;">⚡ Hội Viên PRO</a>
             <a href="../light-codex.html">Học Ánh Sáng</a>
-        <a href="../blog.html" class="nav-link">Blog</a>
-        <a href="../blog.html" class="nav-link">Blog</a>
             <a href="../gear-vault.html">Kho Thiết Bị</a>
             <a href="../blog.html">Blog</a>
           </div>
