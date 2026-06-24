@@ -6,12 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Inputs
   const inpSensor = document.getElementById('inp-sensor');
+  const inpSqueeze = document.getElementById('inp-squeeze');
   const inpFocal = document.getElementById('inp-focal');
   const inpAperture = document.getElementById('inp-aperture');
   const inpDistance = document.getElementById('inp-distance');
 
   // Value Displays
   const valFocal = document.getElementById('val-focal');
+  const valFocalEq = document.getElementById('val-focal-eq');
   const valAperture = document.getElementById('val-aperture');
   const valDistance = document.getElementById('val-distance');
 
@@ -25,16 +27,82 @@ document.addEventListener('DOMContentLoaded', () => {
   const visZone = document.getElementById('vis-zone');
   const visSubject = document.getElementById('vis-subject');
 
+  // Track previous values for PRO gating revert
+  let previousSensor = inpSensor.value;
+  let previousSqueeze = inpSqueeze.value;
+
+  // Intercept VIP PRO Sensor selection
+  inpSensor.addEventListener('focus', () => {
+    previousSensor = inpSensor.value;
+  });
+
+  inpSensor.addEventListener('change', () => {
+    const selectedOption = inpSensor.options[inpSensor.selectedIndex];
+    if (selectedOption && selectedOption.getAttribute('data-pro') === 'true') {
+      if (typeof lfAuth !== 'undefined') {
+        const featureName = `Cảm biến ${selectedOption.text.replace('👑 ', '').replace(' (VIP PRO)', '')}`;
+        const hasAccess = lfAuth.gateFeature(featureName, () => {
+          // Fallback: revert select to previous value
+          inpSensor.value = previousSensor;
+          calculateDoF();
+        });
+
+        if (hasAccess) {
+          previousSensor = inpSensor.value;
+        }
+      }
+    } else {
+      previousSensor = inpSensor.value;
+    }
+    calculateDoF();
+  });
+
+  // Intercept VIP PRO Squeeze selection
+  inpSqueeze.addEventListener('focus', () => {
+    previousSqueeze = inpSqueeze.value;
+  });
+
+  inpSqueeze.addEventListener('change', () => {
+    const selectedOption = inpSqueeze.options[inpSqueeze.selectedIndex];
+    if (selectedOption && selectedOption.getAttribute('data-pro') === 'true') {
+      if (typeof lfAuth !== 'undefined') {
+        const featureName = `Ống kính Anamorphic ${selectedOption.text.replace('👑 ', '').replace(' (VIP PRO)', '')}`;
+        const hasAccess = lfAuth.gateFeature(featureName, () => {
+          // Fallback: revert select to previous value
+          inpSqueeze.value = previousSqueeze;
+          calculateDoF();
+        });
+
+        if (hasAccess) {
+          previousSqueeze = inpSqueeze.value;
+        }
+      }
+    } else {
+      previousSqueeze = inpSqueeze.value;
+    }
+    calculateDoF();
+  });
+
   function calculateDoF() {
     // 1. Get raw values
-    const coc = parseFloat(inpSensor.value); // Circle of Confusion in mm
+    const sensorValRaw = inpSensor.value;
+    const coc = parseFloat(sensorValRaw.split('-')[0]); // Circle of Confusion in mm
     const f = parseFloat(inpFocal.value);    // Focal length in mm
     const N = parseFloat(inpAperture.value); // F-number
     const s_m = parseFloat(inpDistance.value); // Subject distance in meters
     const s = s_m * 1000; // Subject distance in mm
 
+    const squeeze = parseFloat(inpSqueeze.value);
+
     // Update labels
     valFocal.textContent = `${f}mm`;
+    if (squeeze > 1.0) {
+      const eqFocal = Math.round(f / squeeze);
+      valFocalEq.textContent = `(Góc nhìn ~ ${eqFocal}mm Spherical)`;
+    } else {
+      valFocalEq.textContent = '';
+    }
+    
     valAperture.textContent = `f/${N.toFixed(1)}`;
     valDistance.textContent = `${s_m.toFixed(1)}m`;
 
@@ -102,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Bind Events
   inpSensor.addEventListener('change', calculateDoF);
+  inpSqueeze.addEventListener('change', calculateDoF);
   inpFocal.addEventListener('input', calculateDoF);
   inpAperture.addEventListener('input', calculateDoF);
   inpDistance.addEventListener('input', calculateDoF);

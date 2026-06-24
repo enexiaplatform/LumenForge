@@ -82,6 +82,7 @@
   const evDisplay = document.getElementById('ev-display');
   const evIndicator = document.getElementById('ev-indicator');
   const warningsContainer = document.getElementById('exposure-warnings');
+  const exposureScene = document.getElementById('exposure-scene');
 
   // === Core Update Function ===
   function updateExposure() {
@@ -268,12 +269,81 @@
     ).join('');
   }
 
+  // === Scenario Configurations ===
+  const SCENARIOS = {
+    'sunny': { iso: 0, shutter: 7, aperture: 5, className: 'scenario-sunny' },         // ISO 100, 1/125s, f/8
+    'studio': { iso: 1, shutter: 7, aperture: 2, className: 'scenario-studio' },        // ISO 200, 1/125s, f/2.8
+    'cyberpunk': { iso: 4, shutter: 5, aperture: 1, className: 'scenario-cyberpunk' },   // ISO 1600, 1/30s, f/1.8 (PRO)
+    'action': { iso: 3, shutter: 10, aperture: 2, className: 'scenario-action' },       // ISO 800, 1/1000s, f/2.8 (PRO)
+    'chiaroscuro': { iso: 2, shutter: 6, aperture: 0, className: 'scenario-chiaroscuro' }, // ISO 400, 1/60s, f/1.4 (PRO)
+    'astro': { iso: 6, shutter: 0, aperture: 2, className: 'scenario-astro' }           // ISO 6400, 1s, f/2.8 (PRO)
+  };
+
+  function selectScenario(key) {
+    const config = SCENARIOS[key];
+    if (!config) return;
+
+    Object.keys(SCENARIOS).forEach(k => {
+      const card = document.getElementById(`scen-${k}`);
+      if (card) card.classList.remove('active');
+    });
+    const activeCard = document.getElementById(`scen-${key}`);
+    if (activeCard) activeCard.classList.add('active');
+
+    isoSlider.value = config.iso;
+    shutterSlider.value = config.shutter;
+    apertureSlider.value = config.aperture;
+
+    if (exposureScene) {
+      exposureScene.className = `exposure-scene ${config.className}`;
+    }
+
+    updateExposure();
+  }
+
+  function clearActiveScenario() {
+    Object.keys(SCENARIOS).forEach(k => {
+      const card = document.getElementById(`scen-${k}`);
+      if (card) card.classList.remove('active');
+    });
+  }
+
   // === Event Listeners ===
-  isoSlider.addEventListener('input', updateExposure);
-  shutterSlider.addEventListener('input', updateExposure);
-  apertureSlider.addEventListener('input', updateExposure);
+  isoSlider.addEventListener('input', () => {
+    clearActiveScenario();
+    updateExposure();
+  });
+  shutterSlider.addEventListener('input', () => {
+    clearActiveScenario();
+    updateExposure();
+  });
+  apertureSlider.addEventListener('input', () => {
+    clearActiveScenario();
+    updateExposure();
+  });
+
+  // Bind Scenario Card Clicks
+  const cardKeys = ['sunny', 'studio', 'cyberpunk', 'action', 'chiaroscuro', 'astro'];
+  cardKeys.forEach(key => {
+    const card = document.getElementById(`scen-${key}`);
+    if (card) {
+      card.addEventListener('click', () => {
+        const isPro = card.getAttribute('data-pro') === 'true';
+        if (isPro) {
+          if (typeof lfAuth !== 'undefined') {
+            const featureName = `Kịch bản ${card.querySelector('div:nth-child(2)').textContent}`;
+            const hasAccess = lfAuth.gateFeature(featureName, () => {
+              // Do nothing on cancel
+            });
+            if (!hasAccess) return;
+          }
+        }
+        selectScenario(key);
+      });
+    }
+  });
 
   // === Initial render ===
-  updateExposure();
+  selectScenario('sunny');
 
 })();

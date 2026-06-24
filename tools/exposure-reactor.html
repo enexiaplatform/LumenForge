@@ -12,6 +12,141 @@
   <meta name="description" content="Interactive exposure triangle playground. Kéo thanh, xem ảnh thay đổi — học ISO, Shutter Speed, Aperture bằng trực giác.">
   <link rel="stylesheet" href="../css/design-system.css">
   <link rel="stylesheet" href="../css/tools.css">
+  
+  <style>
+    /* Cinema Scenarios Styles */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: var(--space-xl);
+    }
+    .scenario-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .scenario-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+    .scenario-card.active {
+      background: rgba(0, 212, 170, 0.08);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(0, 212, 170, 0.15);
+    }
+    .scenario-card.pro.active {
+      background: rgba(212, 175, 55, 0.08);
+      border-color: var(--accent-gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+    }
+    .scenario-card.pro {
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+    .scenario-card.pro:hover {
+      border-color: var(--accent-gold);
+    }
+    .scenario-badge {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 6px;
+    }
+    .scenario-badge.free {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+    .scenario-badge.pro-label {
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--accent-gold);
+    }
+
+    /* CSS Scene Customization based on scenarios */
+    .exposure-scene {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    /* Sunny Day (Default) */
+    .exposure-scene.scenario-sunny {
+      background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+    }
+    /* Studio Portrait */
+    .exposure-scene.scenario-studio {
+      background: radial-gradient(circle, #333 0%, #111 100%);
+    }
+    .exposure-scene.scenario-studio .scene-sky,
+    .exposure-scene.scenario-studio .scene-sun,
+    .exposure-scene.scenario-studio .scene-city,
+    .exposure-scene.scenario-studio .scene-windows {
+      opacity: 0 !important;
+    }
+    /* Cyberpunk Nightlife */
+    .exposure-scene.scenario-cyberpunk {
+      background: linear-gradient(to bottom, #0d001a, #1a0033);
+    }
+    .exposure-scene.scenario-cyberpunk .scene-sun {
+      background: #ff0055 !important;
+      box-shadow: 0 0 40px #ff0055, 0 0 80px #ff0055 !important;
+    }
+    .exposure-scene.scenario-cyberpunk .scene-sky {
+      background: radial-gradient(circle at 70% 30%, rgba(0, 240, 255, 0.2), transparent 50%) !important;
+    }
+    .exposure-scene.scenario-cyberpunk .scene-windows {
+      background: linear-gradient(45deg, #00f0ff 25%, #ff0055 75%) !important;
+      filter: drop-shadow(0 0 8px #00f0ff) !important;
+      opacity: 1 !important;
+    }
+    /* Fast Action Chase */
+    .exposure-scene.scenario-action {
+      background: linear-gradient(to bottom, #2c3e50, #3498db);
+    }
+    .exposure-scene.scenario-action .scene-sun {
+      background: #e74c3c !important;
+      box-shadow: 0 0 30px #e74c3c !important;
+    }
+    /* Dreamy Chiaroscuro */
+    .exposure-scene.scenario-chiaroscuro {
+      background: #050505;
+    }
+    .exposure-scene.scenario-chiaroscuro .scene-sky,
+    .exposure-scene.scenario-chiaroscuro .scene-sun,
+    .exposure-scene.scenario-chiaroscuro .scene-city,
+    .exposure-scene.scenario-chiaroscuro .scene-windows {
+      opacity: 0 !important;
+    }
+    .exposure-scene.scenario-chiaroscuro .scene-subject {
+      filter: drop-shadow(0 0 25px rgba(255,255,255,0.4)) !important;
+      border-right: 3px solid #fff;
+    }
+    /* Astro Night Sky */
+    .exposure-scene.scenario-astro {
+      background: radial-gradient(circle at 50% 100%, #050b14 0%, #010204 100%);
+    }
+    .exposure-scene.scenario-astro .scene-sun {
+      opacity: 0 !important;
+    }
+    .exposure-scene.scenario-astro .scene-sky {
+      background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px) !important;
+      background-size: 240px 240px, 180px 180px, 300px 300px !important;
+      background-position: 0 0, 40px 60px, 130px 270px !important;
+      opacity: 0.8 !important;
+    }
+    .exposure-scene.scenario-astro .scene-city,
+    .exposure-scene.scenario-astro .scene-windows {
+      opacity: 0.2 !important;
+    }
+  </style>
 
   <link rel="canonical" href="https://lumenforge.studio/tools/exposure-reactor.html">
 
@@ -53,11 +188,11 @@
   </nav>
 
   <!-- Tool Hero -->
-  <section class="tool-hero">
+  <section class="tool-hero" style="padding-top: 100px;">
     <p class="tool-back"><a href="../tool-lab.html">← Quay lại Xưởng Công cụ</a></p>
     <p class="section-label">[TOOL 04]</p>
     <h1>Mô phỏng Phơi sáng</h1>
-    <p class="tool-hero-desc">Kéo thanh, xem ảnh thay đổi. Học tam giác phơi sáng bằng trực giác.</p>
+    <p class="tool-hero-desc">Kéo thanh, xem ảnh thay đổi. Học tam giác phơi sáng bằng trực giác thông qua các kịch bản điện ảnh.</p>
   </section>
 
   <!-- Main Tool Section -->
@@ -68,7 +203,7 @@
         <!-- Preview Area -->
         <div class="exposure-preview" id="exposure-preview">
           <!-- CSS Scene -->
-          <div class="exposure-scene" id="exposure-scene">
+          <div class="exposure-scene scenario-sunny" id="exposure-scene">
             <div class="scene-sky"></div>
             <div class="scene-sun"></div>
             <div class="scene-city"></div>
@@ -86,6 +221,41 @@
 
           <!-- EV Display Badge -->
           <div class="ev-display" id="ev-display">EV ±0</div>
+        </div>
+
+        <!-- Cinema Scenario Presets Grid -->
+        <h4 style="margin-bottom: 12px; color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">Kịch bản Ánh sáng Điện ảnh (Scenario Presets)</h4>
+        <div class="scenario-grid">
+          <div class="scenario-card active" id="scen-sunny">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">☀️</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Sunny Day</div>
+            <div class="scenario-badge free">Free</div>
+          </div>
+          <div class="scenario-card" id="scen-studio">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">📸</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Studio Portrait</div>
+            <div class="scenario-badge free">Free</div>
+          </div>
+          <div class="scenario-card pro" id="scen-cyberpunk" data-pro="true">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">🌆</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Cyberpunk Neon</div>
+            <div class="scenario-badge pro-label">PRO</div>
+          </div>
+          <div class="scenario-card pro" id="scen-action" data-pro="true">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">🏎️</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Action Chase</div>
+            <div class="scenario-badge pro-label">PRO</div>
+          </div>
+          <div class="scenario-card pro" id="scen-chiaroscuro" data-pro="true">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">🌓</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Chiaroscuro</div>
+            <div class="scenario-badge pro-label">PRO</div>
+          </div>
+          <div class="scenario-card pro" id="scen-astro" data-pro="true">
+            <div style="font-size: 1.3rem; margin-bottom: 5px;">🌌</div>
+            <div style="font-weight: bold; font-size: 0.85rem;">Astro Night Sky</div>
+            <div class="scenario-badge pro-label">PRO</div>
+          </div>
         </div>
 
         <!-- 3 Sliders -->
@@ -177,6 +347,8 @@
   </footer>
 
   <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/exposure-reactor.js"></script>
 </body>
 </html>

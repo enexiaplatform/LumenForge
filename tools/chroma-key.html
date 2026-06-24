@@ -203,12 +203,28 @@
         
         <div class="instruction">
           <strong>Cách dùng:</strong><br>
-          1. Upload ảnh.<br>
+          1. Chọn ảnh mẫu dưới đây hoặc upload ảnh riêng.<br>
           2. <b>Click trực tiếp lên hình</b> vào vùng màu bạn muốn xóa (hút màu).<br>
           3. Kéo thanh Tolerance để điều chỉnh độ nhạy.
         </div>
 
-        <h4 style="margin-bottom: 10px; color: var(--text-dim);">KEY COLOR (Màu cần xóa)</h4>
+        <!-- Sample Images -->
+        <div class="control-group">
+          <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Ảnh mẫu thử nghiệm (Click chọn)</h4>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <div class="sample-thumb" id="sample-1" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Studio Portrait (Phông Vàng Cát)">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="sample-2" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Cyberpunk Neon (Phông Neon Đậm)">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="sample-thumb" id="sample-3" style="cursor: pointer; border: 2px solid var(--border-color); border-radius: 6px; overflow: hidden; height: 55px; transition: var(--transition);" title="Classic Headshot (Phông Xám Studio)">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=120&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-bottom: 10px; color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase;">KEY COLOR (Màu cần xóa)</h4>
         <div class="color-picker-box" id="key-color-box">#000000</div>
 
         <div class="control-group">
@@ -219,16 +235,40 @@
           <input type="range" id="slider-tolerance" min="0" max="255" value="60">
         </div>
 
+        <!-- Background Dropdown Selection -->
         <div class="control-group">
-          <div class="control-label">
-            <span>Despill (Khử ám màu)</span>
-            <span id="val-despill">Mạnh</span>
-          </div>
-          <input type="range" id="slider-despill" min="0" max="1" step="1" value="1">
-          <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 5px;">Thuật toán đè bẹp kênh màu dư thừa ở viền (Fringe).</p>
+          <label for="inp-bg" style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-primary);">Ảnh nền thay thế (Background)</label>
+          <select id="inp-bg" class="dof-select" style="margin-bottom: 10px;">
+            <option value="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop">Deep Space Station (Free)</option>
+            <option value="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1200&auto=format&fit=crop">Cyberpunk Neon Streets (Free)</option>
+            <option value="https://images.unsplash.com/photo-1605806616949-1e87b487cb2a?q=80&w=1200&auto=format&fit=crop">Neon Studio Stage (Free)</option>
+            <option value="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop" data-pro="true">👑 Orbit Space Station (VIP PRO)</option>
+            <option value="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1200&auto=format&fit=crop" data-pro="true">👑 Neo-Tokyo Alley (VIP PRO)</option>
+            <option value="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=1200&auto=format&fit=crop" data-pro="true">👑 Film Noir Backstreet (VIP PRO)</option>
+            <option value="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop" data-pro="true">👑 Luxury Penthouse (VIP PRO)</option>
+          </select>
         </div>
 
-        <button id="btn-change-bg">Đổi ảnh nền Sci-fi (Background)</button>
+        <!-- Edge Erosion / Choke -->
+        <div class="control-group">
+          <div class="control-label">
+            <span style="display: flex; align-items: center; gap: 5px;">Edge Choke (Lẹm viền) <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></span>
+            <span id="val-choke">0 px</span>
+          </div>
+          <input type="range" id="slider-choke" min="0" max="8" value="0" step="1">
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px;">Co cụm mặt nạ để triệt tiêu viền xanh rò rỉ.</p>
+        </div>
+
+        <!-- Advanced Spill Suppression Algorithm -->
+        <div class="control-group">
+          <label for="inp-despill-algo" style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-primary); display: flex; align-items: center; gap: 5px;">Khử ám màu <span style="color: var(--accent-gold); font-size: 0.8rem;">👑 PRO</span></label>
+          <select id="inp-despill-algo" class="dof-select">
+            <option value="clamp">Basic Clamp (Free)</option>
+            <option value="average" data-pro="true">👑 Average Suppression (VIP PRO)</option>
+            <option value="luminance" data-pro="true">👑 Luminance Despill (VIP PRO)</option>
+          </select>
+          <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 5px;">Lựa chọn thuật toán xử lý màu lem ở vùng viền tóc/áo.</p>
+        </div>
 
       </div>
 
@@ -241,8 +281,10 @@
 </div>
   </main>
 
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/chroma-key.js"></script>
-<script src="../js/common.js"></script>
 
   <!-- Footer -->
   <footer class="footer">

@@ -265,6 +265,22 @@
               <option value="0.019">Canon APS-C 1.6x (CoC: 0.019mm)</option>
               <option value="0.015">Micro Four Thirds 2.0x (CoC: 0.015mm)</option>
               <option value="0.005">Smartphone 1-inch (CoC: ~0.005mm)</option>
+              <option value="0.030-arri" data-pro="true">👑 ARRI Alexa LF (VIP PRO)</option>
+              <option value="0.033-red" data-pro="true">👑 RED V-Raptor 8K VV (VIP PRO)</option>
+              <option value="0.060-imax" data-pro="true">👑 IMAX 15/70mm (VIP PRO)</option>
+              <option value="0.022-s35" data-pro="true">👑 Super 35mm Cinema (VIP PRO)</option>
+              <option value="0.045-p65" data-pro="true">👑 Panavision System 65 (VIP PRO)</option>
+            </select>
+          </div>
+
+          <div class="dof-group">
+            <label for="inp-squeeze">Hệ số Anamorphic Squeeze</label>
+            <select id="inp-squeeze" class="dof-select">
+              <option value="1.0">Spherical (1.0x) - Tiêu chuẩn</option>
+              <option value="1.33" data-pro="true">👑 1.33x Squeeze (VIP PRO)</option>
+              <option value="1.5" data-pro="true">👑 1.5x Squeeze (VIP PRO)</option>
+              <option value="1.8" data-pro="true">👑 1.8x Squeeze (VIP PRO)</option>
+              <option value="2.0" data-pro="true">👑 2.0x Squeeze (VIP PRO)</option>
             </select>
           </div>
 
@@ -272,7 +288,10 @@
             <label for="inp-focal">Tiêu cự Ống kính (Focal Length)</label>
             <div class="slider-row">
               <input type="range" id="inp-focal" min="12" max="200" step="1" value="50">
-              <span class="slider-value" id="val-focal">50mm</span>
+              <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                <span class="slider-value" id="val-focal">50mm</span>
+                <span id="val-focal-eq" style="font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; white-space: nowrap;"></span>
+              </div>
             </div>
           </div>
 
@@ -339,6 +358,8 @@
   </section>
 
   <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
   <script src="../js/tools/dof-calculator.js"></script>
 
   <!-- Footer -->
