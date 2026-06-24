@@ -366,6 +366,9 @@ async function initDashboard() {
             if (purchase) {
                 status = purchase.status || 'purchased';
                 dateUnlocked = new Date(purchase.timestamp).toLocaleDateString('vi-VN');
+            } else if (lfAuth.isPro() && prod.type !== 'Membership' && prod.comingSoon !== true) {
+                status = 'purchased';
+                dateUnlocked = 'PRO';
             } else if (prod.comingSoon) {
                 status = 'coming_soon';
             }
@@ -488,7 +491,7 @@ async function initDashboard() {
     // Binder (legacy)
     const binderBtn = document.getElementById('btn-print-binder');
     if (binderBtn) {
-        if (lfAuth.hasPurchased('ebook-chiaroscuro')) {
+        if (lfAuth.hasPurchased('ebook-chiaroscuro') || lfAuth.isPro()) {
             binderBtn.innerText = "Tải Ebook Chiaroscuro (PDF)";
             binderBtn.onclick = () => alert("Đang mở bản tải xuống Ebook...");
         } else {
