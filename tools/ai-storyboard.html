@@ -203,6 +203,8 @@
             <option value="14mm ultra-wide angle lens">14mm Ultra-Wide (Rộng, méo phối cảnh)</option>
             <option value="200mm telephoto lens">200mm Telephoto (Xóa nhòa nền, nén không gian)</option>
             <option value="anamorphic lens with blue streaks">Anamorphic Lens (Lens phim, viền xanh)</option>
+            <option value="vintage super-baltar 75mm lens, warm flare, cinematic softness" data-pro="true">75mm Super-Baltar Vintage (VIP PRO)</option>
+            <option value="anamorphic lens, 50mm anamorphic, extreme blue streaks, oval bokeh" data-pro="true">50mm Cinemascope Anamorphic (VIP PRO)</option>
           </select>
         </div>
 
@@ -226,6 +228,8 @@
             <option value="shot on Cinestill 800T, halation effect">Cinestill 800T (Ám xanh, viền đỏ sáng - Halation)</option>
             <option value="black and white noir film, high contrast">Noir B&W (Trắng đen, cổ điển)</option>
             <option value="monochromatic green matrix style">Matrix Green (Ám xanh lá hacker)</option>
+            <option value="shot on IMAX 65mm film, rich dynamic range, crisp details" data-pro="true">IMAX 65mm Cinema Stock (VIP PRO)</option>
+            <option value="kodachrome 64 vintage color palette, rich reds and saturated yellows" data-pro="true">Kodachrome 64 Archive (VIP PRO)</option>
           </select>
         </div>
 
@@ -245,6 +249,7 @@
             <option value="--v 6.0 --style raw">Midjourney V6 (Raw Style)</option>
             <option value="--v 6.0">Midjourney V6 (Default)</option>
             <option value="photorealistic, 8k resolution, unreal engine 5">Stable Diffusion (Photorealism)</option>
+            <option value="hyper-realistic cinematic render, octanerender, arri Alexa LF style, masterpiece" data-pro="true">OctaneRender Cinematic (VIP PRO)</option>
           </select>
         </div>
 
@@ -356,8 +361,43 @@
           }, 2000);
         });
       });
+
+      // PRO Gating Interceptor for selects
+      inputs.forEach(el => {
+        if (el && el.tagName === 'SELECT') {
+          let previousValue = el.value;
+          
+          el.addEventListener('focus', () => {
+            previousValue = el.value;
+          });
+          
+          el.addEventListener('change', () => {
+            const selectedOption = el.options[el.selectedIndex];
+            if (selectedOption && selectedOption.getAttribute('data-pro') === 'true') {
+              if (typeof lfAuth !== 'undefined') {
+                const featureName = selectedOption.text.replace(' (VIP PRO)', '');
+                const hasAccess = lfAuth.gateFeature(featureName, () => {
+                  // Fallback: reset dropdown to previous non-PRO value
+                  el.value = previousValue;
+                  generatePrompt();
+                });
+                
+                if (hasAccess) {
+                  previousValue = el.value;
+                }
+              } else {
+                previousValue = el.value;
+              }
+            } else {
+              previousValue = el.value;
+            }
+          });
+        }
+      });
     });
   </script>
-<script src="../js/common.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
 </body>
 </html>

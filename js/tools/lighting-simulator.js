@@ -23,9 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Presets
   const presets = {
-    rembrandt: { key: {x: 80, y: 20, i: 100}, fill: {x: 20, y: 40, i: 20}, rim: {x: 15, y: 85, i: 60} },
-    split: { key: {x: 95, y: 50, i: 100}, fill: {x: 5, y: 50, i: 0}, rim: {x: 50, y: 95, i: 80} },
-    butterfly: { key: {x: 50, y: 10, i: 100}, fill: {x: 50, y: 40, i: 40}, rim: {x: 20, y: 90, i: 50} }
+    rembrandt: { key: {x: 80, y: 20, i: 100}, fill: {x: 20, y: 40, i: 20}, rim: {x: 15, y: 85, i: 60}, colors: {key: '255, 230, 200', fill: '200, 220, 255', rim: '220, 200, 255'} },
+    split: { key: {x: 95, y: 50, i: 100}, fill: {x: 5, y: 50, i: 0}, rim: {x: 50, y: 95, i: 80}, colors: {key: '255, 240, 220', fill: '200, 220, 255', rim: '255, 255, 255'} },
+    butterfly: { key: {x: 50, y: 10, i: 100}, fill: {x: 50, y: 40, i: 40}, rim: {x: 20, y: 90, i: 50}, colors: {key: '255, 245, 230', fill: '220, 220, 220', rim: '255, 255, 255'} },
+    neon: { key: {x: 80, y: 20, i: 100}, fill: {x: 20, y: 30, i: 70}, rim: {x: 10, y: 80, i: 95}, colors: {key: '255, 50, 150', fill: '0, 240, 255', rim: '255, 0, 100'}, isPro: true },
+    noir: { key: {x: 95, y: 30, i: 100}, fill: {x: 10, y: 30, i: 5}, rim: {x: 45, y: 95, i: 50}, colors: {key: '255, 255, 255', fill: '50, 50, 50', rim: '200, 200, 200'}, isPro: true }
   };
 
   // Core Math
@@ -165,12 +167,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // Bind Presets
   document.querySelectorAll('.preset-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const p = presets[btn.getAttribute('data-preset')];
+      const presetName = btn.getAttribute('data-preset');
+      const p = presets[presetName];
+      if (!p) return;
+
+      // Check if this preset is locked behind PRO membership
+      if (p.isPro) {
+        if (typeof lfAuth !== 'undefined') {
+          const featureName = btn.textContent.replace(' (PRO)', '');
+          const hasAccess = lfAuth.gateFeature(featureName, () => {});
+          if (!hasAccess) return; // Block applying preset if not PRO
+        }
+      }
       
       // Update data
       lights.key.x = p.key.x; lights.key.y = p.key.y; lights.key.intensity = p.key.i;
       lights.fill.x = p.fill.x; lights.fill.y = p.fill.y; lights.fill.intensity = p.fill.i;
       lights.rim.x = p.rim.x; lights.rim.y = p.rim.y; lights.rim.intensity = p.rim.i;
+
+      // Update colors if custom preset colors are defined
+      if (p.colors) {
+        lights.key.color = p.colors.key;
+        lights.fill.color = p.colors.fill;
+        lights.rim.color = p.colors.rim;
+      }
 
       // Ensure all are ON for presets
       Object.keys(lights).forEach(k => {

@@ -323,3 +323,181 @@ function updateNavigation() {
     }
 })();
 
+// -- Global PRO Gating UI & Logic --
+AuthSystem.prototype.gateFeature = function(featureName, fallbackCallback) {
+    if (this.isLoggedIn() && this.isPro()) {
+        return true;
+    }
+    this.showProGatingModal(featureName, fallbackCallback);
+    return false;
+};
+
+AuthSystem.prototype.showProGatingModal = function(featureName, fallbackCallback) {
+    // Remove existing modal if any
+    const existing = document.getElementById('lf-pro-gate-modal');
+    if (existing) {
+        existing.remove();
+    }
+    
+    // Adjust paths based on folder level
+    const isToolFolder = window.location.pathname.includes('/tools/') || window.location.pathname.includes('/recipes/') || window.location.pathname.includes('/articles/');
+    const relativePrefix = isToolFolder ? '../' : '';
+    
+    const proHubLink = `${relativePrefix}pro-hub.html`;
+    
+    const modalHTML = `
+    <div id="lf-pro-gate-modal" class="pro-gate-modal">
+        <div class="pro-gate-content">
+            <button class="pro-gate-close" id="pro-gate-close-btn">&times;</button>
+            <div class="pro-gate-icon">👑</div>
+            <h2>Mở khóa Tính năng PRO</h2>
+            <h3>${featureName}</h3>
+            <p>Tùy chọn chuyên sâu này dành riêng cho hội viên <strong>LumenForge PRO</strong>.</p>
+            
+            <div class="pro-gate-benefits">
+                <div class="benefit-item">
+                    <span style="color: var(--accent-gold); font-weight: bold; margin-right: 5px;">⚡</span>
+                    Mở khóa 100% công cụ & tính năng giả lập cao cấp.
+                </div>
+                <div class="benefit-item">
+                    <span style="color: var(--accent-gold); font-weight: bold; margin-right: 5px;">📖</span>
+                    Đọc toàn bộ tủ sách Masterclass & tải presets không che.
+                </div>
+                <div class="benefit-item">
+                    <span style="color: var(--accent-gold); font-weight: bold; margin-right: 5px;">💬</span>
+                    Nhận đánh giá Portfolio & cố vấn trực tiếp hàng tuần.
+                </div>
+            </div>
+            
+            <div class="pro-gate-actions">
+                <a href="${proHubLink}" class="btn-pro-action">Đăng ký Hội Viên PRO</a>
+                ${!this.isLoggedIn() ? `
+                    <button class="btn-pro-sec" id="pro-gate-login-btn">Đăng nhập tài khoản</button>
+                ` : `
+                    <button class="btn-pro-sec" id="pro-gate-cancel-btn">Đóng lại</button>
+                `}
+            </div>
+        </div>
+    </div>
+    <style>
+        .pro-gate-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 7, 0.85); z-index: 20000;
+            display: flex; align-items: center; justify-content: center;
+            backdrop-filter: blur(20px);
+            animation: fadeInProGate 0.3s ease;
+        }
+        .pro-gate-content {
+            background: rgba(15, 15, 20, 0.95);
+            border: 1px solid var(--accent-gold);
+            box-shadow: 0 25px 60px rgba(212, 175, 55, 0.15);
+            padding: 40px; border-radius: 16px;
+            width: 90%; max-width: 460px; text-align: center;
+            position: relative;
+            animation: slideUpProGate 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pro-gate-close {
+            position: absolute; top: 15px; right: 15px; background: none; border: none;
+            color: var(--text-secondary); font-size: 1.5rem; cursor: pointer;
+            transition: color 0.2s;
+        }
+        .pro-gate-close:hover { color: #fff; }
+        .pro-gate-icon {
+            font-size: 3rem; margin-bottom: 15px;
+            filter: drop-shadow(0 0 10px rgba(212,175,55,0.4));
+            animation: pulseProIcon 2s infinite;
+        }
+        .pro-gate-content h2 {
+            font-family: var(--font-heading); color: #fff; font-size: 1.6rem; margin-bottom: 5px;
+            margin-top: 0;
+        }
+        .pro-gate-content h3 {
+            font-family: var(--font-mono); color: var(--accent-gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+            margin-top: 0;
+        }
+        .pro-gate-content p {
+            color: var(--text-secondary); font-size: 0.92rem; line-height: 1.5; margin-bottom: 25px;
+            margin-top: 0;
+        }
+        .pro-gate-benefits {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 8px; padding: 20px; margin-bottom: 30px; text-align: left;
+        }
+        .benefit-item {
+            font-size: 0.85rem; color: #ddd; margin-bottom: 12px; line-height: 1.4;
+            display: flex; align-items: flex-start;
+        }
+        .benefit-item:last-child { margin-bottom: 0; }
+        .pro-gate-actions {
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .btn-pro-action {
+            display: block; width: 100%; text-align: center; padding: 14px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #b38b22 100%);
+            color: #000 !important; font-weight: bold; text-decoration: none; border-radius: 8px;
+            box-shadow: 0 8px 20px var(--accent-gold-glow);
+            transition: all 0.3s; font-size: 0.95rem; border: none; cursor: pointer;
+            font-family: var(--font-body);
+        }
+        .btn-pro-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.35);
+        }
+        .btn-pro-sec {
+            display: block; width: 100%; text-align: center; padding: 12px;
+            background: transparent; border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text-secondary); border-radius: 8px; font-size: 0.9rem;
+            cursor: pointer; transition: all 0.2s;
+            font-family: var(--font-body);
+        }
+        .btn-pro-sec:hover {
+            color: #fff; background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.3);
+        }
+        
+        @keyframes fadeInProGate {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUpProGate {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulseProIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    const closeModal = () => {
+        document.getElementById('lf-pro-gate-modal').remove();
+        if (fallbackCallback) fallbackCallback();
+    };
+    
+    // Event listeners
+    document.getElementById('pro-gate-close-btn').addEventListener('click', closeModal);
+    
+    const cancelBtn = document.getElementById('pro-gate-cancel-btn');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeModal);
+    }
+    
+    const loginBtn = document.getElementById('pro-gate-login-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            document.getElementById('lf-pro-gate-modal').remove();
+            openAuthModal();
+        });
+    }
+    
+    // Close on backdrop click
+    document.getElementById('lf-pro-gate-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'lf-pro-gate-modal') {
+            closeModal();
+        }
+    });
+};
+
