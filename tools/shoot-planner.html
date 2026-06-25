@@ -216,7 +216,7 @@
           <textarea id="p-gear" class="form-textarea" placeholder="- Máy ảnh: Sony FX3\n- Lens: 35mm, 85mm\n- Đèn: Key light, 2 đèn ven\n- Pin: 4 cục đã sạc đầy"></textarea>
         </div>
 
-        <button class="btn-action" id="btn-generate">🖨️ Tạo & In Call Sheet</button>
+        <button class="btn-action" id="btn-generate" style="border: 1px solid rgba(212, 175, 55, 0.4); background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0,0,0,0) 100%);">🖨️ Tạo & In Call Sheet <span style="color: var(--accent-gold); font-size: 0.8rem; margin-left: 8px;">👑 PRO</span></button>
 
       </div>
 
@@ -256,48 +256,10 @@
 </div>
   </main>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const inputs = {
-        name: document.getElementById('p-name'),
-        date: document.getElementById('p-date'),
-        time: document.getElementById('p-time'),
-        location: document.getElementById('p-location'),
-        crew: document.getElementById('p-crew'),
-        gear: document.getElementById('p-gear')
-      };
-
-      const outputs = {
-        name: document.getElementById('out-name'),
-        date: document.getElementById('out-date'),
-        time: document.getElementById('out-time'),
-        location: document.getElementById('out-location'),
-        crew: document.getElementById('out-crew'),
-        gear: document.getElementById('out-gear')
-      };
-
-      function updatePreview() {
-        outputs.name.textContent = inputs.name.value || '[TÊN DỰ ÁN]';
-        outputs.date.textContent = inputs.date.value || '...';
-        outputs.time.textContent = inputs.time.value || '...';
-        outputs.location.textContent = inputs.location.value || '...';
-        outputs.crew.textContent = inputs.crew.value || '...';
-        outputs.gear.textContent = inputs.gear.value || '...';
-      }
-
-      // Live update
-      Object.values(inputs).forEach(el => {
-        el.addEventListener('input', updatePreview);
-      });
-
-      // Print action
-      document.getElementById('btn-generate').addEventListener('click', () => {
-        updatePreview();
-        window.print();
-      });
-    });
-  </script>
-<script src="../js/common.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/checkout.js"></script>
+  <script src="../js/tools/shoot-planner.js"></script>
 
   <!-- Footer -->
   <footer class="footer">
