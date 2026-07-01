@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Lighting Studio — LumenForge</title>
+  <meta name="description" content="Phòng lab giả lập ánh sáng điện ảnh 2D. Kéo thả đèn và quan sát hiệu ứng bóng đổ theo thời gian thực.">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="color-scheme" content="dark">
+  
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    .studio-hero {
+      padding: 100px 0 40px;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(0, 212, 170, 0.15) 0%, rgba(10,10,12,1) 100%);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .studio-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #fff, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: var(--font-heading);
+    }
+
+    .studio-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+
+    /* Left Panel: Top-Down Floor */
+    .floor-panel {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .floor-title {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .grid-area {
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 400px;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .subject-marker {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      z-index: 10;
+    }
+    .subject-marker::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      width: 4px;
+      height: 10px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    .light-node {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      cursor: grab;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #000;
+      z-index: 20;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      user-select: none;
+    }
+    .light-node:active {
+      cursor: grabbing;
+    }
+    
+    #node-key { background: #fff; top: 70%; left: 20%; }
+    #node-fill { background: rgba(200,200,200,1); top: 70%; left: 80%; }
+    #node-back { background: rgba(150,150,255,1); top: 20%; left: 50%; }
+
+    /* Right Panel: Monitor View */
+    .monitor-panel {
+      flex: 1;
+      min-width: 300px;
+      background: #000;
+      border: 2px solid #222;
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .monitor-title {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #ff3333;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      z-index: 5;
+    }
+    .monitor-title::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #ff3333;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    .monitor-screen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      background: #050505;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 3D Sphere simulated via CSS box-shadows */
+    .subject-sphere {
+      width: 200px;
+      height: 250px;
+      background: #111; /* Base color representing a dark unlit face */
+      border-radius: 100px 100px 80px 80px; 
+      position: relative;
+      transition: box-shadow 0.1s linear;
+    }
+    
+    .control-panel {
+      margin-top: 30px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .ctrl-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 15px;
+    }
+    .ctrl-row:last-child { margin-bottom: 0; }
+    .ctrl-label {
+      width: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    input[type=range] {
+      flex: 1;
+      accent-color: var(--accent-cyan);
+    }
+
+    .pro-lock-overlay {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .pro-lock-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="main-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">LUMEN<span class="nav-logo-accent">FORGE</span></a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Bắt đầu</a>
+        <a href="before-after.html" class="nav-link">Before / After</a>
+        <a href="light-codex.html" class="nav-link">Học Ánh Sáng</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="gear-vault.html" class="nav-link">Kho Thiết Bị</a>
+        <a href="tool-lab.html" class="nav-link" style="color: var(--accent-cyan);">Công cụ</a>
+        <a href="store.html" class="nav-link">Cửa hàng</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="studio-hero animate-on-scroll">
+    <div class="container">
+      <h1>Virtual Lighting Studio</h1>
+      <p>Kéo thả đèn trên sơ đồ mặt bằng để xem hiệu ứng bóng đổ thời gian thực.</p>
+    </div>
+  </header>
+
+  <main class="studio-container animate-on-scroll delay-100">
+    
+    <!-- Left: Floor Plan -->
+    <div class="floor-panel">
+      <div class="floor-title">Top-Down Floor Plan</div>
+      <div class="grid-area" id="grid-area">
+        <div class="subject-marker">👤</div>
+        
+        <div class="light-node" id="node-key" title="Key Light">K</div>
+        <div class="light-node" id="node-fill" title="Fill Light">F</div>
+        <div class="light-node" id="node-back" title="Back Light">B</div>
+      </div>
+
+      <div class="control-panel" style="width: 100%; max-width: 400px;">
+        <h4 style="margin: 0 0 15px 0; font-size: 1rem; color: #fff;">Intensity Controls</h4>
+        <div class="ctrl-row">
+          <div class="ctrl-label" style="color: #fff;">Key Light</div>
+          <input type="range" id="slider-key" min="0" max="100" value="100">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label" style="color: #ccc;">Fill Light</div>
+          <input type="range" id="slider-fill" min="0" max="100" value="40">
+        </div>
+        <div class="ctrl-row">
+          <div class="ctrl-label" style="color: #99f;">Back Light</div>
+          <input type="range" id="slider-back" min="0" max="100" value="80">
+        </div>
+
+        <!-- Pro Features -->
+        <div style="position: relative; margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border-color);">
+          <h4 style="margin: 0 0 15px 0; font-size: 1rem; color: var(--accent-amber); display: flex; align-items: center; gap: 8px;">
+            <span>⚡</span> Gels & Modifiers (PRO)
+          </h4>
+          <div class="ctrl-row">
+            <div class="ctrl-label">Key Color</div>
+            <input type="color" value="#ffffff" disabled>
+          </div>
+          <div class="ctrl-row">
+            <div class="ctrl-label">Fill Color</div>
+            <input type="color" value="#ffffff" disabled>
+          </div>
+
+          <div class="pro-lock-overlay" id="pro-lock">
+            <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+            <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 10px;">Tính năng PRO</div>
+            <a href="pro-hub.html" class="btn-primary" style="padding: 5px 15px; font-size: 0.8rem; text-decoration: none; border-radius: 4px;">Nâng cấp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Monitor -->
+    <div class="monitor-panel">
+      <div class="monitor-title">REC</div>
+      <div class="monitor-screen">
+        <div class="subject-sphere" id="subject-sphere"></div>
+      </div>
+      <p style="text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-top: 15px; font-family: var(--font-mono);">
+        Live Monitor Render (CSS Engine)
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="footer" style="margin-top: 80px;">
+    <!-- Minimal footer block -->
+    <div class="container" style="text-align: center; border-top: 1px solid var(--border-color); padding-top: 20px;">
+      <p style="color: var(--text-dim); font-size: 0.9rem;">&copy; 2026 LumenForge. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/tools/virtual-studio.js"></script>
+</body>
+</html>

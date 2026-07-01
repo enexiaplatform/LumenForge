@@ -529,6 +529,7 @@
       opacity: 1;
     }
   </style>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -590,7 +591,7 @@
           </div>
           
           <div class="movie-display-frame" id="movie-display-frame">
-            <img src="" alt="Movie Scene Still" class="movie-display-img" id="movie-display-img">
+            <img src="" alt="Movie Scene Still" class="movie-display-img" id="movie-display-img" loading="lazy" decoding="async">
             
             <!-- Dynamic SVG Lighting Diagram overlay on hover -->
             <div class="svg-diagram-overlay" id="svg-diagram-overlay">
@@ -844,13 +845,24 @@
           </p>
         </div>
         
+        
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px; gap: 15px;">
+          <span style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-dim);" id="lbl-vnd" class="active-currency">VND</span>
+          <label style="position: relative; display: inline-block; width: 60px; height: 30px;">
+            <input type="checkbox" id="currency-toggle" style="opacity: 0; width: 0; height: 0;">
+            <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.1); transition: .4s; border-radius: 34px; border: 1px solid var(--border-color);">
+              <span id="toggle-slider" style="position: absolute; content: ''; height: 22px; width: 22px; left: 4px; bottom: 3px; background-color: var(--accent-gold); transition: .4s; border-radius: 50%;"></span>
+            </span>
+          </label>
+          <span style="font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-dim);" id="lbl-usd">USD</span>
+        </div>
         <div class="pricing-grid-pro">
           <!-- Monthly Plan -->
           <div class="pricing-card-pro">
             <div>
               <div class="plan-name">PRO Monthly</div>
               <p style="color: var(--text-dim); font-size: 0.85rem;">Trải nghiệm linh hoạt hàng tháng</p>
-              <div class="plan-price">149.000đ<span>/ tháng</span></div>
+              <div class="plan-price" data-vnd="149.000đ" data-usd="$5.99">149.000đ<span data-vnd-suffix="/ tháng" data-usd-suffix="/ mo">/ tháng</span></div>
               <ul class="plan-features-list">
                 <li>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -879,7 +891,7 @@
             <div>
               <div class="plan-name" style="color: var(--accent-gold);">PRO Annual</div>
               <p style="color: var(--text-dim); font-size: 0.85rem;">Học tập bài bản & tiết kiệm tối đa</p>
-              <div class="plan-price">990.000đ<span>/ năm</span></div>
+              <div class="plan-price" data-vnd="990.000đ" data-usd="$39.00">990.000đ<span data-vnd-suffix="/ năm" data-usd-suffix="/ yr">/ năm</span></div>
               <ul class="plan-features-list">
                 <li>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -907,7 +919,7 @@
             <div>
               <div class="plan-name">PRO Lifetime</div>
               <p style="color: var(--text-dim); font-size: 0.85rem;">Mua một lần, sở hữu vĩnh viễn</p>
-              <div class="plan-price">1.990.000đ<span>/ trọn đời</span></div>
+              <div class="plan-price" data-vnd="1.990.000đ" data-usd="$79.00">1.990.000đ<span data-vnd-suffix="/ trọn đời" data-usd-suffix="/ life">/ trọn đời</span></div>
               <ul class="plan-features-list">
                 <li>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>

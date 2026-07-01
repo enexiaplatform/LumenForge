@@ -1,588 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://lumenforge.studio/admin.html</loc>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lumenforge.studio/ai-analyzer.html</loc>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://lumenforge.studio/analog-film-pack.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/before-after.html</loc>
-    <lastmod>2026-06-24</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/blog.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/color-alchemist.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/creator-onboarding.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/creator-starter-bundle.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/cyberpunk-neon-nights.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/dashboard.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/ebook-chiaroscuro.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/ebook-color-psychology.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/ebook-lighting-setups.html</loc>
-    <lastmod>2026-06-23</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/ebook-preview.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://lumenforge.studio/ebook-reader.html</loc>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/free-guide.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/gear-map.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/gear-vault.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/glossary.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/index.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/light-codex.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/lighting-gallery.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/masterclass.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/privacy.html</loc>
-    <lastmod>2026-06-24</lastmod>
-    <priority>0.3</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/pro-hub.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/quiz.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/shot-recipes.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/starter-kit-pro.html</loc>
-    <lastmod>2026-06-24</lastmod>
-    <priority>0.9</priority>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/store.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumenforge.studio/studio-planner.html</loc>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/terms.html</loc>
-    <lastmod>2026-06-24</lastmod>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/studio-planner.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/tool-lab.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://lumenforge.studio/virtual-studio.html</loc>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lumenforge.studio/visual-experiments.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/anamorphic-lenses.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/bokeh-demystified.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/canon-r50-vs-iphone.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/canon-vs-sony-color-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/ccd-vs-cmos.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/chiaroscuro-lighting.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/cinema-color-grading.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/cinematic-camera-movement.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/cinematic-lighting-keys.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/color-harmony-theory.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/color-space-bitdepth.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/color-spaces.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/decisive-moment-street.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/depth-of-field-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/double-exposure-technique.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/fine-art-portrait-lighting.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/flash-physics-hss.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/focal-length-distortion.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/focal-length-explained.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/frame-rate-psychology.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/gestalt-composition.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/gestalt-psychology-photography.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/golden-ratio-composition.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/hard-vs-soft-light.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/histogram-ettr.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/hsl-vs-color-grading.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/human-eye-vs-sensor.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/inverse-square-law.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/iso-noise-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/log-profile-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/metering-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/motivated-lighting.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/nature-of-grain.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/nd-filter-video.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/noritsu-vs-frontier.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/optical-aberrations.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/polarization-physics.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/psychology-of-low-key.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/recipe-cinematic-portrait.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/recipe-cyberpunk-neon.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/recipe-product-commercial.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/shutter-angle-rule.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/shutter-speed-mastery.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/storyboarding-art.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/three-point-lighting.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/tone-curve-mastery.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/visual-flow.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/white-balance-science.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/articles/why-50mm-is-the-peoples-lens.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/ai-storyboard.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/anamorphic-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/aspect-ratio.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/cheat-sheet.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/chroma-key.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/color-alchemy.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/color-matcher.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/color-matrix.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/color-wheels.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/composition-analyzer.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/dof-calculator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/dolly-zoom.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/exposure-reactor.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/film-look.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/flash-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/flashcards.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/fov-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/frame-analyzer.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lens-decoder.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lighting-builder.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lighting-gels.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lighting-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lighting-studio.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/lightroom-generator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/mastery-quiz.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/posing-guide.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/shadow-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/shoot-planner.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/shutter-angle-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/soundscape.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/storyboard-drawer.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/sync-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/timelapse-calculator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/title-generator.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/tone-curve.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/viewfinder.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/visual-identity.html</loc>
-    <lastmod>2026-06-12</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://lumenforge.studio/tools/wb-simulator.html</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-07-01</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>

@@ -1,4 +1,6 @@
 User-agent: *
-Allow: /
+Disallow: /scratch/
+Disallow: /admin/
+Disallow: /*?ref=
 
 Sitemap: https://lumenforge.studio/sitemap.xml

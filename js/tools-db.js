@@ -1,5 +1,23 @@
 window.TOOLS_DB = [
   {
+    "id": "ai-analyzer",
+    "title": "Lumen AI Frame Analyzer",
+    "desc": "Trí tuệ nhân tạo bóc tách bảng màu và cấu trúc ánh sáng của bất kỳ khung hình điện ảnh nào.",
+    "category": "color",
+    "link": "ai-analyzer.html",
+    "accent": "cyan",
+    "status": "Active"
+  },
+  {
+    "id": "virtual-studio",
+    "title": "Virtual Lighting Studio",
+    "desc": "Phòng lab giả lập ánh sáng điện ảnh 2D. Kéo thả đèn và quan sát hiệu ứng bóng đổ theo thời gian thực.",
+    "category": "lighting",
+    "link": "virtual-studio.html",
+    "accent": "amber",
+    "status": "Active"
+  },
+  {
     "id": "ai-storyboard",
     "title": "AI Storyboard Prompt Builder",
     "desc": "Trình tạo lệnh (Prompt) siêu chuẩn xác dành cho Midjourney & Stable Diffusion để thiết kế Storyboard điện ảnh.",

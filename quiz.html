@@ -246,6 +246,7 @@
     }
   }
   </script>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -340,6 +341,18 @@
       <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 15px; max-width: 300px; margin: 0 auto 30px;">
         <div style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono);">Tổng XP Nhận được</div>
         <div style="font-size: 1.8rem; font-weight: bold; color: var(--accent-amber); font-family: var(--font-mono); margin-top: 5px;" id="res-xp">+160 XP</div>
+      </div>
+
+      
+      <!-- Personalized Recommendation (Sprint 19) -->
+      <div id="quiz-recommendation" style="display: none; background: rgba(0,0,0,0.3); border: 1px solid var(--accent-amber); border-radius: 12px; padding: 25px; margin: 30px auto; max-width: 500px; text-align: left; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent-amber);"></div>
+        <div style="font-size: 0.85rem; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; margin-bottom: 10px; font-family: var(--font-mono);">⚡ Đề xuất Phù hợp nhất dành cho bạn</div>
+        <h4 id="rec-title" style="color: #fff; font-size: 1.2rem; margin: 0 0 10px 0;">LumenForge Starter Bundle</h4>
+        <p id="rec-desc" style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+          Gói combo đầy đủ để nâng cấp nền tảng từ cơ bản lên chuyên nghiệp.
+        </p>
+        <button id="rec-btn" onclick="openCheckoutModal('bundle-starter', 249000)" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 6px; font-weight: bold;">Khám phá Gói này ngay</button>
       </div>
 
       <div style="display: flex; gap: 15px; justify-content: center;">

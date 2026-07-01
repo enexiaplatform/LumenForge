@@ -319,3 +319,347 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+/* ==========================================================================
+   LUMENFORGE COMMERCIAL: SERVICE WORKER & PWA SUPPORT
+   ========================================================================== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Attempt to register service worker. The path is always root '/sw.js'
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('[PWA] ServiceWorker registered with scope:', registration.scope);
+      })
+      .catch(error => {
+        console.log('[PWA] ServiceWorker registration failed:', error);
+      });
+  });
+}
+
+/* ==========================================================================
+   LUMENFORGE COMMERCIAL: LIVE SALES NOTIFICATION (SOCIAL PROOF)
+   ========================================================================== */
+(function initLiveSalesNotifications() {
+  // Only initialize on actual frontend pages, not admin
+  if (window.location.pathname.includes('admin.html')) return;
+
+  const names = ['Tuấn A.', 'Hoàng Đ.', 'Nhật M.', 'Quang V.', 'Lê H.', 'Trần K.', 'Ngọc T.', 'Bảo N.'];
+  const products = [
+    { name: 'Creator Starter Bundle', link: 'creator-starter-bundle.html', img: 'https://images.unsplash.com/photo-1616423640778-28d1b53229bd?q=80&w=150&auto=format&fit=crop' },
+    { name: 'Gói LumenForge PRO (1 Năm)', link: 'pro-hub.html', img: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=150&auto=format&fit=crop' },
+    { name: 'Cyberpunk Neon Nights LUTs', link: 'cyberpunk-neon-nights.html', img: 'https://images.unsplash.com/photo-1555861496-faa3e1174f76?q=80&w=150&auto=format&fit=crop' },
+    { name: 'Ebook Tâm lý học Màu sắc', link: 'ebook-color-psychology.html', img: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?q=80&w=150&auto=format&fit=crop' }
+  ];
+
+  // Inject CSS for the popup
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .lf-sales-popup {
+      position: fixed;
+      bottom: -100px;
+      left: 20px;
+      background: rgba(15, 15, 20, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+      max-width: 300px;
+    }
+    .lf-sales-popup.show {
+      bottom: 20px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lf-sales-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      border: 1px solid var(--accent-gold, rgba(212, 175, 55, 0.5));
+    }
+    .lf-sales-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .lf-sales-text {
+      color: #fff;
+      font-size: 0.85rem;
+      margin: 0 0 4px 0;
+      line-height: 1.3;
+    }
+    .lf-sales-time {
+      color: var(--text-dim, #888);
+      font-size: 0.75rem;
+      font-family: var(--font-mono, monospace);
+    }
+    .lf-sales-product {
+      color: var(--accent-cyan, #00f0ff);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .lf-sales-product:hover {
+      text-decoration: underline;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Create popup DOM
+  const popup = document.createElement('div');
+  popup.className = 'lf-sales-popup';
+  document.body.appendChild(popup);
+
+  function triggerNotification() {
+    if (document.hidden) return; // Don't show if user is on another tab
+
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    const randomProduct = products[Math.floor(Math.random() * products.length)];
+    const randomTime = Math.floor(Math.random() * 15) + 1; // 1 to 15 mins ago
+
+    popup.innerHTML = `
+      <img src="${randomProduct.img}" alt="Product" class="lf-sales-img">
+      <div class="lf-sales-content">
+        <p class="lf-sales-text"><strong>${randomName}</strong> vừa mua <br><a href="${randomProduct.link}" class="lf-sales-product">${randomProduct.name}</a></p>
+        <span class="lf-sales-time">Khoảng ${randomTime} phút trước</span>
+      </div>
+    `;
+
+    popup.classList.add('show');
+    
+    // Track impression
+    if (typeof trackEvent === 'function') {
+      trackEvent('sales_notification_shown', { product: randomProduct.name });
+    }
+
+    setTimeout(() => {
+      popup.classList.remove('show');
+    }, 5000); // Hide after 5 seconds
+  }
+
+  // Initial delay (15s) then trigger every 45-60s
+  setTimeout(() => {
+    triggerNotification();
+    setInterval(() => {
+      triggerNotification();
+    }, 45000 + Math.random() * 15000);
+  }, 15000);
+})();
+
+/* ==========================================================================
+   LUMENFORGE COMMERCIAL SPRINT 17: ADVANCED E-COMMERCE
+   ========================================================================== */
+
+(function initEcommerceSupercharge() {
+  if (window.location.pathname.includes('admin.html')) return;
+
+  // 1. Affiliate Tracking System
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref');
+  if (ref) {
+    localStorage.setItem('lf_affiliate_ref', ref);
+    console.log(`[AFFILIATE] Captured referral code: ${ref}`);
+  }
+
+  // 2. Abandoned Cart Recovery Banner
+  const abandonedProductId = localStorage.getItem('lf_abandoned_cart');
+  if (abandonedProductId && typeof window.openCheckoutModal === 'function') {
+    // Only show if we know the product name
+    const productNames = {
+      'bundle-starter': 'Creator Starter Bundle',
+      'pro-annual': 'LumenForge PRO',
+      'preset-cyberpunk': 'Cyberpunk LUTs',
+      'preset-film': 'Analog Film Pack',
+      'ebook-chiaroscuro': 'Ebook Chiaroscuro',
+      'ebook-color': 'Ebook Tâm lý học Màu sắc'
+    };
+    
+    const productName = productNames[abandonedProductId] || 'sản phẩm';
+    
+    const banner = document.createElement('div');
+    banner.style.cssText = `
+      background: linear-gradient(90deg, #d4af37, #b38b22);
+      color: #000;
+      text-align: center;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      cursor: pointer;
+      position: relative;
+      z-index: 99999;
+      box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+    `;
+    banner.innerHTML = `🛒 Bạn quên hoàn tất đơn hàng <strong>${productName}</strong>? Nhấn vào đây để nhận mã giảm giá 10% (Nhập: LF10).`;
+    
+    // Insert at very top
+    document.body.insertBefore(banner, document.body.firstChild);
+    
+    banner.addEventListener('click', () => {
+      // Logic assumes base price, in real app we fetch it
+      let defaultPrice = 149000;
+      if(abandonedProductId.includes('bundle')) defaultPrice = 249000;
+      if(abandonedProductId.includes('pro')) defaultPrice = 990000;
+      if(abandonedProductId.includes('ebook')) defaultPrice = 99000;
+      
+      // Re-open checkout minus 10% mock
+      const discountedPrice = defaultPrice * 0.9;
+      window.openCheckoutModal(abandonedProductId, discountedPrice);
+    });
+  }
+
+  // 3. Exit-Intent Lead Gen Popup
+  const exitIntentShown = localStorage.getItem('lf_exit_intent_shown');
+  if (!exitIntentShown) {
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY <= 0 && !localStorage.getItem('lf_exit_intent_shown')) {
+        showExitIntent();
+        // 24hr cooldown
+        localStorage.setItem('lf_exit_intent_shown', Date.now().toString());
+      }
+    });
+  }
+
+  function showExitIntent() {
+    const modalHtml = `
+      <div id="lf-exit-intent" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.4s;">
+        <div style="background: var(--bg-card, #0a0a0c); width: 90%; max-width: 500px; border-radius: 16px; border: 1px solid var(--accent-gold); padding: 40px; text-align: center; box-shadow: 0 0 40px rgba(212,175,55,0.2);">
+          <h2 style="color: var(--accent-gold); margin-top: 0; font-family: var(--font-heading);">KHOAN ĐÃ! 🎁</h2>
+          <p style="color: #fff; font-size: 1.1rem; line-height: 1.5; margin-bottom: 25px;">Đừng vội rời đi. Nhận ngay <strong>Bộ 5 Preset Phim Nhựa Độc Quyền</strong> hoàn toàn miễn phí gửi trực tiếp vào hòm thư của bạn.</p>
+          <input type="email" placeholder="Email của bạn..." style="width: 100%; padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.5); color: #fff; margin-bottom: 15px; box-sizing: border-box;">
+          <button class="btn-primary" onclick="document.getElementById('lf-exit-intent').remove()" style="width: 100%; padding: 14px; background: var(--accent-gold); color: #000; font-weight: bold; border-radius: 6px; border: none; cursor: pointer;">NHẬN QUÀ NGAY</button>
+          <button onclick="document.getElementById('lf-exit-intent').remove()" style="margin-top: 15px; background: none; border: none; color: var(--text-dim); text-decoration: underline; cursor: pointer; font-size: 0.85rem;">Không, tôi không thích quà miễn phí</button>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    setTimeout(() => {
+      const el = document.getElementById('lf-exit-intent');
+      if (el) el.style.opacity = '1';
+    }, 50);
+    
+    if(typeof trackEvent === 'function') trackEvent('exit_intent_shown');
+  }
+
+})();
+
+/* ==========================================================================
+   LUMENFORGE COMMERCIAL SPRINT 19: RETENTION & URGENCY
+   ========================================================================== */
+
+(function initSprint19() {
+  if (window.location.pathname.includes('admin.html')) return;
+
+  // --- 1. EVERGREEN FLASH SALE TIMER ---
+  const saleEndKey = 'lf_flash_sale_end';
+  let saleEndTime = localStorage.getItem(saleEndKey);
+  
+  // If not set or already expired, set to 2 hours 45 mins from now
+  if (!saleEndTime || parseInt(saleEndTime) < Date.now()) {
+    saleEndTime = Date.now() + (2 * 60 * 60 * 1000) + (45 * 60 * 1000);
+    localStorage.setItem(saleEndKey, saleEndTime);
+  }
+
+  // Create Timer UI Ribbon
+  const ribbon = document.createElement('div');
+  ribbon.style.cssText = `
+    background: linear-gradient(90deg, #990000, #ff3333);
+    color: #fff;
+    text-align: center;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 99998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--font-mono, monospace);
+  `;
+  
+  ribbon.innerHTML = `
+    <span>⚡ FLASH SALE ƯU ĐÃI NÂNG CẤP PRO KẾT THÚC SAU:</span>
+    <span id="lf-timer-display" style="background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 4px; font-size: 1rem;">00:00:00</span>
+  `;
+  
+  document.body.insertBefore(ribbon, document.body.firstChild);
+
+  // Update timer every second
+  setInterval(() => {
+    const now = Date.now();
+    const distance = parseInt(saleEndTime) - now;
+    if (distance < 0) {
+      document.getElementById('lf-timer-display').textContent = "00:00:00";
+      return;
+    }
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    document.getElementById('lf-timer-display').textContent = 
+      `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }, 1000);
+
+
+  // --- 2. LUMENFORGE REWARDS (XP BADGE & POPUP) ---
+  const currentXp = parseInt(localStorage.getItem('lumenforge_xp') || '0');
+  
+  // Inject XP Badge into Nav
+  setTimeout(() => {
+    const navMenu = document.getElementById('nav-menu');
+    if (navMenu) {
+      const xpBadge = document.createElement('div');
+      xpBadge.style.cssText = `
+        background: rgba(245, 166, 35, 0.1);
+        border: 1px solid var(--accent-amber);
+        color: var(--accent-amber);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-family: var(--font-mono, monospace);
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-left: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      `;
+      xpBadge.innerHTML = `<span>⚡</span> ${currentXp} XP`;
+      navMenu.appendChild(xpBadge);
+    }
+  }, 100);
+
+  // Reward Check (500 XP = 20% Discount)
+  if (currentXp >= 500 && !localStorage.getItem('lf_reward_claimed')) {
+    setTimeout(() => {
+      const modalHtml = `
+        <div id="lf-reward-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.4s;">
+          <div style="background: var(--bg-card, #0a0a0c); width: 90%; max-width: 450px; border-radius: 16px; border: 1px solid var(--accent-amber); padding: 40px; text-align: center; box-shadow: 0 0 40px rgba(245,166,35,0.2);">
+            <div style="font-size: 4rem; margin-bottom: 10px;">🏆</div>
+            <h2 style="color: var(--accent-amber); margin-top: 0; font-family: var(--font-heading);">CHÚC MỪNG!</h2>
+            <p style="color: #fff; font-size: 1rem; line-height: 1.5; margin-bottom: 25px;">Bạn đã cày đủ <strong>500 XP</strong> trên LumenForge. Đây là phần thưởng dành riêng cho sự chăm chỉ của bạn:</p>
+            
+            <div style="background: rgba(0,0,0,0.5); border: 2px dashed var(--accent-amber); padding: 15px; border-radius: 8px; margin-bottom: 25px;">
+              <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 5px; text-transform: uppercase;">Mã giảm 20% toàn sàn</div>
+              <div style="font-size: 2rem; font-family: var(--font-mono); font-weight: bold; color: var(--accent-cyan); letter-spacing: 2px;">LFVIP20</div>
+            </div>
+            
+            <button class="btn-primary" onclick="document.getElementById('lf-reward-modal').remove(); localStorage.setItem('lf_reward_claimed', 'true');" style="width: 100%; padding: 14px; background: var(--accent-amber); color: #000; font-weight: bold; border-radius: 6px; border: none; cursor: pointer;">NHẬN THƯỞNG</button>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+      setTimeout(() => {
+        const el = document.getElementById('lf-reward-modal');
+        if (el) el.style.opacity = '1';
+      }, 50);
+    }, 2000);
+  }
+
+})();

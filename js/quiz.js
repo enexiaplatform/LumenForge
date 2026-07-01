@@ -223,6 +223,28 @@ function showResults() {
   
   document.getElementById('res-desc').textContent = desc;
   
+  
+  // SPRINT 19: Show Personalized Recommendation
+  const recEl = document.getElementById('quiz-recommendation');
+  const recTitle = document.getElementById('rec-title');
+  const recDesc = document.getElementById('rec-desc');
+  const recBtn = document.getElementById('rec-btn');
+  
+  if (recEl) {
+    recEl.style.display = 'block';
+    if (score >= 9) {
+      recTitle.textContent = "Gói LumenForge PRO (Lifetime)";
+      recDesc.textContent = "Ở trình độ này, bạn đã sẵn sàng sử dụng các công cụ Workflow cao cấp nhất của chúng tôi để bứt phá giới hạn điện ảnh.";
+      recBtn.setAttribute('onclick', "openCheckoutModal('pro-lifetime', 2490000)");
+      recBtn.textContent = "Nâng cấp lên PRO";
+    } else {
+      recTitle.textContent = "Creator Starter Bundle";
+      recDesc.textContent = "Dựa trên lỗ hổng kiến thức của bạn, gói Bundle này với Ebook Ánh Sáng và 15 Preset sẽ giúp bạn lấy lại nền tảng cực kỳ nhanh chóng.";
+      recBtn.setAttribute('onclick', "openCheckoutModal('bundle-starter', 249000)");
+      recBtn.textContent = "Nhận ngay với 50% Off";
+    }
+  }
+
   // Calculate and display XP
   const xpGained = score * 20;
   document.getElementById('res-xp').textContent = `+${xpGained} XP`;
