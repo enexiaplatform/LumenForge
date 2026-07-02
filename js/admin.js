@@ -85,9 +85,15 @@ async function loadAdminData() {
             // Fetch pending payments
             const { data: dbPending, error: errPending } = await client
                 .from('pending_orders')
-                .select('*')
+                .select('*, profiles(name, email)')
                 .eq('status', 'pending');
-            if (!errPending && dbPending) pendingPayments = dbPending;
+            if (!errPending && dbPending) {
+                pendingPayments = dbPending.map(p => ({
+                    ...p,
+                    buyer_name: p.profiles?.name || 'Khách hàng',
+                    buyer_email: p.profiles?.email || 'n/a'
+                }));
+            }
 
             // Fetch profiles (creators)
             const { data: dbProfiles, error: errProfiles } = await client

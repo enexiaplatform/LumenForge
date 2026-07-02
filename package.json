@@ -4,7 +4,13 @@
   "description": "",
   "main": "build-recipes.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "test": "node scratch/run_e2e_integration_test.js",
+    "test:pro": "node scratch/test_pro_flow.js",
+    "audit:links": "node scratch/check_tool_links.js",
+    "audit:seo": "python scratch/check_seo_regex.py",
+    "audit:a11y": "python scratch/audit_accessibility.py"
   },
   "repository": {
     "type": "git",

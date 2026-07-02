@@ -440,7 +440,7 @@
               Bạn đang đọc thử Chương 1 của cuốn sách. Hãy nâng cấp tài khoản hoặc thanh toán cuốn sách này để mở khóa toàn bộ nội dung học tập chuyên nghiệp từ LumenForge.
             </p>
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-              <a href="#" class="btn btn-gold" style="padding: 12px 25px; border-radius: 6px; font-weight: bold; background: var(--accent-cyan); color: #000; text-decoration: none;" id="paywall-buy-btn">
+              <a href="javascript:void(0)" class="btn btn-gold" style="padding: 12px 25px; border-radius: 6px; font-weight: bold; background: var(--accent-cyan); color: #000; text-decoration: none;" id="paywall-buy-btn">
                 Mua Cuốn Sách Này
               </a>
               <button onclick="openAuthModal()" class="btn-secondary" style="padding: 12px 25px; border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); cursor: pointer;" id="paywall-auth-btn">
@@ -689,7 +689,7 @@
           paywall.style.display = 'block';
           // Update paywall checkout link action
           const buyBtn = document.getElementById('paywall-buy-btn');
-          buyBtn.href = "#";
+          buyBtn.href="javascript:void(0)";
           buyBtn.onclick = (e) => {
             e.preventDefault();
             openCheckoutModal(currentBook.productId, currentBook.price);

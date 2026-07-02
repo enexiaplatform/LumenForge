@@ -266,6 +266,86 @@
 
 })();
 
+/* ==========================================================================
+   ELITE UX (Sprint 27): Custom Cursor, Active Nav, Back-to-Top
+   ========================================================================== */
+(function initEliteUX() {
+  if (window.location.pathname.includes('admin.html')) return;
+
+  // 1. Dynamic Active Nav
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && href === currentPath) {
+      link.classList.add('nav-link-active');
+    }
+  });
+
+  // 2. Custom Cinematic Cursor
+  // Only init on non-touch devices
+  if (window.matchMedia("(pointer: fine)").matches) {
+    const dot = document.createElement('div');
+    dot.className = 'lf-cursor-dot';
+    
+    const ring = document.createElement('div');
+    ring.className = 'lf-cursor-ring';
+    
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      
+      // Dot follows exactly
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
+
+    // Ring follows with easing (requestAnimationFrame loop)
+    function renderRing() {
+      ringX += (mouseX - ringX) * 0.15; // Easing factor
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(renderRing);
+    }
+    requestAnimationFrame(renderRing);
+
+    // Hover states for links and buttons
+    const hoverElements = document.querySelectorAll('a, button, input, textarea, select, .magnetic, .product-card');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('lf-cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('lf-cursor-hover'));
+    });
+  }
+
+  // 3. Back-to-Top Button
+  const b2t = document.createElement('a');
+  b2t.href = 'javascript:void(0)';
+  b2t.className = 'lf-b2t';
+  b2t.innerHTML = '&uarr;';
+  b2t.setAttribute('aria-label', 'Back to top');
+  document.body.appendChild(b2t);
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      b2t.classList.add('visible');
+    } else {
+      b2t.classList.remove('visible');
+    }
+  });
+
+  b2t.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+})();
   /* --------------------------------------------------------
      AUTO-ACTIVE NAVIGATION LINK
      -------------------------------------------------------- */
@@ -436,18 +516,6 @@ if ('serviceWorker' in navigator) {
     
     // Track impression
     if (typeof trackEvent === 'function') {
-      trackEvent('sales_notification_shown', { product: randomProduct.name });
-    }
-
-    setTimeout(() => {
-      popup.classList.remove('show');
-    }, 5000); // Hide after 5 seconds
-  }
-
-  // Initial delay (15s) then trigger every 45-60s
-  setTimeout(() => {
-    triggerNotification();
-    setInterval(() => {
       triggerNotification();
     }, 45000 + Math.random() * 15000);
   }, 15000);
@@ -566,30 +634,67 @@ if ('serviceWorker' in navigator) {
     localStorage.setItem(saleEndKey, saleEndTime);
   }
 
-  // Create Timer UI Ribbon
+  // Create Timer UI Ribbon (Global Ticker)
   const ribbon = document.createElement('div');
   ribbon.style.cssText = `
-    background: linear-gradient(90deg, #990000, #ff3333);
-    color: #fff;
+    background: rgba(10, 10, 12, 0.95);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-dim, #a0a0a0);
     text-align: center;
-    padding: 8px 15px;
-    font-weight: bold;
+    padding: 10px 15px;
     font-size: 0.85rem;
     position: relative;
     z-index: 99998;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
     font-family: var(--font-mono, monospace);
+    transition: opacity 0.5s ease;
   `;
   
-  ribbon.innerHTML = `
-    <span>⚡ FLASH SALE ƯU ĐÃI NÂNG CẤP PRO KẾT THÚC SAU:</span>
-    <span id="lf-timer-display" style="background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 4px; font-size: 1rem;">00:00:00</span>
+  // Create an inner container for the flipping content
+  const tickerContent = document.createElement('div');
+  tickerContent.style.cssText = `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    transition: opacity 0.5s ease;
   `;
-  
+  ribbon.appendChild(tickerContent);
   document.body.insertBefore(ribbon, document.body.firstChild);
+
+  // Ticker Logic
+  let currentTick = 0;
+  
+  function updateTicker() {
+    tickerContent.style.opacity = 0;
+    
+    setTimeout(() => {
+      if (currentTick === 0) {
+        // Flash Sale View
+        tickerContent.innerHTML = `
+          <span><span style="color:var(--accent-amber,#FFB000)">⚡</span> FLASH SALE ƯU ĐÃI PRO KẾT THÚC SAU:</span>
+          <span id="lf-timer-display" style="background: rgba(0,0,0,0.8); color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold;">00:00:00</span>
+        `;
+      } else {
+        // Free Gift View
+        tickerContent.innerHTML = `
+          <span><span style="color:var(--accent-cyan,#00f0ff)">🎁</span> Tặng Miễn Phí: Starter Kit (3 Preset + PDF).</span>
+          <a href="free-guide.html" style="color: var(--accent-cyan, #00f0ff); text-decoration: underline; margin-left: 10px;">Nhận Ngay &rarr;</a>
+        `;
+      }
+      
+      tickerContent.style.opacity = 1;
+      currentTick = currentTick === 0 ? 1 : 0;
+    }, 500); // Wait for fade out
+  }
+
+  // Initial call and rotation every 4 seconds
+  updateTicker();
+  setInterval(updateTicker, 4000);
 
   // Update timer every second
   setInterval(() => {
@@ -661,5 +766,114 @@ if ('serviceWorker' in navigator) {
       }, 50);
     }, 2000);
   }
+
+})();
+
+/* ==========================================================================
+   SENSORY UX (Sprint 28): Cinematic Page Transitions & Audio
+   ========================================================================== */
+(function initSensoryUX() {
+  if (window.location.pathname.includes('admin.html')) return;
+
+  // 1. Page Transitions (Fade In/Out)
+  // Fade in on load
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('lf-page-loaded');
+  });
+
+  // Intercept internal links to fade out
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    
+    const href = link.getAttribute('href');
+    const target = link.getAttribute('target');
+
+    // Proceed normally if it's an anchor link, javascript, external, or target="_blank"
+    if (!href || href.startsWith('#') || href.startsWith('javascript:') || target === '_blank' || href.startsWith('http')) {
+      return;
+    }
+
+    e.preventDefault();
+    document.body.classList.remove('lf-page-loaded');
+    
+    // Fallback timer to force navigation if animation hangs
+    setTimeout(() => {
+      window.location.href = href;
+    }, 400);
+  });
+
+  // 2. Synthesized Audio Feedback (Web Audio API)
+  let audioCtx = null;
+
+  function initAudio() {
+    if (!audioCtx) {
+      // Create context on first user interaction to bypass browser autoplay blocks
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+         audioCtx = new AudioContext();
+      }
+    }
+  }
+
+  function playTick() {
+    if (!audioCtx) return;
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.type = 'sine';
+    // Very high pitch, very short duration
+    osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+    
+    gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime); // Low volume
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+    
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.05);
+  }
+
+  function playClick() {
+    if (!audioCtx) return;
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    osc.type = 'triangle';
+    // Thud sound
+    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+    
+    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime); // Slightly louder than tick
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+    
+    osc.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.1);
+  }
+
+  // Attach audio to interactive elements
+  // Use event delegation or attach directly
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest('a, button, .btn, .magnetic, .product-card')) {
+      initAudio();
+      playTick();
+    }
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    if (e.target.closest('a, button, .btn, .magnetic, .product-card')) {
+      initAudio();
+      playClick();
+    }
+  });
 
 })();
