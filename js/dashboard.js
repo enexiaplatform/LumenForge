@@ -662,9 +662,33 @@ async function renderCreatorHub() {
             }
         }, 50);
     } else {
-        // Hide Creator Program teaser to focus on buyer downloads
-        container.innerHTML = '';
-        container.style.display = 'none';
+        container.style.display = 'block';
+        container.innerHTML = `
+            <div class="dash-card" style="border: 1px dashed rgba(6, 182, 212, 0.35); background: radial-gradient(circle at center, rgba(6, 182, 212, 0.05) 0%, rgba(10,10,12,0.95) 100%); text-align: center; padding: 40px var(--space-md); border-radius: 16px; backdrop-filter: blur(10px); position: relative; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);">
+                <!-- Subtle neon glow line decoration -->
+                <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);"></div>
+                
+                <div style="font-size: 2.5rem; margin-bottom: var(--space-sm); filter: drop-shadow(0 0 12px rgba(6,182,212,0.45));">✨</div>
+                <h3 style="color: #fff; font-size: 1.6rem; margin-bottom: var(--space-xs); font-family: var(--font-heading); letter-spacing: 0.5px;">Bắt đầu Kinh doanh Tài sản Số trên LumenForge</h3>
+                <p style="color: var(--text-secondary); max-width: 580px; margin: 0 auto 25px; font-size: 0.95rem; line-height: 1.6;">
+                    Bạn là nhiếp ảnh gia cinematic? Hãy tham gia mạng lưới tác giả LumenForge để bán Presets, LUTs và Ebook của bạn. Nhận thanh toán tự động VietQR trực tiếp về ngân hàng của bạn với <strong>70% lợi nhuận</strong>.
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">
+                    <div style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-secondary); background: rgba(255,255,255,0.02); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                        <span style="color: var(--accent-cyan); font-weight: bold;">✓</span> Direct VietQR Payouts
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-secondary); background: rgba(255,255,255,0.02); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                        <span style="color: var(--accent-cyan); font-weight: bold;">✓</span> Global CDN Distribution
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-secondary); background: rgba(255,255,255,0.02); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                        <span style="color: var(--accent-cyan); font-weight: bold;">✓</span> Auto-Copyright Checks
+                    </div>
+                </div>
+                <a href="creator-onboarding.html" class="btn-primary" style="display: inline-block; padding: 12px 30px; font-size: 0.9rem; font-weight: bold; background: var(--accent-cyan); color: #000; text-decoration: none; border-radius: 6px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(6,182,212,0.3);">
+                    Kích hoạt Kênh Creator & Onboarding
+                </a>
+            </div>
+        `;
     }
 }
 
